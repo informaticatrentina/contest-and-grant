@@ -1,0 +1,98 @@
+<div class="container darkheader">
+  <div class="row">
+    <div class="span12"><h1>{{ contestInfo.contestTitle }}</h1></div>
+  </div>
+</div>
+<div class="container maincontent">
+  <div class="row">
+    <div class="span8" style="min-height:300px; background-color: #666; position:relative; ">
+      <img src= {{ contestInfo.imagePath }} />
+      <div style="position:absolute; top:180px; width:100%; text-align:right;">
+        <img src="images/facebook.png" width="30px" height="30px" alt="facebook" class="social-media-icons" /><br>
+        <img src="images/twitter.png" width="30px" height="30px" alt="twitter" class="social-media-icons" /><br>
+        <img src="images/rss.png" width="30px" height="30px" alt="rss" class="social-media-icons" />
+      </div>
+    </div>
+    <div class="span4">
+      <div class="homepage-box" style="min-height:260px;">
+        <h4>Start Date: {{ contestInfo.startDate }}<br>
+          End Date: {{ contestInfo.endDate }}</h4>
+        <p>{{ contestInfo.contestDescription }}</p>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- Three page buttons -->
+  <div class="row">
+    <div class="span4">
+      <a href="contest-brief.html" class="contest-button btn-block">Contest Briefs</a>
+    </div>
+
+    <div class="span4">
+      <a href="#" class="contest-button btn-block">Submit and win</a>
+    </div>
+
+    <div class="span4">
+      <a href="contest-winners.html" class="contest-button btn-block">winners</a>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- Contest entries listing using masonary -->
+
+  <div id="posts" class="row">
+    {% for entry in entries %}
+      <div class="post span4">
+        <div style="padding:10px;">
+          <img src="images/gameofthrones/game_of_thrones.jpg" width="600" height="400" />
+          <h6>{{ entry.title }}</h6>
+          by Mario Rossi
+          <div class="pull-right"><img src="images/facebook.png" width="24px" height="24px" alt="facebook" />
+            <img src="images/twitter.png" width="24px" height="24px" alt="twitter" />
+          </div>
+        </div>
+      </div>   
+    {% endfor %}   
+  </div>
+  
+  {% if entries is not empty %}
+    <div class="row">
+      <div class="span12">
+        <a href="#" class="btn btn-large btn-block">SEE ALL</a> 
+      </div>
+    </div>
+    <hr>
+  {% endif %}
+  
+</div>
+<!-- Masonary scripts for listing -->
+<script src="js/jquery.masonry.min.js"></script>
+<script>
+  
+  $(document).ready(function () {
+		   
+    $("#posts").masonry({
+      itemSelector: '.post',
+      isAnimated: true,
+      columnWidth: function( containerWidth ) {
+        
+        var width = $(window).width();
+        var col = 200;
+        
+        
+        if(width < 1200 && width >= 980) {
+          col = 160;
+        }
+        else if(width < 980 && width >= 768) {
+          col = 8;
+        }
+        
+        return col;
+      }
+    });
+    
+  });
+</script>

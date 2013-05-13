@@ -7,7 +7,7 @@
  * AggregatorManager class is used for manipulate(get, save, delete, update) entries. 
  * Copyright (c) 2013 <ahref Foundation -- All rights reserved.
  * Author: Rahul Tripathi <rahul@incaendo.com>
- * This file is part of <Aggregator>.
+ * This file is part of <Contest and Grand>.
  * This file can not be copied and/or distributed without the express permission of
  *   <ahref Foundation.
  */
@@ -35,12 +35,15 @@ class AggregatorManager {
    * @param (string) $returnField (return these field as output)
    * @param (string) $returnContent 
    * @param (string) $returnTag
-   * @return (array) $data
+   * @return (array) $entry
    */
   
   public function getEntry($limit = 1, $offset = 1, $id, $status= 'active', $tag = '', $tagName='', $guid = '', $count='', $dateFrom ='', 
           $dateTo='', $enclosures = 1, $range='', $cordinate=array(), $sort, $returnField, $returnContent, $returnTag) {
     $data = array();
+    $entry = array();
+    $inputData = array();
+    $inputParam = '';
     $aggregatorAPI = new AggregatorAPI;
     
     if (!empty($limit) && is_numeric($limit)) {
@@ -101,19 +104,36 @@ class AggregatorManager {
     } else if (array_key_exists('radius', $cordinate) && !empty($cordinate['radius']) && (array_key_exists('center', $cordinate) && !empty($cordinate['center']))) {
       $inputData['radius'] = $cordinate['radius'];
       $inputData['center'] = $cordinate['center'];
-    } 
-        
+    }     
+    
+    if (!empty($returnField)) {
+      $inputData['returnField'] = $returnField;
+    }
+    
+    if (!empty($returnContent)) {
+      $inputData['returnContent'] = $returnContent;
+    }
+    
+    if (!empty($returnTag)) {
+      $inputData['returnTag'] = $returnTag;
+    }    
+    
+    // encode array into a query string
+    $inputParam =  http_build_query($inputData);
+    
     try {
       if (empty($returnField) && empty($returnContent) && empty($returnTag)) {
         throw new Exception('Return fields should not be empty');
       }
-      Yii::log('Input data in getEntry : ' . $inputData, INFO);
-      $data = json_decode($aggregatorAPI->curlGet( ENTRY, $inputData), true);
-      
+      Yii::log('', INFO, 'Input data in getEntry : ' . $inputParam);
+      $data = $aggregatorAPI->curlGet( ENTRY, $inputParam);
     } catch (Exception $e) {
-      Yii::log('Error in getEntry method :' . $e->getMessage(), ERROR);
+      Yii::log('', ERROR, 'Error in getEntry method :' . $e->getMessage());
     }
     
-    return $data;
+    if (array_key_exists('status', $data) && $data['status']=='true') {
+      $entry = $data['data'];  
+    }
+    return $entry;
   }
 }

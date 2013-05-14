@@ -70,6 +70,9 @@ class ContestAPI {
     $query = $connection->createCommand($sql);
     $query->bindParam(":contestId", $contestId);
     $contestDetails = $query->queryRow();
+    if (!$contestDetails) {
+      $contestDetails = array();
+    }
     return $contestDetails;
   }
 }

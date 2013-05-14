@@ -23,7 +23,7 @@ class AggregatorManager {
    * @param (string) $id (id of entries) 
    * @param (string) $status 
    * @param $guid
-   * @param (string) $tag
+   * @param (string) $tags
    * @param (string) $tagName
    * @param (int) $count (1 for all entry with count and 2 for only count) 
    * @param (date) $dateFrom
@@ -38,7 +38,7 @@ class AggregatorManager {
    * @return (array) $entry
    */
   
-  public function getEntry($limit = 1, $offset = 1, $id, $status= 'active', $tag = '', $tagName='', $guid = '', $count='', $dateFrom ='', 
+  public function getEntry($limit = 1, $offset = 1, $id, $status= 'active', $tags = '', $tagsName='', $guid = '', $count='', $dateFrom ='', 
           $dateTo='', $enclosures = 1, $range='', $cordinate=array(), $sort, $returnField, $returnContent, $returnTag) {
     $data = array();
     $entry = array();
@@ -70,12 +70,12 @@ class AggregatorManager {
       $inputData['guid'] = $guid;
     }
     
-    if (!empty($tag)) {      
-      $inputData['tag'] = $tag;
+    if (!empty($tags)) {      
+      $inputData['tags'] = $tags;
     }
     
-    if (!empty($tagName)) {      
-      $inputData['tagame'] = $tagName;
+    if (!empty($tagsName)) {      
+      $inputData['tagsname'] = $tagsName;
     }
     
     if (!empty($count) && ($count == 1 || $count == 2)) {      

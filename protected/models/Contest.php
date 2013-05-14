@@ -55,7 +55,9 @@ class Contest  {
           throw new Exception('Contest title should not be empty');
         }
         if(array_key_exists('startDate', $contestDetails) && empty($contestDetails['startDate'])) {
-          throw new Exception('start date should not be empty');
+          throw new Exception('Start date should not be empty');
+        } else if (!validateDate($contestDetails['startDate'])){
+          throw new Exception('Please enter valid start date');
         } else {
           $startDateArr = explode('/', $contestDetails['startDate']);
           $startTime = mktime(0, 0, 0, $startDateArr[0], $startDateArr[1], $startDateArr[2]);
@@ -63,6 +65,8 @@ class Contest  {
         }
         if(array_key_exists('endDate', $contestDetails) && empty($contestDetails['endDate'])) {
           throw new Exception('End date should not be empty');
+        }  else if (!validateDate($contestDetails['startDate'])){
+          throw new Exception('Please enter valid end date');
         } else {
           $endDateArr = explode('/', $contestDetails['endDate']);
           $endTime = mktime(0, 0, 0, $endDateArr[0], $endDateArr[1], $endDateArr[2]);
@@ -100,8 +104,12 @@ class Contest  {
    
     if (!empty($this->contestId)) {
       $contestDetail = $contestAPI->getContestDetailByContestId($this->contestId);
-      $contestDetail['startDate'] = date('Y-m-d', strtotime($contestDetail['startDate']));
-      $contestDetail['endDate'] = date('Y-m-d', strtotime($contestDetail['endDate']));
+      if(array_key_exists('startDate', $contestDetail) && !empty($contestDetail['startDate'])) {
+        $contestDetail['startDate'] = date('Y-m-d', strtotime($contestDetail['startDate']));
+      }
+      if(array_key_exists('endDate', $contestDetail) && !empty($contestDetail['endDate'])) {
+        $contestDetail['endDate'] = date('Y-m-d', strtotime($contestDetail['endDate']));
+      }
     } else {
       $contestDetail = $contestAPI->getContestDetail();
     }

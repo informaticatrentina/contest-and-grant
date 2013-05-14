@@ -24,3 +24,21 @@ function generateRandomString($length) {
   }
   return $randomStr;
 }
+
+/**
+ * validateDate
+ * 
+ * This function is used for validate date
+ * @param (date) $date
+ * return (boolean) - true on valid date
+ */
+function validateDate($date) {
+  if (empty($date)) {
+    return false;
+  }
+  $dateArr = explode('/', $date);
+  if (count($dateArr)!= 3) {
+    return false;
+  }
+  return checkdate($dateArr[0], $dateArr[1], $dateArr[2]);
+}

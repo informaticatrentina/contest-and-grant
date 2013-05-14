@@ -26,78 +26,16 @@
   </head>
 
   <body>
-    <!-- container header -->
-    <div class="navbar navbar-inverse navbar-fixed-top">
-      <div class="navbar-inner">
-        <div class="container">
-          <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-
-          <a class="brand" href="#"> <img src="images/civiclinkslogo.png" width="116" height="24" alt="logo"></a>
-          <div class="nav-collapse collapse"> 
-            {{ this.widget('zii.widgets.CMenu',{
-              'htmlOptions' : {'class' : 'nav'},
-              'items':[
-                {'label':'Fact Checking', 'url':['#']},
-                {'label':'Timu', 'url': ['#']},
-                {'label':'Civic Links', 'url':['#']},
-                {'label':'Contest and Grants', 'url':['/site/index']}
-              ]}, true) 
-            }}
-            <ul class="nav pull-right">
-              <li><a href="javascript:$.pageslide({ direction: 'left', href: 'login.html' })">Login</a></li>
-
-            </ul><a href="javascript:$.pageslide({ direction: 'left', href: 'register.html' })" class="btn pull-right">Sign Up</a> 
-
-          </div>
-        </div>
-      </div>
-    </div>
     
-    <div class="container maincontent">
-      <div class="row">
-        <div class="span12"><img src="images/fact-checking.png" width="225" height="43" alt="fact" style="margin-bottom:20px;"></div>
-      </div>
-    </div>
-    <!-- /container header -->
+    <!-- container header -->
+    {% include '/views/site/header.html' %}
        
     <!-- Content  will be change according to request page (default - content of index page) -->  
     {{  content }}
     
     
     <!-- container footer -->
-    <div class="container darkfooter">
-
-      <footer>
-        <div class="row">
-          <div class="span6">
-            <p> Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-          </div>
-
-          <div class="span6">
-            <div class="footer-header-background"><span class="highlight-text">Sign Up for our mailing list</span></div>
-            <p> Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-          </div>
-        </div>
-        <div class="row"><div class="span12">&nbsp;</div></div>
-        <div class="row">
-          <div class="span6">
-            <div class="footer-header-background"><span class="highlight-text">Follow Us</span></div>
-            <p><img src="images/facebook.png" width="48" height="48" alt="facebook" class="social-media-icons"><img src="images/twitter.png" width="48" height="48" alt="twitter" class="social-media-icons"><img src="images/googleplus.png" width="48" height="48" alt="google" class="social-media-icons"><img src="images/youtube.png" width="48" height="48" alt="youtube" class="social-media-icons"><img src="images/rss.png" width="48" height="48" alt="rss" class="social-media-icons"></p>
-          </div>
-
-          <div class="span6">
-            <div class="footer-header-background"><span class="highlight-text">Latest Tweets</span></div>
-            <p> Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-          </div>
-        </div>
-
-      </footer>
-
-    </div>
+    {% include '/views/site/footer.html' %}
     <!-- /container footer -->
 
     <script src="js/bootstrap.js"></script>

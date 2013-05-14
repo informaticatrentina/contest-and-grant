@@ -37,7 +37,7 @@ class SiteController extends Controller {
     $entries = array();
     $contestId = $this->getArgumentFromUrl('id');
     $contest->contestId = $contestId;
-    $entries = $contest->getContestSubmission();//p($entries);
+    $entries = $contest->getContestSubmission();
     $contestInfo = $contest->getContestDetail();
     $this->render('contestEntries', array('entries' => $entries, 'contestInfo' => $contestInfo));
   }

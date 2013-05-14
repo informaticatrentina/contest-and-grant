@@ -107,7 +107,7 @@ class AggregatorManager {
     }     
     
     if (!empty($returnField)) {
-      $inputData['returnField'] = $returnField;
+      $inputData['return_fields'] = $returnField;
     }
     
     if (!empty($returnContent)) {

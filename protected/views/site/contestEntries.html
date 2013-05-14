@@ -41,31 +41,9 @@
 
   <hr>
 
-  <!-- Contest entries listing using masonary -->
+  <!-- Contest entries  -->
 
-  <div id="posts" class="row">
-    {% for entry in entries %}
-      <div class="post span4">
-        <div style="padding:10px;">
-          <img src="images/gameofthrones/game_of_thrones.jpg" width="600" height="400" />
-          <h6>{{ entry.title }}</h6>
-          by Mario Rossi
-          <div class="pull-right"><img src="images/facebook.png" width="24px" height="24px" alt="facebook" />
-            <img src="images/twitter.png" width="24px" height="24px" alt="twitter" />
-          </div>
-        </div>
-      </div>   
-    {% endfor %}   
-  </div>
-  
-  {% if entries is not empty %}
-    <div class="row">
-      <div class="span12">
-        <a href="#" class="btn btn-large btn-block">SEE ALL</a> 
-      </div>
-    </div>
-    <hr>
-  {% endif %}
+  {% include  '/views/site/entries.html' %}
   
 </div>
 <!-- Masonary scripts for listing -->

@@ -19,14 +19,21 @@ class Contest  {
   /**
    * getContestSubmission
    * 
-   * This functiction calls getEntry method (in AggregatorManager) to get entries for a contest .
-   * @param  $contestId 
+   * This functiction calls getEntry method (in AggregatorManager) to get entries for a contest.
    * @return (array)
    */
   public function getContestSubmission() {
-    
+    $contestEntries = array();
     $aggregatorManager = new AggregatorManager();    
-    return  $aggregatorManager->getEntry( 5, 1, '', 'active', $this->contestId.'[contest]', '', '', '', '', '', '', '',array(), '', 'guid, status','','');
+    $contestEntries = $aggregatorManager->getEntry( 5, 1, '', 'active', $this->contestId.'[contest]', '', '', '', '', '', '', '',array(), '', 'links,guid,status,author,title','','');
+    $i = 0;
+    foreach ($contestEntries as $entry) {
+      if (!empty($entry['links']['enclosures'])) { 
+        $contestEntries[$i]['image'] =  $entry['links']['enclosures'][0]['uri'] ;
+        $i++;
+      }
+    }
+    return $contestEntries;
   }
   
   /**

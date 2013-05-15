@@ -93,5 +93,15 @@ return array(
       'class'=>'application.extensions.image.CImageComponent',
       'driver'=>'GD',
     ),
+    'urlManager' => array(
+      'urlFormat' => 'path',
+      'showScriptName' => false,
+      'caseSensitive'=>false,  
+      'rules'=> array(
+        'contest/home' => 'site/index',   
+        'contest/add'=>'site/createContest',  
+        'contest/entries/<slug:[\w-]+>'=>'site/Entries'
+      ),    
+    ),
   ),
 );

@@ -2,7 +2,7 @@
   <!-- Slideshow -->
   <ul class="rslides" id="myslider">
     {% for info in contestInfo %}
-      <li><a href="index.php?r=site/Entries&id={{ info.contestId }}"><img src="{{ info.imagePath }}" alt="contest image" /></a></li>  
+      <li><a href="{{constant('BASE_URL')}}contest/entries/{{ info.contestId }} "><img src="{{ info.imagePath }}" alt="contest image" /></a></li>  
     {% endfor %}
     
   </ul>
@@ -36,7 +36,7 @@
     <div class="span4">
       <h2>Principi</h2>
       <div class="homepage-box">
-        <p class="text-center"><img src="images/principi.png" width="226" height="227" alt="principi"></p>
+        <p class="text-center"><img src="{{constant('BASE_URL')}}images/principi.png" width="226" height="227" alt="principi"></p>
       </div>
     </div>
   </div>

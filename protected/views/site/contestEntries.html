@@ -8,9 +8,9 @@
     <div class="span8" style="min-height:300px; background-color: #666; position:relative; ">
       <img src= {{ contestInfo.imagePath }} />
       <div style="position:absolute; top:180px; width:100%; text-align:right;">
-        <img src="images/facebook.png" width="30px" height="30px" alt="facebook" class="social-media-icons" /><br>
-        <img src="images/twitter.png" width="30px" height="30px" alt="twitter" class="social-media-icons" /><br>
-        <img src="images/rss.png" width="30px" height="30px" alt="rss" class="social-media-icons" />
+        <img src="{{constant('BASE_URL')}}images/facebook.png" width="30px" height="30px" alt="facebook" class="social-media-icons" /><br>
+        <img src="{{constant('BASE_URL')}}images/twitter.png" width="30px" height="30px" alt="twitter" class="social-media-icons" /><br>
+        <img src="{{constant('BASE_URL')}}images/rss.png" width="30px" height="30px" alt="rss" class="social-media-icons" />
       </div>
     </div>
     <div class="span4">
@@ -47,7 +47,7 @@
   
 </div>
 <!-- Masonary scripts for listing -->
-<script src="js/jquery.masonry.min.js"></script>
+<script src="{{constant('BASE_URL')}}js/jquery.masonry.min.js"></script>
 <script>
   
   $(document).ready(function () {

@@ -1,0 +1,34 @@
+<div class="navbar navbar-inverse navbar-fixed-top">
+  <div class="navbar-inner">
+    <div class="container">
+      <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+
+      <a class="brand" href="#"> <img src="{{constant('BASE_URL')}}images/civiclinkslogo.png" width="116" height="24" alt="logo"></a>
+      <div class="nav-collapse collapse"> 
+        {{ this.widget('zii.widgets.CMenu',{
+          'htmlOptions' : {'class' : 'nav'},
+          'items':[
+            {'label':'Fact Checking', 'url':['#']},
+            {'label':'Timu', 'url': ['#']},
+            {'label':'Civic Links', 'url':['#']},
+            {'label':'Contest and Grants', 'url':[ 'contest/home' ]}
+          ]}, true) 
+        }}
+        <ul class="nav pull-right">
+          <li><a href="{{constant('BASE_URL')}}javascript:$.pageslide({ direction: 'left', href: 'login.html' })">Login</a></li>
+        </ul>
+        <a href="{{constant('BASE_URL')}}javascript:$.pageslide({ direction: 'left', href: 'register.html' })" class="btn pull-right">Sign Up</a> 
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container maincontent">
+  <div class="row">
+    <div class="span12"><img src="{{constant('BASE_URL')}}images/fact-checking.png" width="225" height="43" alt="fact" style="margin-bottom:20px;"></div>
+  </div>
+</div>

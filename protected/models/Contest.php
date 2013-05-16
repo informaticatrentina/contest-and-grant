@@ -14,7 +14,7 @@
 class Contest  {
   
   public $image;
-  public $contestId;
+  public $contestSlug;
   
   /**
    * getContestSubmission
@@ -25,7 +25,7 @@ class Contest  {
   public function getContestSubmission() {
     $contestEntries = array();
     $aggregatorManager = new AggregatorManager();    
-    $contestEntries = $aggregatorManager->getEntry( 5, 1, '', 'active', $this->contestId.'[contest]', '', '', '', '', '', '', '',array(), '', 'links,guid,status,author,title','','');
+    $contestEntries = $aggregatorManager->getEntry( 5, 1, '', 'active', $this->contestSlug.'[contest]', '', '', '', '', '', '', '',array(), '', 'links,guid,status,author,title','','');
     $i = 0;
     foreach ($contestEntries as $entry) {
       if (!empty($entry['links']['enclosures'])) { 
@@ -65,7 +65,7 @@ class Contest  {
         }
         if(array_key_exists('endDate', $contestDetails) && empty($contestDetails['endDate'])) {
           throw new Exception('End date should not be empty');
-        }  else if (!validateDate($contestDetails['startDate'])){
+        }  else if (!validateDate($contestDetails['endDate'])){
           throw new Exception('Please enter valid end date');
         } else {
           $endDateArr = explode('/', $contestDetails['endDate']);
@@ -81,6 +81,13 @@ class Contest  {
         
         $contestDetails['imagePath'] = $imagePath;
         $contestDetails['creationDate'] = date('Y-m-d H:i:s'); 
+        $contestDetails['contestSlug'] =  strtolower(preg_replace("/[^a-z0-9]+/i", "_", $contestDetails['contestTitle']));
+        
+        //check for contest exist
+        $exist = $contestAPI->getContestDetailByContestSlug($contestDetails['contestSlug']);
+        if ($exist) {
+          throw new Exception('This contest title is already exist');
+        }
         $response['success'] = $contestAPI->save($contestDetails);
         $response['msg'] = "You have created a contest Succesfully";
       }
@@ -102,8 +109,8 @@ class Contest  {
     $contestAPI = new ContestAPI();
     $contestDetail = array();
    
-    if (!empty($this->contestId)) {
-      $contestDetail = $contestAPI->getContestDetailByContestId($this->contestId);
+    if (!empty($this->contestSlug)) {
+      $contestDetail = $contestAPI->getContestDetailByContestSlug($this->contestSlug);
       if(array_key_exists('startDate', $contestDetail) && !empty($contestDetail['startDate'])) {
         $contestDetail['startDate'] = date('Y-m-d', strtotime($contestDetail['startDate']));
       }

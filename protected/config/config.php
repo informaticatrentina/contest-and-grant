@@ -61,6 +61,7 @@ ini_set('display_errors', 1);
  */
 require_once(dirname(__FILE__).'/../function.php');
 return array(
+  'defaultController' => 'contest',  
   'import' => array(
     'application.models.*',
     'application.components.*',
@@ -98,9 +99,9 @@ return array(
       'showScriptName' => false,
       'caseSensitive'=>false,  
       'rules'=> array(
-        'contest/home' => 'site/index',   
-        'contest/add'=>'site/createContest',  
-        'contest/entries/<slug:[\w-]+>'=>'site/Entries'
+        'contest/home' => 'contest/index',   
+        'contest/add'=>'contest/createContest',  
+        'contest/entries/<slug:[\w-]+>'=>'contest/entries'
       ),    
     ),
   ),

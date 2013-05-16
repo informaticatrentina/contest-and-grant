@@ -24,8 +24,8 @@ class ContestAPI {
     $response = '';
     if (!empty($contestDetails)) {
       $connection = Yii::app()->db;
-      $sql = "INSERT INTO contestDetail (startDate, endDate, creationDate, imagePath, contestTitle, contestDescription) 
-      VALUES( :startDate, :endDate, :creationDate, :imagePath, :contestTitle, :contestDescription)";
+      $sql = "INSERT INTO contestDetail (startDate, endDate, creationDate, imagePath, contestTitle, contestDescription, contestSlug) 
+      VALUES( :startDate, :endDate, :creationDate, :imagePath, :contestTitle, :contestDescription, :contestSlug)";
       $query = $connection->createCommand($sql);
       $query->bindParam(":startDate", $contestDetails['startDate']);
       $query->bindParam(":endDate", $contestDetails['endDate']);
@@ -33,6 +33,7 @@ class ContestAPI {
       $query->bindParam(":imagePath", $contestDetails['imagePath']);
       $query->bindParam(":contestTitle", $contestDetails['contestTitle']);
       $query->bindParam(":contestDescription", $contestDetails['contestDescription']);
+      $query->bindParam(":contestSlug", $contestDetails['contestSlug']);
       $response = $query->execute();
     }
     return $response;
@@ -46,7 +47,7 @@ class ContestAPI {
    */
   public function getContestDetail() { 
     $connection = Yii::app()->db;
-    $sql = "SELECT contestId, startDate, endDate, creationDate, imagePath, contestTitle, contestDescription FROM contestDetail";
+    $sql = "SELECT contestId, startDate, endDate, creationDate, imagePath, contestTitle, contestDescription, contestSlug FROM contestDetail";
     $query = $connection->createCommand($sql);
     $contestDetails = $query->queryAll();
     return $contestDetails;
@@ -69,6 +70,29 @@ class ContestAPI {
       contestDetail where contestId = :contestId ";
     $query = $connection->createCommand($sql);
     $query->bindParam(":contestId", $contestId);
+    $contestDetails = $query->queryRow();
+    if (!$contestDetails) {
+      $contestDetails = array();
+    }
+    return $contestDetails;
+  }
+  
+  /**
+   * getContestDetailByContestSlug
+   * 
+   * This function is used for get contest detail on the basis of contest slug
+   * @param (string) $contestSlug
+   * @return (array) $contestDetails
+   */
+  public function getContestDetailByContestSlug($contestSlug) {
+    $connection = Yii::app()->db;
+    if (empty($contestSlug)) {
+      return array();
+    }    
+    $sql = "SELECT contestId, startDate, endDate, creationDate, imagePath, contestTitle, contestDescription FROM 
+      contestDetail where contestSlug = :contestSlug ";
+    $query = $connection->createCommand($sql);
+    $query->bindParam(":contestSlug", $contestSlug);
     $contestDetails = $query->queryRow();
     if (!$contestDetails) {
       $contestDetails = array();

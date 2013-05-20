@@ -111,7 +111,9 @@ return array(
       'rules'=> array(
         'contest/home' => 'contest/index',   
         'contest/add'=>'contest/createContest',  
-        'contest/entries/<slug:[\w-]+>'=>'contest/entries'
+        'contest/entries/<slug:[\w-]+>'=>'contest/entries',
+        'contest/register' => 'contest/registerUser', 
+        'contest/login' => 'contest/login' 
       ),    
     ),
   ),

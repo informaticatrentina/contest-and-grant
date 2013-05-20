@@ -1,212 +1,212 @@
 @charset "UTF-8";
 /* CSS Document */
 
- body {
-        padding-top: 60px;
-        padding-bottom: 40px;
-		background-image:url(../images/background.png);
-		background-repeat:repeat;
-		
-      }
-	  
-	.maincontent {
-	background-color:#FFFFFF;
+body {
+  padding-top: 60px;
+  padding-bottom: 40px;
+  background-image:url(../images/background.png);
+  background-repeat:repeat;
+
+}
+
+.maincontent {
+  background-color:#FFFFFF;
   padding-right: 20px;
   padding-left: 20px;
   padding-top: 20px;
   margin-bottom: 10px;
   -webkit-box-shadow: 0 1px 6px rgba(0, 0, 0, 0.25);
-     -moz-box-shadow: 0 1px 6px rgba(0, 0, 0, 0.25);
-          box-shadow: 0 1px 6px rgba(0, 0, 0, 0.25);
+  -moz-box-shadow: 0 1px 6px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.25);
 }
 
 .darkfooter {
-	background-image:url(../images/dark-background.png);
-	color:#CCCCCC;
+  background-image:url(../images/dark-background.png);
+  color:#CCCCCC;
   padding-right: 20px;
   padding-left: 20px;
   padding-top: 20px;
   padding-bottom: 20px;
   margin-bottom: 10px;
   -webkit-box-shadow: 0 1px 6px rgba(0, 0, 0, 0.25);
-     -moz-box-shadow: 0 1px 6px rgba(0, 0, 0, 0.25);
-          box-shadow: 0 1px 6px rgba(0, 0, 0, 0.25)
+  -moz-box-shadow: 0 1px 6px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.25)
 }
 
 .darkheader {
-	background-image:url(../images/dark-background.png);
-	color:#CCCCCC;
+  background-image:url(../images/dark-background.png);
+  color:#CCCCCC;
   padding-right: 20px;
   padding-left: 20px;
   padding-top: 5px;
   padding-bottom: 5px;
   margin-bottom: 10px;
   -webkit-box-shadow: 0 1px 6px rgba(0, 0, 0, 0.25);
-     -moz-box-shadow: 0 1px 6px rgba(0, 0, 0, 0.25);
-          box-shadow: 0 1px 6px rgba(0, 0, 0, 0.25)
+  -moz-box-shadow: 0 1px 6px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.25)
 }
 
 h2 {
-	font-size:20px;
-	background-color:#000;
-	padding: 0px 15px;
-	text-transform:uppercase;
-	color:#CCC;
-	margin:0px;	
-	
+  font-size:20px;
+  background-color:#000;
+  padding: 0px 15px;
+  text-transform:uppercase;
+  color:#CCC;
+  margin:0px;	
+
 }
 
 .contest-button {
-	
-	font-size:20px;
-	background-color:#000;
-	padding: 10px 15px;
-	text-transform:uppercase;
-	font-weight:bold;
-	color:#CCC;
-	margin: 0px 0px;
-	width: 100%;	
-	
+
+  font-size:20px;
+  background-color:#000;
+  padding: 10px 15px;
+  text-transform:uppercase;
+  font-weight:bold;
+  color:#CCC;
+  margin: 0px 0px;
+  width: 100%;	
+
 }
 
 
 
 .contest-button:hover {
-	
-	background-color:#666;
-	-webkit-box-shadow: 3px 3px 0px 1px #ccc;
-		-moz-box-shadow: 3px 3px 0px 1px #ccc;
-			box-shadow: 3px 3px 0px 1px #ccc;
-			text-decoration:none;
-			color:#CCCCCC;
+
+  background-color:#666;
+  -webkit-box-shadow: 3px 3px 0px 1px #ccc;
+  -moz-box-shadow: 3px 3px 0px 1px #ccc;
+  box-shadow: 3px 3px 0px 1px #ccc;
+  text-decoration:none;
+  color:#CCCCCC;
 }
 
 .contest-button.active, 
 .contest-button:active {
-	
-	background-color:#666;
-	-webkit-box-shadow: 3px 3px 0px 1px #ccc;
-		-moz-box-shadow: 3px 3px 0px 1px #ccc;
-			box-shadow: 3px 3px 0px 1px #ccc;
-			text-decoration:none;
-			color:#CCCCCC;
+
+  background-color:#666;
+  -webkit-box-shadow: 3px 3px 0px 1px #ccc;
+  -moz-box-shadow: 3px 3px 0px 1px #ccc;
+  box-shadow: 3px 3px 0px 1px #ccc;
+  text-decoration:none;
+  color:#CCCCCC;
 }
 
 h3 {
-	font-size:26px;
-	text-transform:uppercase;
-	text-align:center;
-	
+  font-size:26px;
+  text-transform:uppercase;
+  text-align:center;
+
 }
 
 h4 {
-	font-size:20px;
-	text-transform:uppercase;
-	line-height: 26px;
-	
-	
+  font-size:20px;
+  text-transform:uppercase;
+  line-height: 26px;
+
+
 }
 
 h5 {
-	font-size:14px;
-	background-color:#666;
-	padding: 5px 10px;
-	text-transform:uppercase;
-	color:#fff;
-	margin:20px 0px;	
-	
+  font-size:14px;
+  background-color:#666;
+  padding: 5px 10px;
+  text-transform:uppercase;
+  color:#fff;
+  margin:20px 0px;	
+
 }
 
 h6 {
-	font-size:16px;
-	text-transform:uppercase
+  font-size:16px;
+  text-transform:uppercase
 }
 
 .lead {
-	font-size:20px;
-	
+  font-size:20px;
+
 }
 
 
 
 hr {
-	border:0;
-	background-image:url(../images/line-image.png);
-	background-repeat:repeat-x;
-	height:7px;
-	}
-	
+  border:0;
+  background-image:url(../images/line-image.png);
+  background-repeat:repeat-x;
+  height:7px;
+}
+
 hr.listing {
-	background-image:none;
-	background-repeat: no-repeat;
-	height:1px;
-	margin: 20px 0;
-  	border: 0;
-  	border-top: 1px solid #eeeeee;
-  	border-bottom: 1px solid #ffffff;
-	}
+  background-image:none;
+  background-repeat: no-repeat;
+  height:1px;
+  margin: 20px 0;
+  border: 0;
+  border-top: 1px solid #eeeeee;
+  border-bottom: 1px solid #ffffff;
+}
 
 .homepage-box {
-	
-	padding:20px; 
-	background-image:url(../images/box-background.png); 
-	min-height:250px;
+
+  padding:20px; 
+  background-image:url(../images/box-background.png); 
+  min-height:250px;
 }
 
 .social-media-icons {
-	padding-right: 10px;
-	padding-bottom:10px;}
+  padding-right: 10px;
+  padding-bottom:10px;}
 
 .highlight-text {
-	padding:2px 15px; 
-	background-color:#000000; 
-	text-transform:uppercase;
-	
+  padding:2px 15px; 
+  background-color:#000000; 
+  text-transform:uppercase;
+
 }
 
 .footer-header-background{
-	background-image:url(../images/line-image.png); 
-	background-repeat:repeat-x; 
-	background-position:center; 
-	margin-bottom:10px;
-	
+  background-image:url(../images/line-image.png); 
+  background-repeat:repeat-x; 
+  background-position:center; 
+  margin-bottom:10px;
+
 }
 
 #posts .post { 
 
-	background: #fff; 
-	margin-bottom: 20px;
-	-webkit-box-shadow: 0 1px 6px rgba(0, 0, 0, 0.25);
-     -moz-box-shadow: 0 1px 6px rgba(0, 0, 0, 0.25);
-          box-shadow: 0 1px 6px rgba(0, 0, 0, 0.25);
+  background: #fff; 
+  margin-bottom: 20px;
+  -webkit-box-shadow: 0 1px 6px rgba(0, 0, 0, 0.25);
+  -moz-box-shadow: 0 1px 6px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.25);
 
- }
- 
+}
+
 
 /* Contest entry layout
     -------------------------------------------------- */ 
-	
-	.entry-content-left {
-	  background-color:#FFFFFF;
-	  padding: 20px;
-	  margin-bottom: 10px;
-	  margin-left: -20px;
-	  -webkit-box-shadow: 0 1px 6px rgba(0, 0, 0, 0.25);
-		 -moz-box-shadow: 0 1px 6px rgba(0, 0, 0, 0.25);
-			  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.25);
-			  height: 90%;
-				
-			  }
+
+.entry-content-left {
+  background-color:#FFFFFF;
+  padding: 20px;
+  margin-bottom: 10px;
+  margin-left: -20px;
+  -webkit-box-shadow: 0 1px 6px rgba(0, 0, 0, 0.25);
+  -moz-box-shadow: 0 1px 6px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.25);
+  height: 90%;
+
+}
 
 .entry-content-right {
-	  background-color:#FFFFFF;
-	  padding: 20px 20px 20px 20px;
-	  margin-bottom: 10px;
-	  margin-right: -20px;
-	  -webkit-box-shadow: 0 1px 6px rgba(0, 0, 0, 0.25);
-		 -moz-box-shadow: 0 1px 6px rgba(0, 0, 0, 0.25);
-			  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.25);
-			  
+  background-color:#FFFFFF;
+  padding: 20px 20px 20px 20px;
+  margin-bottom: 10px;
+  margin-right: -20px;
+  -webkit-box-shadow: 0 1px 6px rgba(0, 0, 0, 0.25);
+  -moz-box-shadow: 0 1px 6px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.25);
+
 } 
 
 
@@ -221,7 +221,7 @@ hr.listing {
 
 .rslides {
   margin: 0 auto 0px;
-  }
+}
 
 #myslider {
   box-shadow: none;
@@ -229,7 +229,7 @@ hr.listing {
   -webkit-box-shadow: none;
   margin: 0 auto;
   padding-bottom: 0px;
-  }
+}
 
 .rslides_tabs {
   list-style: none;
@@ -244,13 +244,13 @@ hr.listing {
   padding: 10px 0;
   text-align: right;
   width: 100%;
-  }
+}
 
 .rslides_tabs li {
   display: inline;
   float: none;
   margin-right: 1px;
-  }
+}
 
 .rslides_tabs a {
   width: auto;
@@ -259,120 +259,155 @@ hr.listing {
   height: auto;
   background: transparent;
   display: inline;
-  }
+}
 
 .rslides_tabs li:first-child {
   margin-left: 0;
-  }
+}
 
 .rslides_tabs .rslides_here a {
   background: rgba(255,255,255,.1);
   color: #fff;
   font-weight: bold;
-  }
+}
 
 
 
 
 /* Contest Winners
     -------------------------------------------------- */
-	
-	
-	.ranking-number {
-		background-image:url(../images/background-circle.png);
-		background-size:auto;
-		width:71px;
-		height:71px;
-		text-align:center;
-		color:#FFFFFF;
-		font-size:40px;
-		line-height:70px;
-		float:left;
-		margin: 0px 10px 0px 0px;
-	}
-	
-	.listing-image {
-
-	width:250px; 
-	height:250px; 
-	margin-left:10px;
-
-	}
- 
-    /* RESPONSIVE CSS
-    -------------------------------------------------- */
-	
-	@media (min-width: 1200px) {
-	
-
-		
-		
-	}
-	
-	@media (max-width: 1200px) {
-		
-		.listing-image {
-
-	width:180px; 
-	height:180px; 
-	margin-left:10px;
-
-	}
-		
-		
-		
-		 }
-
-    @media (min-width: 768px) and (max-width: 979px) {
-		
-	 body {
-        padding-top: 0px;
-      } 
-
-	h2 {
-	font-size:14px;}
-	
-	.listing-image {
-
-	width:115px; 
-	height:115px; 
-	margin-left:10px;
-
-	}
 
 
-    }
-	
-	 @media (max-width: 767px) {
-		 
-		 body {
-        padding-top: 0px;
-      } 
-	  
-	  .entry-content-left {
-	  margin-left: 0px;
-				
-			  }
-
-.entry-content-right {
-	  margin-right: 0px;
-			  
-} 
-		 
+.ranking-number {
+  background-image:url(../images/background-circle.png);
+  background-size:auto;
+  width:71px;
+  height:71px;
+  text-align:center;
+  color:#FFFFFF;
+  font-size:40px;
+  line-height:70px;
+  float:left;
+  margin: 0px 10px 0px 0px;
 }
 
- /* css for create contest form
-    -------------------------------------------------- */
-  .form-signin {
-    max-width: 300px;
-    padding: 19px 29px 29px;
-    margin: 0 auto 20px;
-    background-color: #fff;
-    border: 1px solid #e5e5e5;
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
-    border-radius: 5px;
-    -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.05);
-    -moz-box-shadow: 0 1px 2px rgba(0,0,0,.05);
-    box-shadow: 0 1px 2px rgba(0,0,0,.05);
+.listing-image {
+
+  width:250px; 
+  height:250px; 
+  margin-left:10px;
+
+}
+
+/* RESPONSIVE CSS
+-------------------------------------------------- */
+
+/* Large display */
+
+@media (min-width: 1200px) {
+
+  #pageslide {
+
+    position: fixed;
+    width: 350px;
+
   }
+
+
+}
+
+
+
+/* Default display */	
+
+@media (min-width: 980px) and (max-width: 1199px){
+
+  #pageslide {
+
+    position: fixed;
+    width: 350px;
+
+  }
+
+
+}
+
+/* Anything below large display */
+
+@media (max-width: 1200px) {
+
+  .listing-image {
+
+    width:180px; 
+    height:180px; 
+    margin-left:10px;
+
+  }
+
+
+}
+
+/* Portrait tablet to landscape and desktop */	 
+
+@media (min-width: 768px) and (max-width: 979px) {
+
+  body {
+    padding-top: 0px;
+  } 
+
+  h2 {
+    font-size:14px;}
+
+  .listing-image {
+
+    width:115px; 
+    height:115px; 
+    margin-left:10px;
+
+  }
+
+  #pageslide {
+
+    position: fixed;
+    width: 350px;
+
+  }
+
+
+}
+
+/* Landscape phone to portrait tablet and down */	
+
+@media (max-width: 767px) {
+
+  body {
+    padding-top: 0px;
+  } 
+
+  .entry-content-left {
+    margin-left: 0px;
+
+  }
+
+  .entry-content-right {
+    margin-right: 0px;
+
+  } 
+
+}
+
+/* css for create contest form
+   -------------------------------------------------- */
+.form-create-contest {
+  max-width: 300px;
+  padding: 19px 29px 29px;
+  margin: 0 auto 20px;
+  background-color: #fff;
+  border: 1px solid #e5e5e5;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+  -moz-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+  box-shadow: 0 1px 2px rgba(0,0,0,.05);
+}

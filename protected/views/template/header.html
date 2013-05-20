@@ -9,6 +9,8 @@
 
       <a class="brand" href="#"> <img src="{{constant('BASE_URL')}}images/civiclinkslogo.png" width="116" height="24" alt="logo"></a>
       <div class="nav-collapse collapse"> 
+        <li class="hidden-desktop"><a href="javascript:$.pageslide({ direction: 'left', href: 'login.html' })">Login</a></li>
+        <li class="hidden-desktop"><a href="javascript:$.pageslide({ direction: 'left', href: 'register.html' })">Sign Up</a></li>
         {{ this.widget('zii.widgets.CMenu',{
           'htmlOptions' : {'class' : 'nav'},
           'items':[
@@ -18,10 +20,10 @@
             {'label':'Contest and Grants', 'url':[ 'contest/home' ]}
           ]}, true) 
         }}
-        <ul class="nav pull-right">
-          <li><a href="{{constant('BASE_URL')}}javascript:$.pageslide({ direction: 'left', href: 'login.html' })">Login</a></li>
+        <ul class="nav pull-right visible-desktop">
+          <li><a href="javascript:$.pageslide({ direction: 'left', href: '{{constant('BASE_URL')}}contest/login' })">Login</a></li>
         </ul>
-        <a href="{{constant('BASE_URL')}}javascript:$.pageslide({ direction: 'left', href: 'register.html' })" class="btn pull-right">Sign Up</a> 
+        <a href="javascript:$.pageslide({ direction: 'left', href: '{{constant('BASE_URL')}}contest/register' })" class="btn pull-right visible-desktop">Sign Up</a> 
       </div>
     </div>
   </div>
@@ -29,6 +31,28 @@
 
 <div class="container maincontent">
   <div class="row">
-    <div class="span12"><img src="{{constant('BASE_URL')}}images/fact-checking.png" width="225" height="43" alt="fact" style="margin-bottom:20px;"></div>
+    <div class="span12">
+      <img src="{{constant('BASE_URL')}}images/fact-checking.png" width="225" height="43" alt="fact" style="margin-bottom:20px;">
+      <div class="navbar pull-right">
+  	<div class="navbar-inner">
+          <ul class="nav">
+            <li><a href="{{constant('BASE_URL')}}contest/home">Home</a></li>
+            <li class="divider-vertical"></li>
+            <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+              Che Fare
+              <b class="caret"></b>
+            </a>
+              <ul class="dropdown-menu">
+                <li><a href="{{constant('BASE_URL')}}contest/entries">Entries</a></li>
+                <li><a href="#">Brief</a></li>
+                <li><a href="#">Submit</a></li>
+                <li><a href="#">Winners</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
   </div>
-</div>
+</div>  

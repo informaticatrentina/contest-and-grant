@@ -90,5 +90,23 @@ class ContestController extends Controller {
     }
     $this->render('contestCreation', array('message' => $message));
   }
+  
+  /**
+   * actionRegisterUser
+   * this function is used for rgister new user
+   */
+  public function actionRegisterUser() {
+    $this->layout = 'login';
+    $this->render('register');
+  }
+  
+  /**
+   * actionLogin
+   * this function is used for rgister new user
+   */
+  public function actionLogin() {
+    $this->layout = 'login';
+    $this->render('login');
+  }
 }
 

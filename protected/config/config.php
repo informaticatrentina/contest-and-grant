@@ -57,11 +57,21 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
 /**
+ * constant for database configuration
+ */
+define('DB_HOST', 'localhost');
+define('DB_NAME', 'aggregator');
+define('DB_USER', 'root');
+define('DB_PASS','');
+
+
+/**
  * configuration for interaction of file
  */
 require_once(dirname(__FILE__).'/../function.php');
 return array(
   'defaultController' => 'contest',  
+  'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
   'import' => array(
     'application.models.*',
     'application.components.*',
@@ -85,9 +95,9 @@ return array(
       
     'db' => array(
       'class' => 'CDbConnection',
-      'connectionString' => 'mysql:host=localhost;dbname=aggregator',
-      'username' => 'root',
-      'password' => '',
+      'connectionString' => 'mysql:host='.DB_HOST.';dbname='.DB_NAME,
+      'username' => DB_USER,
+      'password' => DB_PASS,
       'emulatePrepare' => true, 
     ),  
     'image'=>array(

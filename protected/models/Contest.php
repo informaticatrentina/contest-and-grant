@@ -53,7 +53,7 @@ class Contest  {
       if (!empty($contestDetails)) {
         if(array_key_exists('contestTitle', $contestDetails) && empty($contestDetails['contestTitle'])) {
           throw new Exception('Contest title should not be empty');
-        }
+        } 
         if(array_key_exists('startDate', $contestDetails) && empty($contestDetails['startDate'])) {
           throw new Exception('Start date should not be empty');
         } else if (!validateDate($contestDetails['startDate'])){
@@ -61,7 +61,7 @@ class Contest  {
         } else {
           $startDateArr = explode('/', $contestDetails['startDate']);
           $startTime = mktime(0, 0, 0, $startDateArr[0], $startDateArr[1], $startDateArr[2]);
-          $contestDetails['startDate'] = date('Y-m-d H:i:s', $startTime);
+          $contestAPI->startDate = date('Y-m-d H:i:s', $startTime);
         }
         if(array_key_exists('endDate', $contestDetails) && empty($contestDetails['endDate'])) {
           throw new Exception('End date should not be empty');
@@ -70,25 +70,27 @@ class Contest  {
         } else {
           $endDateArr = explode('/', $contestDetails['endDate']);
           $endTime = mktime(0, 0, 0, $endDateArr[0], $endDateArr[1], $endDateArr[2]);
-          $contestDetails['endDate'] = date('Y-m-d H:i:s', $endTime);
+          $contestAPI->endDate = date('Y-m-d H:i:s', $endTime);
         }
-        if(array_key_exists('contestDescription', $contestDetails) && empty($contestDetails['contestTitle'])) {
+        if(array_key_exists('contestDescription', $contestDetails) && empty($contestDetails['contestDescription'])) {
           throw new Exception('Contest description should not be empty');
         }
         if (empty($imagePath)) {
           throw new Exception('Please choose an image for upload');
         }
-        
-        $contestDetails['imagePath'] = $imagePath;
-        $contestDetails['creationDate'] = date('Y-m-d H:i:s'); 
-        $contestDetails['contestSlug'] =  strtolower(preg_replace("/[^a-z0-9]+/i", "_", $contestDetails['contestTitle']));
+        $contestAPI->contestTitle = $contestDetails['contestTitle'];
+        $contestAPI->contestDescription = $contestDetails['contestDescription'];        
+        $contestAPI->creationDate = date('Y-m-d H:i:s'); 
+        $contestAPI->contestSlug =  strtolower(preg_replace("/[^a-z0-9]+/i", "_", $contestDetails['contestTitle']));        
+        $contestAPI->contestImage = $imagePath;
+       
         
         //check for contest exist
-        $exist = $contestAPI->getContestDetailByContestSlug($contestDetails['contestSlug']);
+        $exist = $contestAPI->getContestDetailByContestSlug();
         if ($exist) {
           throw new Exception('This contest title is already exist');
         }
-        $response['success'] = $contestAPI->save($contestDetails);
+        $response['success'] = $contestAPI->save();
         $response['msg'] = "You have created a contest Succesfully";
       }
     } catch (Exception $e) {
@@ -110,7 +112,7 @@ class Contest  {
     $contestDetail = array();
    
     if (!empty($this->contestSlug)) {
-      $contestDetail = $contestAPI->getContestDetailByContestSlug($this->contestSlug);
+      $contestDetail = $contestAPI->getContestDetailByContestSlug();
       if(array_key_exists('startDate', $contestDetail) && !empty($contestDetail['startDate'])) {
         $contestDetail['startDate'] = date('Y-m-d', strtotime($contestDetail['startDate']));
       }

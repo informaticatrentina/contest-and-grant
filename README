@@ -1,0 +1,50 @@
+Contest and grant
+=============================
+
+In contest and grant project, one can create a contest. All contest must have different name.
+There are some entries related to each contest. Winners get some grant and prices. 
+
+
+INSTALLATION
+------------
+
+To setup contest and grant you have to follow some steps mentioned below:
+
+  . Download and setup yii framework  (see http://www.yiiframework.com/download/)
+  . Checkout source code from repository into new directory (git@git.ahref.eu:apps/contest-and-grant.git)
+      css                    contain all css file
+      images                 contain all images used in project   
+      js		           contain all js file 
+      protected/           
+        components           contain all api 
+        config/              
+          Config.php         This file have configuration of project
+           test.php           This file have configuration for test cases 
+        controllers          This directory contain all controller used in project. 
+        extentions           extentions directory contain all extention used in project.  
+        models               Bussiness logic puts here.
+        runtime              Application log create in this directory 
+        tests                Test cases put hare. 
+        views/
+          layout             This directory contain  layout of project.   
+          contest            This directory contain html page that will be rendered from contest controller 
+          template           This directory contain all templates 
+      uploads                This directory contain subdirectory to save uploaded data (images file, text file etc). 
+      index.php
+      index-test.php
+      .htaccess  
+ 
+
+  . create database and change configuration (/protected/Config/config.php) 
+  
+
+REQUIREMENTS
+------------
+Contest and grant is developed on yii framework So all requirements of yii framework must be fulfilled:
+  The minimum requirement by Yii is that your Web server supports PHP 5.1.0 or above. 
+  Please access the following URL to check if your Web server reaches the requirements by Yii, assuming "YiiPath" is where Yii is installed:
+
+
+
+The contest and grant Developer Team
+http://www.incaendo.com

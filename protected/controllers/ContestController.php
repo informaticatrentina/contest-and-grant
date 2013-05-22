@@ -69,26 +69,20 @@ class ContestController extends Controller {
    */
   public function actionCreateContest() {
     $contest = new Contest(); 
-    $message = '';
     $response = array();
     if (!empty($_FILES['image']['name'])) { 
-      $image = CUploadedFile::getInstanceByName('image');
-      $imageInfo = pathinfo($image->getName());
-      $imageName = $imageInfo['filename'] . generateRandomString(10) .'.'. $imageInfo['extension']; 
-      $imagePath = CONTEST_IMAGE_URL . $imageName;
-      $ret = $image->saveAs('uploads/contestImage/' . $imageName);
-      $imageResize = Yii::app()->image->load('uploads/contestImage/' . $imageName);
+      $directory = 'uploads/contestImage/' ;
+      $imagePath = uploadFile($directory , 'image');
+      $imageName = end(explode('/', $imagePath));
+      $imageResize = Yii::app()->image->load($directory . $imageName);
       $imageResize->resize(800, 350, Image::NONE);
       $imageResize->save();
       
-      if ($ret == 1) {
+      if ($imagePath) {
         $response = $contest->createContest($imagePath);
       }
     }
-    if (array_key_exists('msg', $response) && $response['msg']) {
-      $message =  $response['msg'];
-    }
-    $this->render('contestCreation', array('message' => $message));
+    $this->render('contestCreation', array('message' => $response));
   }
   
   /**
@@ -96,7 +90,7 @@ class ContestController extends Controller {
    * this function is used for rgister new user
    */
   public function actionRegisterUser() {
-    $this->layout = 'login';
+    $this->layout = 'userManager';
     $this->render('register');
   }
   
@@ -105,8 +99,27 @@ class ContestController extends Controller {
    * this function is used for rgister new user
    */
   public function actionLogin() {
-    $this->layout = 'login';
+    $this->layout = 'userManager';
     $this->render('login');
+  }
+  
+  
+  /**
+   * actionEntrySubmission
+   * this function is used for submit entry 
+   */
+  public function actionEntrySubmission() {
+    $contestSlug = $_GET['slug'];
+    $response = array();
+    if (!empty($_FILES['contestEntry']['name'])) { 
+      $contest = new Contest();
+      $directory = 'uploads/contestEntry/' ;
+      $imageUrl = uploadFile($directory , 'contestEntry');
+      if ($imageUrl) {
+        $response = $contest->submitContestEntry($imageUrl, $contestSlug);
+      }
+    } 
+    $this->render('entrySubmission', array('slug' => $contestSlug, 'message' => $response));
   }
 }
 

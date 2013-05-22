@@ -42,3 +42,23 @@ function validateDate($date) {
   }
   return checkdate($dateArr[0], $dateArr[1], $dateArr[2]);
 }
+
+/**
+ * uploadFile
+ * 
+ * This function is used for uplaod file (image, text)
+ * @param (string) $directory
+ * @param (string) $name
+ * @return (string) $imageUrl
+ */
+function uploadFile($directory, $name) {
+  $image = CUploadedFile::getInstanceByName($name);
+  $imageInfo = pathinfo($image->getName());
+  $imageName = $imageInfo['filename'] . generateRandomString(10) . '.' . $imageInfo['extension'];
+  $imageUrl = BASE_URL. $directory . $imageName;
+  $ret = $image->saveAs($directory . $imageName);
+  if (!$ret) {
+    $imageUrl = '';
+  }
+  return $imageUrl;
+}

@@ -124,4 +124,32 @@ class Contest  {
     }
     return $contestDetail;
   }
+  
+  /**
+   * submitContestEntry
+   * 
+   * This function is used for submit entry
+   * @param (string) $imageUrl
+   * @param (string) $contestSlug
+   * @return (array) $response
+   */
+  public function submitContestEntry($imageUrl, $contestSlug) {
+    try {
+      if (!empty($_POST)) {
+        if (array_key_exists('entryTitle', $_POST) && (!empty($_POST['entryTitle']))) {
+          $entryTitle = $_POST['entryTitle'];
+        }
+        $authorName = $_SESSION['name'];
+        $authorSlug = strtolower(preg_replace("/[^a-z0-9]+/i", "_", $authorName));
+        $aggregatorManager = new AggregatorManager();
+        $response['success'] = $aggregatorManager->getEntry($authorName, $authorSlug, $entryTitle, $imageUrl, $contestSlug);
+        $response['msg'] = "You have succesfully submit an entry ";
+      }
+    } catch (Exception $e) {
+       Yii::log('', ERROR, 'Error in submitContestEntry :' . $e->getMessage());
+       $response['success'] = '';
+       $response['msg'] = $e->getMessage();
+    }
+    return $response;
+  }
 }

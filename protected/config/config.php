@@ -113,7 +113,8 @@ return array(
         'contest/add'=>'contest/createContest',  
         'contest/entries/<slug:[\w-]+>'=>'contest/entries',
         'contest/register' => 'contest/registerUser', 
-        'contest/login' => 'contest/login' 
+        'contest/login' => 'contest/login',
+        'contest/submission/<slug:[\w-]+>' => 'contest/entrySubmission'  
       ),    
     ),
   ),

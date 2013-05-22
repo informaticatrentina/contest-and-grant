@@ -7,9 +7,13 @@
 </div>
 <div class="container maincontent">
   <form class="form-create-contest" action="{{constant('BASE_URL')}}contest/add" method="post"  enctype = "multipart/form-data">
-    {% if message is not empty %}
-      <span class="text-error">
-        {{ message }}
+    {% if message.msg is not empty %}
+      {% set class = 'alert-error' %}    
+      {% if message.success is not empty %}
+        {% set class = 'alert-success' %}
+      {% endif %}
+      <span class="{{class}}">
+        {{ message.msg }}
       </span>
     {% endif %}
     <label>Contest Title</label>

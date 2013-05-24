@@ -64,7 +64,12 @@ define('DB_NAME', 'aggregator');
 define('DB_USER', 'root');
 define('DB_PASS','');
 
-
+/**
+ * define constant for user api
+ */
+define('USER_API_URL', 'http://10.0.1.103:8001/v1/');
+define('USER', 'users');
+define('API_KEY', 'yaiT6eequi7faig7aeSh0phi9id3iu3B:');
 /**
  * configuration for interaction of file
  */

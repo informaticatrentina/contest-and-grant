@@ -22,86 +22,97 @@ class UserIdentityAPI {
   }
     
   /**
-   * curlGet
+   * getUserDetail
    * 
    * This function is used for curl request on server using Get method
-   * @param (string) $params
+   * @param (array) $params
    * @param (string) $function
-   * @return (array) $out
+   * @return (array) $userDetail
    */
-  function curlGet($function, $params = '') {
-    $out = array();
+  function getUserDetail($function, $params = array()) {
+    $userDetail = array();
     try {
+       $param = http_build_query($params);
       if (!empty($params)) {
-        $this->url = $this->baseUrl ;
-      }
-     
-      $defaultParams = array(CURLOPT_URL => $this->url, CURLOPT_RETURNTRANSFER => 1, CURLOPT_HEADER => 0, CURLOPT_TIMEOUT => CURL_TIMEOUT);
-      $curlHandle = curl_init();
-      curl_setopt_array($curlHandle, $defaultParams);
-      $this->response = curl_exec($curlHandle);
-      $headers = curl_getinfo($curlHandle);
-      curl_close($curlHandle);
+        $this->url = $this->baseUrl . $function .'/?'. $param;
+      } 
+      $ch = curl_init();
+      curl_setopt($ch, CURLOPT_URL, $this->url);
+      curl_setopt($ch, CURLOPT_HEADER, 1);
+      curl_setopt($ch, CURLOPT_HTTPHEADER,  array(
+            "Authorization: Basic " . base64_encode(API_KEY)
+      ));
+      curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+      curl_setopt($ch, CURLOPT_TIMEOUT, CURL_TIMEOUT);
+      
+      $this->response = curl_exec($ch);p($this->response);
+      $headers = curl_getinfo($ch);
+      curl_close($ch);
 
       //Manage uncorrect response 
       if ($headers['http_code'] != 200) {
-        throw new Exception('Aggregator returning httpcode: ' . $headers['http_code']);
+        throw new Exception('Identitity Manager returning httpcode: ' . $headers['http_code']);
       } elseif (!$this->response) {
-        throw new Exception('Aggregator is not responding or Curl failed');
+        throw new Exception('Identitity Manager  is not responding or Curl failed');
       } elseif (strlen($this->response) == 0) {
         throw new Exception('Zero length response not permitted');
       }
       
       $this->response = json_decode(str_replace("\n", '', $this->response), true);
-      $out = $this->response;
+      $userDetail = $this->response;
     } catch (Exception $e) {
       Yii::log('', ERROR, 'Error in curlGet :' . $e->getMessage());
-      $out['success'] = false;
-      $out['msg'] = $e->getMessage();
-      $out['data'] = '';
+      $userDetail['success'] = false;
+      $userDetail['msg'] = $e->getMessage();
+      $userDetail['data'] = '';
     }
-    return $out;
+    return $userDetail;
   }
   
   /**
-   * curlPost
+   * createUser
    * 
-   * @param (string) $params
+   * @param (array) $params
    * @param (string) $function
-   * @return (array) $out
+   * @return (array) $return
    */
-  function curlPost($function, $params = '') {
-    $out = array();
+  function createUser($function, $params = array()) {
+    $return = array();
     try {
       if (!empty($params)) {
-        $this->url = $this->baseUrl ;
+        $data = 'user=' . json_encode($params);
+        $this->url = $this->baseUrl . $function .'/';
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $this->url);
+        curl_setopt($ch, CURLOPT_HEADER, 1);
+        curl_setopt($ch, CURLOPT_HTTPHEADER,  array(
+              "Authorization: Basic " . base64_encode(API_KEY)
+        ));
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+        curl_setopt($ch, CURLOPT_TIMEOUT, CURL_TIMEOUT);
+        
+        $this->response = curl_exec($ch);
+        $headers = curl_getinfo($ch);
+        curl_close($ch);
+        //Manage uncorrect response 
+        if ($headers['http_code'] != 200) {
+          throw new Exception('Identitity Manager returning httpcode: ' . $headers['http_code']);
+        } elseif (!$this->response) {
+          throw new Exception('Identitity Manager  is not responding or Curl failed');
+        } elseif (strlen($this->response) == 0) {
+          throw new Exception('Zero length response not permitted');
+        }
+        $return = json_decode(strstr($this->response, "{"), true);
       }
-     
-      $defaultParams = array(CURLOPT_URL => $this->url, CURLOPT_RETURNTRANSFER => 1, CURLOPT_HEADER => 0, CURLOPT_TIMEOUT => CURL_TIMEOUT);
-      $curlHandle = curl_init();
-      curl_setopt_array($curlHandle, $defaultParams);
-      $this->response = curl_exec($curlHandle);
-      $headers = curl_getinfo($curlHandle);
-      curl_close($curlHandle);
-
-      //Manage uncorrect response 
-      if ($headers['http_code'] != 200) {
-        throw new Exception('Aggregator returning httpcode: ' . $headers['http_code']);
-      } elseif (!$this->response) {
-        throw new Exception('Aggregator is not responding or Curl failed');
-      } elseif (strlen($this->response) == 0) {
-        throw new Exception('Zero length response not permitted');
-      }
-      
-      $this->response = json_decode(str_replace("\n", '', $this->response), true);
-      $out = $this->response;
     } catch (Exception $e) {
-      Yii::log('', ERROR, 'Error in curlGet :' . $e->getMessage());
-      $out['success'] = false;
-      $out['msg'] = $e->getMessage();
-      $out['data'] = '';
+      Yii::log('', ERROR, 'Error in createUser :' . $e->getMessage());
+      $return['success'] = false;
+      $return['msg'] = $e->getMessage();
+      $return['data'] = '';
     }
-    return $out;
+    return $return;
   }
 
 }

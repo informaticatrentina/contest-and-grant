@@ -90,17 +90,59 @@ class ContestController extends Controller {
    * this function is used for rgister new user
    */
   public function actionRegisterUser() {
+    $user = new UserIdentityManager();
+    $staus = array();
+    if (!empty($_POST)) {
+      try {
+        $userDetail = $_POST;
+        if (empty($userDetail['firstname'])) {
+          throw new Exception('Please enter first name');
+        }
+        if (empty($userDetail['lastname'])) {
+          throw new Exception('Please enter last name');
+        }
+        if (empty($userDetail['email']) || !filter_var($userDetail['email'], FILTER_VALIDATE_EMAIL)) {
+          throw new Exception('Please enter a valid email');
+        }
+        if (empty($userDetail['password'])) {
+          throw new Exception('Please enter password');
+        }
+        $staus = $user->createUser($userDetail); 
+      } catch(Exception $e) {
+        $staus['success'] = false;
+        $staus['msg'] = $e->getMessage();
+        Yii::log('', ERROR, 'Error in actionRegisterUser method :' . $e->getMessage());            
+      }
+    }    
     $this->layout = 'userManager';
-    $this->render('register');
+    $this->render('register', array('message' => $staus));
   }
   
   /**
    * actionLogin
-   * this function is used for rgister new user
+   * this function is used for login user
    */
   public function actionLogin() {
+    $response = array();
+    $user = new UserIdentityManager();
+    if (!empty($_POST)) {
+      try {
+        $userDetail = $_POST;
+        if (empty($userDetail['email']) || !filter_var($userDetail['email'], FILTER_VALIDATE_EMAIL)) {
+          throw new Exception('Please enter a valid email');
+        }
+        if (empty($userDetail['password'])) {
+          throw new Exception('Please enter password');
+        }
+        $response = $user->validateUser($userDetail); 
+      } catch(Exception $e) {
+        $response['success'] = false;
+        $response['msg'] = $e->getMessage();
+        Yii::log('', ERROR, 'Error in actionRegisterUser method :' . $e->getMessage());      
+      }
+    }
     $this->layout = 'userManager';
-    $this->render('login');
+    $this->render('login', array('message' => $response));
   }
   
   

@@ -1,0 +1,27 @@
+<div class="container">
+  <form class="form-signin" method="POST" action="{{constant('BASE_URL')}}contest/register"><img src="{{constant('BASE_URL')}}images/civiclinkslogo.png" width="116" height="24" alt="logo">
+    <h2 class="form-signin-heading">Register with Civic Links</h2>
+    {% if message.msg is not empty %}
+      {% set class = 'alert-error' %}    
+      {% if message.success is not empty %}
+        {% set class = 'alert-success' %}
+      {% endif %}
+      <span class="{{class}}">
+        {{ message.msg }}
+      </span>
+    {% endif %}
+    <input type="text" class="input-block-level" name ="firstname" required placeholder="First Name">
+    <input type="text" class="input-block-level" name ="lastname" required placeholder="Last Name">
+    <input type="text" class="input-block-level" name ="email"  placeholder="Email address">
+    <input type="password" class="input-block-level" name ="password" required placeholder="Password">
+    <label class="checkbox">
+      <input type="checkbox" value="terms"> Accept the terms of Service
+    </label>
+    <button class="btn btn-large btn-primary" type="submit">Register</button>
+
+    <hr>
+    Hai già un profilo?
+    <a href="{{constant('BASE_URL')}}contest/login" class="btn" style="margin-right:10px;">Login</a>
+
+  </form>
+</div> 

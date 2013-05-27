@@ -18,10 +18,18 @@
             {'label':'Contest and Grants', 'url':[ 'contest/home' ]}
           ]}, true) 
         }}
-        <ul class="nav pull-right visible-desktop"> 
-          <li><a href="javascript:$.pageslide({ direction: 'left', href: '{{constant('BASE_URL')}}contest/login' })">Login</a></li>
-        </ul>
-        <a href="javascript:$.pageslide({ direction: 'left', href: '{{constant('BASE_URL')}}contest/register' })" class="btn pull-right visible-desktop">Sign Up</a> 
+        
+        {% if App.session is not empty %}
+          <ul class="nav pull-right" > 
+            <li><a>Welcome: {{  App.session.user.firstname }} {{  App.session.user.lastname }}</a></li>
+            <li><a href="{{constant('BASE_URL')}}contest/logout">Logout</a></li>
+          </ul>
+        {% else %}
+          <ul class="nav pull-right visible-desktop"> 
+            <li><a href="javascript:$.pageslide({ direction: 'left', href: '{{constant('BASE_URL')}}contest/login' })">Login</a></li>
+          </ul>
+          <a href="javascript:$.pageslide({ direction: 'left', href: '{{constant('BASE_URL')}}contest/register' })" class="btn pull-right visible-desktop">Sign Up</a> 
+        {% endif %}
       </div>
     </div>
   </div>

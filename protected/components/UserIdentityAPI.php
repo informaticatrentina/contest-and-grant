@@ -32,7 +32,7 @@ class UserIdentityAPI {
   function getUserDetail($function, $params = array()) {
     $userDetail = array();
     try {
-       $param = http_build_query($params);
+      $param = 'where={"email":"'.$params['email'].'","password":"'.$params['password'].'"}';
       if (!empty($params)) {
         $this->url = $this->baseUrl . $function .'/?'. $param;
       } 
@@ -45,7 +45,7 @@ class UserIdentityAPI {
       curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
       curl_setopt($ch, CURLOPT_TIMEOUT, CURL_TIMEOUT);
       
-      $this->response = curl_exec($ch);p($this->response);
+      $this->response = curl_exec($ch);
       $headers = curl_getinfo($ch);
       curl_close($ch);
 
@@ -57,9 +57,7 @@ class UserIdentityAPI {
       } elseif (strlen($this->response) == 0) {
         throw new Exception('Zero length response not permitted');
       }
-      
-      $this->response = json_decode(str_replace("\n", '', $this->response), true);
-      $userDetail = $this->response;
+      $userDetail = json_decode(strstr($this->response, "{"), true);
     } catch (Exception $e) {
       Yii::log('', ERROR, 'Error in curlGet :' . $e->getMessage());
       $userDetail['success'] = false;

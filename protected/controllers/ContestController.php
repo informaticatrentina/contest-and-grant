@@ -163,5 +163,16 @@ class ContestController extends Controller {
     } 
     $this->render('entrySubmission', array('slug' => $contestSlug, 'message' => $response));
   }
+  
+  /**
+   * actionLogout
+   * 
+   * This function is used for logout user and destroy user session
+   */
+  
+  public function actionLogout() {
+    Yii::app()->session->destroy();
+    $this->redirect('home');
+  }
 }
 

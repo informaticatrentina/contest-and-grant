@@ -2,19 +2,24 @@
   <form class="form-signin" method='POST'><img src="{{constant('BASE_URL')}}images/civiclinkslogo.png" width="116" height="24" alt="logo">
     <h2 class="form-signin-heading">Please sign in with your Civic Links account</h2>
     {% if message.msg is not empty %}
-      {% set class = 'alert-error' %}    
-      {% if message.success is not empty %}
-        {% set class = 'alert-success' %}
-      {% endif %}
-      <span class="{{class}}">
+      <span class="alert-error">
         {{ message.msg }}
       </span>
     {% endif %}
-    <input type="text" class="input-block-level" name="email" required placeholder="Email address">
+    <div  class="alert-error" id="error"></div>
+    <input type="text" class="input-block-level" id="email" name="email" required placeholder="Email address">
     <input type="password" class="input-block-level" name="password" required placeholder="Password">
     <label class="checkbox">
       <input type="checkbox" value="remember-me"> Remember me
     </label>
-    <button class="btn btn-large btn-primary" type="submit">Sign in</button>
+    <button class="btn btn-large btn-primary" type="submit" id="submit">Sign in</button>
   </form>
 </div>
+{% if message.success is not empty %}  
+  <script type="text/javascript"> 
+    var url = document.URL;
+    var urlArr = url.split('/');
+    var homePageUrl =  urlArr[2];  
+    parent.location.replace("http://"+ homePageUrl);
+  </script>
+{% endif %}  

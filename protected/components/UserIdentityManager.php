@@ -65,6 +65,7 @@ class UserIdentityManager {
    public function validateUser($userDetail) {
     $inputParam = '';
     $userStatus = array();
+    $userStatus['success'] = false;
     if (empty($userDetail['email']) || !filter_var($userDetail['email'], FILTER_VALIDATE_EMAIL)) {
       throw new Exception('Please enter a valid email');
     }
@@ -74,11 +75,22 @@ class UserIdentityManager {
     try {
       $user = new UserIdentityAPI();
       $userStatus = $user->getUserDetail(USER, $userDetail);
-      if (!$userStatus['success']) {
-        $userStatus['msg'] = "Please try again";
-      }
-    } catch (Exception $e) {
-      $userStatus['success'] = false;
+      if(array_key_exists('_items', $userStatus)) {
+        if (empty($userStatus['_items'])) {
+          $userStatus['msg'] = "You have entered either wrong email id or password. Please try again";
+        } else {
+          Yii::app()->session->open();
+          $user = array();
+          $user['firstname'] = $userStatus['_items'][0]['firstname'];
+          $user['lastname'] = $userStatus['_items'][0]['lastname'];
+          $user['email'] = $userStatus['_items'][0]['email'];
+          $user['creationDate'] = $userStatus['_items'][0]['created'];
+          $user['etag'] = $userStatus['_items'][0]['etag'];
+          Yii::app()->session['user'] = $user;
+          $userStatus['success'] = true;
+        }
+      }  
+    } catch (Exception $e) {      
       $userStatus['msg'] = $e->getMessage();
       Yii::log('', ERROR, 'Error in validateUser method :' . $e->getMessage());      
     }

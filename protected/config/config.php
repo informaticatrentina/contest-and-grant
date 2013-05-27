@@ -62,7 +62,7 @@ ini_set('display_errors', 1);
 define('DB_HOST', 'localhost');
 define('DB_NAME', 'aggregator');
 define('DB_USER', 'root');
-define('DB_PASS','');
+define('DB_PASS','a');
 
 /**
  * define constant for user api
@@ -119,8 +119,12 @@ return array(
         'contest/entries/<slug:[\w-]+>'=>'contest/entries',
         'contest/register' => 'contest/registerUser', 
         'contest/login' => 'contest/login',
-        'contest/submission/<slug:[\w-]+>' => 'contest/entrySubmission'  
-      ),    
+        'contest/submission/<slug:[\w-]+>' => 'contest/entrySubmission',  
+        'contest/logout' => 'contest/logout'
+      ),
     ),
+    'session' => array (      
+      'sessionName' => 'contest',  
+    )  
   ),
 );

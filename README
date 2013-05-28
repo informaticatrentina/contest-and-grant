@@ -36,8 +36,20 @@ To setup contest and grant you have to follow some steps mentioned below:
   . create database and change configuration (/protected/Config/config.php) 
   . Now contest and grants application is ready to run. If you want to run application on your local machine (apache server), 
      You have to create .htaccess file on root directory(/var/www/project).  To see setting of .htaccess file, Please visit 
-       http://www.yiiframework.com/doc/guide/1.1/en/quickstart.apache-nginx-config   
+       http://www.yiiframework.com/doc/guide/1.1/en/quickstart.apache-nginx-config
    
+DB MIGRATION 
+-------------
+Prerequisite:
+	1. You have setup the application 
+	2. You have create a empty database
+	3. You have created config files. /protected/config/config.php and protected/config/console.php and pointed the right DB in it.
+
+In order to migrate DB or perform DB updates run command:
+
+./protected/yiic migrate
+  
+And follow instructions.
 
 REQUIREMENTS
 ------------

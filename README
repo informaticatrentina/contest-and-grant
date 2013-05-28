@@ -32,11 +32,12 @@ To setup contest and grant you have to follow some steps mentioned below:
       uploads                This directory contain subdirectory to save uploaded data (images file, text file etc). 
       index.php
       index-test.php
-      .htaccess  
- 
-
+        
   . create database and change configuration (/protected/Config/config.php) 
-  
+  . Now contest and grants application is ready to run. If you want to run application on your local machine (apache server), 
+     You have to create .htaccess file on root directory(/var/www/project).  To see setting of .htaccess file, Please visit 
+       http://www.yiiframework.com/doc/guide/1.1/en/quickstart.apache-nginx-config   
+   
 
 REQUIREMENTS
 ------------

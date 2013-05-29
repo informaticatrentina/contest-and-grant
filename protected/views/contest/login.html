@@ -17,9 +17,7 @@
 </div>
 {% if message.success is not empty %}  
   <script type="text/javascript"> 
-    var url = document.URL;
-    var urlArr = url.split('/');
-    var homePageUrl =  urlArr[2];  
-    parent.location.replace("http://"+ homePageUrl);
+    var homePageUrl =  "{{constant('BASE_URL')}}";  
+    parent.location.replace(homePageUrl);
   </script>
 {% endif %}  

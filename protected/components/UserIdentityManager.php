@@ -45,8 +45,17 @@ class UserIdentityManager {
       if (array_key_exists('user', $response) &&  $response['user']['status'] == 'OK') {
         $saveUser['msg'] = "You have successfully created your account";
         $saveUser['success'] = true;
-      } else {       
-        $saveUser['msg'] = "Please try again";
+      } else {    
+        $message = 'Please try again';
+        if (array_key_exists('user', $response) &&  $response['user']['status'] == 'ERR') {
+          $message = $response['user']['issues'][0];
+          if (strpos($message, "field 'email' not unique") !== false) {
+              $message = 'Email id already in use, Please choose a different email id';
+          } else {
+              $message = 'Some technical problem occurred, contact administrator';
+          }
+        }
+        $saveUser['msg'] = $message;
       }
     } catch (Exception $e) {
       $saveUser['msg'] = $e->getMessage();

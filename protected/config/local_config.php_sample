@@ -58,3 +58,8 @@ define('APP_LOG_FILE_NAME', 'aggreagtor-' . date('d-M-Y').'.log');
  * Define site session cookie name
  */
 define('SITE_SESSION_COOKIE_NAME', 'contest');
+
+/**
+ * Define contest Admin users email
+ */
+define('CONTEST_ADMIN_USERS', '["santosh@incaendo.com", "rahul@incaendo.com"]');

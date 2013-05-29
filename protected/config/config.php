@@ -65,9 +65,14 @@ define('DB_USER', 'root');
 define('DB_PASS','a');
 
 /**
+ * define constant for minor
+ */
+define('ADULT', 0);
+define('MINOR', 1);
+/**
  * define constant for user api
  */
-define('USER_API_URL', 'http://10.0.1.103:8001/v1/');
+define('USER_API_URL', 'http://10.0.1.106:8001/v1/');
 define('USER', 'users');
 define('API_KEY', 'yaiT6eequi7faig7aeSh0phi9id3iu3B:');
 /**
@@ -80,7 +85,7 @@ return array(
   'import' => array(
     'application.models.*',
     'application.components.*',
-  ),
+    ),
   'preload' => array('log'),
   'components' => array(
     'log' => array(
@@ -114,17 +119,19 @@ return array(
       'showScriptName' => false,
       'caseSensitive'=>false,  
       'rules'=> array(
-        'contest/home' => 'contest/index',   
+        '' => 'contest/index',   
         'contest/add'=>'contest/createContest',  
-        'contest/entries/<slug:[\w-]+>'=>'contest/entries',
-        'contest/register' => 'contest/registerUser', 
-        'contest/login' => 'contest/login',
-        'contest/submission/<slug:[\w-]+>' => 'contest/entrySubmission',  
-        'contest/logout' => 'contest/logout'
+        'contest/<slug:[\w-]+>'=>'contest/entries',
+        'register' => 'contest/registerUser', 
+        'login' => 'contest/login',  
+        'logout' => 'contest/logout'
       ),
     ),
     'session' => array (      
       'sessionName' => 'contest',  
     )  
   ),
+  'sourceLanguage' => 'en',
+  'language' => 'pl_pl'
 );
+        

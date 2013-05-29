@@ -13,7 +13,15 @@
  */
 
 class AggregatorManager {
-
+  
+  public $authorName;
+  public $authorSlug;
+  public $entryTitle;
+  public $entryDescription;
+  public $imageUrl;
+  public $contestSlug;
+  public $isMinor;
+  public $minorName;
   /**
    * getEntry
    * 
@@ -123,17 +131,64 @@ class AggregatorManager {
     
     try {
       if (empty($returnField) && empty($returnContent) && empty($returnTag)) {
-        throw new Exception('Return fields should not be empty');
+        throw new Exception(Yii::t('contest', 'Return fields should not be empty'));
       }
-      Yii::log('', INFO, 'Input data in getEntry : ' . $inputParam);
+      Yii::log('', INFO, Yii::t('contest', 'Input data in getEntry : ') . $inputParam);
       $data = $aggregatorAPI->curlGet( ENTRY, $inputParam);
     } catch (Exception $e) {
-      Yii::log('', ERROR, 'Error in getEntry method :' . $e->getMessage());
+      Yii::log('', ERROR, Yii::t('contest','Error in getEntry method :') . $e->getMessage());
     }
     
     if (array_key_exists('status', $data) && $data['status']=='true') {
       $entry = $data['data'];  
     }
     return $entry;
+  }
+  
+  /**
+   * saveEnrty
+   * 
+   * This function is used for saved entry
+   */
+  
+  public function saveEntry() { 
+    $inputParam = array();
+    $aggregatorAPI = new AggregatorAPI();
+    try { 
+      if (empty($this->authorName)) {
+        throw new Exception(Yii::t('contest','Please login to submit an entry'));
+      }
+      if (empty($this->authorSlug)) {
+        throw new Exception(Yii::t('contest', 'Please login to submit an entry'));
+      }
+      if (empty($this->entryTitle) ||  !is_string($this->entryTitle)) {
+        throw new Exception(Yii::t('contest', 'Entry title should not be empty'));
+      }
+      if (empty($this->entryDescription)) {
+        throw new Exception(Yii::t('contest','Entry title should not be empty'));
+      }
+      
+      if (empty($this->imageUrl) || !filter_var($this->imageUrl, FILTER_VALIDATE_URL)) {
+        throw new Exception(Yii::t('contest', 'Please provide an image for enrty '));
+      }
+
+      // prepare data accordind to aggregator API input (array)
+      $inputParam = array(
+          'content' => array('description' => $this->entryDescription, 'is_minor' => $this->isMinor, 'minor_name' => $this->minorName),
+          'title' => $this->entryTitle,
+          'status' => 'active',
+          'author' => array('name' => $this->authorName,
+                            'slug' => $this->authorSlug),
+          'tags' => array(0 => array('name' => $this->contestName, 'slug' => $this->contestSlug, 'scheme' => 'http://ahref.eu/contest/schema/')),
+          'links' => array('enclosures' => array(0 => array('type' => 'image/jpg', 'uri' => $this->imageUrl))),
+          'creation_date' => time()
+      );
+      $entryStatus = $aggregatorAPI->curlPOST(ENTRY, $inputParam);
+    } catch (Exception $e) {
+      Yii::log('', ERROR, Yii::t('contest', 'Error in saveEntry method :') . $e->getMessage());
+      $entryStatus['success'] = false;
+      $entryStatus['msg'] = $e->getMessage();
+    }
+    return $entryStatus;
   }
 }

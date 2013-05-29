@@ -32,25 +32,25 @@ class ContestAPI {
     $response = '';
     $connection = Yii::app()->db;
     if (empty($this->startDate)) {
-      throw new Exception('Start date should not be empty');
+      throw new Exception(Yii::t('contest','Start date should not be empty'));
     }
     if (empty($this->endDate)) {
-      throw new Exception('End date should not be empty');
+      throw new Exception(Yii::t('contest','End date should not be empty'));
     }
     if (empty($this->creationDate)) {
-      throw new Exception('Creation date should not be empty');
+      throw new Exception(Yii::t('contest','Creation date should not be empty'));
     }
     if (empty($this->contestTitle)) {
-      throw new Exception('Contest title should not be empty');
+      throw new Exception(Yii::t('contest','Contest title should not be empty'));
     }
     if (empty($this->contestDescription)) {
-      throw new Exception('Contest description should not be empty');
+      throw new Exception(Yii::t('contest', 'Contest description should not be empty'));
     }
     if (empty($this->contestImage)) {
-      throw new Exception('Please provide contest image');
+      throw new Exception(Yii::t('contest','Please provide contest image'));
     }
     
-    $sql = "INSERT INTO contestDetail (startDate, endDate, creationDate, imagePath, contestTitle, contestDescription, contestSlug) 
+    $sql = "INSERT INTO contest (startDate, endDate, creationDate, imagePath, contestTitle, contestDescription, contestSlug) 
         VALUES( :startDate, :endDate, :creationDate, :imagePath, :contestTitle, :contestDescription, :contestSlug)";
     $query = $connection->createCommand($sql);
     $query->bindParam(":startDate", $this->startDate);
@@ -72,7 +72,7 @@ class ContestAPI {
    */
   public function getContestDetail() { 
     $connection = Yii::app()->db;
-    $sql = "SELECT contestId, startDate, endDate, creationDate, imagePath, contestTitle, contestDescription, contestSlug FROM contestDetail";
+    $sql = "SELECT contestId, startDate, endDate, creationDate, imagePath, contestTitle, contestDescription, contestSlug FROM contest";
     $query = $connection->createCommand($sql);
     $contestDetails = $query->queryAll();
     return $contestDetails;
@@ -91,7 +91,7 @@ class ContestAPI {
       return array();
     }    
     $sql = "SELECT contestId, startDate, endDate, creationDate, imagePath, contestTitle, contestDescription FROM 
-      contestDetail where contestId = :contestId ";
+      contest where contestId = :contestId ";
     $query = $connection->createCommand($sql);
     $query->bindParam(":contestId", $this->contestId);
     $contestDetails = $query->queryRow();
@@ -113,7 +113,7 @@ class ContestAPI {
       return array();
     }    
     $sql = "SELECT contestId, startDate, endDate, creationDate, imagePath, contestTitle, contestDescription FROM 
-      contestDetail where contestSlug = :contestSlug ";
+      contest where contestSlug = :contestSlug ";
     $query = $connection->createCommand($sql);
     $query->bindParam(":contestSlug", $this->contestSlug);
     $contestDetails = $query->queryRow();

@@ -27,27 +27,34 @@
   <!-- Three page buttons -->
   <div class="row">
     <div class="span3">
-      <a href="#" class="contest-button btn-block active">Contest Entries</a>
+      <a href="#" class="contest-button btn-block active" id="contestEntry">Contest Entries</a>
     </div>
     <div class="span3">
-      <a href="#" class="contest-button btn-block">Contest Brief</a>
+      <a href="#" class="contest-button btn-block"  id="contestBrief">Contest Brief</a>
     </div>
     <div class="span3">
-      <a href="#" class="contest-button btn-block">Submit and win</a>
+      <a href="#" class="contest-button btn-block" id="contestSubmit">Submit and win</a>
     </div>
     <div class="span3">
-      <a href="#" class="contest-button btn-block">winners</a>
+      <a href="#" class="contest-button btn-block" id="contestWinner">winners</a>
     </div>
   </div>
 
   <hr>
-
-  <!-- Contest entries  -->
-
-  {% include  '/views/template/entries.html' %}
+  <div id="entry">
+    {% include  '/views/template/entries.html' %}
+  </div>
   
+  <div id="entrySubmission" style="display:none" >
+    {% include  '/views/contest/entrySubmission.html' %}
+  </div>
+  
+  <div id="briefcontent" style="display:none" >
+    {% include  '/views/contest/contestBrief.html' %}
+  </div>
 </div>
 <!-- Masonary scripts for listing -->
+<script src="{{constant('BASE_URL')}}js/contest.js"></script>
 <script src="{{constant('BASE_URL')}}js/jquery.masonry.min.js"></script>
 <script>
   

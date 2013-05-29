@@ -44,6 +44,10 @@ class ContestController extends Controller {
       $entryCount = count($entries);
     }
     $contestInfo = $contest->getContestDetail();
+    if (!empty(Yii::app()->session['user'])) {
+      $entrySubmissionResponse = $this->entrySubmission();  
+    } 
+    
     $this->render('contestEntries', array('entries' => $entries, 'contestInfo' => $contestInfo, 'entryCount' => $entryCount ));
   }
   
@@ -90,28 +94,28 @@ class ContestController extends Controller {
    * this function is used for rgister new user
    */
   public function actionRegisterUser() {
-    $user = new UserIdentityManager();
+    $user = new UserIdentityManager();  
     $staus = array();
     if (!empty($_POST)) {
       try {
         $userDetail = $_POST;
         if (empty($userDetail['firstname'])) {
-          throw new Exception('Please enter first name');
+          throw new Exception(Yii::t('contest','Please enter first name'));
         }
         if (empty($userDetail['lastname'])) {
-          throw new Exception('Please enter last name');
+          throw new Exception(Yii::t('contest','Please enter last name'));
         }
         if (empty($userDetail['email']) || !filter_var($userDetail['email'], FILTER_VALIDATE_EMAIL)) {
-          throw new Exception('Please enter a valid email');
+          throw new Exception(Yii::t('contest','Please enter a valid email'));
         }
         if (empty($userDetail['password'])) {
-          throw new Exception('Please enter password');
+          throw new Exception(Yii::t('contest','Please enter password'));
         }
         $staus = $user->createUser($userDetail); 
       } catch(Exception $e) {
         $staus['success'] = false;
         $staus['msg'] = $e->getMessage();
-        Yii::log('', ERROR, 'Error in actionRegisterUser method :' . $e->getMessage());            
+        Yii::log('', ERROR, Yii::t('contest', 'Error in actionRegisterUser method :') . $e->getMessage());            
       }
     }    
     $this->layout = 'userManager';
@@ -129,16 +133,16 @@ class ContestController extends Controller {
       try {
         $userDetail = $_POST;
         if (empty($userDetail['email']) || !filter_var($userDetail['email'], FILTER_VALIDATE_EMAIL)) {
-          throw new Exception('Please enter a valid email');
+          throw new Exception(Yii::t('contest', 'Please enter a valid email'));
         }
         if (empty($userDetail['password'])) {
-          throw new Exception('Please enter password');
+          throw new Exception(Yii::t('contest','Please enter password'));
         }
         $response = $user->validateUser($userDetail); 
       } catch(Exception $e) {
         $response['success'] = false;
         $response['msg'] = $e->getMessage();
-        Yii::log('', ERROR, 'Error in actionRegisterUser method :' . $e->getMessage());      
+        Yii::log('', ERROR, Yii::t('contest','Error in actionRegisterUser method :') . $e->getMessage());      
       }
     }
     $this->layout = 'userManager';
@@ -150,18 +154,18 @@ class ContestController extends Controller {
    * actionEntrySubmission
    * this function is used for submit entry 
    */
-  public function actionEntrySubmission() {
-    $contestSlug = $_GET['slug'];
+  public function entrySubmission() { 
+    $contestSlug = $_GET['slug']; 
     $response = array();
     if (!empty($_FILES['contestEntry']['name'])) { 
       $contest = new Contest();
       $directory = 'uploads/contestEntry/' ;
       $imageUrl = uploadFile($directory , 'contestEntry');
-      if ($imageUrl) {
+      if ($imageUrl) {       
         $response = $contest->submitContestEntry($imageUrl, $contestSlug);
       }
-    } 
-    $this->render('entrySubmission', array('slug' => $contestSlug, 'message' => $response));
+    }
+    return $response;
   }
   
   /**
@@ -172,7 +176,7 @@ class ContestController extends Controller {
   
   public function actionLogout() {
     Yii::app()->session->destroy();
-    $this->redirect('home');
+    $this->redirect(BASE_URL);
   }
-}
+} 
 

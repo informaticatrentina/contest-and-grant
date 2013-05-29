@@ -25,7 +25,7 @@ class Contest  {
   public function getContestSubmission() {
     $contestEntries = array();
     $aggregatorManager = new AggregatorManager();    
-    $contestEntries = $aggregatorManager->getEntry( 5, 1, '', 'active', $this->contestSlug.'[contest]', '', '', '', '', '', '', '',array(), '', 'links,guid,status,author,title','','');
+    $contestEntries = $aggregatorManager->getEntry( 5, 1, '', 'active', $this->contestSlug.'[contest]', '', '', '', '', '', '', '',array(), '', 'links,status,author,title','','');
     $i = 0;
     foreach ($contestEntries as $entry) {
       if (!empty($entry['links']['enclosures'])) { 
@@ -52,19 +52,19 @@ class Contest  {
     try {
       if (!empty($contestDetails)) {
         if(array_key_exists('contestTitle', $contestDetails) && empty($contestDetails['contestTitle'])) {
-          throw new Exception('Contest title should not be empty');
+          throw new Exception(Yii::t('contest', 'Contest title should not be empty'));
         } 
         if(array_key_exists('startDate', $contestDetails) && empty($contestDetails['startDate'])) {
-          throw new Exception('Start date should not be empty');
+          throw new Exception(Yii::t('contest', 'Start date should not be empty'));
         } else if (!validateDate($contestDetails['startDate'])){
-          throw new Exception('Please enter valid start date');
+          throw new Exception(Yii::t('contest', 'Please enter valid start date'));
         } else {
           $startDateArr = explode('/', $contestDetails['startDate']);
           $startTime = mktime(0, 0, 0, $startDateArr[0], $startDateArr[1], $startDateArr[2]);
           $contestAPI->startDate = date('Y-m-d H:i:s', $startTime);
         }
         if(array_key_exists('endDate', $contestDetails) && empty($contestDetails['endDate'])) {
-          throw new Exception('End date should not be empty');
+          throw new Exception(Yii::t('contest', 'End date should not be empty'));
         }  else if (!validateDate($contestDetails['endDate'])){
           throw new Exception('Please enter valid end date');
         } else {
@@ -73,10 +73,10 @@ class Contest  {
           $contestAPI->endDate = date('Y-m-d H:i:s', $endTime);
         }
         if(array_key_exists('contestDescription', $contestDetails) && empty($contestDetails['contestDescription'])) {
-          throw new Exception('Contest description should not be empty');
+          throw new Exception(Yii::t('contest', 'Contest description should not be empty'));
         }
         if (empty($imagePath)) {
-          throw new Exception('Please choose an image for upload');
+          throw new Exception(Yii::t('contest', 'Please choose an image for upload'));
         }
         $contestAPI->contestTitle = $contestDetails['contestTitle'];
         $contestAPI->contestDescription = $contestDetails['contestDescription'];        
@@ -88,13 +88,13 @@ class Contest  {
         //check for contest exist
         $exist = $contestAPI->getContestDetailByContestSlug();
         if ($exist) {
-          throw new Exception('This contest title is already exist');
+          throw new Exception(Yii::t('contest', 'This contest title is already exist'));
         }
         $response['success'] = $contestAPI->save();
-        $response['msg'] = "You have created a contest Succesfully";
+        $response['msg'] = Yii::t('translation', 'You have created a contest Succesfully');
       }
     } catch (Exception $e) {
-       Yii::log('', ERROR, 'Error in createContest :' . $e->getMessage());
+       Yii::log('', ERROR, Yii::t('contest', 'Error in createContest :') . $e->getMessage());
        $response['success'] = '';
        $response['msg'] = $e->getMessage();
     }
@@ -112,7 +112,8 @@ class Contest  {
     $contestDetail = array();
    
     if (!empty($this->contestSlug)) {
-      $contestDetail = $contestAPI->getContestDetailByContestSlug();
+      $contestAPI->contestSlug = $this->contestSlug;      
+      $contestDetail = $contestAPI->getContestDetailByContestSlug(); 
       if(array_key_exists('startDate', $contestDetail) && !empty($contestDetail['startDate'])) {
         $contestDetail['startDate'] = date('Y-m-d', strtotime($contestDetail['startDate']));
       }
@@ -134,19 +135,41 @@ class Contest  {
    * @return (array) $response
    */
   public function submitContestEntry($imageUrl, $contestSlug) {
-    try {
+    try {  
       if (!empty($_POST)) {
-        if (array_key_exists('entryTitle', $_POST) && (!empty($_POST['entryTitle']))) {
-          $entryTitle = $_POST['entryTitle'];
-        }
-        $authorName = $_SESSION['name'];
-        $authorSlug = strtolower(preg_replace("/[^a-z0-9]+/i", "_", $authorName));
         $aggregatorManager = new AggregatorManager();
-        $response['success'] = $aggregatorManager->getEntry($authorName, $authorSlug, $entryTitle, $imageUrl, $contestSlug);
-        $response['msg'] = "You have succesfully submit an entry ";
+        $aggregatorManager->isMinor = ADULT;
+        if (array_key_exists('entryTitle', $_POST) && (!empty($_POST['entryTitle']))) {
+          $aggregatorManager->entryTitle =  $_POST['entryTitle'];
+        }
+        if(array_key_exists('entryDescription', $_POST) && (!empty($_POST['entryDescription']))) {
+          $aggregatorManager->entryDescription = $_POST['entryDescription'];
+        }
+        if (!array_key_exists('leftCheckBox', $_POST)  && (!array_key_exists('rightCheckBox', $_POST))) {
+          throw new Exception(Yii::t('contest','Please checked one check box'));
+        }
+        
+        if (array_key_exists('rightCheckBox', $_POST)) {
+          if (empty($_POST['minorName'])) {
+            throw new Exception('contest','Please enter minor name');
+          } else {
+            $aggregatorManager->minorName = $_POST['minorName'];
+            $aggregatorManager->isMinor = MINOR;
+          }
+        } 
+        
+        $aggregatorManager->authorName = Yii::app()->session['user']['firstname'].' '. Yii::app()->session['user']['lastname'];
+        $aggregatorManager->authorSlug = Yii::app()->session['user']['id'];
+        $aggregatorManager->imageUrl = $imageUrl;
+        $aggregatorManager->contestSlug = $contestSlug;
+        $aggregatorManager->contestName = $_POST['contestTitle'];
+        $response = $aggregatorManager->saveEntry();
+        if ($response['success']) {
+          $response['msg'] = Yii::t('contest', 'You have succesfully submit an entry');
+        }
       }
     } catch (Exception $e) {
-       Yii::log('', ERROR, 'Error in submitContestEntry :' . $e->getMessage());
+       Yii::log('', ERROR, Yii::t('contest', 'Error in submitContestEntry :') . $e->getMessage());
        $response['success'] = '';
        $response['msg'] = $e->getMessage();
     }

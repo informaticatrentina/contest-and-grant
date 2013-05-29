@@ -39,28 +39,76 @@ class AggregatorAPI {
       $defaultParams = array(CURLOPT_URL => $this->url, CURLOPT_RETURNTRANSFER => 1, CURLOPT_HEADER => 0, CURLOPT_TIMEOUT => CURL_TIMEOUT);
       $curlHandle = curl_init();
       curl_setopt_array($curlHandle, $defaultParams);
-      $this->response = curl_exec($curlHandle);
+      $this->response = curl_exec($curlHandle);     
       $headers = curl_getinfo($curlHandle);
       curl_close($curlHandle);
 
       //Manage uncorrect response 
       if ($headers['http_code'] != 200) {
-        throw new Exception('Aggregator returning httpcode: ' . $headers['http_code']);
+        throw new Exception(Yii::t('contest', 'Aggregator returning httpcode: ') . $headers['http_code']);
       } elseif (!$this->response) {
-        throw new Exception('Aggregator is not responding or Curl failed');
+        throw new Exception(Yii::t('contest', 'Aggregator is not responding or Curl failed'));
       } elseif (strlen($this->response) == 0) {
-        throw new Exception('Zero length response not permitted');
+        throw new Exception(Yii::t('contest', 'Zero length response not permitted'));
       }
       
       $this->response = json_decode(str_replace("\n", '', $this->response), true);
       $out = $this->response;
     } catch (Exception $e) {
-      Yii::log('', ERROR, 'Error in curlGet :' . $e->getMessage());
+      Yii::log('', ERROR, Yii::t('contest', 'Error in curlGet :') . $e->getMessage());
       $out['success'] = false;
       $out['msg'] = $e->getMessage();
       $out['data'] = '';
     }
     return $out;
   }
+  
+    
+  /**
+   * curlPost
+   * 
+   * @param (array) $params
+   * @param (string) $function
+   * @return (array) $out
+   */
+  function curlPost($function, $params = array()) { 
+    $out = array();
+    try {
+      if (!empty($params)) {
+        $data = array('entry' => json_encode($params));
+        $this->url = $this->baseUrl . RESPONSE_FORMAT .'/'.$function;
+        $defaultParams = array(
+            CURLOPT_URL => $this->url, 
+            CURLOPT_RETURNTRANSFER => 1, 
+            CURLOPT_HEADER => 0, 
+            CURLOPT_TIMEOUT => CURL_TIMEOUT,
+            CURLOPT_POST => 1,
+            CURLOPT_POSTFIELDS => $data
+        );
+        $curlHandle = curl_init();
+        curl_setopt_array($curlHandle, $defaultParams);
+        $this->response = curl_exec($curlHandle);
+        $headers = curl_getinfo($curlHandle);
+        curl_close($curlHandle);
 
+        //Manage uncorrect response 
+        if ($headers['http_code'] != 200) {
+          throw new Exception(Yii::t('contest','Aggregator returning httpcode: ') . $headers['http_code']);
+        } elseif (!$this->response) {
+          throw new Exception(Yii::t('contest','Aggregator is not responding or Curl failed'));
+        } elseif (strlen($this->response) == 0) {
+          throw new Exception(Yii::t('contest','Zero length response not permitted'));
+        }
+
+        $this->response = json_decode(str_replace("\n", '', $this->response), true);
+        $out['success'] = $this->response['status'];
+      }
+    } catch (Exception $e) {
+      Yii::log('', ERROR, Yii::t('contest','Error in curlGet :') . $e->getMessage());
+      $out['success'] = false;
+      $out['msg'] = $e->getMessage();
+      $out['data'] = '';
+    }
+    return $out;
+  }
 }

@@ -18,7 +18,7 @@ class UserIdentityAPI {
   private $url;
   
   function __construct() {
-    $this->baseUrl = USER_API_URL;
+    $this->baseUrl = IDENTITY_MANAGER_API_URL;
   }
     
   /**
@@ -40,7 +40,7 @@ class UserIdentityAPI {
       curl_setopt($ch, CURLOPT_URL, $this->url);
       curl_setopt($ch, CURLOPT_HEADER, 1);
       curl_setopt($ch, CURLOPT_HTTPHEADER,  array(
-            "Authorization: Basic " . base64_encode(API_KEY)
+            "Authorization: Basic " . base64_encode(IDM_API_KEY . ':')
       ));
       curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
       curl_setopt($ch, CURLOPT_TIMEOUT, CURL_TIMEOUT);
@@ -84,7 +84,7 @@ class UserIdentityAPI {
         curl_setopt($ch, CURLOPT_URL, $this->url);
         curl_setopt($ch, CURLOPT_HEADER, 1);
         curl_setopt($ch, CURLOPT_HTTPHEADER,  array(
-              "Authorization: Basic " . base64_encode(API_KEY)
+              "Authorization: Basic " . base64_encode(IDM_API_KEY . ':')
         ));
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($ch, CURLOPT_POST, 1);

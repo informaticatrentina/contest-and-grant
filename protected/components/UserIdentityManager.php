@@ -41,12 +41,21 @@ class UserIdentityManager {
       }
        
       $user = new UserIdentityAPI();
-      $response = $user->createUser(USER, $userDetail);    
+      $response = $user->createUser(IDM_USER_ENTITY, $userDetail);    
       if (array_key_exists('user', $response) &&  $response['user']['status'] == 'OK') {
         $saveUser['msg'] = "You have successfully created your account";
         $saveUser['success'] = true;
-      } else {       
-        $saveUser['msg'] = "Please try again";
+      } else {    
+        $message = 'Please try again';
+        if (array_key_exists('user', $response) &&  $response['user']['status'] == 'ERR') {
+          $message = $response['user']['issues'][0];
+          if (strpos($message, "field 'email' not unique") !== false) {
+              $message = 'Email id already in use, Please choose a different email id';
+          } else {
+              $message = 'Some technical problem occurred, contact administrator';
+          }
+        }
+        $saveUser['msg'] = $message;
       }
     } catch (Exception $e) {
       $saveUser['msg'] = $e->getMessage();
@@ -74,7 +83,7 @@ class UserIdentityManager {
     }
     try {
       $user = new UserIdentityAPI();
-      $userStatus = $user->getUserDetail(USER, $userDetail);
+      $userStatus = $user->getUserDetail(IDM_USER_ENTITY, $userDetail);
       if(array_key_exists('_items', $userStatus)) {
         if (empty($userStatus['_items'])) {
           $userStatus['msg'] = "You have entered either wrong email id or password. Please try again";

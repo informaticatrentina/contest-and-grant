@@ -34,6 +34,36 @@ To setup contest and grant you have to follow some steps mentioned below:
       index-test.php
         
   . create database and change configuration (/protected/Config/config.php) 
+
+CONFIGURATION 
+-------------
+         1. see local_config.php_sample file (/protected/Config/local_config.php_sample) and copy this file  as local_config.php (/protected/Config/local_config.php)
+         2. Configuration changes to be done in local_config.php 
+             a. BASE_URL : Change its value to  site base url
+             b. DB_HOST
+                DB_NAME
+                DB_USER
+                DB_PASS
+                  This is setting for database connection. HOST, DATABASE_NAME, DATABASE_USER, DATABASE_PASSWORD  replace with 
+                  host, name of database, database user name, and password of same user. (eg. host=localhost, dbname=contest,
+                  username = 'root', password='123456')
+             c. AGGREGATOR_API_URL
+                The complete API url of aggregator (which contains api key also)
+             d. IDENTITY_MANAGER_API_URL
+                The API url of identity manager installation this site will use.
+             e. IDM_API_KEY 
+                API key of identity manager for this site.
+             f. APP_LOG_FILE_NAME 
+                The name of application log file. Log file will be created inside  /protected/runtime/LOG_FILE_NAME
+                The current name in sample file allows you to create seperate log file for each day. If you want to create one log file and
+                have file rotation on it, just use a single name (one with date function)
+             e.  SITE_SESSION_COOKIE_NAME
+                 Name of cookie for session id.
+             f.  'sourceLanguage' => 'SOURCE_LANGUAGE',
+                 'language' => 'TARGET_LANGUAGE'
+                 SOURCE_LANGUAGE is replace with source language of message and TARGET_LANGUAGE is language in which message 
+                 have to be converted. (for english language you can use 'en')
+
   . Now contest and grants application is ready to run. If you want to run application on your local machine (apache server), 
      You have to create .htaccess file on root directory(/var/www/project).  To see setting of .htaccess file, Please visit 
        http://www.yiiframework.com/doc/guide/1.1/en/quickstart.apache-nginx-config

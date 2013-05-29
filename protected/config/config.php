@@ -10,12 +10,10 @@
  */
 
 /**
- * define constant for path 
+ * Including local configuration file.
  */
-define('API_URL', 'http://10.0.0.3:5000/api/v1/8avENayecayu3p6p/');
-define('BASE_URL','http://www.aggregator.com/');
-define('IMAGE_URL',BASE_URL.'/images/');
-define('CONTEST_IMAGE_URL',BASE_URL.'uploads/contestImage/');
+require_once(dirname(__FILE__).'/local_config.php');
+require_once(dirname(__FILE__).'/../function.php');
 
 /**
  * define constant for response format
@@ -50,19 +48,7 @@ define('ERROR', 'error');
 define('DEBUG', 'trace');
 define('WARNING', 'warning');
 
-/**
- * set error reporting on 
- */
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
 
-/**
- * constant for database configuration
- */
-define('DB_HOST', 'localhost');
-define('DB_NAME', 'aggregator');
-define('DB_USER', 'root');
-define('DB_PASS','a');
 
 /**
  * define constant for minor
@@ -70,15 +56,8 @@ define('DB_PASS','a');
 define('ADULT', 0);
 define('MINOR', 1);
 /**
- * define constant for user api
- */
-define('USER_API_URL', 'http://10.0.1.106:8001/v1/');
-define('USER', 'users');
-define('API_KEY', 'yaiT6eequi7faig7aeSh0phi9id3iu3B:');
-/**
  * configuration for interaction of file
  */
-require_once(dirname(__FILE__).'/../function.php');
 return array(
   'defaultController' => 'contest',  
   'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
@@ -94,7 +73,7 @@ return array(
         array(
           'class' => 'CFileLogRoute',
           'levels' => 'trace, info, error',
-          'logFile' => 'aggreagtor-' . date('d-M-Y').'.log'
+          'logFile' => APP_LOG_FILE_NAME
         )
       ),
     ),
@@ -128,7 +107,7 @@ return array(
       ),
     ),
     'session' => array (      
-      'sessionName' => 'contest',  
+      'sessionName' => SITE_SESSION_COOKIE_NAME,  
     )  
   ),
   'sourceLanguage' => 'en',

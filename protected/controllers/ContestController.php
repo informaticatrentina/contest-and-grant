@@ -72,6 +72,17 @@ class ContestController extends Controller {
    * This function is used for create contest
    */
   public function actionCreateContest() {
+    //check if user belong to admin users or not
+    $adminUsers = array();
+    if (defined('CONTEST_ADMIN_USERS')) {
+        $adminUsers = json_decode(CONTEST_ADMIN_USERS, true);
+    }
+    if (!isset(Yii::app()->session['user'])) {
+        $this->redirect(BASE_URL);
+    }
+    if (!in_array(Yii::app()->session['user']['email'], $adminUsers)) {
+        $this->redirect(BASE_URL);
+    }
     $contest = new Contest(); 
     $response = array();
     if (!empty($_FILES['image']['name'])) { 

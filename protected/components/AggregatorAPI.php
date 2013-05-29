@@ -18,7 +18,7 @@ class AggregatorAPI {
   private $url;
   
   function __construct() {
-    $this->baseUrl = API_URL;
+    $this->baseUrl = AGGREGATOR_API_URL;
   }
     
   /**

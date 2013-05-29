@@ -1,12 +1,8 @@
 <?php
 /**
- * constant for database configuration
+ * Including local configuration file.
  */
-define('DB_HOST', 'localhost');
-define('DB_NAME', 'candg');
-define('DB_USER', 'root');
-define('DB_PASS','123456');
-
+require_once(dirname(__FILE__).'/local_config.php');
 
 return array(
   'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',

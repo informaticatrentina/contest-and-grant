@@ -59,10 +59,8 @@ CONFIGURATION
                 have file rotation on it, just use a single name (one with date function)
              e.  SITE_SESSION_COOKIE_NAME
                  Name of cookie for session id.
-             f.  'sourceLanguage' => 'SOURCE_LANGUAGE',
-                 'language' => 'TARGET_LANGUAGE'
-                 SOURCE_LANGUAGE is replace with source language of message and TARGET_LANGUAGE is language in which message 
-                 have to be converted. (for english language you can use 'en')
+             f.  'language' => 'SITE_LANGUAGE'
+                  SITE_LANGUAGE is language in which message have to be converted. (for english language you can use 'en')
 
   . Now contest and grants application is ready to run. If you want to run application on your local machine (apache server), 
      You have to create .htaccess file on root directory(/var/www/project).  To see setting of .htaccess file, Please visit 

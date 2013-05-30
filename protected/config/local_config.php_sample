@@ -25,7 +25,7 @@ ini_set('display_errors', 1);
 /**
  * define installation details
  */
-define('BASE_URL','SITE_BASE_URL');
+define('BASE_URL','www.aggregator.com');
 define('IMAGE_URL',BASE_URL.'/images/');
 define('CONTEST_IMAGE_URL',BASE_URL.'uploads/contestImage/');
 
@@ -33,9 +33,9 @@ define('CONTEST_IMAGE_URL',BASE_URL.'uploads/contestImage/');
  * constant for database configuration
  */
 define('DB_HOST', 'localhost');
-define('DB_NAME', 'candg');
+define('DB_NAME', 'aggregator');
 define('DB_USER', 'root');
-define('DB_PASS','123456');
+define('DB_PASS','a');
 
 /**
  * Define aggregator API URL 
@@ -63,3 +63,8 @@ define('SITE_SESSION_COOKIE_NAME', 'contest');
  * Define contest Admin users email
  */
 define('CONTEST_ADMIN_USERS', '["santosh@incaendo.com", "rahul@incaendo.com"]');
+
+/**
+ * Define site language
+ */
+define('SITE_LANGUAGE', 'it_it');

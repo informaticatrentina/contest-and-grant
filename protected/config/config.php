@@ -111,6 +111,6 @@ return array(
     )  
   ),
   'sourceLanguage' => 'en',
-  'language' => 'pl_pl'
+  'language' => SITE_LANGUAGE
 );
         

@@ -61,6 +61,7 @@
       'Register' => 'Registrati',
       'Login' => 'Accedi',
       'Register with Civic Links' => 'Registrati con Link civici',
+      'You have already submitted an entry for this contest' => 'Hai già inserito una voce per questo concorso',
       'Start Date' => 'Data di inizio',
       'End Date' => 'Data di fine',
       'Contest Description' => 'Contest Descrizione',
@@ -76,6 +77,6 @@
       'Please sign in with your Civic Links account' => 'Per favore accedi con il tuo account Links Civico',
       'Sign In' => 'Accedi',
       'Upload Image' => 'Carica immagine',
-      'Please upload valid image' => "Si prega di caricare un'immagine valida",
-      'Image size should be less than 5MB' => "Dimensioni dell'immagine deve essere inferiore a 5 MB"
+      'Entry title should not be empty' => 'Titolo di ingresso non deve essere vuoto',
+      'Entry description should not be empty' => 'Descrizione Evento non deve essere vuoto'
   );

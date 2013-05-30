@@ -66,7 +66,7 @@ class Contest  {
         if(array_key_exists('endDate', $contestDetails) && empty($contestDetails['endDate'])) {
           throw new Exception(Yii::t('contest', 'End date should not be empty'));
         }  else if (!validateDate($contestDetails['endDate'])){
-          throw new Exception('Please enter valid end date');
+          throw new Exception(Yii::t('contest','Please enter valid end date'));
         } else {
           $endDateArr = explode('/', $contestDetails['endDate']);
           $endTime = mktime(0, 0, 0, $endDateArr[0], $endDateArr[1], $endDateArr[2]);
@@ -91,7 +91,7 @@ class Contest  {
           throw new Exception(Yii::t('contest', 'This contest title is already exist'));
         }
         $response['success'] = $contestAPI->save();
-        $response['msg'] = Yii::t('translation', 'You have created a contest Succesfully');
+        $response['msg'] = Yii::t('contest', 'You have created a contest Succesfully');
       }
     } catch (Exception $e) {
        Yii::log('', ERROR, Yii::t('contest', 'Error in createContest :') . $e->getMessage());
@@ -151,7 +151,7 @@ class Contest  {
         
         if (array_key_exists('rightCheckBox', $_POST)) {
           if (empty($_POST['minorName'])) {
-            throw new Exception('contest','Please enter minor name');
+            throw new Exception(Yii::t('contest','Please enter minor name'));
           } else {
             $aggregatorManager->minorName = $_POST['minorName'];
             $aggregatorManager->isMinor = MINOR;

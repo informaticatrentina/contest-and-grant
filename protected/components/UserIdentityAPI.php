@@ -51,11 +51,11 @@ class UserIdentityAPI {
 
       //Manage uncorrect response 
       if ($headers['http_code'] != 200) {
-        throw new Exception('Identitity Manager returning httpcode: ' . $headers['http_code']);
+        throw new Exception(Yii::t('contest', 'Identitity Manager API returning httpcode: ') . $headers['http_code']);
       } elseif (!$this->response) {
-        throw new Exception('Identitity Manager  is not responding or Curl failed');
+        throw new Exception(Yii::t('contest', 'Identitity Manager API is not responding or Curl failed'));
       } elseif (strlen($this->response) == 0) {
-        throw new Exception('Zero length response not permitted');
+        throw new Exception(Yii::t('contest', 'Zero length response not permitted'));
       }
       $userDetail = json_decode(strstr($this->response, "{"), true);
     } catch (Exception $e) {
@@ -96,16 +96,16 @@ class UserIdentityAPI {
         curl_close($ch);
         //Manage uncorrect response 
         if ($headers['http_code'] != 200) {
-          throw new Exception('Identitity Manager returning httpcode: ' . $headers['http_code']);
+          throw new Exception(Yii::t('contest', 'Identitity Manager returning httpcode: ') . $headers['http_code']);
         } elseif (!$this->response) {
-          throw new Exception('Identitity Manager  is not responding or Curl failed');
+          throw new Exception(Yii::t('contest', 'Identitity Manager  is not responding or Curl failed'));
         } elseif (strlen($this->response) == 0) {
-          throw new Exception('Zero length response not permitted');
+          throw new Exception(Yii::t('contest', 'Zero length response not permitted'));
         }
         $return = json_decode(strstr($this->response, "{"), true);
       }
     } catch (Exception $e) {
-      Yii::log('', ERROR, 'Error in createUser :' . $e->getMessage());
+      Yii::log('', ERROR, Yii::t('contest', 'Error in createUser :') . $e->getMessage());
       $return['success'] = false;
       $return['msg'] = $e->getMessage();
       $return['data'] = '';

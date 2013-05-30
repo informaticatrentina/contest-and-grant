@@ -1,6 +1,6 @@
 <div class="container">
   <form class="form-signin" method="POST" action="{{constant('BASE_URL')}}register"><img src="{{constant('BASE_URL')}}images/civiclinkslogo.png" width="116" height="24" alt="logo">
-    <h2 class="form-signin-heading">Register with Civic Links</h2>
+    <h2 class="form-signin-heading">{{ t('contest','Register with Civic Links') }}</h2>
     {% if message.msg is not empty %}
       {% set class = 'alert-error' %}    
       {% if message.success is not empty %}
@@ -11,18 +11,18 @@
       </span>
     {% endif %}
      <div  class="alert-error" id="error"></div>
-    <input type="text" class="input-block-level" name ="firstname" required placeholder="First Name">
-    <input type="text" class="input-block-level" name ="lastname" required placeholder="Last Name">
-    <input type="text" class="input-block-level" name ="email" id="email" required placeholder="Email address">
-    <input type="password" class="input-block-level" name ="password" required placeholder="Password">
+    <input type="text" class="input-block-level" name ="firstname" required placeholder="{{ t('contest','First Name') }}">
+    <input type="text" class="input-block-level" name ="lastname" required placeholder="{{ t('contest','Last Name') }}">
+    <input type="text" class="input-block-level" name ="email" id="email" required placeholder="{{ t('contest','Email address') }}">
+    <input type="password" class="input-block-level" name ="password" required placeholder="{{ t('contest','Password') }}">
     <label class="checkbox">
-      <input type="checkbox" required name="terms" id="register-terms" value="terms"> Accept the terms of Service
+      <input type="checkbox" required name="terms" id="register-terms" value="terms">{{ t('contest','Accept the terms of Service') }} 
     </label>
-    <button class="btn btn-large btn-primary" type="submit" id="register-submit">Register</button>
+    <button class="btn btn-large btn-primary" type="submit" id="register-submit">{{ t('contest','Register') }}</button>
 
     <hr>
     Hai già un profilo?
-    <a href="{{constant('BASE_URL')}}login" class="btn" style="margin-right:10px;">Login</a>
+    <a href="{{constant('BASE_URL')}}login" class="btn" style="margin-right:10px;">{{ t('contest','Login') }}</a>
 
   </form>
 </div> 

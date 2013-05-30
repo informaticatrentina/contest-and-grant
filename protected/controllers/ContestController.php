@@ -13,6 +13,11 @@
  */
 
 class ContestController extends Controller {
+    
+  public function beforeAction() {
+    new JsTrans('js',SITE_LANGUAGE);
+    return true;
+  }
 
  /**
   * actionIndex

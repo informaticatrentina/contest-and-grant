@@ -51,5 +51,13 @@
       'Error in submitContestEntry :' => 'Errore in submitContestEntry:',
       'Please login to submit an entry' => "Effettua l'accesso per inviare una voce",
       'Email id already in use, Please choose a different email id' => 'Email id già in uso, Seleziona un altro id e-mail',
-      'Some technical problem occurred, contact administrator' => 'Qualche problema tecnico si è verificato, amministratore di contatto'
+      'Some technical problem occurred, contact administrator' => 'Qualche problema tecnico si è verificato, amministratore di contatto',
+      'First Name' => 'Nome',
+      'Last Name' => 'Cognome',
+      'Email address' => 'Indirizzo e-mail',
+      'Password' => "parola d'ordine",
+      'Accept the terms of Service' => 'Accettare i termini del servizio',
+      'Register' => 'Registrati',
+      'Login' => 'Accedi',
+      'Register with Civic Links' => 'Registrati con Link civici'
   );

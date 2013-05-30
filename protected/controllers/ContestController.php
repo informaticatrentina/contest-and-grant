@@ -88,7 +88,8 @@ class ContestController extends Controller {
     if (!empty($_FILES['image']['name'])) { 
       $directory = 'uploads/contestImage/' ;
       $imagePath = uploadFile($directory , 'image');
-      $imageName = end(explode('/', $imagePath));
+      $imageName = explode('/', $imagePath);
+      $imageName = end($imageName);
       $imageResize = Yii::app()->image->load($directory . $imageName);
       $imageResize->resize(800, 350, Image::NONE);
       $imageResize->save();
@@ -105,23 +106,31 @@ class ContestController extends Controller {
    * this function is used for rgister new user
    */
   public function actionRegisterUser() {
+    if (userIsLogged()) {
+        $this->redirect(BASE_URL);
+    }
     $user = new UserIdentityManager();  
     $staus = array();
     if (!empty($_POST)) {
       try {
-        $userDetail = $_POST;
-        if (empty($userDetail['firstname'])) {
+        if (empty($_POST['firstname'])) {
           throw new Exception(Yii::t('contest','Please enter first name'));
         }
-        if (empty($userDetail['lastname'])) {
+        if (empty($_POST['lastname'])) {
           throw new Exception(Yii::t('contest','Please enter last name'));
         }
-        if (empty($userDetail['email']) || !filter_var($userDetail['email'], FILTER_VALIDATE_EMAIL)) {
+        if (empty($_POST['email']) || !filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
           throw new Exception(Yii::t('contest','Please enter a valid email'));
         }
-        if (empty($userDetail['password'])) {
+        if (empty($_POST['password'])) {
           throw new Exception(Yii::t('contest','Please enter password'));
         }
+        $userDetail = array(
+            'firstname' => $_POST['firstname'],
+            'lastname' => $_POST['lastname'],
+            'email' => $_POST['email'],
+            'password' => $_POST['password']
+        );
         $staus = $user->createUser($userDetail); 
       } catch(Exception $e) {
         $staus['success'] = false;
@@ -138,6 +147,9 @@ class ContestController extends Controller {
    * this function is used for login user
    */
   public function actionLogin() {
+    if (userIsLogged()) {
+        $this->redirect(BASE_URL);
+    }
     $response = array();
     $user = new UserIdentityManager();
     if (!empty($_POST)) {

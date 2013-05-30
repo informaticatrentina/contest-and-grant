@@ -62,3 +62,14 @@ function uploadFile($directory, $name) {
   }
   return $imageUrl;
 }
+
+/**
+ * Function to check weather current user is logged in or not
+ */
+function userIsLogged() {
+    $flag = false;
+    if (isset(Yii::app()->session['user'])) {
+        $flag = true;
+    }
+     return $flag;
+}

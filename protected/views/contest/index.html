@@ -1,5 +1,4 @@
 <div class="container maincontent">
-  <!-- Slideshow -->
   <ul class="rslides" id="myslider">
     {% for info in contestInfo %}
       {% if info.contestSlug is not empty %}
@@ -8,40 +7,52 @@
     {% endfor %}
   </ul>
 
-  <!-- Slideshow 2 Pager -->
-  <div style="position:relative; top:-60px; z-index:9; list-style:circle;">
-    <ul id="myslider-pager" style="list-style:circle; background-color:#000000;">
+  <div style="position:relative; top:-90px; z-index:9; list-style:circle;">
+    <div style="position:absolute; top:10px;">
+      <h1>IMS PHOTO CONTEST 2013 | Mountain.Lights&amp;Shadows</h1></div>
+    <ul id="myslider-pager"  class="rslides_tabs rslides1_tabs"  style="list-style:circle; background-color:#4cbed7; padding:20px 0px;">
       {% for info in contestInfo %}
         <li style="list-style:disc;"><a href="#">{{ info.contestId }}</a></li>  
       {% endfor %}
     </ul>
   </div>
-  <hr>
+  <div class="row" style="padding-top:30px;">
+    <div class="span4">
+      <a href="#">
+        <div style="position:relative;">
+          <img src="{{constant('BASE_URL')}}images/youth.jpg" width="307" height="306" alt="Youth">
+          <div class="homepage-box">
+            <h2>Youth in action</h2>
+            <h2 class="secondary">new perspectives contest </h2>
+          </div>
+        </div>
+      </a>
+      <div class="hidden-desktop" style="height:20px"></div>
+    </div>
+    <div class="span4">
+      <a href="#">
+        <div style="position:relative;">
+          <img src="{{constant('BASE_URL')}}images/youth.jpg" width="307" height="306" alt="Youth">
+          <div class="homepage-box">
+            <h2>Informazione digitale</h2>
+            <h2 class="secondary">premio La Stampa </h2>
+          </div>
+        </div>
+      </a>
+      <div class="hidden-desktop" style="height:20px"></div>  
+    </div>
 
-  <!-- Three boxes -->
-  <div class="row">
     <div class="span4">
-      <h2>Concorsi Aperti</h2>
-      <div class="homepage-box">
-        <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-        <p><a class="btn" href="#">View details &raquo;</a></p>
-      </div>
-    </div>
-    <div class="span4">
-      <h2>Crea il tuo Concorso</h2>
-      <div class="homepage-box">
-        <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-        <p><a class="btn" href="#">View details &raquo;</a></p>
-      </div>
-    </div>
-    <div class="span4">
-      <h2>Principi</h2>
-      <div class="homepage-box">
-        <p class="text-center"><img src="{{constant('BASE_URL')}}images/principi.png" width="226" height="227" alt="principi"></p>
-      </div>
+      <a href="#">
+        <div style="position:relative;">
+          <img src="{{constant('BASE_URL')}}images/youth.jpg" width="307" height="306" alt="Youth">
+          <div class="homepage-box">
+            <h2>Spot of Red</h2>
+            <h2 class="secondary">un video per l’Avis</h2>
+          </div>
+        </div> 
+      </a> 
+      <div class="hidden-desktop" style="height:20px"></div>
     </div>
   </div>
-
-  <hr>
-
-</div>
+</div> 

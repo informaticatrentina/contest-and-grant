@@ -73,11 +73,11 @@ CONFIGURATION
 
     g. SITE_SESSION_COOKIE_NAME Name of cookie for session id.
 
-    h. 'sourceLanguage' => 'SOURCE_LANGUAGE', 'language' => 'TARGET_LANGUAGE'
-
-        SOURCE_LANGUAGE is replace with source language of message and
-        TARGET_LANGUAGE is language in which message have to be converted. (for
+    h. 'language' => 'SITE_LANGUAGE'
+        SITE_LANGUAGE is language in which message have to be converted. (for
         English language you can use 'en')
+    
+   i.  SITE_TITLE The name of site title.
 
 - Now contest and grants application is ready to run. If you want to run
   application on your local machine (apache server), you have to create

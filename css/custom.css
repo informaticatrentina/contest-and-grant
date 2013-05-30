@@ -2,35 +2,93 @@
 /* CSS Document */
 
 body {
-  padding-top: 60px;
-  padding-bottom: 40px;
-  background-image:url(../images/background.png);
-  background-repeat:repeat;
+  padding-top: 70px;
+  font-size:16px;
+  line-height: 28px;
 
 }
 
 .maincontent {
-  background-color:#FFFFFF;
-  padding-right: 20px;
-  padding-left: 20px;
+
   padding-top: 20px;
-  margin-bottom: 10px;
-  -webkit-box-shadow: 0 1px 6px rgba(0, 0, 0, 0.25);
-  -moz-box-shadow: 0 1px 6px rgba(0, 0, 0, 0.25);
-  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.25);
+  margin-bottom:50px;
+}
+.mylead {
+  font-family: 'Titillium Web', sans-serif;
+  font-size: 24px;
+  line-height: 36px;
+  font-weight:200;
+
 }
 
+.candg {
+  font-family: 'Titillium Web', sans-serif;
+  font-size:18px;
+  text-transform:uppercase;
+  padding-top:20px;
+  position:relative;
+  top: 1px;
+
+
+}
+
+.navcandg li
+{
+  list-style-type:none;
+  margin: 0px;
+  padding:0px 20px;
+  float:left;
+}
+
+.navcandg li a
+{
+  color: #4cbed7;
+  text-decoration:none;
+  display:block;
+  width:80px;
+  text-align:center;
+  padding-bottom:20px;
+}
+
+.navcandg li a:hover
+{
+  color: #000;
+  text-decoration:none;
+}
+
+.candgselected
+{
+  color: #000;
+  border-bottom:#000 solid 2px;
+  text
+}
+
+.navcandg li .candgselected
+{
+  color: #000;
+}
+
+
 .darkfooter {
-  background-image:url(../images/dark-background.png);
-  color:#CCCCCC;
+  background-color:#3c3c3c;
+  color:#f5f5f5;
   padding-right: 20px;
   padding-left: 20px;
   padding-top: 20px;
   padding-bottom: 20px;
-  margin-bottom: 10px;
-  -webkit-box-shadow: 0 1px 6px rgba(0, 0, 0, 0.25);
-  -moz-box-shadow: 0 1px 6px rgba(0, 0, 0, 0.25);
-  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.25)
+  font: Helvetica, sans-serif;
+  font-size:12px;
+}
+
+.blackfooter {
+  background-color:#000;
+  color:#f5f5f5;
+  padding-right: 20px;
+  padding-left: 20px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  font: Helvetica, sans-serif;
+  font-size:12px;
 }
 
 .darkheader {
@@ -46,88 +104,139 @@ body {
   box-shadow: 0 1px 6px rgba(0, 0, 0, 0.25)
 }
 
-h2 {
-  font-size:20px;
-  background-color:#000;
+h1 {
+  font-family: 'Titillium Web', sans-serif;
+  font-weight:400;
+  font-size:28px;
   padding: 0px 15px;
-  text-transform:uppercase;
-  color:#CCC;
-  margin:0px;	
+  color:#ffffff;
+  margin:0px;
+
+
+}
+
+.innerpagetitle{
+
+  font-weight:400;
+  font-size:56px;
+  padding: 40px 0px;
+  color:#000000;
+  margin:0px;
+
+
+}
+
+h2 {
+  font-family: 'Titillium Web', sans-serif;
+  font-weight:400;
+  font-size:24px;
+  padding: 0px 15px;
+  color:#4cbed7;
+  margin:0px;
+  line-height: 24px;
+
+
+}
+
+a:hover h2  {
+
+  color:#fff;
+
+
+}
+
+.secondary {
+  font-weight:400;
+  font-size:16px;
+
+}
+
+.seeall-button {
+  font-family:Helvetica, sans-serif;
+  font-size:12px;
+  background-color:#4cbed7;
+  padding: 10px 15px;
+  text-align:center;
+  color:#fff;
+  margin: 20px 0px 0px 0xp;
+  width: 100%;
+
+}
+
+.seeall-button:hover {
+
+  color:#fff;
 
 }
 
 .contest-button {
-
-  font-size:20px;
-  background-color:#000;
+  font-family: 'Titillium Web', sans-serif;
+  font-weight:400;
+  font-size:24px;
+  background-color:#f5f5f5;
   padding: 10px 15px;
   text-transform:uppercase;
-  font-weight:bold;
-  color:#CCC;
-  margin: 0px 0px;
-  width: 100%;	
-
+  text-align:center;
+  color:#646464;
+  margin: 20px 0px;
+  width: 100%;
+  border:solid 1px #969696;	
 }
-
-
 
 .contest-button:hover {
 
-  background-color:#666;
-  -webkit-box-shadow: 3px 3px 0px 1px #ccc;
-  -moz-box-shadow: 3px 3px 0px 1px #ccc;
-  box-shadow: 3px 3px 0px 1px #ccc;
+  background-color:#969696;
   text-decoration:none;
-  color:#CCCCCC;
+  color:#ffffff;
+  border:solid 1px #fff;
 }
 
 .contest-button.active, 
 .contest-button:active {
 
-  background-color:#666;
-  -webkit-box-shadow: 3px 3px 0px 1px #ccc;
-  -moz-box-shadow: 3px 3px 0px 1px #ccc;
-  box-shadow: 3px 3px 0px 1px #ccc;
+  background-color:#fff;
+  border:none;
+  -webkit-box-shadow: 0px 22px 0px 0px #fff;
+  -moz-box-shadow: 0px 22px 0px 0px #fff;
+  box-shadow: 0px 22px 0px 0px #fff;
   text-decoration:none;
-  color:#CCCCCC;
+  color:#000;
 }
 
 h3 {
+  font-family: 'Titillium Web', sans-serif;
   font-size:26px;
   text-transform:uppercase;
-  text-align:center;
+  background-color:#4cbed7;
+  color:#FFFFFF;
+  margin: 20px 0px;
+  padding-left: 20px;
+  font-weight:300;
 
 }
 
 h4 {
-  font-size:20px;
-  text-transform:uppercase;
-  line-height: 26px;
+  font-family: 'Titillium Web', sans-serif;
+  font-size:26px;
+  font-weight:300;
+  line-height: 40px;
+  color:#FFFFFF
 
-
-}
-
-h5 {
-  font-size:14px;
-  background-color:#666;
-  padding: 5px 10px;
-  text-transform:uppercase;
-  color:#fff;
-  margin:20px 0px;	
 
 }
 
 h6 {
-  font-size:16px;
-  text-transform:uppercase
+  font-family: 'Titillium Web', sans-serif;
+  font-size:38px;
+  font-weight:300;
+  line-height: 42px;
+  padding: 0px;
+  margin: 0px;
 }
 
 .lead {
   font-size:20px;
-
 }
-
-
 
 hr {
   border:0;
@@ -148,37 +257,82 @@ hr.listing {
 
 .homepage-box {
 
-  padding:20px; 
-  background-image:url(../images/box-background.png); 
-  min-height:250px;
+  padding: 10px 0px;
+  background-color:#3c3c3c;
+  position:absolute;
+  top:210px;
+  width:100%;
 }
 
 .social-media-icons {
   padding-right: 10px;
   padding-bottom:10px;}
 
-.highlight-text {
-  padding:2px 15px; 
-  background-color:#000000; 
+.darkfooter a:hover {
+  color:#4cbed7;
+
+}
+.footer-header {
+  font-family: 'Titillium Web', sans-serif;
   text-transform:uppercase;
+  font-size:18px;
+  border-bottom:#f5f5f5 solid 1px;
 
 }
 
-.footer-header-background{
-  background-image:url(../images/line-image.png); 
-  background-repeat:repeat-x; 
-  background-position:center; 
-  margin-bottom:10px;
+.footer-link {
+  font-family:Helvetica, Arial, sans-serif;
+  font-size:15px;
+  border-bottom:#f5f5f5 solid 1px;
+  padding-bottom:10px;
+  color:#f5f5f5;
+  font-weight: lighter;
+}
+
+.footer-link2 {
+
+  color:#000;
+}
+
+.footer-link3 {
+
+  color:#f3f3f3;
+}
+
+.darkfooter > .footer-link > a {
+
+  color:#f5f5f5;
+}
+
+a:hover  {
+  color:#4cbed7;
+  text-decoration:underline;
+
+}
+
+
+.tweet {
+  margin-bottom:5px; 
+  padding:8px 0px;
+
+}
+
+.tweetbox {
+  background-color:#646464; 
+  padding: 0px 20px;
+
+}
+
+.tweettime {
+  font-size:10px;
+  font-style:italic;
 
 }
 
 #posts .post { 
 
-  background: #fff; 
+  background: #f5f5f5; 
   margin-bottom: 20px;
-  -webkit-box-shadow: 0 1px 6px rgba(0, 0, 0, 0.25);
-  -moz-box-shadow: 0 1px 6px rgba(0, 0, 0, 0.25);
-  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.25);
 
 }
 
@@ -186,39 +340,81 @@ hr.listing {
 /* Contest entry layout
     -------------------------------------------------- */ 
 
+h5 {
+  font-family: 'Titillium Web', sans-serif;
+  font-size:26px;
+  font-weight:300;
+  padding: 0px 0px;
+  color:#000;
+  margin:0px 0px 20px 0px;	
+
+}
+
 .entry-content-left {
-  background-color:#FFFFFF;
-  padding: 20px;
-  margin-bottom: 10px;
-  margin-left: -20px;
-  -webkit-box-shadow: 0 1px 6px rgba(0, 0, 0, 0.25);
-  -moz-box-shadow: 0 1px 6px rgba(0, 0, 0, 0.25);
-  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.25);
-  height: 90%;
+  background-color:#F5f5f5;
+  padding: 0px;
+  margin-bottom: 20px;
+  margin-left: 0px;
 
 }
 
 .entry-content-right {
-  background-color:#FFFFFF;
+  background-color:#f5f5f5;
   padding: 20px 20px 20px 20px;
   margin-bottom: 10px;
-  margin-right: -20px;
-  -webkit-box-shadow: 0 1px 6px rgba(0, 0, 0, 0.25);
-  -moz-box-shadow: 0 1px 6px rgba(0, 0, 0, 0.25);
-  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.25);
+  margin-right: 0px;
+  position:relative;
 
 } 
 
+.previous-button {
+  font-family: 'Titillium Web', sans-serif;
+  font-weight:400;
+  font-size:16px;
+  background-color:#f5f5f5;
+  text-align:left;
+  color:#3c3c3c;
+  margin: 0px 0px 20px 0px;
+  width: 100%;
+  padding: 20px 40px;
+  line-height: 18px;
+
+}
+
+.previous-button:hover {
+
+  background-color:#4cbed7;
+  color:#fff;
+  text-decoration:none;
 
 
+}
+
+.next-button {
+  font-family: 'Titillium Web', sans-serif;
+  font-weight:400;
+  font-size:16px;
+  background-color:#f5f5f5;
+  text-align:right;
+  color:#3c3c3c;
+  margin: 0px 0px 20px 0px;
+  width: 100%;
+  padding: 20px 40px;
+  line-height: 18px;
+
+}
+
+.next-button:hover {
+
+  background-color:#4cbed7;
+  color:#fff;
+  text-decoration:none;
 
 
-
-
+}
 
 /* Homepage slider
     -------------------------------------------------- */
-
 .rslides {
   margin: 0 auto 0px;
 }
@@ -233,11 +429,8 @@ hr.listing {
 
 .rslides_tabs {
   list-style: none;
-  padding: 0;
+  padding: 20px 0px;
   background: rgba(0,0,0,.25);
-  box-shadow: 0 0 1px rgba(255,255,255,.3), inset 0 0 5px rgba(0,0,0,1.0);
-  -moz-box-shadow: 0 0 1px rgba(255,255,255,.3), inset 0 0 5px rgba(0,0,0,1.0);
-  -webkit-box-shadow: 0 0 1px rgba(255,255,255,.3), inset 0 0 5px rgba(0,0,0,1.0);
   font-size: 18px;
   list-style: none;
   margin: 0 auto -40px;
@@ -271,13 +464,8 @@ hr.listing {
   font-weight: bold;
 }
 
-
-
-
 /* Contest Winners
     -------------------------------------------------- */
-
-
 .ranking-number {
   background-image:url(../images/background-circle.png);
   background-size:auto;
@@ -312,8 +500,6 @@ hr.listing {
     width: 350px;
 
   }
-
-
 }
 
 
@@ -394,20 +580,4 @@ hr.listing {
 
   } 
 
-}
-
-/* css for create contest form
-   -------------------------------------------------- */
-.form-create-contest {
-  max-width: 300px;
-  padding: 19px 29px 29px;
-  margin: 0 auto 20px;
-  background-color: #fff;
-  border: 1px solid #e5e5e5;
-  -webkit-border-radius: 5px;
-  -moz-border-radius: 5px;
-  border-radius: 5px;
-  -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.05);
-  -moz-box-shadow: 0 1px 2px rgba(0,0,0,.05);
-  box-shadow: 0 1px 2px rgba(0,0,0,.05);
 }

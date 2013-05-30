@@ -61,6 +61,7 @@ define('MINOR', 1);
 return array(
   'defaultController' => 'contest',  
   'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
+  'name' => SITE_TITLE,  
   'import' => array(
     'application.models.*',
     'application.components.*',

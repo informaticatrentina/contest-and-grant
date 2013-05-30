@@ -6,59 +6,36 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-
       <a class="brand" href="#"> <img src="{{constant('BASE_URL')}}images/civiclinkslogo.png" width="116" height="24" alt="logo"></a>
       <div class="nav-collapse collapse"> 
-        {{ this.widget('zii.widgets.CMenu',{
-          'htmlOptions' : {'class' : 'nav'},
-          'items':[
-            {'label':'Fact Checking', 'url':['#']},
-            {'label':'Timu', 'url': ['#']},
-            {'label':'Civic Links', 'url':['#']},
-            {'label':'Contest and Grants', 'url':[ 'contest/home' ]}
-          ]}, true) 
-        }}
-        
-        {% if App.session is not empty %}
-          <ul class="nav pull-right" > 
-            <li><a>Welcome: {{  App.session.user.firstname }} {{  App.session.user.lastname }}</a></li>
-            <li><a href="{{constant('BASE_URL')}}logout">Logout</a></li>
-          </ul>
-        {% else %}
-          <ul class="nav pull-right visible-desktop"> 
-            <li><a href="javascript:$.pageslide({ direction: 'left', href: '{{constant('BASE_URL')}}login' })">Login</a></li>
-          </ul>
-          <a href="javascript:$.pageslide({ direction: 'left', href: '{{constant('BASE_URL')}}register' })" class="btn pull-right visible-desktop">Sign Up</a> 
-        {% endif %}
+        <ul class="nav">
+          <li class="hidden-desktop"><a href="javascript:$.pageslide({ direction: 'left', href: '{{constant('BASE_URL')}}login' })">Login</a></li>
+          <li class="hidden-desktop"><a href="javascript:$.pageslide({ direction: 'left', href: '{{constant('BASE_URL')}}register' })">Sign Up</a></li>
+          <li><a href="#">Fact Checking</a></li>
+          <li><a href="#">Timu</a></li>
+          <li><a href="#">Civic Links</a>
+          <li class="active"><a href="#">Contest and Grants</a></li>
+        </ul>
+        <ul class="nav pull-right visible-desktop">
+          <li><a href="javascript:$.pageslide({ direction: 'left', href: '{{constant('BASE_URL')}}login' })">Login</a></li>
+        </ul>
+        <a href="javascript:$.pageslide({ direction: 'left', href: '{{constant('BASE_URL')}}register' })" class="btn pull-right visible-desktop">Sign Up</a> 
       </div>
     </div>
   </div>
 </div>
-
-<div class="container maincontent">
+<div class="container">
   <div class="row">
-    <div class="span12">
-      <img src="{{constant('BASE_URL')}}images/fact-checking.png" width="225" height="43" alt="fact" style="margin-bottom:20px;">
-      <div class="navbar pull-right">
-  	<div class="navbar-inner">
-          <ul class="nav">
-            <li><a href="{{constant('BASE_URL')}}">Home</a></li>
-            <li class="divider-vertical"></li>
-            <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              Che Fare
-              <b class="caret"></b>
-            </a>
-              <ul class="dropdown-menu">
-                <li><a href="{{constant('BASE_URL')}}contest/entries">Entries</a></li>
-                <li><a href="#">Brief</a></li>
-                <li><a href="#">Submit</a></li>
-                <li><a href="#">Winners</a></li>
-              </ul>
-            </li>
+    <div class="span12" style="margin-bottom:20px; position:relative;">
+      <div style=" border-bottom:#4cbed7 solid 1px; float:left; width:100%; ">
+        <img src="{{constant('BASE_URL')}}images/ruzuku.png" width="159" height="60" alt="fact" style="border-right:#FFF solid 5px; border-bottom:#FFF solid 3px; position:absolute; top:2px;">
+        <div class="candg pull-right">
+          <ul class="navcandg">
+            <li><a href="{{constant('BASE_URL')}}" class="candgselected">Home</a></li>
+            <li><a href="#" >Contest</a></li>
           </ul>
         </div>
       </div>
     </div>
   </div>
-</div>  
+</div>

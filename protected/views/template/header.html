@@ -7,14 +7,14 @@
         <span class="icon-bar"></span>
       </button>
       <a class="brand" href="#"> <img src="{{constant('BASE_URL')}}images/civiclinkslogo.png" width="116" height="24" alt="logo"></a>
-      <div class="nav-collapse collapse"> 
+      <div class="nav-collapse collapse">
        {{ this.widget('zii.widgets.CMenu',{
           'htmlOptions' : {'class' : 'nav'},
           'items':[
             {'label':'Fact Checking', 'url':['#']},
             {'label':'Timu', 'url': ['#']},
             {'label':'Civic Links', 'url':['#']},
-            {'label':'Contest and Grants', 'url':['']}
+            {'label':'Contest and Grants', 'url':constant('BASE_URL')}
           ]}, true) 
         }}
              

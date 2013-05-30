@@ -1,11 +1,12 @@
 Contest and grant
-=============================
+=================
 
-In contest and grant project, one can create a contest. All contest must have different name.
-There are some entries related to each contest. Winners get some grant and prices. 
+In contest and grant project, one can create a contest. All contest must have
+different name.  There are some entries related to each contest. Winners get
+some grant and prices.
 
 
-INSTALLATION
+Installation
 ------------
 
 To setup contest and grant you have to follow some steps mentioned below:
@@ -37,54 +38,94 @@ To setup contest and grant you have to follow some steps mentioned below:
 
 CONFIGURATION 
 -------------
-         1. see local_config.php_sample file (/protected/Config/local_config.php_sample) and copy this file  as local_config.php (/protected/Config/local_config.php)
-         2. Configuration changes to be done in local_config.php 
-             a. BASE_URL : Change its value to  site base url
-             b. DB_HOST
-                DB_NAME
-                DB_USER
-                DB_PASS
-                  This is setting for database connection. HOST, DATABASE_NAME, DATABASE_USER, DATABASE_PASSWORD  replace with 
-                  host, name of database, database user name, and password of same user. (eg. host=localhost, dbname=contest,
-                  username = 'root', password='123456')
-             c. AGGREGATOR_API_URL
-                The complete API url of aggregator (which contains api key also)
-             d. IDENTITY_MANAGER_API_URL
-                The API url of identity manager installation this site will use.
-             e. IDM_API_KEY 
-                API key of identity manager for this site.
-             f. APP_LOG_FILE_NAME 
-                The name of application log file. Log file will be created inside  /protected/runtime/LOG_FILE_NAME
-                The current name in sample file allows you to create seperate log file for each day. If you want to create one log file and
-                have file rotation on it, just use a single name (one with date function)
-             e.  SITE_SESSION_COOKIE_NAME
-                 Name of cookie for session id.
-             f.  'language' => 'SITE_LANGUAGE'
-                  SITE_LANGUAGE is language in which message have to be converted. (for english language you can use 'en')
+       
+1. See local_config.php_sample file /protected/Config/local_config.php_sample)
+   and copy this file as local_config.php (/protected/Config/local_config.php)
 
-  . Now contest and grants application is ready to run. If you want to run application on your local machine (apache server), 
-     You have to create .htaccess file on root directory(/var/www/project).  To see setting of .htaccess file, Please visit 
-       http://www.yiiframework.com/doc/guide/1.1/en/quickstart.apache-nginx-config
-   
-DB MIGRATION 
--------------
+2. Configuration changes to be done in local_config.php
+
+    a. BASE_URL Change its value to  site base url
+
+    b. DB_HOST
+       DB_NAME
+       DB_USER
+       DB_PASS
+
+       This is setting for database connection. HOST, DATABASE_NAME,
+       DATABASE_USER, DATABASE_PASSWORD: replace with host, name of database,
+       database user name, and password of same user. (eg. host=localhost,
+       dbname=contest, username = 'root', password='123456')
+
+    c. AGGREGATOR_API_URL The complete API url of aggregator (which contains
+       api key also)
+
+    d. IDENTITY_MANAGER_API_URL The API url of identity manager installation
+       this site will use.
+
+    e. IDM_API_KEY API key of identity manager for this site.
+
+    f. APP_LOG_FILE_NAME The name of application log file. Log file will be
+       created inside /protected/runtime/LOG_FILE_NAME
+
+       The current name in sample file allows you to create separate log file
+       for each day. If you want to create one log file and have file rotation
+       on it, just use a single name (one with date function)
+
+    g. SITE_SESSION_COOKIE_NAME Name of cookie for session id.
+
+    h. 'sourceLanguage' => 'SOURCE_LANGUAGE', 'language' => 'TARGET_LANGUAGE'
+
+        SOURCE_LANGUAGE is replace with source language of message and
+        TARGET_LANGUAGE is language in which message have to be converted. (for
+        English language you can use 'en')
+
+- Now contest and grants application is ready to run. If you want to run
+  application on your local machine (apache server), you have to create
+  .htaccess file on root directory(/var/www/project).  To see setting of
+  .htaccess file, Please visit
+  http://www.yiiframework.com/doc/guide/1.1/en/quickstart.apache-nginx-config
+
+
+
+
+Database Migration
+------------------
+
 Prerequisite:
-	1. You have setup the application 
-	2. You have create a empty database
-	3. You have created config files. /protected/config/config.php and protected/config/console.php and pointed the right DB in it.
 
-In order to migrate DB or perform DB updates run command:
+1. You have setup the application
+2. You have create a empty database
+3. You have created config files. /protected/config/config.php and
+   protected/config/console.php and pointed the right DB in it.
 
-./protected/yiic migrate
-  
+In order to migrate DB or perform DB updates run command::
+
+    ./protected/yiic migrate
+
 And follow instructions.
 
-REQUIREMENTS
-------------
-Contest and grant is developed on yii framework So all requirements of yii framework must be fulfilled:
-  The minimum requirement by Yii is that your Web server supports PHP 5.1.0 or above. 
-  Please access the following URL to check if your Web server reaches the requirements by Yii, assuming "YiiPath" is where Yii is installed:
 
+Requirements
+------------
+
+Contest and grant is developed on yii framework So all requirements of yii
+framework must be fulfilled:
+
+The minimum requirement by Yii is that your Web server supports PHP 5.1.0 or
+above.
+
+Please access the following URL to check if your Web server reaches the
+requirements by Yii, assuming "YiiPath" is where Yii is installed.
+
+
+Backup and Restore
+------------------
+
+You have to backup:
+
+- the configuration files
+- the database
+- the ``uploads`` directory
 
 
 The contest and grant Developer Team

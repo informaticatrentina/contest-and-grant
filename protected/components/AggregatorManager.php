@@ -191,4 +191,36 @@ class AggregatorManager {
     }
     return $entryStatus;
   }
+  
+  /**
+   * isUserAlreadySubmitEntry
+   * 
+   * This function is used for check if user has already submitted an entry
+   * @return (boolean)
+   */
+  
+  public function isUserAlreadySubmitEntry($returnField) {
+    $entrySubmitByUser= false;
+    $entry = array();
+    $aggregatorAPI = new AggregatorAPI();
+    if (empty($this->authorSlug)) {
+      throw new Exception(Yii::t('contest', 'Please login to submit an entry'));
+    }
+    $inputData['author'] = $this->authorSlug;
+    $inputData['tags'] = $this->contestSlug;
+    if (!empty($returnField)) {
+      $inputData['return_fields'] = $returnField;
+    }
+    $inputParam = http_build_query($inputData);
+    try {
+      $contestEntry = $aggregatorAPI->curlGet(ENTRY, $inputParam);
+    } catch (Exception $e) {
+      Yii::log('', ERROR, Yii::t('contest', 'Error in isUserAlreadySubmitEntry method :') . $e->getMessage());
+    }
+
+    if (array_key_exists('status', $contestEntry) && !empty($contestEntry['data'])) {
+      $entrySubmitByUser = true;
+    }
+    return $entrySubmitByUser;
+  }
 }

@@ -11,7 +11,7 @@
 
   <div class="row">
     <div class="span8" style="background-color: #666; position:relative; min-height:338px; ">
-      <img src="{{constant('BASE_URL')}}images/1.jpg" width="800" height="351" alt="test">
+      <img src="{{constant('BASE_URL')}}{{resizeByPath(contestInfo.imagePath,'800','350')}}" width="800" height="351" alt="test">
       <div style="position:absolute; top:215px; width:100%; text-align:right;">
         <img src="{{constant('BASE_URL')}}images/facebook.png" width="30px" height="30px" alt="facebook" class="social-media-icons"><br>
         <img src="{{constant('BASE_URL')}}images/twitter.png" width="30px" height="30px" alt="twitter" class="social-media-icons"><br>
@@ -22,7 +22,7 @@
       <div style="background-color:#4cbed7; min-height:308px; padding: 15px 20px;">
         <h4>Start Date: {{ contestInfo.startDate }}<br>
           End Date: {{ contestInfo.endDate }}</h4>
-        <p style="color:#FFFFFF; font-size:18px; line-height:26px;">{{ contestInfo.contestDescription }}</p></div>
+        <p style="color:#FFFFFF; font-size:18px; line-height:26px;">{{ contestInfo.briefDescription }}</p></div>
     </div>
   </div>
 </div> 
@@ -43,8 +43,14 @@
   {% include  '/views/contest/contestBrief.html' %}
 </div>
 <div id="entrySubmission" style="display:none">
-  {% include  '/views/contest/entrySubmission.html' %}
+  {% if isEntrySubmit == 0 %}
+    {% include  '/views/contest/entrySubmission.html' %}
+  {% else %}
+    {% include  '/views/contest/entryAlreadySubmited.html' %}
+  {% endif %}  
+  
 </div>
 
 <!-- Masonary scripts for listing -->
 <script src="{{constant('BASE_URL')}}js/contest.js"></script>
+<script src="{{constant('BASE_URL')}}js/bootstrap-fileupload.js"></script>

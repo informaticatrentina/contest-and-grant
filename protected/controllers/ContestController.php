@@ -45,16 +45,26 @@ class ContestController extends Controller {
     if (array_key_exists('slug', $_GET) && !empty($_GET['slug'])) {
       $contest->contestSlug = $_GET['slug'];
     }
-    $entries = $contest->getContestSubmission();
-    if (!empty($entries)) {
-      $entryCount = count($entries);
-    }
+//    $entries = $contest->getContestSubmission();
+//    if (!empty($entries)) {
+//      $entryCount = count($entries);
+//    }
     $contestInfo = $contest->getContestDetail();
-    if (!empty(Yii::app()->session['user']) && !empty($_POST)) {
-      $entrySubmissionResponse = $this->entrySubmission();  
+    $entrySubmittedByUser = false;
+    $contestInfo['briefDescription'] = '';
+    if(!empty($contestInfo)) {
+      $contestInfo['briefDescription'] = substr($contestInfo['contestDescription'], 0, 325);
+    }
+    if (!empty(Yii::app()->session['user'])) {
+      $aggregatorManager = new AggregatorManager();
+      $aggregatorManager->authorSlug = Yii::app()->session['user']['id'];
+      $entrySubmittedByUser = $aggregatorManager->isUserAlreadySubmitEntry('title');
+     if (!empty($_POST) && !$entrySubmittedByUser) {
+        $entrySubmissionResponse = $this->entrySubmission();  
+      }
     } 
     
-    $this->render('contestEntries', array('entries' => $entries, 'contestInfo' => $contestInfo, 'entryCount' => $entryCount, 'message' => $entrySubmissionResponse ));
+    $this->render('contestEntries', array('entries' => $entries, 'contestInfo' => $contestInfo, 'entryCount' => $entryCount, 'message' => $entrySubmissionResponse , 'isEntrySubmit' => $entrySubmittedByUser ));
   }
   
   /**

@@ -135,6 +135,8 @@ class Contest  {
    * @return (array) $response
    */
   public function submitContestEntry($imagePath, $contestSlug) {
+    $response['success'] = false;
+    $entrySubmittedByUser = false;
     try {  
       if (!empty($_POST)) {
         $aggregatorManager = new AggregatorManager();
@@ -163,12 +165,15 @@ class Contest  {
         $aggregatorManager->imageUrl = BASE_URL . $imagePath;
         $aggregatorManager->contestSlug = $contestSlug;
         $aggregatorManager->contestName = $_POST['contestTitle'];
-        $response = $aggregatorManager->saveEntry();
-        if ($response['success']) {
-          $response['msg'] = Yii::t('contest', 'You have succesfully submit an entry');
-        } else {
-          $response['msg'] = Yii::t('contest','Some technical problem occurred, contact administrator');
-        }
+        
+        
+          $response = $aggregatorManager->saveEntry();
+          if ($response['success']) {
+            $response['msg'] = Yii::t('contest', 'You have succesfully submit an entry');
+          } else {
+            $response['msg'] = Yii::t('contest', 'Some technical problem occurred, contact administrator');
+          }
+        
       }
     } catch (Exception $e) {
        Yii::log('', ERROR, Yii::t('contest', 'Error in submitContestEntry :') . $e->getMessage());

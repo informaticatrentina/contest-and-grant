@@ -60,5 +60,6 @@
       'Accept the terms of Service' => 'Accettare i termini del servizio',
       'Register' => 'Registrati',
       'Login' => 'Accedi',
-      'Register with Civic Links' => 'Registrati con Link civici'
+      'Register with Civic Links' => 'Registrati con Link civici',
+      'You have already submitted an entry for this contest' => 'Hai già inserito una voce per questo concorso'
   );

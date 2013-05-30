@@ -61,5 +61,20 @@
       'Register' => 'Registrati',
       'Login' => 'Accedi',
       'Register with Civic Links' => 'Registrati con Link civici',
-      'You have already submitted an entry for this contest' => 'Hai già inserito una voce per questo concorso'
+      'You have already submitted an entry for this contest' => 'Hai già inserito una voce per questo concorso',
+      'Start Date' => 'Data di inizio',
+      'End Date' => 'Data di fine',
+      'Contest Description' => 'Contest Descrizione',
+      'contest Title' => 'concorso titolo',
+      'create contest' => 'creare contest',
+      'Create Contest' => 'Creare Contest',
+      'Contest Entries' => 'partecipanti al concorso',
+      'Contest Brief' => 'Contest breve',
+      'Submit and win' => 'Invia e vincere',
+      'winners' => 'vincitori',
+      'new perspectives contest' => 'nuovo concorso prospettive',
+      'Remember me' => 'Ricordati di me',
+      'Please sign in with your Civic Links account' => 'Per favore accedi con il tuo account Links Civico',
+      'Sign In' => 'Accedi',
+      'Upload Image' => 'Carica immagine'
   );

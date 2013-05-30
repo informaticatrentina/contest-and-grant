@@ -2,13 +2,14 @@
 
 <div class="container darkheader">
   <div class="row">
-    <div class="span12"><h1> Create Contest</h1></div>
+    <div class="span12"><h1> {{ t('contest', 'Create Contest') }}</h1></div>
   </div>
 </div>
 <div class="container maincontent">
   <form class="form-create-contest" action="{{constant('BASE_URL')}}contest/add" method="post"  enctype = "multipart/form-data">
     {% if message.msg is not empty %}
-      {% set class = 'alert-error' %}    
+      {% set class = 'alert-error' %}
+      {% set id = 'error' %}
       {% if message.success is not empty %}
         {% set class = 'alert-success' %}
       {% endif %}
@@ -16,20 +17,22 @@
         {{ message.msg }}
       </span>
     {% endif %}
-    <label>Contest Title</label>
-    <input type="text" class="input-block-level" name="contestTitle"  placeholder="contest Title">
-    <label>Start Date</label>
-    <input type="text" name="startDate" class="input-block-level" id="start_date" required placeholder ="Stat Date" />
-    <label>End Date</label>
-    <input type="text" name="endDate" class="input-block-level" id="end_date"  required placeholder ="End Date" />
-    <label>Upload Image</label>
-    <input type="file"  class="input-block-level" name="image" />
-    <label>Contest Description</label>
-    <textarea  class="input-block-level textarea" name="contestDescription" placeholder="Contest Description" ></textarea> 
-    <button class="btn btn-large btn-primary" type="submit" name='contestDetail'>create contest</button>
+    <div  class="alert-error" id="error"></div>
+    <label>{{ t('contest', 'contest Title') }}</label>
+    <input type="text" id="contestTitle" class="input-block-level" name="contestTitle"  placeholder="{{ t('contest', 'contest Title') }}">
+    <label>{{ t('contest', 'Start Date')}}</label>
+    <input type="text" id="startDate" name="startDate" class="input-block-level" id="start_date"  placeholder ="{{ t('contest', 'Start Date')}}" />
+    <label>{{ t('contest', 'End Date')}}</label>
+    <input type="text" id="endDate" name="endDate" class="input-block-level" id="end_date"   placeholder ="{{ t('contest', 'End Date')}}" />
+    <label>{{ t('contest', 'Upload Image')}}</label>
+    <input type="file"  class="input-block-level" id="image" name="image" />
+    <label>{{ t('contest','Contest Description')}}</label>
+    <textarea  class="input-block-level textarea" id="contestDescription" name="contestDescription" placeholder="{{ t('contest','Contest Description')}}" ></textarea> 
+    <button id="create" class="btn btn-large btn-primary" type="submit" name='contestDetail'>{{ t('contest', 'create contest') }}</button>
   </form>
   <hr>
 </div>  
-<script src="{{constant('BASE_URL')}}js/jquery.ui.datepicker.js"></script>
 <script src="{{constant('BASE_URL')}}js/jquery.ui.core.js"></script>
+<script src="{{constant('BASE_URL')}}js/jquery.ui.datepicker.js"></script>
 <script src="{{constant('BASE_URL')}}js/common.js"></script>
+<script src="{{constant('BASE_URL')}}js/createContest.js"></script>

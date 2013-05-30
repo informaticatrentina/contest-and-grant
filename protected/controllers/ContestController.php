@@ -31,6 +31,10 @@ class ContestController extends Controller {
     $this->render('index', array('contestInfo' => $contestInfo));
   }
   
+  public function actionError() {
+        $this->render('error404');
+  }
+  
   /**
    * actionEntries
    * 
@@ -59,7 +63,7 @@ class ContestController extends Controller {
       $aggregatorManager = new AggregatorManager();
       $aggregatorManager->authorSlug = Yii::app()->session['user']['id'];
       $entrySubmittedByUser = $aggregatorManager->isUserAlreadySubmitEntry('title');
-     if (!empty($_POST) && !$entrySubmittedByUser) {
+      if (!empty($_POST) && !$entrySubmittedByUser) {
         $entrySubmissionResponse = $this->entrySubmission();  
       }
     } 
@@ -220,4 +224,3 @@ class ContestController extends Controller {
     $this->redirect(BASE_URL);
   }
 } 
-

@@ -112,7 +112,7 @@ class ContestAPI {
     if (empty($this->contestSlug)) {
       return array();
     }    
-    $sql = "SELECT contestId, startDate, endDate, creationDate, imagePath, contestTitle, contestDescription FROM 
+    $sql = "SELECT contestId, startDate, endDate, creationDate, imagePath, contestTitle, contestDescription, contestSlug FROM 
       contest where contestSlug = :contestSlug ";
     $query = $connection->createCommand($sql);
     $query->bindParam(":contestSlug", $this->contestSlug);

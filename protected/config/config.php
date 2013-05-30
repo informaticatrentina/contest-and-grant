@@ -106,6 +106,7 @@ return array(
         '' => 'contest/index',   
         'contest/add'=>'contest/createContest',  
         'contest/<slug:[\w-]+>'=>'contest/entries',
+        'contest/submission/<slug:[\w-]+>'=>'contest/submitEntries',
         'register' => 'contest/registerUser', 
         'login' => 'contest/login',  
         'logout' => 'contest/logout'

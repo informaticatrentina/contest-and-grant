@@ -14,14 +14,21 @@ $(document).ready(function() {
       $('#minor').hide();
     }
   });
-  $('#entrySubmitbutton').click(function() {
+  $('#contestEntrySubmitbutton').click(function() {  
+    if(($('#entryTitle').val()).trim() == '') {
+      $('.alert-error').html(Yii.t('js', 'Entry title should not be empty'));
+      return false;
+    }
+    if(($('#entryDescription').val()).trim() == '') {
+      $('.alert-error').html(Yii.t('js', 'Entry description should not be empty'));
+      return false;
+    }
     if ($('#rightCheckBox').is(':checked')) {
       if ($('#minorName').val() == '') {
         $('.alert-error').html(Yii.t('js', 'Please enter minor name'));
         return false;
       }
-    }
-    console.log($('#leftCheckbox').prop(':checked'));
+    }   
     if (!$('#rightCheckBox').is(':checked') && !$('#leftCheckbox').is(':checked')) {
       $('.alert-error').html(Yii.t('js', 'Please check atleast one checkBox'));
       return false;

@@ -17,11 +17,11 @@
             <div  class="alert-error" id="error"></div>
             <h6 class="formtitle">Titolo</h6>
             <p><em>Inserisci un titolo coerente e preciso</em></p>
-            <textarea rows="3" class="input-block-level"  name="entryTitle"></textarea>
+            <textarea rows="3" class="input-block-level"   id="entryTitle" name="entryTitle"></textarea>
 
             <h6 class="formtitle">Descrizione</h6>
             <p><em>Inserisci una descrizione coerente e completa</em></p>
-            <textarea rows="5" class="input-block-level"  name="entryDescription"></textarea>
+            <textarea rows="5" class="input-block-level"  id="entryDescription" name="entryDescription"></textarea>
             <h6 class="formtitle">Immagine</h6>
             <p>
             <div class="fileupload fileupload-new" data-provides="fileupload">
@@ -44,11 +44,13 @@
               <input type="checkbox" id="rightCheckBox" name="rightCheckBox"  value="">
               Cliccando su questo box dichiaro che il/la minorenne del/la quale sono il legale responsabile è titolare del diritto d’autore e di ogni diritto di pubblicazione sull’opera fotografica da me caricata in nome e per conto del/la minore stesso/a. Dichiaro inoltre di aver letto e di accettare integralmente il Regolamento del contest.
             </label>
+            <div id="minor" style="display:none">
             <p><em>Inserisci nome e cognome del/la minore</em></p>
             <input type="text" placeholder= "" name='minorName'  id="minorName" value="">
             <br><br>
+            </div>
             <input type="hidden" name="contestTitle" value="{{ contestInfo.contestTitle }}">  
-            <button class="btn pull-right" id="entrySubmitbutton" type="submit" name='contestEntry'>CARICA</button>
+            <button class="btn pull-right" id="contestEntrySubmitbutton" type="submit" name='contestEntry'>CARICA</button>
             <br>
           </form>
         </div>

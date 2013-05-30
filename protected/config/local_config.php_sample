@@ -25,8 +25,8 @@ ini_set('display_errors', 1);
 /**
  * define installation details
  */
-define('BASE_URL','http://www.aggregator.com/');
-define('IMAGE_URL',BASE_URL.'images/');
+define('BASE_URL','www.aggregator.com');
+define('IMAGE_URL',BASE_URL.'/images/');
 define('CONTEST_IMAGE_URL',BASE_URL.'uploads/contestImage/');
 
 /**
@@ -45,7 +45,7 @@ define('AGGREGATOR_API_URL', 'AGGREGATOR_API_URL');
 /**
  * define identity manager details
  */
-define('IDENTITY_MANAGER_API_URL', 'http://10.0.1.107:8001/v1/');
+define('IDENTITY_MANAGER_API_URL', 'http://10.0.1.103:8001/v1/');
 define('IDM_USER_ENTITY', 'users');
 define('IDM_API_KEY', 'yaiT6eequi7faig7aeSh0phi9id3iu3B');
 
@@ -62,10 +62,14 @@ define('SITE_SESSION_COOKIE_NAME', 'contest');
 /**
  * Define contest Admin users email
  */
-define('CONTEST_ADMIN_USERS', '["santosh@incaendo.com", "sankalp@incaendo.com"]');
+define('CONTEST_ADMIN_USERS', '["santosh@incaendo.com", "rahul@incaendo.com"]');
 
 /**
  * Define site language
  */
 define('SITE_LANGUAGE', 'it_it');
-define('SITE_TITLE', 'Contest and Grand');
+
+/**
+ * Define site title
+ */
+define('SITE_TITLE', 'Contest and Grants');

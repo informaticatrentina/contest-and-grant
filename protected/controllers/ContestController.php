@@ -50,10 +50,8 @@ class ContestController extends Controller {
       $entryCount = count($entries);
     }
     $contestInfo = $contest->getContestDetail();
-    if (!empty(Yii::app()->session['user'])) {
-      if (!empty($_POST)) {
-        $entrySubmissionResponse = $this->entrySubmission();  
-      }
+    if (!empty(Yii::app()->session['user']) && !empty($_POST)) {
+      $entrySubmissionResponse = $this->entrySubmission();  
     } 
     
     $this->render('contestEntries', array('entries' => $entries, 'contestInfo' => $contestInfo, 'entryCount' => $entryCount, 'message' => $entrySubmissionResponse ));
@@ -95,15 +93,13 @@ class ContestController extends Controller {
     $response = array();
     if (!empty($_FILES['image']['name'])) { 
       $directory = 'uploads/contestImage/' ;
-      $imagePath = uploadFile($directory , 'image');
-      $imageName = explode('/', $imagePath);
-      $imageName = end($imageName);
-      $imageResize = Yii::app()->image->load($directory . $imageName);
-      $imageResize->resize(800, 350, Image::NONE);
-      $imageResize->save();
-      
-      if ($imagePath) {
+      $imageName = uploadFile($directory , 'image');
+      if ($imageName) {
+        $imagePath = $directory . $imageName;
         $response = $contest->createContest($imagePath);
+      } else {
+        $response['success'] = '';
+        $response['msg'] = Yii::t('contest', 'Some error occured in image uploading');
       }
     }
     $this->render('contestCreation', array('message' => $response));
@@ -194,9 +190,10 @@ class ContestController extends Controller {
     } else { 
       $contest = new Contest();
       $directory = 'uploads/contestEntry/' ;
-      $imageUrl = uploadFile($directory , 'contestEntry');
-      if ($imageUrl) {       
-        $response = $contest->submitContestEntry($imageUrl, $contestSlug);
+      $imageName = uploadFile($directory , 'contestEntry');
+      $imagePath = $directory . $imageName;
+      if ($imageName) {       
+        $response = $contest->submitContestEntry($imagePath, $contestSlug);
       }
     }
     return $response;

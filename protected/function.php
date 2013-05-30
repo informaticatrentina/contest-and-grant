@@ -55,12 +55,40 @@ function uploadFile($directory, $name) {
   $image = CUploadedFile::getInstanceByName($name);
   $imageInfo = pathinfo($image->getName());
   $imageName = $imageInfo['filename'] . generateRandomString(10) . '.' . $imageInfo['extension'];
-  $imageUrl = BASE_URL. $directory . $imageName;
-  $ret = $image->saveAs($directory . $imageName);
+  $imagePath = $directory . $imageName;
+  $imageUrl = BASE_URL. $imagePath;
+  $ret = $image->saveAs($imagePath);
   if (!$ret) {
-    $imageUrl = '';
+    $imageName = '';
   }
-  return $imageUrl;
+  return $imageName;
+}
+
+/**
+ * Function to resize image
+ */
+function resizeImageByPath($imagePath, $width, $height) {
+    if (empty($imagePath)) {
+      return false;
+    }
+    $imageInfo = pathinfo($imagePath);
+    $resultImage = $imagePath;
+    if (!empty($imageInfo)) {
+      $resizeDirectoryName = $imageInfo['dirname'] .'/resize';
+      if (!is_dir($resizeDirectoryName)) {
+        Yii::log('', ERROR, Yii::t('contest', 'resize folder does not exists in ' . $resizeDirectoryName));
+        return $resultImage;
+      }
+      $resizedImageName = $imageInfo['filename'] .'_r_' .$width .'_'.$height .'.' .$imageInfo['extension'];
+      $resizedImageAbPath = dirname(__FILE__) . '/../' . $resizeDirectoryName . '/'. $resizedImageName;
+      if (!file_exists($resizedImageAbPath)) {
+        $imageResize = Yii::app()->image->load($imagePath);
+        $imageResize->resize($width, $height, Image::NONE);
+        $imageResize->save($resizedImageAbPath);
+      }
+      $resultImage = $resizeDirectoryName . '/' . $resizedImageName;
+    }
+    return $resultImage;
 }
 
 /**

@@ -130,11 +130,11 @@ class Contest  {
    * submitContestEntry
    * 
    * This function is used for submit entry
-   * @param (string) $imageUrl
+   * @param (string) $imagePath
    * @param (string) $contestSlug
    * @return (array) $response
    */
-  public function submitContestEntry($imageUrl, $contestSlug) {
+  public function submitContestEntry($imagePath, $contestSlug) {
     try {  
       if (!empty($_POST)) {
         $aggregatorManager = new AggregatorManager();
@@ -160,7 +160,7 @@ class Contest  {
         
         $aggregatorManager->authorName = Yii::app()->session['user']['firstname'].' '. Yii::app()->session['user']['lastname'];
         $aggregatorManager->authorSlug = Yii::app()->session['user']['id'];
-        $aggregatorManager->imageUrl = $imageUrl;
+        $aggregatorManager->imageUrl = BASE_URL . $imagePath;
         $aggregatorManager->contestSlug = $contestSlug;
         $aggregatorManager->contestName = $_POST['contestTitle'];
         $response = $aggregatorManager->saveEntry();

@@ -126,6 +126,7 @@ class ETwigViewRenderer extends CApplicationComponent implements IViewRenderer
         }
         
         $this->addFunctions(array('t'=>'Yii::t'));
+        $this->addFunctions(array('resizeByPath'=>'resizeImageByPath'));
 
         return parent::init();
     }

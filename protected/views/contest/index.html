@@ -2,14 +2,14 @@
   <ul class="rslides" id="myslider">
     {% for info in contestInfo %}
       {% if info.contestSlug is not empty %}
-        <li><a href="{{constant('BASE_URL')}}contest/{{ info.contestSlug }} "><img src="{{constant('BASE_URL')}}{{resizeByPath(info.imagePath,'800','350')}}" alt="contest image" /></a></li>  
+        <li><a href="{{constant('BASE_URL')}}contest/{{ info.contestSlug }} "><img src="{{constant('BASE_URL')}}{{resizeByPath(info.imagePath,'1170','512')}}" alt="contest image" /></a></li>  
       {% endif %} 
     {% endfor %}
   </ul>
 
   <div style="position:relative; top:-90px; z-index:9; list-style:circle;">
     <div style="position:absolute; top:10px;">
-      <h1>IMS PHOTO CONTEST 2013 | Mountain.Lights&amp;Shadows</h1></div>
+      <h1>CONTEST FOTOGRAFICO | Notte dei Ricercatori 2013</h1></div>
     <ul id="myslider-pager"  class="rslides_tabs rslides1_tabs"  style="list-style:circle; background-color:#4cbed7; padding:20px 0px;">
       {% for info in contestInfo %}
         <li style="list-style:disc;"><a href="#">{{ info.contestId }}</a></li>  
@@ -20,22 +20,21 @@
     <div class="span4">
       <a href="#">
         <div style="position:relative;">
-          <img src="{{constant('BASE_URL')}}images/youth.jpg" width="307" height="306" alt="Youth">
+          <img src="{{constant('BASE_URL')}}images/banner_small.jpg" width="307" height="306" alt="Youth">
           <div class="homepage-box">
-            <h2>Youth in action</h2>
-            <h2 class="secondary">{{ t('contest', 'new perspectives contest') }}</h2>
+            <h2>La ricerca in uno scatto!</h2>
           </div>
         </div>
       </a>
       <div class="hidden-desktop" style="height:20px"></div>
     </div>
-    <div class="span4">
+    <div class="span4" style="background-color:#4cbed7;">
       <a href="#">
         <div style="position:relative;">
-          <img src="{{constant('BASE_URL')}}images/youth.jpg" width="307" height="306" alt="Youth">
+          <p style="font-size:18px; color:#FFF; font-weight:lighter;padding:20px 20px 20px 20px;">Con CIVICO puoi premiare le buone idee, aiutare l'informazione di qualità e far crescere i progetti più innovativi. Aziende, testate giornalistiche, associazioni o istituzioni, tutti possono lanciare un nuovo concorso o aprire un bando per finanziare progetti civici. CIVICO serve proprio a questo.
+          Hai un'idea per un contest o un grant ? Raccontacela e ti aiuteremo a realizzarla su CIVICO e a promuoverla in rete.</p>
           <div class="homepage-box">
-            <h2>Informazione digitale</h2>
-            <h2 class="secondary">premio La Stampa </h2>
+            <h2>Crea nuovi contest e grant</h2>
           </div>
         </div>
       </a>
@@ -45,10 +44,9 @@
     <div class="span4">
       <a href="#">
         <div style="position:relative;">
-          <img src="{{constant('BASE_URL')}}images/youth.jpg" width="307" height="306" alt="Youth">
+          <img src="{{constant('BASE_URL')}}images/principi.jpg" width="307" height="306" alt="Youth">
           <div class="homepage-box">
-            <h2>Spot of Red</h2>
-            <h2 class="secondary">un video per l’Avis</h2>
+            <h2>Principi | CIVICLINKS</h2>
           </div>
         </div> 
       </a> 

@@ -83,7 +83,7 @@ function resizeImageByPath($imagePath, $width, $height) {
       $resizedImageAbPath = dirname(__FILE__) . '/../' . $resizeDirectoryName . '/'. $resizedImageName;
       if (!file_exists($resizedImageAbPath)) {
         $imageResize = Yii::app()->image->load($imagePath);
-        $imageResize->resize($width, $height, Image::NONE);
+        $imageResize->resize($width, $height, Image::WIDTH);
         $imageResize->save($resizedImageAbPath);
       }
       $resultImage = $resizeDirectoryName . '/' . $resizedImageName;

@@ -11,10 +11,10 @@
       </span>
     {% endif %}
      <div  class="alert-error" id="error"></div>
-    <input type="text" class="input-block-level" name ="firstname" required placeholder="{{ t('contest','First Name') }}">
-    <input type="text" class="input-block-level" name ="lastname" required placeholder="{{ t('contest','Last Name') }}">
-    <input type="text" class="input-block-level" name ="email" id="email" required placeholder="{{ t('contest','Email address') }}">
-    <input type="password" class="input-block-level" name ="password" required placeholder="{{ t('contest','Password') }}">
+    <input type="text" id='firstname' class="input-block-level" name ="firstname"  placeholder="{{ t('contest','First Name') }}">
+    <input type="text" id='lastname' class="input-block-level" name ="lastname"  placeholder="{{ t('contest','Last Name') }}">
+    <input type="text" class="input-block-level" name ="email" id="email"  placeholder="{{ t('contest','Email address') }}">
+    <input type="password" id='password' class="input-block-level" name ="password" placeholder="{{ t('contest','Password') }}">
     <label class="checkbox">
       <input type="checkbox" required name="terms" id="register-terms" value="terms">{{ t('contest','Accept the terms of Service') }} 
     </label>

@@ -17,13 +17,13 @@ $(document).ready(function() {
   $('#entrySubmitbutton').click(function() {
     if ($('#rightCheckBox').is(':checked')) {
       if ($('#minorName').val() == '') {
-        $('.alert-error').html('Please enter minor name');
+        $('.alert-error').html(Yii.t('js', 'Please enter minor name'));
         return false;
       }
     }
     console.log($('#leftCheckbox').prop(':checked'));
     if (!$('#rightCheckBox').is(':checked') && !$('#leftCheckbox').is(':checked')) {
-      $('.alert-error').html('Please check atleast one checkBox');
+      $('.alert-error').html(Yii.t('js', 'Please check atleast one checkBox'));
       return false;
     }
     $('.alert-error').html('');

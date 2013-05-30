@@ -25,7 +25,7 @@ class SiteController extends Controller {
     $contestInfo = $contest->getContestDetail();
     $this->render('index', array('contestInfo' => $contestInfo));
   }
-  
+ 
   /**
    * actionEntries
    * 

@@ -110,7 +110,10 @@ return array(
     ),
     'session' => array (      
       'sessionName' => SITE_SESSION_COOKIE_NAME,  
-    )  
+    ),
+    'errorHandler' => array(
+        'errorAction' => 'contest/error',
+    ),  
   ),
   'sourceLanguage' => 'en',
   'language' => SITE_LANGUAGE

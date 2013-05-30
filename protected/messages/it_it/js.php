@@ -17,5 +17,18 @@
  * NOTE, this file must be saved in UTF-8 encoding.
  */
 return array (
+  'Please enter a valid date' => 'Si prega di inserire una data valida',
+  'Please accept terms and condition' => 'Si prega di accettare i termini e condizioni',
+  'Please check atleast one checkBox' => 'Si prega di verificare, almeno una checkBox',
+  'Please enter Content Description' => 'Inserisci Content Descrizione',
+  'Please enter Contest Title' => 'Inserisci il concorso titolo',
+  'Please enter First Name' => 'Inserisci il nome',
+  'Please enter Last Name' => 'Inserisci il Cognome',
+  'Please enter Password' => 'Inserisci la password',
   'Please enter email id' => 'Inserisci ID e-mail',
+  'Please enter end date' => 'Inserisci data di fine',
+  'Please enter minor name' => 'Inserisci il nome del minore',
+  'Please enter start date' => 'Inserisci data di inizio',
+  'Please enter valid email id' => 'Inserisci ID e-mail valido',
+  'Please upload an image' => 'Si prega di caricare unimmagine',
 );

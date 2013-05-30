@@ -1,18 +1,18 @@
 <div class="container">
   <form class="form-signin" method='POST'><img src="{{constant('BASE_URL')}}images/civiclinkslogo.png" width="116" height="24" alt="logo">
-    <h2 class="form-signin-heading">Please sign in with your Civic Links account</h2>
+    <h2 class="form-signin-heading">{{ t('contest', 'Please sign in with your Civic Links account') }}</h2>
     {% if message.msg is not empty %}
       <span class="alert-error">
         {{ message.msg }}
       </span>
     {% endif %}
     <div  class="alert-error" id="error"></div>
-    <input type="text" class="input-block-level" id="email" name="email" required placeholder="Email address">
-    <input type="password" class="input-block-level" name="password" required placeholder="Password">
+    <input type="text" class="input-block-level" id="email" name="email"  placeholder="{{ t('contest','Email address') }}">
+    <input type="password" class="input-block-level" id='password' name="password"  placeholder="{{ t('contest','Password') }}">
     <label class="checkbox">
-      <input type="checkbox" value="remember-me"> Remember me
+      <input type="checkbox" value="remember-me"> {{ t('contest', 'Remember me') }}
     </label>
-    <button class="btn btn-large btn-primary" type="submit" id="submit">Sign in</button>
+    <button class="btn btn-large btn-primary" type="submit" id="submit">{{ t('contest', 'Sign in') }}</button>
   </form>
 </div>
 {% if message.success is not empty %}  

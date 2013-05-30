@@ -169,6 +169,8 @@ a:hover h2  {
 
 }
 
+
+
 .contest-button {
   font-family: 'Titillium Web', sans-serif;
   font-weight:400;
@@ -181,7 +183,10 @@ a:hover h2  {
   margin: 20px 0px;
   width: 100%;
   border:solid 1px #969696;	
+
 }
+
+
 
 .contest-button:hover {
 
@@ -211,7 +216,7 @@ h3 {
   color:#FFFFFF;
   margin: 20px 0px;
   padding-left: 20px;
-  font-weight:300;
+  font-weight:300
 
 }
 
@@ -225,18 +230,42 @@ h4 {
 
 }
 
+h5 {
+  font-family: 'Titillium Web', sans-serif;
+  font-size:40px;
+  font-weight:300;
+  padding: 0px 0px;
+  color:#000;
+  margin:0px 0px 0px 0px;
+  line-height:46px;	
+
+}
+
 h6 {
   font-family: 'Titillium Web', sans-serif;
-  font-size:38px;
+  font-size:24px;
   font-weight:300;
   line-height: 42px;
   padding: 0px;
   margin: 0px;
+
+}
+
+h7 {
+  font-family: Helvetica, sans-serif;
+  font-size:16px;
+  font-weight: normal;
+  padding: 0px;
+  margin: 0px;
+  text-transform:uppercase;
 }
 
 .lead {
   font-size:20px;
+
 }
+
+
 
 hr {
   border:0;
@@ -340,15 +369,7 @@ a:hover  {
 /* Contest entry layout
     -------------------------------------------------- */ 
 
-h5 {
-  font-family: 'Titillium Web', sans-serif;
-  font-size:26px;
-  font-weight:300;
-  padding: 0px 0px;
-  color:#000;
-  margin:0px 0px 20px 0px;	
 
-}
 
 .entry-content-left {
   background-color:#F5f5f5;
@@ -413,8 +434,13 @@ h5 {
 
 }
 
+
+
+
+
 /* Homepage slider
     -------------------------------------------------- */
+
 .rslides {
   margin: 0 auto 0px;
 }
@@ -464,26 +490,129 @@ h5 {
   font-weight: bold;
 }
 
+
+/* Form Styling
+    -------------------------------------------------- */
+
+.btn {
+  display: inline-block;
+  *display: inline;
+  /* IE7 inline-block hack */
+
+  *zoom: 1;
+  padding: 4px 12px;
+  margin-bottom: 0;
+  font-size: 14px;
+  line-height: 20px;
+  text-align: center;
+  vertical-align: middle;
+  cursor: pointer;
+  color: #fff;
+  text-shadow: none;
+  background-color: #4cbed7;
+  background-image: none;
+
+  border-color: transparent;
+
+  border: 1px solid #4cbed7;
+  border-bottom-color: #4cbed7;
+  -webkit-border-radius: 0px;
+  -moz-border-radius: 0px;
+  border-radius: 0px;
+  *margin-left: .3em;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+}
+
+.formtitle {
+  border-bottom:#4cbed7 solid 2px;
+  line-height: 24px;
+  margin-bottom:20px;
+  margin-top:20px;
+  display:inline-block;
+
+
+}
+
+
+
+select,
+textarea,
+input[type="text"],
+input[type="password"],
+input[type="datetime"],
+input[type="datetime-local"],
+input[type="date"],
+input[type="month"],
+input[type="time"],
+input[type="week"],
+input[type="number"],
+input[type="email"],
+input[type="url"],
+input[type="search"],
+input[type="tel"],
+input[type="color"],
+.uneditable-input {
+  display: inline-block;
+  padding: 4px 6px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  line-height: 20px;
+  color: #555555;
+  -webkit-border-radius: 0px;
+  -moz-border-radius: 0px;
+  border-radius: 0px;
+  border:solid 2px #4cbed7;
+  vertical-align: middle;
+}
+
+textarea:focus, input[type="text"]:focus, input[type="password"]:focus, input[type="datetime"]:focus, input[type="datetime-local"]:focus, input[type="date"]:focus, input[type="month"]:focus, input[type="time"]:focus, input[type="week"]:focus, input[type="number"]:focus, input[type="email"]:focus, input[type="url"]:focus, input[type="search"]:focus, input[type="tel"]:focus, input[type="color"]:focus, .uneditable-input:focus {   
+  border-color: #4cbed7;
+  box-shadow: 0 1px 1px rgba(#4cbed7) inset, 0 0 8px rgba(#4cbed7);
+  outline: 0 none;}
+
+
+
 /* Contest Winners
     -------------------------------------------------- */
-.ranking-number {
-  background-image:url(../images/background-circle.png);
-  background-size:auto;
-  width:71px;
-  height:71px;
-  text-align:center;
-  color:#FFFFFF;
-  font-size:40px;
-  line-height:70px;
-  float:left;
-  margin: 0px 10px 0px 0px;
-}
+
+
 
 .listing-image {
 
   width:250px; 
   height:250px; 
   margin-left:10px;
+  float:left;
+  text-align:right;
+}
+
+.listing-title {
+  line-height: 28px;
+  margin-top:25px;
+
+}
+
+.pjtitle {
+
+  font-family: 'Titillium Web', sans-serif;
+  font-size:40px;
+  font-weight:300;
+  padding: 0px 0px;
+  color:#000;
+  margin:0px 0px 0px 0px;
+  line-height:46px;
+
+}
+
+.publishedby  {
+  padding-top:5px; position:absolute; bottom:-80px;
+}
+
+.listing-details {
+
+  padding:25px; float:left; width:50%; position:relative; 
 
 }
 
@@ -500,6 +629,8 @@ h5 {
     width: 350px;
 
   }
+
+
 }
 
 
@@ -522,13 +653,6 @@ h5 {
 
 @media (max-width: 1200px) {
 
-  .listing-image {
-
-    width:180px; 
-    height:180px; 
-    margin-left:10px;
-
-  }
 
 
 }
@@ -546,8 +670,8 @@ h5 {
 
   .listing-image {
 
-    width:115px; 
-    height:115px; 
+    width:210px; 
+    height:210px; 
     margin-left:10px;
 
   }
@@ -556,6 +680,21 @@ h5 {
 
     position: fixed;
     width: 350px;
+
+  }
+
+  .pjtitle {
+    font-size:28px;
+
+  }
+
+  .publishedby  {
+    padding-top:5px; position:absolute; top: 20px; right:-180px;
+  }
+
+  .listing-details {
+
+    padding:25px; float:left; width:60%; position:relative; 
 
   }
 
@@ -580,4 +719,36 @@ h5 {
 
   } 
 
+  .publishedby  {
+    padding-top:5px; position:relative; top:0px; 
+
+  }
+
+  .listing-details {
+
+    padding:25px; float:left; width:70%; position:relative; 
+
+  }
+
+  .listing-image {
+
+    width:330px; 
+    height:330px; 
+    margin-left:10px;
+
+  }
+
+}
+.form-create-contest {
+  max-width: 300px;
+  padding: 19px 29px 29px;
+  margin: 0 auto 20px;
+  background-color: #fff;
+  border: 1px solid #e5e5e5;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+  -moz-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+  box-shadow: 0 1px 2px rgba(0,0,0,.05);
 }

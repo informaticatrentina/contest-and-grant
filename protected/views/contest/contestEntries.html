@@ -1,84 +1,50 @@
-<div class="container darkheader">
-  <div class="row">
-    <div class="span12"><h1>{{ contestInfo.contestTitle }}</h1></div>
-  </div>
+<link href="{{constant('BASE_URL')}}css/bootstrap-fileupload.css" rel="stylesheet">
+<div style="background-color:#f5f5f5; height:120px;">
+  <div class="container">
+    <div class="row">
+      <div class="span12"><h1 class="innerpagetitle">{{ contestInfo.contestTitle }}</h1></div>
+    </div>
+  </div> 
 </div>
+
 <div class="container maincontent">
+
   <div class="row">
-    <div class="span8" style="min-height:300px; background-color: #666; position:relative; ">
-      <img src= {{ contestInfo.imagePath }} />
-      <div style="position:absolute; top:180px; width:100%; text-align:right;">
-        <img src="{{constant('BASE_URL')}}images/facebook.png" width="30px" height="30px" alt="facebook" class="social-media-icons" /><br>
-        <img src="{{constant('BASE_URL')}}images/twitter.png" width="30px" height="30px" alt="twitter" class="social-media-icons" /><br>
-        <img src="{{constant('BASE_URL')}}images/rss.png" width="30px" height="30px" alt="rss" class="social-media-icons" />
+    <div class="span8" style="background-color: #666; position:relative; min-height:338px; ">
+      <img src="{{constant('BASE_URL')}}images/1.jpg" width="800" height="351" alt="test">
+      <div style="position:absolute; top:215px; width:100%; text-align:right;">
+        <img src="{{constant('BASE_URL')}}images/facebook.png" width="30px" height="30px" alt="facebook" class="social-media-icons"><br>
+        <img src="{{constant('BASE_URL')}}images/twitter.png" width="30px" height="30px" alt="twitter" class="social-media-icons"><br>
+        <img src="{{constant('BASE_URL')}}images/rss.png" width="30px" height="30px" alt="rss" class="social-media-icons">
       </div>
     </div>
     <div class="span4">
-      <div class="homepage-box" style="min-height:260px;">
+      <div style="background-color:#4cbed7; min-height:308px; padding: 15px 20px;">
         <h4>Start Date: {{ contestInfo.startDate }}<br>
           End Date: {{ contestInfo.endDate }}</h4>
-        <p>{{ contestInfo.contestDescription }}</p>
-      </div>
+        <p style="color:#FFFFFF; font-size:18px; line-height:26px;">{{ contestInfo.briefDescription }}</p></div>
     </div>
   </div>
+</div> 
 
-  <hr>
-
-  <!-- Three page buttons -->
-  <div class="row">
-    <div class="span3">
-      <a href="#" class="contest-button btn-block active" id="contestEntry">{{ t('contest', 'Contest Entries')}}</a>
-    </div>
-    <div class="span3">
-      <a href="#" class="contest-button btn-block"  id="contestBrief">{{ t('contest', 'Contest Brief') }}</a>
-    </div>
-    <div class="span3">
-      <a href="#" class="contest-button btn-block" id="contestSubmit">{{ t('contest', 'Submit and win') }}</a>
-    </div>
-    <div class="span3">
-      <a href="#" class="contest-button btn-block" id="contestWinner">{{ t('contest', 'winners') }}</a>
-    </div>
-  </div>
-
-  <hr>
-  <div id="entry">
-    {% include  '/views/template/entries.html' %}
-  </div>
-  
-  <div id="entrySubmission" style="display:none" >
-    {% include  '/views/contest/entrySubmission.html' %}
-  </div>
-  
-  <div id="briefcontent" style="display:none" >
-    {% include  '/views/contest/contestBrief.html' %}
+<div style="background-color:#4cbed7; margin-top:25px; margin-bottom:25px;">
+  <div class="container">
+    <div class="row">   
+      <div class="span3">
+        <a id="contestBrief" class="contest-button btn-block active">REGOLAMENTO</a>        
+      </div>        
+      <div class="span3">
+        <a href="#" id="entrySubmitButton" class="contest-button btn-block">ISCRIVITI!</a>
+      </div> 
+    </div> 
   </div>
 </div>
+<div id="briefContent">
+  {% include  '/views/contest/contestBrief.html' %}
+</div>
+<div id="entrySubmission" style="display:none">
+  {% include  '/views/contest/entrySubmission.html' %}
+</div>
+
 <!-- Masonary scripts for listing -->
 <script src="{{constant('BASE_URL')}}js/contest.js"></script>
-<script src="{{constant('BASE_URL')}}js/jquery.masonry.min.js"></script>
-<script>
-  
-  $(document).ready(function () {
-		   
-    $("#posts").masonry({
-      itemSelector: '.post',
-      isAnimated: true,
-      columnWidth: function( containerWidth ) {
-        
-        var width = $(window).width();
-        var col = 200;
-        
-        
-        if(width < 1200 && width >= 980) {
-          col = 160;
-        }
-        else if(width < 980 && width >= 768) {
-          col = 8;
-        }
-        
-        return col;
-      }
-    });
-    
-  });
-</script>

@@ -166,11 +166,13 @@ class Contest  {
         $response = $aggregatorManager->saveEntry();
         if ($response['success']) {
           $response['msg'] = Yii::t('contest', 'You have succesfully submit an entry');
+        } else {
+          $response['msg'] = Yii::t('contest','Some technical problem occurred, contact administrator');
         }
       }
     } catch (Exception $e) {
        Yii::log('', ERROR, Yii::t('contest', 'Error in submitContestEntry :') . $e->getMessage());
-       $response['success'] = '';
+       $response['success'] = false;
        $response['msg'] = $e->getMessage();
     }
     return $response;

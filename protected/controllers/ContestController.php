@@ -6,7 +6,7 @@
  * ContestController class inherit controller (base) class .
  * Actions are defined in ContestController.
  * 
- * Copyright (c) 2013 <ahref Foundation -- All rights reserved.
+ * Copyright (c) 2013 <ahref Foundati on -- All rights reserved.
  * Author: Rahul Tripathi<rahul@incaendo.com>
  * This file is part of <Contest and Grants>.
  * This file can not be copied and/or distributed without the express permission of <ahref Foundation.
@@ -39,6 +39,7 @@ class ContestController extends Controller {
   public function actionEntries() { 
     $contest = new Contest();
     $contestInfo = array();
+    $entrySubmissionResponse = array();
     $entryCount = '';
     $entries = array();
     if (array_key_exists('slug', $_GET) && !empty($_GET['slug'])) {
@@ -50,10 +51,12 @@ class ContestController extends Controller {
     }
     $contestInfo = $contest->getContestDetail();
     if (!empty(Yii::app()->session['user'])) {
-      $entrySubmissionResponse = $this->entrySubmission();  
+      if (!empty($_POST)) {
+        $entrySubmissionResponse = $this->entrySubmission();  
+      }
     } 
     
-    $this->render('contestEntries', array('entries' => $entries, 'contestInfo' => $contestInfo, 'entryCount' => $entryCount ));
+    $this->render('contestEntries', array('entries' => $entries, 'contestInfo' => $contestInfo, 'entryCount' => $entryCount, 'message' => $entrySubmissionResponse ));
   }
   
   /**
@@ -185,7 +188,10 @@ class ContestController extends Controller {
   public function entrySubmission() { 
     $contestSlug = $_GET['slug']; 
     $response = array();
-    if (!empty($_FILES['contestEntry']['name'])) { 
+    if(empty($_FILES['contestEntry']['name'])) {
+      $response['msg'] = Yii::t('contest', 'Please provide an image for entrye');
+      $response['success'] = false;
+    } else { 
       $contest = new Contest();
       $directory = 'uploads/contestEntry/' ;
       $imageUrl = uploadFile($directory , 'contestEntry');

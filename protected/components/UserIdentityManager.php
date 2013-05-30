@@ -84,7 +84,9 @@ class UserIdentityManager {
     try {
       $user = new UserIdentityAPI();
       $userStatus = $user->getUserDetail(IDM_USER_ENTITY, $userDetail);
-      if(array_key_exists('_items', $userStatus)) {
+      if (array_key_exists('success', $userStatus) && !$userStatus['success']) {
+        $userStatus['msg'] = Yii::t('contest', 'Some technical problem occurred, contact administrator');
+      } else if (array_key_exists('_items', $userStatus)) {
         if (empty($userStatus['_items'])) {
           $userStatus['msg'] = Yii::t('contest', 'You have entered either wrong email id or password. Please try again');
         } else {
@@ -99,7 +101,7 @@ class UserIdentityManager {
           Yii::app()->session['user'] = $user;
           $userStatus['success'] = true;
         }
-      }  
+      }
     } catch (Exception $e) {      
       $userStatus['msg'] = $e->getMessage();
       Yii::log('', ERROR, Yii::t('contest', 'Error in validateUser method :') . $e->getMessage());      

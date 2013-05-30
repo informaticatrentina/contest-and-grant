@@ -24,6 +24,7 @@
       'Contest title should not be empty' => 'ontest titolo non deve essere vuoto',
       'Contest description should not be empty' => 'Descrizione del concorso non deve essere vuoto',
       'Please provide contest image' => "Si prega di fornire un'immagine contest",
+      'Please provide an image for entry' => "Si prega di fornire una immagine per l'ingresso",
       'Identitity Manager returning httpcode: ' => 'Identitity Responsabile ritorno httpcode:',
       'Identitity Manager  is not responding or Curl failed' => 'Identitity Manager non risponde o non è riuscita Curl',
       'Error in createUser :' => 'Errore in createUser:',

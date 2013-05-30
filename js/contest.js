@@ -28,22 +28,18 @@ $(document).ready(function() {
     }
     $('.alert-error').html('');
   });
-  $('#contestEntry').click(function() {
-    $('#entry').show();
-    $('#entrySubmission').hide();
-    $('#briefcontent').hide();
+  $('#entrySubmitButton').click(function() {
+    $(this).addClass('active');
+    $('#contestBrief').removeClass('active');
+    $('#briefContent').hide();
+    $('#entrySubmission').show();   
     return false;
   });
   $('#contestBrief').click(function() {
-    $('#briefcontent').show();
+    $(this).addClass('active');
+    $('#entrySubmitButton').removeClass('active');
+    $('#briefContent').show();
     $('#entrySubmission').hide();
-    $('#entry').hide();
-    return false;
-  });
-  $('#contestSubmit').click(function() {
-    $('#entrySubmission').show();
-    $('#entry').hide();
-    $('#briefcontent').hide();
     return false;
   });
 });

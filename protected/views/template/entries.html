@@ -23,3 +23,32 @@
     </div>
     <hr>
   {% endif %}
+  
+  <script src="{{constant('BASE_URL')}}js/jquery.masonry.min.js"></script>
+<script src="{{constant('BASE_URL')}}js/bootstrap-fileupload.js"></script>
+<script>
+
+  $(document).ready(function() {
+
+    $("#posts").masonry({
+      itemSelector: '.post',
+      isAnimated: true,
+      columnWidth: function(containerWidth) {
+
+        var width = $(window).width();
+        var col = 200;
+
+
+        if (width < 1200 && width >= 980) {
+          col = 160;
+        }
+        else if (width < 980 && width >= 768) {
+          col = 8;
+        }
+
+        return col;
+      }
+    });
+
+  });
+</script>

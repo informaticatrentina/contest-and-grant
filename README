@@ -105,6 +105,16 @@ In order to migrate DB or perform DB updates run command::
 And follow instructions.
 
 
+Create New Contest
+-------------------
+1. To create a new contest, Please go on :
+   BASE_URL/contset/add
+2. Fill up contest form and submit.
+
+Only admin user can create a contest. 
+In order to create admin user, Please add user email id in CONTEST_ADMIN_USERS array defined in local_config.php
+  
+
 Requirements
 ------------
 

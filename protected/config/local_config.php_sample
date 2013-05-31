@@ -76,3 +76,8 @@ define('SITE_TITLE', 'Contest and Grants');
 define('TWITTER_USERNAME', 'ImRaina');
 define('FACEBOOK_USERNAME', 'sankalp.mishra.35');
 define('LINKEDIN_USERNAME', 'ImRaina');
+
+/**
+ * define constant for uploading image extension
+ */
+define('ALLOWED_IMAGE_EXTENSION', '["jpg"]');

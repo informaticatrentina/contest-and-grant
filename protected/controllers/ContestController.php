@@ -49,26 +49,22 @@ class ContestController extends Controller {
     if (array_key_exists('slug', $_GET) && !empty($_GET['slug'])) {
       $contest->contestSlug = $_GET['slug'];
     }
-//    $entries = $contest->getContestSubmission();
-//    if (!empty($entries)) {
-//      $entryCount = count($entries);
-//    }
+    $entries = $contest->getContestSubmission();
+    if (!empty($entries)) {
+      $entryCount = count($entries);
+    }
     $contestInfo = $contest->getContestDetail();
-    $entrySubmittedByUser = false;
     $contestInfo['briefDescription'] = '';
     if(!empty($contestInfo)) {
       $contestInfo['briefDescription'] = substr($contestInfo['contestDescription'], 0, 325);
     }
     if (!empty(Yii::app()->session['user'])) {
-      $aggregatorManager = new AggregatorManager();
-      $aggregatorManager->authorSlug = Yii::app()->session['user']['id'];
-      $entrySubmittedByUser = $aggregatorManager->isUserAlreadySubmitEntry('title');
-      if (!empty($_POST) && !$entrySubmittedByUser) {
+      if (!empty($_POST)) {
         $entrySubmissionResponse = $this->entrySubmission();  
       }
     } 
     
-    $this->render('contestEntries', array('entries' => $entries, 'contestInfo' => $contestInfo, 'entryCount' => $entryCount, 'message' => $entrySubmissionResponse , 'isEntrySubmit' => $entrySubmittedByUser ));
+    $this->render('contestEntries', array('entries' => $entries, 'contestInfo' => $contestInfo, 'entryCount' => $entryCount, 'message' => $entrySubmissionResponse ));
   }
   
   /**
@@ -105,15 +101,25 @@ class ContestController extends Controller {
     }
     $contest = new Contest(); 
     $response = array();
-    if (!empty($_FILES['image']['name'])) { 
-      $directory = 'uploads/contestImage/' ;
-      $imageName = uploadFile($directory , 'image');
-      if ($imageName) {
-        $imagePath = $directory . $imageName;
-        $response = $contest->createContest($imagePath);
+    $extenstion = array();
+    if (!empty($_FILES['image']['name'])) {
+      $extention = explode('.', $_FILES['image']['name']);
+      $imageExtension = end($extention);
+      $allowedImageExtention = json_decode(ALLOWED_IMAGE_EXTENSION, true);
+      if (!in_array($imageExtension, $allowedImageExtention)) {
+        $response['msg'] = Yii::t('contest', 'Please upload valid image');
+      } else if ($_FILES['image']['size'] > 5242880) {
+        $response['msg'] = Yii::t('contest', 'Image size should be less than 5MB');
       } else {
-        $response['success'] = '';
-        $response['msg'] = Yii::t('contest', 'Some error occured in image uploading');
+        $directory = 'uploads/contestImage/';
+        $imageName = uploadFile($directory, 'image');
+        if ($imageName) {
+          $imagePath = $directory . $imageName;
+          $response = $contest->createContest($imagePath);
+        } else {
+          $response['success'] = '';
+          $response['msg'] = Yii::t('contest', 'Some error occured in image uploading');
+        }
       }
     }
     $this->render('contestCreation', array('message' => $response));
@@ -198,16 +204,25 @@ class ContestController extends Controller {
   public function entrySubmission() { 
     $contestSlug = $_GET['slug']; 
     $response = array();
-    if(empty($_FILES['contestEntry']['name'])) {
+    if (empty($_FILES['contestEntry']['name'])) {
       $response['msg'] = Yii::t('contest', 'Please provide an image for entrye');
       $response['success'] = false;
-    } else { 
-      $contest = new Contest();
-      $directory = 'uploads/contestEntry/' ;
-      $imageName = uploadFile($directory , 'contestEntry');
-      $imagePath = $directory . $imageName;
-      if ($imageName) {       
-        $response = $contest->submitContestEntry($imagePath, $contestSlug);
+    } else {
+      $extention = explode('.', $_FILES['contestEntry']['name']);
+      $imageExtension = end($extention);
+      $allowedImageExtention = json_decode(ALLOWED_IMAGE_EXTENSION, true);
+      if (!in_array($imageExtension, $allowedImageExtention)) {
+        $response['msg'] = Yii::t('contest', 'Please upload valid image');
+      } else if ($_FILES['contestEntry']['size'] > 5242880) {
+        $response['msg'] = Yii::t('contest', 'Image size should be less than 5MB');
+      } else {
+        $contest = new Contest();
+        $directory = 'uploads/contestEntry/';
+        $imageName = uploadFile($directory, 'contestEntry');
+        $imagePath = $directory . $imageName;
+        if ($imageName) {
+          $response = $contest->submitContestEntry($imagePath, $contestSlug);
+        }
       }
     }
     return $response;

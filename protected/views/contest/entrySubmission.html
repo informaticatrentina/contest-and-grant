@@ -61,16 +61,24 @@
       </div>
     </div>
   {%else%}
-    <div class="span11">
-      <div class="alert-error span6">You are not logged in. For Submit an entry, Please login</div>
-      <div class="navbar pull-right">
-        <div class="navbar-inner">
-          <ul class="nav">
-            <li><a href="javascript:$.pageslide({ direction: 'left', href: '{{constant('BASE_URL')}}login' })">Login</a></li>
-          </ul>
+  <div class="container">
+    <div style="background-color:#f5f5f5; margin:25px 0px;">
+      <div class="row">
+        <div class="span12">
+          <div style="padding:25px 25px;">    
+            <h6> 
+              <div class="pull-right">
+                <a href="javascript:$.pageslide({ direction: 'left', href: '{{constant('BASE_URL')}}register' })"><button class="btn btn-block btn-large" type="button">PARTECIPA</button></a><br>
+                <a href="javascript:$.pageslide({ direction: 'left', href: '{{constant('BASE_URL')}}login' })" ><button class="btn btn-block btn-large" type="button">LOGIN</button></a>
+              </div>
+              Solo gli iscritti a CIVICLINKS possono partecipare al contest.<br>
+              Iscriviti o effettua il login per continuare.
+            </h6>
+          </div>
         </div>
       </div>
     </div>
-    {%endif%}
+  </div>
+  {%endif%}
   </div>
 </div>

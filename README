@@ -86,6 +86,11 @@ CONFIGURATION
   http://www.yiiframework.com/doc/guide/1.1/en/quickstart.apache-nginx-config
 
 
+Upload Folder creation
+------------------------
+1. In main directory create folder "uploads" and give it write permission to wwww-data
+2. Inside "uploads" folder create 2 folders "contestImage" and "contestEntry" and give tham write permission too.
+3. Inside "contestImage" and "contestEntry" folder create "resize" folder and give it write permission.
 
 
 Database Migration

@@ -1,5 +1,7 @@
 $(document).ready(function() {
-    $('#create').click(function() {
+   $('#home').find("a").removeClass('candgselected');
+   $('#createContest').find("a").addClass('candgselected');
+   $('#create').click(function() {
         if ($('#contestTitle').val() == '') {
             $('#error').html(Yii.t('js', "Please enter Contest Title")).css('color', 'red');
             return false;

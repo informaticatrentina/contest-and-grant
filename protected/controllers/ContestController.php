@@ -132,7 +132,7 @@ class ContestController extends Controller {
       $allowedImageExtention = json_decode(ALLOWED_IMAGE_EXTENSION, true);
       if (!in_array($imageExtension, $allowedImageExtention)) {
         $response['msg'] = Yii::t('contest', 'Please upload jpg image');
-      } else if ($_FILES['image']['size'] > 5242880) {
+      } else if ($_FILES['image']['size'] > UPLOAD_IMAGE_SIZE_LIMIT) {
         $response['msg'] = Yii::t('contest', 'Image size should be less than 5MB');
       } else {
         $directory = 'uploads/contestImage/';
@@ -237,7 +237,7 @@ class ContestController extends Controller {
       $allowedImageExtention = json_decode(ALLOWED_IMAGE_EXTENSION, true);
       if (!in_array($imageExtension, $allowedImageExtention)) {
         $response['msg'] = Yii::t('contest', 'Please upload jpg image');
-      } else if ($_FILES['contestEntry']['size'] > 5242880) {
+      } else if ($_FILES['contestEntry']['size'] > UPLOAD_IMAGE_SIZE_LIMIT) {
         $response['msg'] = Yii::t('contest', 'Image size should be less than 5MB');
       } else {
         $contest = new Contest();

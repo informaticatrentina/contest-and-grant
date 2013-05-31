@@ -73,6 +73,8 @@ define('SITE_LANGUAGE', 'it_it');
  * Define site title
  */
 define('SITE_TITLE', 'Contest and Grants');
+define('SITE_NAME', 'StoryGrant');
+
 define('TWITTER_USERNAME', 'ImRaina');
 define('FACEBOOK_USERNAME', 'sankalp.mishra.35');
 define('LINKEDIN_USERNAME', 'ImRaina');

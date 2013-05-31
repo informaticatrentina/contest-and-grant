@@ -101,3 +101,26 @@ function userIsLogged() {
     }
      return $flag;
 }
+
+/**
+ * function to get tweets of fondazioneahref
+ * 
+ * @return tweets
+ */
+function getTweets($userName) {
+    if (!empty($userName)) {
+        $tweets = '';
+        $tweets_result = file_get_contents("https://api.twitter.com/1/statuses/user_timeline.json?include_entities=true&include_rts=true&screen_name=" . $userName . "&count=2");
+        $data = json_decode($tweets_result);
+        foreach ($data as $tweet) {
+            $time1 = strtotime($tweet->created_at);
+            $present = time();
+            $diff = $present - $time1;
+            $days = floor($diff / 86400);
+            $hours = floor(($diff - ($days * 86400)) / 3600);
+            $content = preg_replace('/(^|[^a-z0-9_])@([a-z0-9_]+)/i', '$1<a class="footer-link3" href="http://twitter.com/$2">@$2</a>', $tweet->text);
+            $tweets.= '<div class="tweetbox"><p class="tweet">' . $content . '</p><span class="tweettime">' . $days . ' giorni,  ' . $hours . ' ore fa</span></div><div style="margin-top:5px;"></div>';
+        }
+        return $tweets;
+    }
+}

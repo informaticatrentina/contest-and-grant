@@ -81,7 +81,10 @@ return array(
     ),
    'viewRenderer' => array(
       'class' => 'ext.ETwigViewRenderer',
-      'fileExtension' => '.html'
+      'fileExtension' => '.html',
+      'functions' => array(
+      'getTweets' => 'getTweets'    
+      ) 
     ),
       
     'db' => array(

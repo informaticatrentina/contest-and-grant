@@ -1,5 +1,6 @@
 $(document).ready(function() {
-  //check when left checkbox is checked than right shoudl be unchecked and vice a versa and minor field should be hidden 
+  $('#home').find("a").removeClass('candgselected');
+  $('#createContest').find("a").addClass('candgselected');
   $('#rightCheckBox').click(function() {
     if ($(this).is(':checked')) {
       $('#leftCheckbox').attr('checked', false);

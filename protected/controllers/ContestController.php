@@ -64,7 +64,7 @@ class ContestController extends Controller {
   }
   
   public function actionSubmitEntries() {
-      $contest = new Contest();
+    $contest = new Contest();
     $contestInfo = array();
     $entrySubmissionResponse = array();
     $entryCount = '';
@@ -74,6 +74,7 @@ class ContestController extends Controller {
     }
     $contestInfo = $contest->getContestDetail();
     $entrySubmittedByUser = false;
+    $postData = array();
     $contestInfo['briefDescription'] = '';
     if(!empty($contestInfo)) {
       $contestInfo['briefDescription'] = substr($contestInfo['contestDescription'], 0, 325);
@@ -83,12 +84,11 @@ class ContestController extends Controller {
       $aggregatorManager->authorSlug = Yii::app()->session['user']['id'];
       $entrySubmittedByUser = $aggregatorManager->isUserAlreadySubmitEntry('title');
       if (!empty($_POST) && !$entrySubmittedByUser) {
+        $postData = $_POST;
         $entrySubmissionResponse = $this->entrySubmission();  
       }
-    } 
-    
-    
-    $this->render('contestSubmitEntries', array('entries' => $entries, 'contestInfo' => $contestInfo, 'entryCount' => $entryCount, 'message' => $entrySubmissionResponse , 'isEntrySubmit' => $entrySubmittedByUser ));
+    }
+    $this->render('contestSubmitEntries', array('entries' => $entries, 'contestInfo' => $contestInfo, 'entryCount' => $entryCount, 'message' => $entrySubmissionResponse , 'isEntrySubmit' => $entrySubmittedByUser, 'postData' => $postData ));
   }
   
   /**
@@ -229,7 +229,7 @@ class ContestController extends Controller {
     $contestSlug = $_GET['slug']; 
     $response = array();
     if (empty($_FILES['contestEntry']['name'])) {
-      $response['msg'] = Yii::t('contest', 'Please provide an image for entrye');
+      $response['msg'] = Yii::t('contest', 'Please provide an image for entry');
       $response['success'] = false;
     } else {
       $extention = explode('.', $_FILES['contestEntry']['name']);

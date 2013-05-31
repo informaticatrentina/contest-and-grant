@@ -18,7 +18,15 @@
   </div>
   <div class="row" style="padding-top:30px;">
     <div class="span4">
-      <a href="#">
+      {% set firstContestSlug = ''%}
+      {% if contestInfo is not empty %} 
+        {% set firstContestSlug = contestInfo.0.contestSlug %}
+      {% endif %}
+      {% if firstContestSlug == '' %}
+        <a href="#">
+      {% else %}
+         <a href="{{constant('BASE_URL')}}contest/submission/{{firstContestSlug}}">
+      {% endif %}
         <div style="position:relative;">
           <img src="{{constant('BASE_URL')}}images/banner_small.jpg" width="370" height="370" alt="Youth">
           <div class="homepage-box">
@@ -31,8 +39,8 @@
     <div class="span4">
       <a href="#">
         <div class="bluebox" style="position:relative;">
-          <p class="blueboxtext">Con CIVICO puoi premiare le buone idee, aiutare l'informazione di qualità e far crescere i progetti più innovativi. Aziende, testate giornalistiche, associazioni o istituzioni, tutti possono lanciare un nuovo concorso o aprire un bando per finanziare progetti civici. CIVICO serve proprio a questo.
-          Hai un'idea per un contest o un grant ? Raccontacela e ti aiuteremo a realizzarla su CIVICO e a promuoverla in rete.</p>
+          <p class="blueboxtext">Con storygrant puoi premiare le buone idee, aiutare l'informazione di qualità e far crescere i progetti più innovativi. Aziende, testate giornalistiche, associazioni o istituzioni, tutti possono lanciare un nuovo concorso o aprire un bando per finanziare progetti civici. storygrant serve proprio a questo.
+Hai un'idea per un contest o un grant ? Raccontacela e ti aiuteremo a realizzarla su storygrant e a promuoverla in rete.</p>
           <div class="homepage-box">
             <h2>Crea nuovi contest e grant</h2>
           </div>
@@ -42,7 +50,7 @@
     </div>
 
     <div class="span4">
-      <a href="#">
+      <a href="https://www.civiclinks.it/it/principles/">
         <div style="position:relative;">
           <img src="{{constant('BASE_URL')}}images/principi.jpg" width="370" height="370" alt="Youth">
           <div class="homepage-box">

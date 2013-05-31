@@ -41,9 +41,9 @@
       'Error in actionRegisterUser method :' => 'Errore nel metodo actionRegisterUser:',
       'You have created a contest Succesfully' => 'È stato creato un concorso con success',
       'Contest title should not be empty' => 'Titolo di concorso non deve essere vuoto',
-      'Please enter valid start date' => 'Inserisci data di inizio valida',
+      'Please enter valid start date' => 'Inserisci data di inizio valida (01/06/2013)',
       'End date should not be empty' => 'Data di fine non deve essere vuoto',
-      'Please enter valid end date' => 'Inserisci data di fine validità',
+      'Please enter valid end date' => 'Inserisci data di fine valida (01/06/2013)',
       'Contest description should not be empty' => 'Descrizione del concorso non deve essere vuoto',
       'Please choose an image for upload' => "Scegliere un immagine per l'upload",
       'This contest title is already exist' => 'Questo titolo concorso è già presente',
@@ -57,10 +57,10 @@
       'Last Name' => 'Cognome',
       'Email address' => 'Indirizzo e-mail',
       'Password' => "parola d'ordine",
-      'Accept the terms of Service' => 'Accettare i termini del servizio',
+      'Accept the terms of Service' => 'Accettare i termini di servizio',
       'Register' => 'Registrati',
       'Login' => 'Accedi',
-      'Register with Civic Links' => 'Registrati con Link civici',
+      'Register with Civic Links' => 'Registrati',
       'You have already submitted an entry for this contest' => 'Hai già inserito una voce per questo concorso',
       'Start Date' => 'Data di inizio',
       'End Date' => 'Data di fine',
@@ -81,5 +81,6 @@
       'Entry description should not be empty' => 'Descrizione Evento non deve essere vuoto',
       'Please upload an image' => "Si prega di caricare un'immagine valida",
       'Image size should be less than 5MB' => "Dimensioni dell'immagine deve essere inferiore a 5 MB",
-      'Please upload jpg image' => 'Si prega di caricare immagine jpg'
+      'Please upload jpg image' => 'Si prega di caricare immagine jpg',
+      'Sorry, You want something which we dont offer!!' => 'Siamo spiacenti, si desidera qualcosa che noi non offriamo!'
   );

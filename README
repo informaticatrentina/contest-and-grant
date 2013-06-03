@@ -35,6 +35,12 @@ To setup contest and grant you have to follow some steps mentioned below:
       index-test.php
         
   . create database and change configuration (/protected/Config/config.php) 
+  . create following directory for uploads on root:
+      uploads
+         contestImage
+            resize  
+         contestEntry 
+            resize   
 
 CONFIGURATION 
 -------------
@@ -78,6 +84,12 @@ CONFIGURATION
         English language you can use 'en')
     
    i.  SITE_TITLE The name of site title.
+    
+   j.  ALLOWED_IMAGE_EXTENSION The list of allowed extenstion for upload image. 
+       This is define in  json format.
+   
+   k.  UPLOAD_IMAGE_SIZE_LIMIT The max size of uploading image in byte.
+ 
 
 - Now contest and grants application is ready to run. If you want to run
   application on your local machine (apache server), you have to create

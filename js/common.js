@@ -1,23 +1,21 @@
 var e_date = '';
 var s_date = '';
 $(document).ready(function() {
-  if ($('#start_date').length > 0) { 
-    $( "#start_date" ).datepicker({
+  if ($('#startDate').length > 0) { 
+    $( "#startDate" ).datepicker({
       changeMonth: true,
       changeYear: true,
       yearRange:"-90:+0",
       onSelect: function( selectedDate ) {
-        $( "#end_date" ).datepicker( "option", "minDate", selectedDate );
-        
+        $( "#endDate" ).datepicker( "option", "minDate", selectedDate );        
       }
     });
-    $( "#end_date" ).datepicker({
+    $( "#endDate" ).datepicker({
       changeMonth: true,
       changeYear: true,
       yearRange:"-90:+0",
       onSelect: function( selectedDate ) {
-        $( "#start_date" ).datepicker( "option", "maxDate", selectedDate );
-       
+        $( "#startDate" ).datepicker( "option", "maxDate", selectedDate );       
       }
     });
   }

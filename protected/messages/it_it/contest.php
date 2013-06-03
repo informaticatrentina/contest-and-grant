@@ -81,5 +81,6 @@
       'Entry description should not be empty' => 'Descrizione Evento non deve essere vuoto',
       'Please upload an image' => "Si prega di caricare un'immagine valida",
       'Image size should be less than 5MB' => "Dimensioni dell'immagine deve essere inferiore a 5 MB",
-      'Please upload jpg image' => 'Si prega di caricare immagine jpg'
+      'Please upload jpg image' => 'Si prega di caricare immagine jpg',
+      'Sorry, You want something which we dont offer!!' => 'Siamo spiacenti, si desidera qualcosa che noi non offriamo!'
   );

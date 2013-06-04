@@ -122,6 +122,43 @@ class ContestAPI {
     }
     return $contestDetails;
   }
+  
+  /**
+   * updateContest
+   * 
+   * This function is used for update contest
+   */
+  public function updateContest() {
+    $connection = Yii::app()->db;
+    if (empty($this->contestSlug)) {
+      return false;
+    } 
+    $sql = "UPDATE contest SET startDate = :startDate, endDate = :endDate, imagePath = :imagePath, 
+      contestDescription = :contestDescription where contestSlug = :contestSlug";
+    $query = $connection->createCommand($sql);
+    $query->bindParam(":startDate", $this->startDate);
+    $query->bindParam(":endDate", $this->endDate);
+    $query->bindParam(":imagePath", $this->contestImage);
+    $query->bindParam(":contestDescription", $this->contestDescription);
+    $query->bindParam(":contestSlug", $this->contestSlug);
+    return  $query->execute();
+  }
+  
+  /**
+   * deleteContest
+   * 
+   * This function is used for delete contest
+   */
+  public function deleteContest() {
+    $connection = Yii::app()->db;
+    if (empty($this->contestSlug)) {
+      return false;
+    } 
+    $sql = "DELETE FROM contest where contestSlug = :contestSlug";
+    $query = $connection->createCommand($sql);
+    $query->bindParam(":contestSlug", $this->contestSlug);
+    return  $query->execute();
+  }
 }
 ?>
 

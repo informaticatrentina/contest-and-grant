@@ -6,7 +6,7 @@
   </div>
 </div>
 <div class="container maincontent">
-  <form class="form-create-contest" action="{{constant('BASE_URL')}}contest/add" method="post"  enctype = "multipart/form-data">
+  <form class="form-create-contest" action="{{constant('BASE_URL')}}admin/contest/add" method="post"  enctype = "multipart/form-data">
     {% if message.msg is not empty %}
       {% set class = 'alert-error' %}
       {% set id = 'error' %}

@@ -11,6 +11,8 @@
        {{ this.widget('zii.widgets.CMenu',{
           'htmlOptions' : {'class' : 'nav'},
           'items':[
+            {'label': t('contest', 'Login'), 'url': "#",'itemOptions': {'class':'hidden-desktop login-link'}},
+            {'label': t('contest', 'Sign Up'), 'url': "#", 'itemOptions': {'class':'hidden-desktop register-link'}},
             {'label':'Fact Checking', 'url':'https://factchecking.civiclinks.it/'},
             {'label':'Timu', 'url': 'https://timu.civiclinks.it/'},
             {'label':'Civic Links', 'url':'https://www.civiclinks.it/'},
@@ -25,9 +27,9 @@
           </ul>
         {% else %}
           <ul class="nav pull-right visible-desktop"> 
-            <li><a href="javascript:$.pageslide({ direction: 'left', href: '{{constant('BASE_URL')}}login' })">Login</a></li>
+            <li class="login-link"><a href="#">{{ t('contest', 'Login') }}</a></li>
           </ul>
-          <a href="javascript:$.pageslide({ direction: 'left', href: '{{constant('BASE_URL')}}register' })" class="btn pull-right visible-desktop">Sign Up</a> 
+          <a href="#" class="btn pull-right visible-desktop register-link">{{ t('contest', 'Sign Up') }}</a> 
         {% endif %}
       </div>
     </div>

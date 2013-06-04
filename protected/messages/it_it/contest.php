@@ -88,5 +88,6 @@
       'Edit Contest' => 'Modifica Contest',
       'Delete' => 'Cancella',
       'Some technical problem occurred, For more detail check log file' => 'Qualche problema tecnico si è verificato, per maggiori dettagli del file di registro di controllo',
-      'contest image' => 'immagine contest'
+      'contest image' => 'immagine contest',
+      'Sign Up' => 'Iscriviti'
   );

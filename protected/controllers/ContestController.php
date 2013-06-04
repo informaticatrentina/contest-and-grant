@@ -184,6 +184,9 @@ class ContestController extends Controller {
             'password' => $_POST['password']
         );
         $staus = $user->createUser($userDetail);
+        if ($staus['success']) {
+          $this->redirect(BASE_URL. 'login');
+        }
       } catch (Exception $e) {
         $staus['success'] = false;
         $staus['msg'] = $e->getMessage();

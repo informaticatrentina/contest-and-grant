@@ -36,8 +36,6 @@
   </div>
 </div>
 
-<!-- Logo and menu bar -->
-
 <div class="container">
   <div class="row">
     <div class="span12" style="margin-bottom:20px; position:relative;">
@@ -50,7 +48,7 @@
               {% set firstContestSlug = '' %}
               {% set firstContestSlug = getFirstContest() %}
               {% if firstContestSlug is not empty %}
-                <a href="{{constant('BASE_URL')}}contest/submission/{{firstContestSlug}}">
+                <a href="{{constant('BASE_URL')}}contest/{{firstContestSlug}}">
               {%else%}
                 <a href="#">
               {%endif%}

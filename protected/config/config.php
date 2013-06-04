@@ -104,12 +104,15 @@ return array(
       'caseSensitive'=>false,  
       'rules'=> array(
         '' => 'contest/index',   
-        'contest/add'=>'contest/createContest',  
+        'admin/contest/add'=>'contest/createContest',  
+        'admin/contest/list' => 'contest/getContest',
+        'admin/contest/delete/<slug:[\w-]+>' => 'contest/deleteContest',
+        'admin/contest/edit/<slug:[\w-]+>' => 'contest/updateContest',
         'contest/<slug:[\w-]+>'=>'contest/entries',
         'contest/submission/<slug:[\w-]+>'=>'contest/submitEntries',
         'register' => 'contest/registerUser', 
         'login' => 'contest/login',  
-        'logout' => 'contest/logout'
+        'logout' => 'contest/logout'          
       ),
     ),
     'session' => array (      

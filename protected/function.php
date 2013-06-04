@@ -124,3 +124,23 @@ function getTweets($userName) {
         return $tweets;
     }
 }
+
+/**
+ * isAdminUser 
+ * 
+ * This function is used for check whether user is admin or not
+ * @return boolean
+ */
+function isAdminUser() {
+  $isAdmin = false;
+  $adminUsers = array();
+  if (defined('CONTEST_ADMIN_USERS')) {
+    $adminUsers = json_decode(CONTEST_ADMIN_USERS, true);
+  } 
+  if (isset(Yii::app()->session['user'])) { 
+    if (in_array(Yii::app()->session['user']['email'], $adminUsers)) {
+      $isAdmin = true;
+    }
+  } 
+  return $isAdmin;
+}

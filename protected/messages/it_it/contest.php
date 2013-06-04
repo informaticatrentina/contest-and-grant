@@ -57,7 +57,7 @@
       'Last Name' => 'Cognome',
       'Email address' => 'Indirizzo e-mail',
       'Password' => "parola d'ordine",
-      'Accept the terms of Service' => 'Accettare i termini di servizio',
+      'Accept the terms of Service' => 'Accetto i <a href="https://www.civiclinks.it/it/tos/" target="_blank">termini del servizio</a>',
       'Register' => 'Registrati',
       'Login' => 'Accedi',
       'Register with Civic Links' => 'Registrati',

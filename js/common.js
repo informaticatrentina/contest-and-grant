@@ -19,4 +19,14 @@ $(document).ready(function() {
       }
     });
   }
+  
+  $('.login-link').click(function(){
+    $.pageslide({ direction: 'left', href: page.base_url + 'login' });
+    return false; 
+  });
+  
+  $('.register-link').click(function(){
+    $.pageslide({ direction: 'left', href: page.base_url + 'register' });
+    return false; 
+  });
 });    

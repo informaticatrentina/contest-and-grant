@@ -7,12 +7,14 @@
     {% endfor %}
   </ul>
 
-  <div style="position:relative; top:-90px; z-index:9; list-style:circle;">
-    <div style="position:absolute; top:10px;">
-      <h1>CONTEST FOTOGRAFICO | Notte dei Ricercatori 2013</h1></div>
-    <ul id="myslider-pager"  class="rslides_tabs rslides1_tabs"  style="list-style:circle; background-color:#4cbed7; padding:20px 0px;">
+  
+  <div class="myslider-controlbar">
+    <div style="position:absolute; top:10px;" class="visible-desktop">
+      <h1>CONTEST FOTOGRAFICO | Notte dei Ricercatori 2013</h1>
+    </div>
+    <ul id="myslider-pager"  class="rslides_tabs rslides1_tabs">
       {% for info in contestInfo %}
-        <li style="list-style:disc;"><a href="#">{{ info.contestId }}</a></li>  
+        <li><a href="#">{{ info.contestId }}</a></li>  
       {% endfor %}
     </ul>
   </div>
@@ -39,8 +41,8 @@
     <div class="span4">
       <a href="#">
         <div class="bluebox" style="position:relative;">
-          <p class="blueboxtext">Con storygrant puoi premiare le buone idee, aiutare l'informazione di qualità e far crescere i progetti più innovativi. Aziende, testate giornalistiche, associazioni o istituzioni, tutti possono lanciare un nuovo concorso o aprire un bando per finanziare progetti civici. storygrant serve proprio a questo.
-Hai un'idea per un contest o un grant ? Raccontacela e ti aiuteremo a realizzarla su storygrant e a promuoverla in rete.</p>
+          <p class="blueboxtext">Con CIVICO puoi premiare le buone idee, aiutare l'informazione di qualità e far crescere i progetti più innovativi. Aziende, testate giornalistiche, associazioni o istituzioni, tutti possono lanciare un nuovo concorso o aprire un bando per finanziare progetti civici. CIVICO serve proprio a questo.
+          Hai un'idea per un contest o un grant ? Raccontacela e ti aiuteremo a realizzarla su CIVICO e a promuoverla in rete.</p>
           <div class="homepage-box">
             <h2>Crea nuovi contest e grant</h2>
           </div>

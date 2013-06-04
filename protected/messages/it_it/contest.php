@@ -10,7 +10,7 @@
   */
 
   return array(
-      'Aggregator returning httpcode:' => 'Aggregatore ritorno httpcode:',
+      'Aggregator returning httpcode:' => 'Aggregatore restituisce codice:',
       'Aggregator is not responding or Curl failed' => 'Aggregator non risponde o non è riuscita Curl',
       'Zero length response not permitted' => 'Zero lunghezza di risposta non è permesso',
       'Error in curlGet :' => 'Errore in curlGet:',

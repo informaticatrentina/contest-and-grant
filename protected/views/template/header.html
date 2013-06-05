@@ -22,8 +22,8 @@
              
         {% if App.session is not empty %}
           <ul class="nav pull-right" > 
-            <li><a>Welcome: {{  App.session.user.firstname }} {{  App.session.user.lastname }}</a></li>
-            <li><a href="{{constant('BASE_URL')}}logout">Logout</a></li>
+            <li><a>{{ t('contest', 'Welcome') }}: {{  App.session.user.firstname }} {{  App.session.user.lastname }}</a></li>
+            <li><a href="{{constant('BASE_URL')}}logout">{{ t('contest', 'Logout') }}</a></li>
           </ul>
         {% else %}
           <ul class="nav pull-right visible-desktop"> 
@@ -45,7 +45,7 @@
         <a href="{{constant('BASE_URL')}}"><img src="{{constant('BASE_URL')}}images/logo.png"  alt="fact" style="border-right:#FFF solid 5px; border-bottom:#FFF solid 3px; position:absolute; top:2px;"></a>
         <div class="candg pull-right">
           <ul class="navcandg hidden-phone">
-            <li id="home"><a href="{{constant('BASE_URL')}}" class="candgselected">Home</a></li>
+            <li id="home"><a href="{{constant('BASE_URL')}}" class="candgselected">{{ t('contest', 'Home') }}</a></li>
             <li id="createContest"><a href="#" >Contest</a></li>
           </ul>
         </div>

@@ -17,10 +17,7 @@ $(document).ready(function() {
             $('#error').html(Yii.t('js', "Please enter a valid date")).css('color', 'red');
             return false;
         }
-        if ($('#image').val() == '') {
-            $('#error').html(Yii.t('js', "Please upload an image")).css('color', 'red');
-            return false;
-        }
+        
         if ($('#contestDescription').val() == '') {
             $('#error').html(Yii.t('js', "Please enter Content Description")).css('color', 'red');
             return false;

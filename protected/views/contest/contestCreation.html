@@ -19,15 +19,41 @@
     {% endif %}
     <div  class="alert-error" id="error"></div>
     <label>{{ t('contest', 'contest Title') }}</label>
-    <input type="text" id="contestTitle" class="input-block-level" name="contestTitle"  placeholder="{{ t('contest', 'contest Title') }}">
+    {% set contestTitle = '' %}
+    {% if contest is not empty %}
+      {% if contest.contestTitle is not empty %}
+        {% set contestTitle = contest.contestTitle %}
+      {% endif %}
+    {% endif %}
+    <input type="text" id="contestTitle" class="input-block-level" name="contestTitle"  value="{{contestTitle}}">
     <label>{{ t('contest', 'Start Date')}}</label>
-    <input type="text" id="startDate" name="startDate" class="input-block-level"  placeholder ="{{ t('contest', 'Start Date')}}" />
+    {% set startDate = '' %}
+    {% if contest is not empty %}
+      {% if contest.startDate is not empty %}
+        {% set startDate = contest.startDate %}
+      {% endif %}
+    {% endif %}
+    <input type="text" id="startDate" name="startDate" class="input-block-level"  value="{{startDate}}" />
     <label>{{ t('contest', 'End Date')}}</label>
-    <input type="text" id="endDate" name="endDate" class="input-block-level" placeholder ="{{ t('contest', 'End Date')}}" />
-    <label>{{ t('contest', 'Upload Image')}}</label>
+    {% set endDate = '' %}
+    {% if contest is not empty %}
+      {% if contest.endDate is not empty %}
+        {% set endDate = contest.endDate %}
+      {% endif %}
+    {% endif %}
+    <input type="text" id="endDate" name="endDate" class="input-block-level" value="{{endDate}}" />
+    <label>{{ t('contest', 'Upload Banner Image')}}</label>
     <input type="file"  class="input-block-level" id="image" name="image" />
+    <label>{{ t('contest', 'Upload Square Image')}}</label>
+    <input type="file"  class="input-block-level" id="squareImage" name="squareImage" />
     <label>{{ t('contest','Contest Description')}}</label>
-    <textarea  class="input-block-level textarea" id="contestDescription" name="contestDescription" placeholder="{{ t('contest','Contest Description')}}" ></textarea> 
+    {% set contestDescription = '' %}
+    {% if contest is not empty %}
+      {% if contest.contestDescription is not empty %}
+        {% set contestDescription = contest.contestDescription %}
+      {% endif %}
+    {% endif %}
+    <textarea  class="input-block-level textarea" id="contestDescription" name="contestDescription">{{contestDescription}}</textarea> 
     <button id="create" class="btn btn-large btn-primary" type="submit" name='contestDetail'>{{ t('contest', 'create contest') }}</button>
   </form>
   <hr>

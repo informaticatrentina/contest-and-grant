@@ -20,7 +20,8 @@ class ContestAPI {
   public $contestSlug;
   public $contestDescription;
   public $contestImage;
-  
+  public $squareImage;
+
   /**
    * save
    * 
@@ -28,7 +29,6 @@ class ContestAPI {
    * @return (int) $response
    */
   public function save() {
-    
     $response = '';
     $connection = Yii::app()->db;
     if (empty($this->startDate)) {
@@ -49,9 +49,12 @@ class ContestAPI {
     if (empty($this->contestImage)) {
       throw new Exception(Yii::t('contest','Please provide contest image'));
     }
+    if (empty($this->squareImage)) {
+      throw new Exception(Yii::t('contest','Please provide square image'));
+    }
     
-    $sql = "INSERT INTO contest (startDate, endDate, creationDate, imagePath, contestTitle, contestDescription, contestSlug) 
-        VALUES( :startDate, :endDate, :creationDate, :imagePath, :contestTitle, :contestDescription, :contestSlug)";
+    $sql = "INSERT INTO contest (startDate, endDate, creationDate, imagePath, contestTitle, contestDescription, contestSlug, squareImage) 
+        VALUES( :startDate, :endDate, :creationDate, :imagePath, :contestTitle, :contestDescription, :contestSlug, :squareImage)";
     $query = $connection->createCommand($sql);
     $query->bindParam(":startDate", $this->startDate);
     $query->bindParam(":endDate", $this->endDate);
@@ -60,6 +63,7 @@ class ContestAPI {
     $query->bindParam(":contestTitle", $this->contestTitle);
     $query->bindParam(":contestDescription", $this->contestDescription);
     $query->bindParam(":contestSlug", $this->contestSlug);
+    $query->bindParam(":squareImage", $this->squareImage);
     $response = $query->execute();    
     return $response;
   }
@@ -72,7 +76,8 @@ class ContestAPI {
    */
   public function getContestDetail() { 
     $connection = Yii::app()->db;
-    $sql = "SELECT contestId, startDate, endDate, creationDate, imagePath, contestTitle, contestDescription, contestSlug FROM contest";
+    $sql = "SELECT contestId, startDate, endDate, creationDate, imagePath, contestTitle, contestDescription, contestSlug, 
+      squareImage FROM contest";
     $query = $connection->createCommand($sql);
     $contestDetails = $query->queryAll();
     return $contestDetails;
@@ -112,7 +117,7 @@ class ContestAPI {
     if (empty($this->contestSlug)) {
       return array();
     }    
-    $sql = "SELECT contestId, startDate, endDate, creationDate, imagePath, contestTitle, contestDescription, contestSlug FROM 
+    $sql = "SELECT contestId, startDate, endDate, creationDate, imagePath, contestTitle, contestDescription, contestSlug, squareImage FROM 
       contest where contestSlug = :contestSlug ";
     $query = $connection->createCommand($sql);
     $query->bindParam(":contestSlug", $this->contestSlug);
@@ -127,13 +132,14 @@ class ContestAPI {
    * updateContest
    * 
    * This function is used for update contest
+   * @return (boolean)
    */
   public function updateContest() {
     $connection = Yii::app()->db;
     if (empty($this->contestSlug)) {
       return false;
     } 
-    $sql = "UPDATE contest SET startDate = :startDate, endDate = :endDate, imagePath = :imagePath, 
+    $sql = "UPDATE contest SET startDate = :startDate, endDate = :endDate, imagePath = :imagePath, squareImage = :squareImage,
       contestDescription = :contestDescription where contestSlug = :contestSlug";
     $query = $connection->createCommand($sql);
     $query->bindParam(":startDate", $this->startDate);
@@ -141,6 +147,7 @@ class ContestAPI {
     $query->bindParam(":imagePath", $this->contestImage);
     $query->bindParam(":contestDescription", $this->contestDescription);
     $query->bindParam(":contestSlug", $this->contestSlug);
+    $query->bindParam(":squareImage", $this->squareImage);
     return  $query->execute();
   }
   
@@ -148,6 +155,7 @@ class ContestAPI {
    * deleteContest
    * 
    * This function is used for delete contest
+   * @return (boolean)
    */
   public function deleteContest() {
     $connection = Yii::app()->db;

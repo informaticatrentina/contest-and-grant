@@ -19,12 +19,17 @@
     {% endif %}
     <div  class="alert-error" id="error"></div>
     <label>{{ t('contest', 'Start Date')}}</label>
-    <input type="text" id="startDate" name="startDate" class="input-block-level" format="mm-dd-yy"  value="{{ contest.startDate }}" />
+    <input type="text" id="startDate" name="startDate" class="input-block-level" value="{{ contest.startDate }}" />
     <label>{{ t('contest', 'End Date')}}</label>
     <input type="text" id="endDate" name="endDate" class="input-block-level" value="{{ contest.endDate }}" />
-    <label>{{ t('contest', 'Upload Image')}}</label>
+    <label>{{ t('contest', 'Upload Banner Image')}}</label>
+    <input type="hidden"  name="image" value="{{contest.imagePath}}" />
     <div class="span2"><img src="{{constant('BASE_URL')}}{{resizeByPath(contest.imagePath,'100','500')}}" alt="{{ t('contest', 'contest Image')}}" /></div>
     <input type="file"  class="input-block-level" id="image" name="image" />
+    <label>{{ t('contest', 'Upload Square Image')}}</label>
+    <div class="span2"><img src="{{constant('BASE_URL')}}{{resizeByPath(contest.squareImage,'100','500')}}" alt="{{ t('contest', 'contest Image')}}" /></div>
+    <input type="hidden"  name="squareImage" value="{{contest.squareImage}}" />
+    <input type="file"  class="input-block-level" id="squareImage" name="squareImage" />
     <label>{{ t('contest','Contest Description')}}</label>
     <textarea  class="input-block-level textarea" id="contestDescription" name="contestDescription"> {{ contest.contestDescription }} </textarea> 
     <input type="hidden" name="contestSlug" value="{{ contest.contestSlug }}"></button>

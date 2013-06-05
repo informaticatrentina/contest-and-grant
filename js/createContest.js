@@ -22,7 +22,11 @@ $(document).ready(function() {
             return false;
         }
         if ($('#image').val() == '') {
-            $('#error').html(Yii.t('js', "Please upload an image")).css('color', 'red');
+            $('#error').html(Yii.t('js', "Please upload banner image")).css('color', 'red');
+            return false;
+        }
+        if ($('#squareImage').val() == '') {
+            $('#error').html(Yii.t('js', "Please upload square image")).css('color', 'red');
             return false;
         }
         if ($('#contestDescription').val() == '') {

@@ -41,10 +41,11 @@ class Contest  {
    * 
    * function is used for create contest
    * @param (string) $imagePath
+   * @param (string) $squareImage
    * @return (array) $response
    */
   
-  public function createContest($imagePath) {
+  public function createContest($imagePath, $squareImage) {
     $contestAPI = new ContestAPI();
     $response = array();
     $contestDetails = array();
@@ -76,13 +77,17 @@ class Contest  {
           throw new Exception(Yii::t('contest', 'Contest description should not be empty'));
         }
         if (empty($imagePath)) {
-          throw new Exception(Yii::t('contest', 'Please choose an image for upload'));
+          throw new Exception(Yii::t('contest', 'Please provide banner image'));
+        }
+        if (empty($squareImage)) {
+          throw new Exception(Yii::t('contest', 'Please provide square image'));
         }
         $contestAPI->contestTitle = $contestDetails['contestTitle'];
         $contestAPI->contestDescription = $contestDetails['contestDescription'];        
         $contestAPI->creationDate = date('Y-m-d H:i:s'); 
         $contestAPI->contestSlug =  strtolower(preg_replace("/[^a-z0-9]+/i", "_", $contestDetails['contestTitle']));        
         $contestAPI->contestImage = $imagePath;
+        $contestAPI->squareImage = $squareImage;
        
         
         //check for contest exist

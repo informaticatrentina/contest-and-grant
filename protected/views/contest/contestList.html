@@ -4,20 +4,22 @@
   </div>
   <div class="row">
     <div class="span2">{{ t('contest', 'contest Title') }}</div>
-    <div class="span2">{{ t('contest', 'Start Date')}}</div>
-    <div class="span2">{{ t('contest', 'End Date')}}</div>
+    <div class="span1">{{ t('contest', 'Start Date')}}</div>
+    <div class="span1">{{ t('contest', 'End Date')}}</div>
     <div class="span2">{{ t('contest','Contest Description')}}</div>
-    <div class="span3"> imagePath   </div>
+    <div class="span2">{{ t('contest','Banner image')}}</div>
+    <div class="span2">{{ t('contest','Square image')}}</div>
     <div></div>
     <div></div>
   </div>
   {% for info in contestInfo %}
   <div class="row">
     <div class="span2">{{ info.contestTitle }}</div>
-    <div class="span2">{{ info.startDate }}</div>
-    <div class="span2">{{ info.endDate  }}</div>
+    <div class="span1">{{ info.startDate }}</div>
+    <div class="span1">{{ info.endDate  }}</div>
     <div class="span2">{{ info.contestDescription }}</div>
     <div class="span2"><img src="{{constant('BASE_URL')}}{{resizeByPath(info.imagePath,'100','500')}}" alt="contest image" /></div>
+    <div class="span2"><img src="{{constant('BASE_URL')}}{{resizeByPath(info.squareImage,'100','500')}}" alt="contest image" /></div>
     <div class="span1"><a href="{{constant('BASE_URL')}}admin/contest/edit/{{ info.contestSlug }}">{{ t('contest','Edit')}}</a></div>
     <div class="span1 deleteContest"><a href="{{constant('BASE_URL')}}admin/contest/delete/{{ info.contestSlug }}">{{ t('contest','Delete')}}</a></div>
   </div>

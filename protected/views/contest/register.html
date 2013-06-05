@@ -1,15 +1,17 @@
 <div class="container">
   <form class="form-signin" method="POST" action="{{constant('BASE_URL')}}register"><img src="{{constant('BASE_URL')}}images/civiclinkslogo.png" width="116" height="24" alt="logo">
     <h2 class="form-signin-heading">{{ t('contest','Register with Civic Links') }}</h2>
+    {% set class = 'alert-error' %}
     {% if message.msg is not empty %}
-      {% set class = 'alert-error' %}    
       {% if message.success is not empty %}
         {% set class = 'alert-success' %}
-      {% endif %}
-      <span class="{{class}}" id="error">
-        {{ message.msg }}
-      </span>
+      {% endif %}      
     {% endif %}
+    <div class="{{class}}" id="error">
+      {% if message.msg is not empty %}
+        {{ message.msg }}
+      {% endif %}  
+    </div>
      <div  class="alert-error" id="error"></div>
     <input type="text" id='firstname' class="input-block-level" name ="firstname"  placeholder="{{ t('contest','First Name') }}">
     <input type="text" id='lastname' class="input-block-level" name ="lastname"  placeholder="{{ t('contest','Last Name') }}">

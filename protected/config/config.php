@@ -83,7 +83,8 @@ return array(
       'class' => 'ext.ETwigViewRenderer',
       'fileExtension' => '.html',
       'functions' => array(
-      'getTweets' => 'getTweets'    
+        'getTweets' => 'getTweets'    ,
+        'getFirstContest' => 'getFirstContest'   
       ) 
     ),
       

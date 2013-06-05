@@ -144,3 +144,20 @@ function isAdminUser() {
   } 
   return $isAdmin;
 }
+
+/**
+ * getFirstContest
+ * 
+ * This function is used for return contest  slug
+ * @return (string) contest slug
+ */
+function getFirstContest() {
+  $contestSlug = '';
+  $contest = new Contest();
+  $contestInfo = $contest->getContestDetail();
+  if (is_array($contestInfo) && !empty($contestInfo)) {
+    $contestInfo = array_shift($contestInfo);
+    $contestSlug = $contestInfo['contestSlug'];
+  }
+  return $contestSlug;
+}

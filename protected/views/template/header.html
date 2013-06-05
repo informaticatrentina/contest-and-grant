@@ -46,7 +46,16 @@
         <div class="candg pull-right">
           <ul class="navcandg hidden-phone">
             <li id="home"><a href="{{constant('BASE_URL')}}" class="candgselected">{{ t('contest', 'Home') }}</a></li>
-            <li id="createContest"><a href="#" >Contest</a></li>
+            <li id="createContest">
+              {% set firstContestSlug = '' %}
+              {% set firstContestSlug = getFirstContest() %}
+              {% if firstContestSlug is not empty %}
+                <a href="{{constant('BASE_URL')}}contest/submission/{{firstContestSlug}}">
+              {%else%}
+                <a href="#">
+              {%endif%}
+              Contest</a>
+            </li>
           </ul>
         </div>
       </div>

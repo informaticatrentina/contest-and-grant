@@ -1029,3 +1029,8 @@ textarea:focus, input[type="text"]:focus, input[type="password"]:focus, input[ty
   -moz-box-shadow: 0 1px 2px rgba(0,0,0,.05);
   box-shadow: 0 1px 2px rgba(0,0,0,.05);
 }
+
+/* To be compliant with p line-height */
+.rule-nottericercatori li {
+    line-height: 28px;
+}

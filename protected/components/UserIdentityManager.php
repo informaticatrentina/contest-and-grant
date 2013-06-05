@@ -41,8 +41,9 @@ class UserIdentityManager {
       }
        
       $user = new UserIdentityAPI();
-      $response = $user->createUser(IDM_USER_ENTITY, $userDetail);    
+      $response = $user->createUser(IDM_USER_ENTITY, $userDetail);   
       if (array_key_exists('user', $response) &&  $response['user']['status'] == 'OK') {
+        $saveUser['id'] = $response['user']['_id'];
         $saveUser['msg'] = Yii::t('contest', 'You have successfully created your account');
         $saveUser['success'] = true;
       } else {    

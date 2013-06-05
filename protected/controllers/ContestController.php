@@ -207,6 +207,7 @@ class ContestController extends Controller {
     }
     $response = array();
     $user = new UserIdentityManager();
+    $backUrl = BASE_URL;
     if (!empty($_POST)) {
       try {
         $userDetail = $_POST;
@@ -217,6 +218,9 @@ class ContestController extends Controller {
           throw new Exception(Yii::t('contest', 'Please enter password'));
         }
         $response = $user->validateUser($userDetail);
+        if (!empty($_GET['back'])) {
+            $backUrl = BASE_URL . substr($_GET['back'], 1);
+        }
       } catch (Exception $e) {
         $response['success'] = false;
         $response['msg'] = $e->getMessage();
@@ -224,7 +228,7 @@ class ContestController extends Controller {
       }
     }
     $this->layout = 'userManager';
-    $this->render('login', array('message' => $response));
+    $this->render('login', array('message' => $response, 'back_url' => $backUrl));
   }
 
   /**

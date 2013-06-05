@@ -17,9 +17,10 @@
  * NOTE, this file must be saved in UTF-8 encoding.
  */
 return array (
-  'Entry description should not be empty' => 'Descrizione Evento non deve essere vuoto', 
-  'Entry title should not be empty' => 'Titolo di ingresso non deve essere vuoto',
+  'Please upload an image' => '@@Si prega di caricare unimmagine@@',
   'Are you sure you want to delete this Contest ?' => 'Sei sicuro di voler eliminare questo concorso ?',
+  'Entry description should not be empty' => 'Descrizione Evento non deve essere vuoto',
+  'Entry title should not be empty' => 'Titolo di ingresso non deve essere vuoto',
   'Please accept terms and condition' => 'Si prega di accettare i termini e condizioni',
   'Please check atleast one checkBox' => 'Si prega di verificare, almeno una checkBox',
   'Please enter Content Description' => 'Inserisci Content Descrizione',
@@ -33,7 +34,6 @@ return array (
   'Please enter minor name' => 'Inserisci il nome del minore',
   'Please enter start date' => 'Inserisci data di inizio',
   'Please enter valid email id' => 'Inserisci ID e-mail valido',
-  'Please upload an image' => 'Si prega di caricare unimmagine',
-  'Please upload square image' => "Si prega di caricare un'immagine quadrata",
-  'Please upload banner image' => 'Si prega di caricare immagine del banner'  
+  'Please upload banner image' => 'Si prega di caricare immagine del banner',
+  'Please upload square image' => 'Si prega di caricare un\'immagine quadrata',
 );

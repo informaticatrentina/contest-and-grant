@@ -159,6 +159,7 @@ class ContestController extends Controller {
     }
     $user = new UserIdentityManager();
     $staus = array();
+    $backUrl = BASE_URL;
     if (!empty($_POST)) {
       try {
         if (empty($_POST['firstname'])) {
@@ -189,6 +190,10 @@ class ContestController extends Controller {
           $user['email'] = $userDetail['email'];
           $user['id'] = $staus['id'];
           Yii::app()->session['user'] = $user;
+          if (!empty($_GET['back'])) {
+            $backUrl = BASE_URL . substr($_GET['back'], 1);
+            
+          }
         }
       } catch (Exception $e) {       
         $staus['success'] = false;
@@ -197,7 +202,7 @@ class ContestController extends Controller {
       }
     }
     $this->layout = 'userManager';
-    $this->render('register', array('message' => $staus));
+    $this->render('register', array('message' => $staus, 'back_url' => $backUrl));
   }
 
   /**

@@ -22,7 +22,7 @@
 </div>
 {% if message.success is not empty %}  
   <script type="text/javascript"> 
-    var homePageUrl =  "{{constant('BASE_URL')}}";  
-    parent.location.replace(homePageUrl);
+    var backPageUrl =  "{{back_url}}";
+    parent.location.replace(backPageUrl);
   </script>
 {% endif %}  

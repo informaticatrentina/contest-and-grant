@@ -1,5 +1,5 @@
 <div class="container">
-  <form class="form-signin" method="POST" action="{{constant('BASE_URL')}}register"><img src="{{constant('BASE_URL')}}images/civiclinkslogo.png" width="116" height="24" alt="logo">
+  <form class="form-signin" method="POST" ><img src="{{constant('BASE_URL')}}images/civiclinkslogo.png" width="116" height="24" alt="logo">
     <h2 class="form-signin-heading">{{ t('contest','Register with Civic Links') }}</h2>
     {% set class = 'alert-error' %}
     {% if message.msg is not empty %}
@@ -28,3 +28,9 @@
 
   </form>
 </div> 
+{% if message.success is not empty %}  
+  <script type="text/javascript"> 
+    var backPageUrl =  "{{back_url}}";
+    parent.location.replace(backPageUrl);
+  </script>
+{% endif %}  

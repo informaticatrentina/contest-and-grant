@@ -20,13 +20,15 @@ $(document).ready(function() {
     });
   }
   
-  $('.login-link').click(function(){
-    $.pageslide({ direction: 'left', href: page.base_url + 'login' });
+  $('.login-link').click(function() {
+    var pathname = window.location.pathname;
+    $.pageslide({ direction: 'left', href: page.base_url + 'login?back=' + pathname });
     return false; 
   });
   
-  $('.register-link').click(function(){
-    $.pageslide({ direction: 'left', href: page.base_url + 'register' });
+  $('.register-link').click(function() {
+    var pathname = window.location.pathname;
+    $.pageslide({ direction: 'left', href: page.base_url + 'register?back=' + pathname});
     return false; 
   });
 });    

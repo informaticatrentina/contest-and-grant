@@ -8,16 +8,27 @@
 </div>
 
 <div class="container maincontent">
-
-  <div class="row">
+  <div class="row hidden-tablet hidden-phone">
     <div class="span8" style="background-color: #666; position:relative; min-height:338px; ">
-      <img src="{{constant('BASE_URL')}}{{resizeByPath(contestInfo.imagePath,'800','350')}}" width="800" height="351" alt="test">
+      <img src="{{constant('BASE_URL')}}{{contestInfo.imagePath}}" width="770" height="422" alt="test">
     </div>
     <div class="span4">
-      <div style="background-color:#4cbed7; min-height:308px; padding: 15px 20px;">
+      <div class="internal-blue-box">
         <h4>{{ t('contest', 'Start Date')}}: {{ contestInfo.startDate }}<br>
-          {{ t('contest', 'End Date')}}: {{ contestInfo.endDate }}</h4>
-        <p style="color:#FFFFFF; font-size:18px; line-height:26px;">{{ contestInfo.briefDescription }}</p></div>
+          {{ t('contest', 'End Date')}}: {{ contestInfo.endDate }}</h4>     
+        <p class="internal-blue-box-text">{{ contestInfo.briefDescription }}</p></div>
+    </div>
+  </div>
+
+  <div class="row visible-tablet visible-phone">
+    <div class="span6" style="background-color: #666; position:relative; min-height:338px; ">
+      <img src="{{constant('BASE_URL')}}{{contestInfo.squareImage}}" width="750" height="750" alt="test">
+    </div>
+    <div class="span6">
+      <div class="internal-blue-box">
+        <h4>{{ t('contest', 'Start Date')}}: {{ contestInfo.startDate }}<br>
+          {{ t('contest', 'End Date')}}: {{ contestInfo.endDate }}</h4>  
+        <p class="internal-blue-box-text">{{ contestInfo.briefDescription }}</p></div>
     </div>
   </div>
 </div> 

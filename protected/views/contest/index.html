@@ -2,13 +2,13 @@
   <ul class="rslides" id="myslider">
     {% for info in contestInfo %}
       {% if info.contestSlug is not empty %}
-        <li><a href="{{constant('BASE_URL')}}contest/{{ info.contestSlug }} "><img src="{{constant('BASE_URL')}}{{info.imagePath}}" alt="{{ t('contest', 'contest Image')}}" /></a></li>  
+        <li><a href="{{constant('BASE_URL')}}contest/{{ info.contestSlug }} "><img src="{{constant('BASE_URL')}}images/homepage_photo_contest.jpg" alt="{{ t('contest', 'contest Image')}}" /></a></li>  
       {% endif %} 
     {% endfor %}
   </ul>
 
   
-  <div class="myslider-controlbar">
+<!--  <div class="myslider-controlbar">
     <div style="position:absolute; top:10px;" class="visible-desktop">
       <h1>CONTEST FOTOGRAFICO | Notte dei Ricercatori 2013</h1>
     </div>
@@ -17,7 +17,8 @@
         <li><a href="#">{{ info.contestId }}</a></li>  
       {% endfor %}
     </ul>
-  </div>
+  </div>-->
+  
   <div class="row" style="padding-top:30px;">
     <div class="span4">
       {% set firstContestSlug = ''%}

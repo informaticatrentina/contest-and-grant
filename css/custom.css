@@ -39,6 +39,22 @@ body {
   width:100%;
 }
 
+.internal-blue-box {
+
+  background-color:#4cbed7; 
+  min-height:392px;
+  padding: 15px 20px;
+
+}
+
+.internal-blue-box-text {
+
+  color:#FFFFFF; 
+  font-size:18px; 
+  line-height:26px;
+
+}
+
 .mylead {
   font-family: 'Titillium Web', sans-serif;
   font-size: 24px;
@@ -700,6 +716,28 @@ textarea:focus, input[type="text"]:focus, input[type="password"]:focus, input[ty
     width:100%;
   }
 
+  .internal-blue-box {
+
+    background-color:#4cbed7; 
+    min-height:310px;
+    padding: 15px 20px;
+
+  }
+
+  .internal-blue-box h4 {
+
+
+    font-size:22px;
+
+  }
+
+  .internal-blue-box-text {
+
+    color:#FFFFFF; 
+    font-size:16px; 
+    line-height:22px;
+
+  }	
 
 }
 
@@ -819,6 +857,54 @@ textarea:focus, input[type="text"]:focus, input[type="password"]:focus, input[ty
     text-decoration:none;
   }
 
+  .internal-blue-box {
+
+    background-color:#4cbed7; 
+    min-height:310px;
+    padding: 15px 20px;
+
+  }
+
+  .internal-blue-box h4 {
+
+
+    font-size:22px;
+
+  }
+
+  .internal-blue-box-text {
+
+    color:#FFFFFF; 
+    font-size:14px; 
+    line-height:20px;
+
+  }	
+
+  .contest-button {
+    font-family: 'Titillium Web', sans-serif;
+    font-weight:400;
+    font-size:20px;
+    background-color:#f5f5f5;
+    padding: 10px 15px;
+    text-transform:uppercase;
+    text-align:center;
+    color:#646464;
+    margin: 20px 0px;
+    width: 100%;
+    border:solid 1px #969696;	
+
+  }
+
+  .innerpagetitle{
+
+    font-weight:400;
+    font-size:40px;
+    padding: 40px 20px;
+    color:#000000;
+    margin:0px;
+
+
+  }
 
 
 }
@@ -866,7 +952,7 @@ textarea:focus, input[type="text"]:focus, input[type="password"]:focus, input[ty
     font-size:18px; 
     color:#FFF; 
     font-weight:normal;
-    padding:20px 20px 20px 20px;
+    padding:60px 20px 20px 20px;
     line-height: 22px;
 
   }
@@ -905,6 +991,26 @@ textarea:focus, input[type="text"]:focus, input[type="password"]:focus, input[ty
     display: inline;
     color:#FFFFFF;
     text-decoration:none;
+  }
+
+  .homepage-box {
+
+    padding: 10px 0px;
+    background-color:#3c3c3c;
+    position:absolute;
+    top:-2px;
+    width:100%;
+  }
+
+  .innerpagetitle{
+
+    font-weight:400;
+    font-size:36px;
+    padding: 40px 20px;
+    color:#000000;
+    margin:0px;
+
+
   }
 
 

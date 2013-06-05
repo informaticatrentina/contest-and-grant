@@ -185,7 +185,7 @@ class ContestController extends Controller {
         );
         $staus = $user->createUser($userDetail);
         if ($staus['success']) {
-          $this->redirect(BASE_URL. 'login');
+          $staus['msg'] = Yii::t('contest', 'You have successfully created your account') ;
         }
       } catch (Exception $e) {
         $staus['success'] = false;

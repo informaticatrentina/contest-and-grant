@@ -8,7 +8,18 @@
       </button>
       <a class="brand" href="https://www.civiclinks.it/"> <img src="{{constant('BASE_URL')}}images/civiclinkslogo.png" width="116" height="24" alt="logo"></a>
       <div class="nav-collapse collapse">
+      {% if App.session is not empty %}
        {{ this.widget('zii.widgets.CMenu',{
+          'htmlOptions' : {'class' : 'nav'},
+          'items':[
+            {'label':'Fact Checking', 'url':'https://factchecking.civiclinks.it/'},
+            {'label':'Timu', 'url': 'https://timu.civiclinks.it/'},
+            {'label':'Civic Links', 'url':'https://www.civiclinks.it/'},
+            {'label':constant('SITE_NAME'), 'url':constant('BASE_URL')}
+          ]}, true) 
+        }}
+      {% else %}
+        {{ this.widget('zii.widgets.CMenu',{
           'htmlOptions' : {'class' : 'nav'},
           'items':[
             {'label': t('contest', 'Login'), 'url': "#",'itemOptions': {'class':'hidden-desktop login-link'}},
@@ -19,6 +30,7 @@
             {'label':constant('SITE_NAME'), 'url':constant('BASE_URL')}
           ]}, true) 
         }}
+      {% endif %}
              
         {% if App.session is not empty %}
           <ul class="nav pull-right" > 

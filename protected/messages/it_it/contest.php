@@ -81,7 +81,7 @@
       'Entry description should not be empty' => 'Descrizione non deve essere vuota',
       'Please upload an image' => "Si prega di caricare un'immagine valida",
       'Image size should be less than 5MB' => "Dimensioni dell'immagine deve essere inferiore a 5 MB",
-      'Please upload jpg image' => 'Si prega di caricare immagine jpg',
+      'Please upload jpg image' => "Attenzione, i formati supportati sono jpg e png. L'immagine che hai caricato è nel formato sbagliato",
       'Sorry, You want something which we dont offer!!' => 'Siamo spiacenti, si è verificato un errore',
       'Update contest' => 'Aggiornamento contest',
       'Edit' => 'Modifica',

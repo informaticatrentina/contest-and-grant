@@ -48,11 +48,7 @@ class ContestController extends Controller {
     if (array_key_exists('slug', $_GET) && !empty($_GET['slug'])) {
       $contest->contestSlug = $_GET['slug'];
     }
-//    $entries = $contest->getContestSubmission();
-//    if (!empty($entries)) {
-//      $entryCount = count($entries);
-//    }
-    $contestInfo = $contest->getContestDetail();
+    $contestInfo = $contest->getContestDetail(); 
     $entrySubmittedByUser = false;
     $contestInfo['briefDescription'] = '';
     if (!empty($contestInfo)) {
@@ -185,9 +181,16 @@ class ContestController extends Controller {
         );
         $staus = $user->createUser($userDetail);
         if ($staus['success']) {
-          $staus['msg'] = Yii::t('contest', 'You have successfully created your account') ;
+          Yii::app()->session->destroy();
+          Yii::app()->session->open();
+          $user = array();
+          $user['firstname'] = $userDetail['firstname'];
+          $user['lastname'] = $userDetail['lastname'];
+          $user['email'] = $userDetail['email'];
+          $user['id'] = $staus['id'];
+          Yii::app()->session['user'] = $user;
         }
-      } catch (Exception $e) {
+      } catch (Exception $e) {       
         $staus['success'] = false;
         $staus['msg'] = $e->getMessage();
         Yii::log('', ERROR, Yii::t('contest', 'Error in actionRegisterUser method :') . $e->getMessage());
@@ -358,8 +361,11 @@ class ContestController extends Controller {
             throw new Exception(Yii::t('contest', $uploadSquareImage['msg']));
           }
         }
-        
+        if(array_key_exists('contestRule', $contestDetails) && empty($contestDetails['contestRule'])) {
+          throw new Exception(Yii::t('contest', 'Contest rule should not be empty'));
+        }
         $contest->contestSlug = $contestDetails['contestSlug'];
+        $contest->contestRule = $contestDetails['contestRule'];
         $contest->contestDescription = $contestDetails['contestDescription'];
         if (empty($contest->contestImage )) {
           $contest->contestImage = $uploadBannerImage['img'];  
@@ -395,6 +401,7 @@ class ContestController extends Controller {
         $contestDetail['contestDescription'] = $contestInfo['contestDescription'];
         $contestDetail['contestSlug'] = $contestInfo['contestSlug'];
         $contestDetail['squareImage'] = $contestInfo['squareImage'];
+        $contestDetail['contestRule'] = $contestInfo['rule'];
       } catch (Exception $e) {
         $message['success'] = false;
         $message['msg'] = Yii::t('contest', $e->getMessage());

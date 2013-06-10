@@ -82,12 +82,16 @@ class Contest  {
         if (empty($squareImage)) {
           throw new Exception(Yii::t('contest', 'Please provide square image'));
         }
+        if(array_key_exists('contestRule', $contestDetails) && empty($contestDetails['contestRule'])) {
+          throw new Exception(Yii::t('contest', 'Contest rule should not be empty'));
+        }
         $contestAPI->contestTitle = $contestDetails['contestTitle'];
         $contestAPI->contestDescription = $contestDetails['contestDescription'];        
         $contestAPI->creationDate = date('Y-m-d H:i:s'); 
         $contestAPI->contestSlug =  strtolower(preg_replace("/[^a-z0-9]+/i", "_", $contestDetails['contestTitle']));        
         $contestAPI->contestImage = $imagePath;
         $contestAPI->squareImage = $squareImage;
+        $contestAPI->contestRule = $contestDetails['contestRule'];
        
         
         //check for contest exist

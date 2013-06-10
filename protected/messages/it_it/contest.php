@@ -103,5 +103,7 @@
       'Square image' => 'immagine quadrata',
       'Please provide banner image' => 'Si prega di fornire immagine del banner',
       'Please provide square image' => "Si prega di fornire un'immagine quadrata",
-      'You have entered either wrong email id or password. Please try again' => 'È stato immesso sia id mail o password errati. Riprova'
+      'You have entered either wrong email id or password. Please try again' => 'È stato immesso sia id mail o password errati. Riprova',
+      'Contest Rule' => 'Contest regola',
+      'Contest rule should not be empty' => 'Contest regola non deve essere vuoto'
   );

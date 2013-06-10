@@ -17,6 +17,7 @@
  * NOTE, this file must be saved in UTF-8 encoding.
  */
 return array (
+  'Please enter Content Rule' => '@@@@',
   'Please upload an image' => '@@Si prega di caricare unimmagine@@',
   'Are you sure you want to delete this Contest ?' => 'Sei sicuro di voler eliminare questo concorso ?',
   'Entry description should not be empty' => 'Descrizione Evento non deve essere vuoto',
@@ -25,6 +26,7 @@ return array (
   'Please check atleast one checkBox' => 'Si prega di verificare, almeno una checkBox',
   'Please enter Content Description' => 'Inserisci Content Descrizione',
   'Please enter Contest Title' => 'Inserisci il concorso titolo',
+  'Please enter Contest rule' => 'Inserisci regola Contest',
   'Please enter First Name' => 'Inserisci il nome',
   'Please enter Last Name' => 'Inserisci il Cognome',
   'Please enter Password' => 'Inserisci la password',

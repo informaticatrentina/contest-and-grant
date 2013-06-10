@@ -31,7 +31,10 @@
     <input type="hidden"  name="squareImage" value="{{contest.squareImage}}" />
     <input type="file"  class="input-block-level" id="squareImage" name="squareImage" />
     <label>{{ t('contest','Contest Description')}}</label>
-    <textarea  class="input-block-level textarea" id="contestDescription" name="contestDescription"> {{ contest.contestDescription }} </textarea> 
+    <textarea  class="input-block-level textarea" id="contestDescription" name="contestDescription"> {{ contest.contestDescription }} </textarea>
+    <label>{{ t('contest','Contest Rule')}}</label>
+    <textarea  class="input-block-level textarea" id="contestRule" name="contestRule">{{contest.contestRule}}</textarea> 
+
     <input type="hidden" name="contestSlug" value="{{ contest.contestSlug }}"></button>
     <button id="create" class="btn btn-large btn-primary" type="submit" name='contestDetail'>{{ t('contest', 'Update contest') }}</button>
   </form>

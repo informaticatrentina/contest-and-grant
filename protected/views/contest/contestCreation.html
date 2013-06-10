@@ -54,6 +54,14 @@
       {% endif %}
     {% endif %}
     <textarea  class="input-block-level textarea" id="contestDescription" name="contestDescription">{{contestDescription}}</textarea> 
+    <label>{{ t('contest','Contest Rule')}}</label>
+    {% set contestRule = '' %}
+    {% if contest is not empty %}
+      {% if contest.contestRule is not empty %}
+        {% set contestRule = contest.contestRule %}
+      {% endif %}
+    {% endif %}
+    <textarea  class="input-block-level textarea" id="contestRule" name="contestRule">{{contestRule}}</textarea> 
     <button id="create" class="btn btn-large btn-primary" type="submit" name='contestDetail'>{{ t('contest', 'create contest') }}</button>
   </form>
   <hr>

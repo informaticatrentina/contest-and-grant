@@ -22,6 +22,10 @@ $(document).ready(function() {
             $('#error').html(Yii.t('js', "Please enter Content Description")).css('color', 'red');
             return false;
         }
+        if ($('#contestRule').val() == '') {
+            $('#error').html(Yii.t('js', "Please enter Contest rule")).css('color', 'red');
+            return false;
+        }
     });
 });
 

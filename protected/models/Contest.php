@@ -85,6 +85,10 @@ class Contest  {
         if(array_key_exists('contestRule', $contestDetails) && empty($contestDetails['contestRule'])) {
           throw new Exception(Yii::t('contest', 'Contest rule should not be empty'));
         }
+        $contestAPI->entryStatus = HIDE_ENTRY;
+        if (array_key_exists('showEntry', $contestDetails) && !empty($contestDetails['showEntry'])) {
+          $contestAPI->entryStatus = SHOW_ENTRY;
+        }
         $contestAPI->contestTitle = $contestDetails['contestTitle'];
         $contestAPI->contestDescription = $contestDetails['contestDescription'];        
         $contestAPI->creationDate = date('Y-m-d H:i:s'); 

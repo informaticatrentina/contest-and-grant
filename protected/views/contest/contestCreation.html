@@ -62,6 +62,13 @@
       {% endif %}
     {% endif %}
     <textarea  class="input-block-level textarea" id="contestRule" name="contestRule">{{contestRule}}</textarea> 
+    <label class="checkbox">
+      {% set check = '' %}
+      {% if contest.entryStatus ==  1 %}
+        {% set check = 'checked' %}
+      {% endif %}  
+      <input type="checkbox"  name="showEntry" value="showEntry" {{check}}>{{ t('contest','Show contest entry') }} 
+    </label>
     <button id="create" class="btn btn-large btn-primary" type="submit" name='contestDetail'>{{ t('contest', 'create contest') }}</button>
   </form>
   <hr>

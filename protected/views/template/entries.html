@@ -1,35 +1,24 @@
- <div id="posts" class="row">
-    {% for entry in entries %}
+<div class="container maincontent">
+  <div id="posts" class="row">
+    {% for entry in entries %} 
       <div class="post span4">
-        <div style="padding:10px;">
-          {% if entry.image is not empty %}
-            <img   src= {{ entry.image }} width="600" height="400" />
-          {% endif %}
-          <h6>{{ entry.title }}</h6>
-          by {{ entry.author.name }}
-          <div class="pull-right"><img src="{{constant('BASE_URL')}}images/facebook.png" width="24px" height="24px" alt="facebook" />
-              <img src="{{constant('BASE_URL')}}images/twitter.png" width="24px" height="24px" alt="twitter" />
-          </div>
-        </div>
-      </div>   
+        <div style="padding: 10px 10px;"><h6>{{ entry.title }}</h6></div>
+        <img src={{ entry.image }} width="600" height="450" />
+        <div style="padding: 10px 10px; vertical-align:bottom;"> di {{ entry.author.name }} </div>
+      </div>
     {% endfor %}
   </div>
-  
   {% if entryCount is not empty and entryCount > 10 %}
     <div class="row">
       <div class="span12">
-        <a href="#" class="btn btn-large btn-block">SEE ALL</a> 
+        <a href="#" class="seeall-button btn-block">Visualizza più articoli</a>
       </div>
     </div>
-    <hr>
   {% endif %}
-  
-  <script src="{{constant('BASE_URL')}}js/jquery.masonry.min.js"></script>
-<script src="{{constant('BASE_URL')}}js/bootstrap-fileupload.js"></script>
+</div> 
+<script src="{{constant('BASE_URL')}}js/jquery.masonry.min.js"></script>
 <script>
-
   $(document).ready(function() {
-
     $("#posts").masonry({
       itemSelector: '.post',
       isAnimated: true,

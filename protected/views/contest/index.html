@@ -2,7 +2,7 @@
   <ul class="rslides" id="myslider">
     {% for info in contestInfo %}
       {% if info.contestSlug is not empty %}
-        <li><a href="{{constant('BASE_URL')}}contest/{{ info.contestSlug }} "><img src="{{constant('BASE_URL')}}images/homepage_photo_contest.jpg" alt="{{ t('contest', 'contest Image')}}" /></a></li>  
+        <li><a href="{{constant('BASE_URL')}}contest/brief/{{ info.contestSlug }} "><img src="{{constant('BASE_URL')}}images/homepage_photo_contest.jpg" alt="{{ t('contest', 'contest Image')}}" /></a></li>  
       {% endif %} 
     {% endfor %}
   </ul>

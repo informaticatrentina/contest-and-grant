@@ -84,3 +84,9 @@ define('LINKEDIN_USERNAME', 'ImRaina');
  */
 define('ALLOWED_IMAGE_EXTENSION', '["jpg"]');
 define('UPLOAD_IMAGE_SIZE_LIMIT', 5242880);
+
+/**
+ * define coinstant for show and hide entry for a contest 
+ */
+define('SHOW_ENTRY', 1);
+define('HIDE_ENTRY', 0);

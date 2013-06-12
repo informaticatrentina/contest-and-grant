@@ -34,7 +34,14 @@
     <textarea  class="input-block-level textarea" id="contestDescription" name="contestDescription"> {{ contest.contestDescription }} </textarea>
     <label>{{ t('contest','Contest Rule')}}</label>
     <textarea  class="input-block-level textarea" id="contestRule" name="contestRule">{{contest.contestRule}}</textarea> 
-
+    <label class="checkbox">
+      {% set check = '' %}
+      {% if contest.entryStatus ==  1 %}
+        {% set check = 'checked' %}
+      {% endif %}   
+      <input type="checkbox"  name="showEntry" value="showEntry" {{check}}>
+      {{ t('contest','Show contest entry') }} 
+    </label>
     <input type="hidden" name="contestSlug" value="{{ contest.contestSlug }}"></button>
     <button id="create" class="btn btn-large btn-primary" type="submit" name='contestDetail'>{{ t('contest', 'Update contest') }}</button>
   </form>

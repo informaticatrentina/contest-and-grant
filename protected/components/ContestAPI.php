@@ -22,6 +22,7 @@ class ContestAPI {
   public $contestImage;
   public $squareImage;
   public $contestRule;
+  public $entryStatus;  
 
   /**
    * save
@@ -57,8 +58,9 @@ class ContestAPI {
       throw new Exception(Yii::t('contest','Contest rule should not be empty'));
     }
     
-    $sql = "INSERT INTO contest (startDate, endDate, creationDate, imagePath, contestTitle, contestDescription, contestSlug, squareImage, rule) 
-        VALUES( :startDate, :endDate, :creationDate, :imagePath, :contestTitle, :contestDescription, :contestSlug, :squareImage, :rule)";
+    $sql = "INSERT INTO contest (startDate, endDate, creationDate, imagePath, contestTitle, contestDescription, contestSlug, 
+      squareImage, rule, entryStatus) VALUES( :startDate, :endDate, :creationDate, :imagePath, :contestTitle, :contestDescription, 
+      :contestSlug, :squareImage, :rule, :entryStatus)";
     $query = $connection->createCommand($sql);
     $query->bindParam(":startDate", $this->startDate);
     $query->bindParam(":endDate", $this->endDate);
@@ -69,6 +71,7 @@ class ContestAPI {
     $query->bindParam(":contestSlug", $this->contestSlug);
     $query->bindParam(":squareImage", $this->squareImage);
     $query->bindParam(":rule", $this->contestRule);
+    $query->bindParam(":entryStatus", $this->entryStatus);
     $response = $query->execute();    
     return $response;
   }
@@ -82,7 +85,7 @@ class ContestAPI {
   public function getContestDetail() { 
     $connection = Yii::app()->db;
     $sql = "SELECT contestId, startDate, endDate, creationDate, imagePath, contestTitle, contestDescription, contestSlug, 
-      squareImage,rule FROM contest";
+      squareImage,rule, entryStatus FROM contest";
     $query = $connection->createCommand($sql);
     $contestDetails = $query->queryAll();
     return $contestDetails;
@@ -123,7 +126,7 @@ class ContestAPI {
       return array();
     }    
     $sql = "SELECT contestId, startDate, endDate, creationDate, imagePath, contestTitle, contestDescription, contestSlug, 
-      squareImage, rule FROM contest where contestSlug = :contestSlug ";
+      squareImage, rule, entryStatus FROM contest where contestSlug = :contestSlug ";
     $query = $connection->createCommand($sql);
     $query->bindParam(":contestSlug", $this->contestSlug);
     $contestDetails = $query->queryRow();
@@ -145,7 +148,7 @@ class ContestAPI {
       return false;
     } 
     $sql = "UPDATE contest SET startDate = :startDate, endDate = :endDate, imagePath = :imagePath, squareImage = :squareImage,
-      contestDescription = :contestDescription, rule = :contestRule where contestSlug = :contestSlug";
+      contestDescription = :contestDescription, rule = :contestRule, entryStatus= :entryStatus where contestSlug = :contestSlug";
     $query = $connection->createCommand($sql);
     $query->bindParam(":startDate", $this->startDate);
     $query->bindParam(":endDate", $this->endDate);
@@ -154,6 +157,7 @@ class ContestAPI {
     $query->bindParam(":contestSlug", $this->contestSlug);
     $query->bindParam(":squareImage", $this->squareImage);
     $query->bindParam(":contestRule", $this->contestRule);
+    $query->bindParam(":entryStatus", $this->entryStatus);
     return  $query->execute();
   }
   

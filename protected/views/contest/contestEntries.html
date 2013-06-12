@@ -6,7 +6,6 @@
     </div>
   </div> 
 </div>
-
 <div class="container maincontent">
   <div class="row hidden-tablet hidden-phone">
     <div class="span8" style="background-color: #666; position:relative; min-height:338px; ">
@@ -39,7 +38,10 @@
   <div class="container">
     <div class="row">   
       <div class="span3">
-        <a href="{{constant('BASE_URL')}}contest/{{contestInfo.contestSlug}}" class="contest-button btn-block active">REGOLAMENTO</a>        
+          <a href="{{constant('BASE_URL')}}contest/entries/{{ contestInfo.contestSlug }}" class="contest-button btn-block active">PARTECIPANTI</a>
+      </div>       
+      <div class="span3">
+        <a href="{{constant('BASE_URL')}}contest/brief/{{ contestInfo.contestSlug }}" class="contest-button btn-block ">REGOLAMENTO</a>        
       </div>        
       <div class="span3">
         <a href="{{constant('BASE_URL')}}contest/submission/{{ contestInfo.contestSlug }}"  class="contest-button btn-block">PARTECIPA</a>
@@ -47,8 +49,8 @@
     </div> 
   </div>
 </div>
-<div id="briefContent">
-  {% include  '/views/contest/contestBrief.html' %}
+<div id="contestEntries">
+  {% include  '/views/template/entries.html' %}
 </div>
 <script src="{{constant('BASE_URL')}}js/contest.js"></script>
 <script src="{{constant('BASE_URL')}}js/bootstrap-fileupload.js"></script>

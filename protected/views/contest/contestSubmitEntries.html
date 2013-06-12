@@ -38,11 +38,16 @@
 <div style="background-color:#4cbed7; margin-top:25px; margin-bottom:25px;">
   <div class="container">
     <div class="row">   
+      {% if contestInfo.entryStatus == 1 %}
+        <div class="span3">
+          <a href="{{constant('BASE_URL')}}contest/entries/{{ contestInfo.contestSlug }}"  class="contest-button btn-block">PARTECIPANTI</a>
+        </div>
+      {% endif %}       
       <div class="span3">
-        <a  class="contest-button btn-block" href="{{constant('BASE_URL')}}contest/{{contestInfo.contestSlug}}">REGOLAMENTO</a>        
+        <a href="{{constant('BASE_URL')}}contest/brief/{{ contestInfo.contestSlug }}" class="contest-button btn-block">REGOLAMENTO</a>        
       </div>        
       <div class="span3">
-        <a href="{{constant('BASE_URL')}}contest/submission/{{contestInfo.contestSlug}}" class="contest-button btn-block active">PARTECIPA</a>
+        <a href="{{constant('BASE_URL')}}contest/submission/{{ contestInfo.contestSlug }}"  class="contest-button btn-block active">PARTECIPA</a>
       </div> 
     </div> 
   </div>

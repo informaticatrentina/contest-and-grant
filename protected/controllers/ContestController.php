@@ -42,14 +42,20 @@ class ContestController extends Controller {
   public function actionEntries() {
     $contest = new Contest();
     $contestInfo = array();
-    $entrySubmissionResponse = array();
     $entryCount = '';
     $entries = array();
     if (array_key_exists('slug', $_GET) && !empty($_GET['slug'])) {
       $contest->contestSlug = $_GET['slug'];
     }
-    $contestInfo = $contest->getContestDetail(); 
-    $entrySubmittedByUser = false;
+    $contestInfo = $contest->getContestDetail();
+    if (!empty($contestInfo['entryStatus'])) {
+      $entries = $contest->getContestSubmission();
+      if (!empty($entries)) {
+        $entryCount = count($entries);
+      }
+    } else {
+      $this->redirect(BASE_URL);
+    }
     $contestInfo['briefDescription'] = '';
     if (!empty($contestInfo)) {
       $contestInfo['briefDescription'] = substr($contestInfo['contestDescription'], 0, 325);
@@ -115,7 +121,7 @@ class ContestController extends Controller {
     $response = array();
     $contest = new Contest();
     try {
-      if (!empty($_POST)) {
+      if (!empty($_POST)) { 
         if (!empty($_FILES['image']['name'])) {
           $directory = 'uploads/contestImage/';
           $uploadBannerImage = $this->uploadImage($directory, 'image');
@@ -373,6 +379,10 @@ class ContestController extends Controller {
         if(array_key_exists('contestRule', $contestDetails) && empty($contestDetails['contestRule'])) {
           throw new Exception(Yii::t('contest', 'Contest rule should not be empty'));
         }
+        $contest->entryStatus = HIDE_ENTRY;
+        if(array_key_exists('showEntry', $contestDetails) && !empty($contestDetails['showEntry'])) {
+          $contest->entryStatus = SHOW_ENTRY;
+        }
         $contest->contestSlug = $contestDetails['contestSlug'];
         $contest->contestRule = $contestDetails['contestRule'];
         $contest->contestDescription = $contestDetails['contestDescription'];
@@ -411,6 +421,7 @@ class ContestController extends Controller {
         $contestDetail['contestSlug'] = $contestInfo['contestSlug'];
         $contestDetail['squareImage'] = $contestInfo['squareImage'];
         $contestDetail['contestRule'] = $contestInfo['rule'];
+        $contestDetail['entryStatus'] = $contestInfo['entryStatus'];
       } catch (Exception $e) {
         $message['success'] = false;
         $message['msg'] = Yii::t('contest', $e->getMessage());
@@ -469,5 +480,23 @@ class ContestController extends Controller {
     return $response;
   }
 
+  
+  /**
+   * actionEntries
+   * 
+   * This function is used for get entries for a contest and get contest detail
+   */
+  public function actionContestBrief() {
+    $contest = new Contest();
+    if (array_key_exists('slug', $_GET) && !empty($_GET['slug'])) {
+      $contest->contestSlug = $_GET['slug'];
+    }
+    $contestInfo = $contest->getContestDetail();
+    $contestInfo['briefDescription'] = '';
+    if (!empty($contestInfo)) {
+      $contestInfo['briefDescription'] = substr($contestInfo['contestDescription'], 0, 325);
+    }
+    $this->render('contestBrief', array('contestInfo' => $contestInfo));
+  }
 }
 

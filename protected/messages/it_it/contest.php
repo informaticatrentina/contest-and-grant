@@ -108,5 +108,6 @@
       'Contest rule should not be empty' => 'Contest regola non deve essere vuoto',
       'Show contest entry' => 'Mostra iscrizione al concorso',
       'Just another blog post' => 'Solo un altro post sul blog',
-      'Great source of inspiration' => 'Grande fonte di ispirazione'
+      'Great source of inspiration' => 'Grande fonte di ispirazione',
+      'No of entry' => 'No di entrata'
   );

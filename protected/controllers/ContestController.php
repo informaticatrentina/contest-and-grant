@@ -39,9 +39,9 @@ class ContestController extends Controller {
    * 
    * This function is used for get entries for a contest and get contest detail
    */
-  public function actionEntries() {
-    $contest = new Contest();
-    $contest->entryId ='';
+  public function actionEntries() { 
+    $contest = new Contest(); 
+    $contest->sort = '-creation_date';
     $contestInfo = array();
     $entryCount = '';
     $entries = array();    
@@ -130,7 +130,7 @@ class ContestController extends Controller {
     //check if user belong to admin users or not
     $isAdmin = isAdminUser();
     if (!$isAdmin) {
-    //  $this->redirect(BASE_URL);
+      $this->redirect(BASE_URL);
     }
     $response = array();
     $contest = new Contest();
@@ -175,7 +175,7 @@ class ContestController extends Controller {
    */
   public function actionRegisterUser() {
     if (userIsLogged()) {
-    //  $this->redirect(BASE_URL);
+      $this->redirect(BASE_URL);
     }
     $user = new UserIdentityManager();
     $staus = array();
@@ -230,8 +230,9 @@ class ContestController extends Controller {
    * this function is used for login user
    */
   public function actionLogin() {
+    $admin = array();
     if (userIsLogged()) {
-    //  $this->redirect(BASE_URL);
+      $this->redirect(BASE_URL);
     }
     $response = array();
     $user = new UserIdentityManager();
@@ -246,6 +247,13 @@ class ContestController extends Controller {
           throw new Exception(Yii::t('contest', 'Please enter password'));
         }
         $response = $user->validateUser($userDetail);
+        if ($response['success']) {
+          $isAdmin = isAdminUser();
+          if ($isAdmin) {
+            $admin['admin'] = true;
+            $admin['url'] = BASE_URL .'admin/contest/list';
+          }
+        }        
         if (!empty($_GET['back'])) {
             $backUrl = BASE_URL . substr($_GET['back'], 1);
         }
@@ -256,7 +264,7 @@ class ContestController extends Controller {
       }
     }
     $this->layout = 'userManager';
-    $this->render('login', array('message' => $response, 'back_url' => $backUrl));
+    $this->render('login', array('message' => $response, 'back_url' => $backUrl, 'user'=> $admin));
   }
 
   /**
@@ -308,7 +316,7 @@ class ContestController extends Controller {
   public function actionGetContest() {
     $isAdmin = isAdminUser();
     if (!$isAdmin) {
-  //    $this->redirect(BASE_URL);
+      $this->redirect(BASE_URL);
     }
     $contestInfo = array();
     $contestDetail = array();
@@ -317,6 +325,7 @@ class ContestController extends Controller {
     if (!empty($contestInfo)) {
       $i = 0;
       foreach ($contestInfo as $info) {
+        $entries = array();
         $contestDetail[$i]['startDate'] = date('Y-m-d', strtotime($info['startDate']));
         $contestDetail[$i]['endDate'] = date('Y-m-d', strtotime($info['endDate']));
         $contestDetail[$i]['imagePath'] = $info['imagePath'];
@@ -324,6 +333,12 @@ class ContestController extends Controller {
         $contestDetail[$i]['contestDescription'] = substr($info['contestDescription'], 0, 20);
         $contestDetail[$i]['contestSlug'] = $info['contestSlug'];
         $contestDetail[$i]['squareImage'] = $info['squareImage'];
+        $contest->contestSlug = $info['contestSlug'];
+        $entries = $contest->getContestSubmission();
+        $contestDetail[$i]['entryCount'] = 0;
+        if (!empty($entries)) {
+          $contestDetail[$i]['entryCount']= count($entries);
+        }
         $i++;
       }
     }
@@ -339,7 +354,7 @@ class ContestController extends Controller {
   public function actionUpdateContest() {
     $isAdmin = isAdminUser();
     if (!$isAdmin) {
-   //   $this->redirect(BASE_URL);
+      $this->redirect(BASE_URL);
     }
     $contest = new ContestAPI();
     $contestInfo = array();

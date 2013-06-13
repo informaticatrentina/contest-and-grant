@@ -16,7 +16,10 @@ class Contest  {
   public $image;
   public $contestSlug;
   public $entryId = '';
-  
+  public $sort = '';
+  public $offset = 1;
+
+
   /**
    * getContestSubmission
    * 
@@ -26,7 +29,7 @@ class Contest  {
   public function getContestSubmission() {
     $contestEntries = array();
     $aggregatorManager = new AggregatorManager();    
-    $contestEntries = $aggregatorManager->getEntry( 5, 1, $this->entryId, 'active', $this->contestSlug.'[contest]', '', '', '', '', '', '', '',array(), '', 'links,status,author,title,id,content','','');
+    $contestEntries = $aggregatorManager->getEntry(ENTRY_LIMIT, $this->offset, $this->entryId, 'active', $this->contestSlug.'[contest]', '', '', '', '', '', '', '',array(), $this->sort, 'links,status,author,title,id,content','','');
     $i = 0;
     foreach ($contestEntries as $entry) {
       if (!empty($entry['links']['enclosures'])) { 

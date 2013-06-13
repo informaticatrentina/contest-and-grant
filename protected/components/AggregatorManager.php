@@ -46,7 +46,7 @@ class AggregatorManager {
    * @return (array) $entry
    */
   
-  public function getEntry($limit = 1, $offset = 1, $id, $status= 'active', $tags = '', $tagsName='', $guid = '', $count='', $dateFrom ='', 
+  public function getEntry($limit = 1, $offset = 0, $id, $status= 'active', $tags = '', $tagsName='', $guid = '', $count='', $dateFrom ='', 
           $dateTo='', $enclosures = 1, $range='', $cordinate=array(), $sort, $returnField, $returnContent, $returnTag) {
     $data = array();
     $entry = array();

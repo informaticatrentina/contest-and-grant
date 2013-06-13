@@ -17,7 +17,7 @@ class Contest  {
   public $contestSlug;
   public $entryId = '';
   public $sort = '';
-  public $offset = 1;
+  public $offset = 0;
 
 
   /**
@@ -198,4 +198,23 @@ class Contest  {
     }
     return $response;
   }
+  
+   /**
+   * getContestSubmissionInfo
+   * 
+   * This functiction calls getEntry method (in AggregatorManager) to get single entry for a contest.
+   * @return (array)
+   */
+  public function getContestSubmissionInfo() {
+    $contestEntries = array();
+    $entry = array(); 
+    $aggregatorManager = new AggregatorManager();
+    $contestEntries = $aggregatorManager->getEntry('', '', $this->entryId, 'active', $this->contestSlug . '[contest]', '', '', '', '', '', '', '', array(), $this->sort, 'links,status,author,title,id,content', '', '');
+    $entry = $contestEntries[0]; 
+    if (!empty($entry['links']['enclosures'])) {
+      $entry['image'] = $entry['links']['enclosures'][0]['uri'];
+    }
+    return $entry;
+  }
+
 }

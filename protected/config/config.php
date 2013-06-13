@@ -33,7 +33,7 @@ define('DEFAULT_LIMIT', 1);
 /**
  * define constant for default offset 
  */
-define('DEFAULT_OFFSET', 1);
+define('DEFAULT_OFFSET', 0);
 
 /**
  * define constant for curl timeout (execution time) 
@@ -114,6 +114,7 @@ return array(
         'admin/contest/list' => 'contest/getContest',
         'admin/contest/delete/<slug:[\w-]+>' => 'contest/deleteContest',
         'admin/contest/edit/<slug:[\w-]+>' => 'contest/updateContest',
+        'admin/contest/entries/<slug:[\w-]+>'=>'contest/entriesAdminView',
         'contest/entries/<slug:[\w-]+>'=>'contest/entries',
         'contest/entries/<slug:[\w-]+>/<id:[\w-]+>'=>'contest/entries',
         'contest/brief/<slug:[\w-]+>'=>'contest/contestBrief',

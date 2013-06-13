@@ -22,7 +22,7 @@
     <div class="span2">{{ info.contestDescription }}</div>
     <div class="span2"><img src="{{constant('BASE_URL')}}{{resizeByPath(info.imagePath,'100','500')}}" alt="contest image" /></div>
     <div class="span1"><img src="{{constant('BASE_URL')}}{{resizeByPath(info.squareImage,'100','500')}}" alt="contest image" /></div>
-    <div class="span1">{{info.entryCount}}</div>
+    <div class="span1">{{info.entryCount}}<a href="{{constant('BASE_URL')}}admin/contest/entries/{{ info.contestSlug }}">   view</a></div>
     <div class="span1"><a href="{{constant('BASE_URL')}}admin/contest/edit/{{ info.contestSlug }}">{{ t('contest','Edit')}}</a></div>
     <div class="span1 deleteContest"><a href="{{constant('BASE_URL')}}admin/contest/delete/{{ info.contestSlug }}">{{ t('contest','Delete')}}</a></div>
   </div>

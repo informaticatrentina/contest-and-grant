@@ -52,13 +52,13 @@ class ContestController extends Controller {
     if (array_key_exists('id', $_GET) && !empty($_GET['id'])) {
       $contest->entryId = $_GET['id'];
       $entry = array();
-      $entries = $contest->getContestSubmission();
+      $entries = $contest->getContestSubmissionInfo();
       if (!empty($entries)) {
         $entry['contestTitle'] = $contestInfo['contestTitle'];
-        $entry['title'] = $entries[0]['title'];
-        $entry['description'] = $entries[0]['content']['description'];
-        $entry['authorName'] = $entries[0]['author']['name'];
-        $entry['image'] = $entries[0]['image'];
+        $entry['title'] = $entries['title'];
+        $entry['description'] = $entries['content']['description'];
+        $entry['authorName'] = $entries['author']['name'];
+        $entry['image'] = $entries['image'];
       }
       $this->render('entry', array('entry' => $entry));
     } else {
@@ -526,5 +526,34 @@ class ContestController extends Controller {
     }
     $this->render('contestBrief', array('contestInfo' => $contestInfo));
   }
+  
+  /**
+   * entriesAdminView
+   */
+  public function actionEntriesAdminView() {
+    $isAdmin = isAdminUser();
+    if (!$isAdmin) {
+      $this->redirect(BASE_URL);
+    }
+    $contest = new Contest();
+    $contest->sort = '-creation_date';
+    $contestInfo = array();
+    $entryCount = '';
+    $entries = array();
+    if (array_key_exists('slug', $_GET) && !empty($_GET['slug'])) {
+      $contest->contestSlug = $_GET['slug'];
+      $contestInfo = $contest->getContestDetail();
+    }
+    $entries = $contest->getContestSubmission();
+    if (!empty($entries)) {
+      $entryCount = count($entries);
+    }
+    $contestInfo['briefDescription'] = '';
+    if (!empty($contestInfo)) {
+      $contestInfo['briefDescription'] = substr($contestInfo['contestDescription'], 0, 325);
+    }
+    $this->render('contestEntries', array('entries' => $entries, 'contestInfo' => $contestInfo, 'entryCount' => $entryCount));
+  }
+
 }
 

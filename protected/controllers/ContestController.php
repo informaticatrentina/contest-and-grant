@@ -408,9 +408,8 @@ class ContestController extends Controller {
         if(array_key_exists('contestRule', $contestDetails) && empty($contestDetails['contestRule'])) {
           throw new Exception(Yii::t('contest', 'Contest rule should not be empty'));
         }
-        $contest->entryStatus = HIDE_ENTRY;
         if(array_key_exists('showEntry', $contestDetails) && !empty($contestDetails['showEntry'])) {
-          $contest->entryStatus = SHOW_ENTRY;
+          $contest->entryStatus = true;
         }
         $contest->contestSlug = $contestDetails['contestSlug'];
         $contest->contestRule = $contestDetails['contestRule'];

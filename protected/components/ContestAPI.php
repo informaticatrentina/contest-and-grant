@@ -22,7 +22,7 @@ class ContestAPI {
   public $contestImage;
   public $squareImage;
   public $contestRule;
-  public $entryStatus;  
+  public $entryStatus = false;  
 
   /**
    * save

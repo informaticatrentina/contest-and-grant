@@ -41,27 +41,41 @@ class ContestController extends Controller {
    */
   public function actionEntries() {
     $contest = new Contest();
+    $contest->entryId ='';
     $contestInfo = array();
     $entryCount = '';
-    $entries = array();
+    $entries = array();    
     if (array_key_exists('slug', $_GET) && !empty($_GET['slug'])) {
       $contest->contestSlug = $_GET['slug'];
+      $contestInfo = $contest->getContestDetail();
     }
-    $contestInfo = $contest->getContestDetail();
-    if (!empty($contestInfo['entryStatus'])) {
+    if (array_key_exists('id', $_GET) && !empty($_GET['id'])) {
+      $contest->entryId = $_GET['id'];
+      $entry = array();
       $entries = $contest->getContestSubmission();
       if (!empty($entries)) {
-        $entryCount = count($entries);
+        $entry['contestTitle'] = $contestInfo['contestTitle'];
+        $entry['title'] = $entries[0]['title'];
+        $entry['description'] = $entries[0]['content']['description'];
+        $entry['authorName'] = $entries[0]['author']['name'];
+        $entry['image'] = $entries[0]['image'];
       }
+      $this->render('entry', array('entry' => $entry));
     } else {
-      $this->redirect(BASE_URL);
+      if (!empty($contestInfo['entryStatus'])) {
+        $entries = $contest->getContestSubmission();
+        if (!empty($entries)) {
+          $entryCount = count($entries);
+        }
+      } else {
+        $this->redirect(BASE_URL);
+      }
+      $contestInfo['briefDescription'] = '';
+      if (!empty($contestInfo)) {
+        $contestInfo['briefDescription'] = substr($contestInfo['contestDescription'], 0, 325);
+      }
+      $this->render('contestEntries', array('entries' => $entries, 'contestInfo' => $contestInfo, 'entryCount' => $entryCount));
     }
-    $contestInfo['briefDescription'] = '';
-    if (!empty($contestInfo)) {
-      $contestInfo['briefDescription'] = substr($contestInfo['contestDescription'], 0, 325);
-    }
-
-    $this->render('contestEntries', array('entries' => $entries, 'contestInfo' => $contestInfo, 'entryCount' => $entryCount));
   }
 
   public function actionSubmitEntries() {
@@ -116,7 +130,7 @@ class ContestController extends Controller {
     //check if user belong to admin users or not
     $isAdmin = isAdminUser();
     if (!$isAdmin) {
-      $this->redirect(BASE_URL);
+    //  $this->redirect(BASE_URL);
     }
     $response = array();
     $contest = new Contest();
@@ -161,7 +175,7 @@ class ContestController extends Controller {
    */
   public function actionRegisterUser() {
     if (userIsLogged()) {
-      $this->redirect(BASE_URL);
+    //  $this->redirect(BASE_URL);
     }
     $user = new UserIdentityManager();
     $staus = array();
@@ -217,7 +231,7 @@ class ContestController extends Controller {
    */
   public function actionLogin() {
     if (userIsLogged()) {
-      $this->redirect(BASE_URL);
+    //  $this->redirect(BASE_URL);
     }
     $response = array();
     $user = new UserIdentityManager();
@@ -294,7 +308,7 @@ class ContestController extends Controller {
   public function actionGetContest() {
     $isAdmin = isAdminUser();
     if (!$isAdmin) {
-      $this->redirect(BASE_URL);
+  //    $this->redirect(BASE_URL);
     }
     $contestInfo = array();
     $contestDetail = array();
@@ -325,7 +339,7 @@ class ContestController extends Controller {
   public function actionUpdateContest() {
     $isAdmin = isAdminUser();
     if (!$isAdmin) {
-      $this->redirect(BASE_URL);
+   //   $this->redirect(BASE_URL);
     }
     $contest = new ContestAPI();
     $contestInfo = array();

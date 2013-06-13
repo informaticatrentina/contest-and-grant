@@ -110,6 +110,7 @@ return array(
         'admin/contest/delete/<slug:[\w-]+>' => 'contest/deleteContest',
         'admin/contest/edit/<slug:[\w-]+>' => 'contest/updateContest',
         'contest/entries/<slug:[\w-]+>'=>'contest/entries',
+        'contest/entries/<slug:[\w-]+>/<id:[\w-]+>'=>'contest/entries',
         'contest/brief/<slug:[\w-]+>'=>'contest/contestBrief',
         'contest/submission/<slug:[\w-]+>'=>'contest/submitEntries',
         'register' => 'contest/registerUser', 

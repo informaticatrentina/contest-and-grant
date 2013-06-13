@@ -60,7 +60,7 @@
               {% set firstContestSlug = '' %}
               {% set firstContestSlug = getFirstContest() %}
               {% if firstContestSlug is not empty %}
-                <a href="{{constant('BASE_URL')}}contest/{{firstContestSlug}}">
+                <a href="{{constant('BASE_URL')}}contest/brief/{{firstContestSlug}}">
               {%else%}
                 <a href="#">
               {%endif%}

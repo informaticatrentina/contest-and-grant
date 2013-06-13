@@ -106,5 +106,7 @@
       'You have entered either wrong email id or password. Please try again' => 'È stato immesso sia id mail o password errati. Riprova',
       'Contest Rule' => 'Contest regola',
       'Contest rule should not be empty' => 'Contest regola non deve essere vuoto',
-      'Show contest entry' => 'Mostra iscrizione al concorso'
+      'Show contest entry' => 'Mostra iscrizione al concorso',
+      'Just another blog post' => 'Solo un altro post sul blog',
+      'Great source of inspiration' => 'Grande fonte di ispirazione'
   );

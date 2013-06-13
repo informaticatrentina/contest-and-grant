@@ -15,6 +15,7 @@ class Contest  {
   
   public $image;
   public $contestSlug;
+  public $entryId = '';
   
   /**
    * getContestSubmission
@@ -25,7 +26,7 @@ class Contest  {
   public function getContestSubmission() {
     $contestEntries = array();
     $aggregatorManager = new AggregatorManager();    
-    $contestEntries = $aggregatorManager->getEntry( 5, 1, '', 'active', $this->contestSlug.'[contest]', '', '', '', '', '', '', '',array(), '', 'links,status,author,title','','');
+    $contestEntries = $aggregatorManager->getEntry( 5, 1, $this->entryId, 'active', $this->contestSlug.'[contest]', '', '', '', '', '', '', '',array(), '', 'links,status,author,title,id,content','','');
     $i = 0;
     foreach ($contestEntries as $entry) {
       if (!empty($entry['links']['enclosures'])) { 

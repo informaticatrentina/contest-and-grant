@@ -49,7 +49,22 @@ class ContestController extends Controller {
       $contest->contestSlug = $_GET['slug'];
       $contestInfo = $contest->getContestDetail();
     }
-    if (array_key_exists('id', $_GET) && !empty($_GET['id'])) {
+    if (array_key_exists('offset', $_GET) && isset($_GET['offset'])) { 
+      $return = array('success' => true, 'msg' => '', 'data' => array());
+      $contest->offset = $_GET['offset'];
+      $entries = $contest->getContestSubmission();
+      array_pop($entries);
+      foreach ($entries as $entry) {
+        $contestEntry['title'] = $entry['title'];
+        $contestEntry['description'] = $entry['content']['description'];
+        $contestEntry['authorName'] = $entry['author']['name'];
+        $contestEntry['image'] = $entry['image'];
+        $contestEntry['id'] = $entry['id'];
+        array_push($return['data'], $contestEntry);
+      }
+      echo json_encode($return);
+      exit;
+    } elseif (array_key_exists('id', $_GET) && !empty($_GET['id'])) {
       $contest->entryId = $_GET['id'];
       $entry = array();
       $entries = $contest->getContestSubmissionInfo();
@@ -64,9 +79,7 @@ class ContestController extends Controller {
     } else {
       if (!empty($contestInfo['entryStatus'])) {
         $entries = $contest->getContestSubmission();
-        if (!empty($entries)) {
-          $entryCount = count($entries);
-        }
+        $entryCount = array_pop($entries);     
       } else {
         $this->redirect(BASE_URL);
       }
@@ -74,7 +87,7 @@ class ContestController extends Controller {
       if (!empty($contestInfo)) {
         $contestInfo['briefDescription'] = substr($contestInfo['contestDescription'], 0, 325);
       }
-      $this->render('contestEntries', array('entries' => $entries, 'contestInfo' => $contestInfo, 'entryCount' => $entryCount));
+      $this->render('contestEntries', array('entries' => $entries, 'contestInfo' => $contestInfo, 'entryCount' => $entryCount['count']));
     }
   }
 
@@ -321,6 +334,7 @@ class ContestController extends Controller {
     $contestInfo = array();
     $contestDetail = array();
     $contest = new Contest();
+    $entry = array();
     $contestInfo = $contest->getContestDetail();
     if (!empty($contestInfo)) {
       $i = 0;
@@ -334,10 +348,11 @@ class ContestController extends Controller {
         $contestDetail[$i]['contestSlug'] = $info['contestSlug'];
         $contestDetail[$i]['squareImage'] = $info['squareImage'];
         $contest->contestSlug = $info['contestSlug'];
-        $entries = $contest->getContestSubmission();
+        $contest->count = 2;
+        $entry = $contest->getContestSubmission();
         $contestDetail[$i]['entryCount'] = 0;
-        if (!empty($entries)) {
-          $contestDetail[$i]['entryCount']= count($entries);
+        if (!empty($entry)) {
+          $contestDetail[$i]['entryCount']= $entry[0]['count'];
         }
         $i++;
       }
@@ -545,8 +560,9 @@ class ContestController extends Controller {
       $contestInfo = $contest->getContestDetail();
     }
     $entries = $contest->getContestSubmission();
+    $count = array_pop($entries);
     if (!empty($entries)) {
-      $entryCount = count($entries);
+      $entryCount = $count['count'];
     }
     $contestInfo['briefDescription'] = '';
     if (!empty($contestInfo)) {

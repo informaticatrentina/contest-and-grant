@@ -7,9 +7,16 @@
         <div style="padding: 10px 10px; vertical-align:bottom;"> di {{ entry.author.name }} </div>
       </div>
     {% endfor %}
-  </div> 
+  </div>
+    
+  <div id="loading-image">
+    <center><img src="{{constant('BASE_URL')}}images/loader.gif" alt="loading image" /></center>
+  </div>  
+  <input type="hidden" value="{{entryCount}}" id="entryCount">
+</div>
 <script src="{{constant('BASE_URL')}}js/jquery.masonry.min.js"></script>
-<script>
+<script src="{{constant('BASE_URL')}}js/entry.js"></script>
+<script>  
   $(document).ready(function() {
     $("#posts").masonry({
       itemSelector: '.post',

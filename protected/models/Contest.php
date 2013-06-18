@@ -18,6 +18,7 @@ class Contest  {
   public $entryId = '';
   public $sort = '';
   public $offset = 0;
+  public $count = 1;
 
 
   /**
@@ -29,7 +30,9 @@ class Contest  {
   public function getContestSubmission() {
     $contestEntries = array();
     $aggregatorManager = new AggregatorManager();    
-    $contestEntries = $aggregatorManager->getEntry(ENTRY_LIMIT, $this->offset, $this->entryId, 'active', $this->contestSlug.'[contest]', '', '', '', '', '', '', '',array(), $this->sort, 'links,status,author,title,id,content','','');
+    $contestEntries = $aggregatorManager->getEntry(ENTRY_LIMIT, $this->offset, $this->entryId, 'active',
+            $this->contestSlug.'[contest]', '', '', $this->count, '', '', '', '',array(), $this->sort,
+            'links,status,author,title,id,content','','');
     $i = 0;
     foreach ($contestEntries as $entry) {
       if (!empty($entry['links']['enclosures'])) { 
@@ -209,7 +212,8 @@ class Contest  {
     $contestEntries = array();
     $entry = array(); 
     $aggregatorManager = new AggregatorManager();
-    $contestEntries = $aggregatorManager->getEntry('', '', $this->entryId, 'active', $this->contestSlug . '[contest]', '', '', '', '', '', '', '', array(), $this->sort, 'links,status,author,title,id,content', '', '');
+    $contestEntries = $aggregatorManager->getEntry('', '', $this->entryId, 'active', $this->contestSlug . '[contest]', '', '', 
+            $this->count, '', '', '', '', array(), $this->sort, 'links,status,author,title,id,content', '', '');
     $entry = $contestEntries[0]; 
     if (!empty($entry['links']['enclosures'])) {
       $entry['image'] = $entry['links']['enclosures'][0]['uri'];

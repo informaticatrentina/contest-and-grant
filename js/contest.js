@@ -15,7 +15,7 @@ $(document).ready(function() {
       $('#minor').hide();
     }
   });
-  $('#contestEntrySubmitbutton').click(function() {  
+  $('#contestEntrySubmitbutton').click(function() {
     if(($('#entryTitle').val()).trim() == '') {
       $('.alert-error').html(Yii.t('js', 'Entry title should not be empty'));
       return false;
@@ -29,7 +29,7 @@ $(document).ready(function() {
         $('.alert-error').html(Yii.t('js', 'Please enter minor name'));
         return false;
       }
-    }   
+    }
     if (!$('#rightCheckBox').is(':checked') && !$('#leftCheckbox').is(':checked')) {
       $('.alert-error').html(Yii.t('js', 'Please check atleast one checkBox'));
       return false;
@@ -40,7 +40,7 @@ $(document).ready(function() {
     $(this).addClass('active');
     $('#contestBrief').removeClass('active');
     $('#briefContent').hide();
-    $('#entrySubmission').show();   
+    $('#entrySubmission').show();
     return false;
   });
   $('#contestBrief').click(function() {

@@ -1,7 +1,7 @@
-var entriesOffset = 0;
 var postLimit = 20;
+var entriesOffset = postLimit;
 var flag = true;
-var count = 0;
+var count = postLimit;
 
 $(document).ready(function() {
   $('#home').find("a").removeClass('candgselected');
@@ -9,7 +9,7 @@ $(document).ready(function() {
   
   $(window).scroll(function() {
     var totalEntry = $("#entryCount").val();
-    if(count == totalEntry) {
+    if(count >= totalEntry) {
       return false;
     } 
     if ($(window).scrollTop() == $(document).height() - $(window).height()) {

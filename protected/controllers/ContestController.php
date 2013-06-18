@@ -70,6 +70,7 @@ class ContestController extends Controller {
       $entries = $contest->getContestSubmissionInfo();
       if (!empty($entries)) {
         $entry['contestTitle'] = $contestInfo['contestTitle'];
+        $entry['contestSlug'] = $contestInfo['contestSlug'];
         $entry['title'] = $entries['title'];
         $entry['description'] = $entries['content']['description'];
         $entry['authorName'] = $entries['author']['name'];

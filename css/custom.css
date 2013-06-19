@@ -1059,3 +1059,7 @@ p::-moz-selection  {
    color:#FFFFFF;
    background: #4cbed7;
  }
+ 
+ #loading-image {
+   display:none;
+ }

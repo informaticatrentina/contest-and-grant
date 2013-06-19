@@ -1,4 +1,4 @@
-var postLimit = 20;
+var postLimit = 4;
 var entriesOffset = postLimit;
 var flag = true;
 var count = postLimit;
@@ -25,7 +25,7 @@ $(document).ready(function() {
             offset: entriesOffset
           },
           success: function(resp) {
-            
+            $('#loading-image').hide();
             if (resp.success) {
               entriesOffset += postLimit;
               var data = resp.data;
@@ -37,12 +37,14 @@ $(document).ready(function() {
                 html += '<a href="' + pagrUrl + '/' + data[key].id + '"><img src="' + data[key].image + '" width="600" height="450" /></a>';
                 html += '<div style="padding: 10px 10px; vertical-align:bottom;"> di ' + data[key].authorName + ' </div></div>';
               }
-              $('#posts').append(html).masonry('reload') ;               
-              $('#loading-image').hide();
+              $('#posts').append(html).masonry('reload') ;     
               flag = true;
             } else {
               alert(resp.msg);
-            }
+            }            
+          },
+          error: function() {
+            $('#loading-image').hide();
           }
         });
       }     

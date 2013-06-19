@@ -1034,3 +1034,28 @@ textarea:focus, input[type="text"]:focus, input[type="password"]:focus, input[ty
 .rule-nottericercatori li {
     line-height: 28px;
 }
+
+.header-bar{
+  color: black !important;  
+}
+.header-bar:hover{
+  color: #4cbed7 !important;  
+}
+
+
+p::-moz-selection  {
+  background: #4cbed7;
+  color: #FFFFFF;
+}
+
+.regolomento{
+  color: #4cbed7 !important;  
+ }
+.regolomento:hover {
+   text-decoration:underline;  
+ }
+ 
+ #error{
+   color:#FFFFFF;
+   background: #4cbed7;
+ }

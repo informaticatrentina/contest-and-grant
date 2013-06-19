@@ -13,7 +13,7 @@
  */
 class ContestController extends Controller {
 
-  public function beforeAction() {
+  public function beforeAction($action) {
     new JsTrans('js', SITE_LANGUAGE);
     return true;
   }
@@ -261,7 +261,7 @@ class ContestController extends Controller {
           throw new Exception(Yii::t('contest', 'Please enter password'));
         }
         $response = $user->validateUser($userDetail);
-        if ($response['success']) {
+        if (array_key_exists('success', $response) && $response['success']) {
           $isAdmin = isAdminUser();
           if ($isAdmin) {
             $admin['admin'] = true;

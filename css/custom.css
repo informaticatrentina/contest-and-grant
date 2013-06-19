@@ -1054,9 +1054,7 @@ p::-moz-selection  {
 .regolomento:hover {
    text-decoration:underline;  
  }
- .center-box{
-   font-family: Titillium;
- }
+ 
  #error{
    color:#FFFFFF;
    background: #4cbed7;

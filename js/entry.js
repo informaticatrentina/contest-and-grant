@@ -1,4 +1,4 @@
-var postLimit = 4;
+var postLimit = 20;
 var entriesOffset = postLimit;
 var flag = true;
 var count = postLimit;

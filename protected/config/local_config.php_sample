@@ -28,34 +28,34 @@ ini_set('date.timezone', 'Europe/Rome');
 /**
  * Define installation details
  */
-define('BASE_URL','www.aggregator.com');
-define('IMAGE_URL',BASE_URL.'/images/');
-define('CONTEST_IMAGE_URL',BASE_URL.'uploads/contestImage/');
+define('BASE_URL', '{{ BASE_URL }}');
+define('IMAGE_URL', BASE_URL.'/images/');
+define('CONTEST_IMAGE_URL', BASE_URL.'uploads/contestImage/');
 
 /**
  * Constant for database configuration
  */
-define('DB_HOST', 'localhost');
-define('DB_NAME', 'aggregator');
-define('DB_USER', 'root');
-define('DB_PASS','a');
+define('DB_HOST', '{{ DB_HOST }}');
+define('DB_NAME', '{{ DB_NAME }}');
+define('DB_USER', '{{ DB_USER }}');
+define('DB_PASS', '{{ DB_PASSWORD }}');
 
 /**
  * Define aggregator API URL (http://API_URL/)
  */
-define('AGGREGATOR_API_URL', 'AGGREGATOR_API_URL');
+define('AGGREGATOR_API_URL', '{{ AGGREGATOR_API_URL }}');
 
 /**
  * Define identity manager details
  */
-define('IDENTITY_MANAGER_API_URL', 'http://10.0.1.103:8001/v1/');
+define('IDENTITY_MANAGER_API_URL', '{{ IDENTITY_MANAGER_API_URL }}');
 define('IDM_USER_ENTITY', 'users');
-define('IDM_API_KEY', 'yaiT6eequi7faig7aeSh0phi9id3iu3B');
+define('IDM_API_KEY', '{{ IDM_API_KEY }}');
 
 /**
  * Define application log file name
  */
-define('APP_LOG_FILE_NAME', 'aggreagtor-' . date('d-M-Y').'.log');
+define('APP_LOG_FILE_NAME', 'aggregator-' . date('d-M-Y').'.log');
 
 /**
  * Define site session cookie name
@@ -75,15 +75,15 @@ define('SITE_LANGUAGE', 'it_it');
 /**
  * Define site title
  */
-define('SITE_TITLE', 'Contest and Grants');
-define('SITE_NAME', 'StoryGrant');
+define('SITE_TITLE', '{{ SITE_TITLE }}');
+define('SITE_NAME', '{{ SITE_NAME }}');
 
-define('TWITTER_USERNAME', 'ImRaina');
-define('FACEBOOK_USERNAME', 'sankalp.mishra.35');
-define('LINKEDIN_USERNAME', 'ImRaina');
+define('TWITTER_USERNAME', '{{ TWITTER_USERNAME }}');
+define('FACEBOOK_USERNAME', '{{ FACEBOOK_USERNAME }}');
+define('LINKEDIN_USERNAME', '{{ LINKEDIN_USERNAME }}');
 
 /**
  * Define constant for uploading image extension and size (in byte)
  */
-define('ALLOWED_IMAGE_EXTENSION', '["jpg"]');
+define('ALLOWED_IMAGE_EXTENSION', '["jpg", "png"]');
 define('UPLOAD_IMAGE_SIZE_LIMIT', 5242880);

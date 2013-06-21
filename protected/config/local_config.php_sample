@@ -1,22 +1,21 @@
 <?php
 
 /**
- * This is a local config file. Created from sample file. 
+ * This is a local config file. Created from sample file.
  * Contains all the configurations which will be local to an installation.
  * @author Santosh Singh <santosh@incaendo.com>
  * This file is part of <Contest and Grants>.
- * This file can not be copied and/or distributed without the express permission 
+ * This file can not be copied and/or distributed without the express permission
  * of <ahref Foundation.
  */
 
 /**
- * Caution: create a copy of this file as local_config.php and change required 
+ * Caution: create a copy of this file as local_config.php and change required
  * configurations in it
  */
 
 /**
- * set error reporting on turn it off on production. Or just remove following 
- * two lines on production
+ * Set error reporting (E_ALL enable it)
  */
 error_reporting(0);
 ini_set('display_errors', 0);
@@ -27,14 +26,14 @@ ini_set('display_errors', 0);
 ini_set('date.timezone', 'Europe/Rome');
 
 /**
- * define installation details
+ * Define installation details
  */
 define('BASE_URL','www.aggregator.com');
 define('IMAGE_URL',BASE_URL.'/images/');
 define('CONTEST_IMAGE_URL',BASE_URL.'uploads/contestImage/');
 
 /**
- * constant for database configuration
+ * Constant for database configuration
  */
 define('DB_HOST', 'localhost');
 define('DB_NAME', 'aggregator');
@@ -42,12 +41,12 @@ define('DB_USER', 'root');
 define('DB_PASS','a');
 
 /**
- * Define aggregator API URL 
+ * Define aggregator API URL (http://API_URL/)
  */
 define('AGGREGATOR_API_URL', 'AGGREGATOR_API_URL');
 
 /**
- * define identity manager details
+ * Define identity manager details
  */
 define('IDENTITY_MANAGER_API_URL', 'http://10.0.1.103:8001/v1/');
 define('IDM_USER_ENTITY', 'users');
@@ -84,7 +83,7 @@ define('FACEBOOK_USERNAME', 'sankalp.mishra.35');
 define('LINKEDIN_USERNAME', 'ImRaina');
 
 /**
- * define constant for uploading image extension and size (in byte)
+ * Define constant for uploading image extension and size (in byte)
  */
 define('ALLOWED_IMAGE_EXTENSION', '["jpg"]');
 define('UPLOAD_IMAGE_SIZE_LIMIT', 5242880);

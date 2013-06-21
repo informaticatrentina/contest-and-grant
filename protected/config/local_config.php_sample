@@ -83,7 +83,7 @@ define('FACEBOOK_USERNAME', 'sankalp.mishra.35');
 define('LINKEDIN_USERNAME', 'ImRaina');
 
 /**
- * define constant for uploading image extension and size (in byte)
+ * Define constant for uploading image extension and size (in byte)
  */
 define('ALLOWED_IMAGE_EXTENSION', '["jpg"]');
 define('UPLOAD_IMAGE_SIZE_LIMIT', 5242880);

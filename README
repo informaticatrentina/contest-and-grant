@@ -91,6 +91,16 @@ CONFIGURATION
   .htaccess file on root directory(/var/www/project).  To see setting of
   .htaccess file, Please visit
   http://www.yiiframework.com/doc/guide/1.1/en/quickstart.apache-nginx-config
+  
+
+PHP.ini Configuration
+---------------------
+Following configuration need to be done in php.ini file:
+	1. For image upload size:
+		a. Change upload_max_filesize to 5M where 5M is 5MB. If your desired maximum upload size is 5MB.
+		b. post_max_size. Default value is 8M. If you want to increase the post data max size and than change its value.
+		
+After php.ini change you need to reload apapche or the php-fpm.
 
 
 Database Migration

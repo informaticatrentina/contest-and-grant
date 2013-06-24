@@ -21,6 +21,17 @@ error_reporting(0);
 ini_set('display_errors', 0);
 
 /**
+ * Setting the protocol based on url accessed.
+ */
+$protocol = 'http://';
+if (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https') {
+  $protocol = 'https://';
+} else if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) {
+  $protocol = 'https://';
+}
+define('PROTOCOL', $protocol);
+
+/**
  * Set the timezone
  */
 ini_set('date.timezone', 'Europe/Rome');
@@ -28,7 +39,7 @@ ini_set('date.timezone', 'Europe/Rome');
 /**
  * Define installation details
  */
-define('BASE_URL', '{{ BASE_URL }}');
+define('BASE_URL', PROTOCOL . '{{ BASE_URL }}');
 define('IMAGE_URL', BASE_URL.'/images/');
 define('CONTEST_IMAGE_URL', BASE_URL.'uploads/contestImage/');
 

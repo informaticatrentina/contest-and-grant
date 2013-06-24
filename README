@@ -45,7 +45,7 @@ CONFIGURATION
 
 2. Configuration changes to be done in local_config.php
 
-    a. BASE_URL Change its value to  site base url
+    a. BASE_URL Change its value to  site base url. Caution. Do not write PROTOCOL part of url and end of url should have '/'
 
     b. DB_HOST
        DB_NAME

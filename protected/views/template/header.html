@@ -66,6 +66,11 @@
               {%endif%}
               Contest</a>
             </li>
+            {% set adminUser = false %}
+            {% set adminUser = isAdminUser() %} 
+            {% if adminUser == true %}            
+              <li><a href="{{constant('BASE_URL')}}admin/contest/list" class="header-bar">ADMIN</a></li>
+            {% endif %}
           </ul>
         </div>
       </div>

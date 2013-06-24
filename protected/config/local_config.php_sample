@@ -1,58 +1,61 @@
 <?php
 
 /**
- * This is a local config file. Created from sample file. 
+ * This is a local config file. Created from sample file.
  * Contains all the configurations which will be local to an installation.
  * @author Santosh Singh <santosh@incaendo.com>
  * This file is part of <Contest and Grants>.
- * This file can not be copied and/or distributed without the express permission 
+ * This file can not be copied and/or distributed without the express permission
  * of <ahref Foundation.
  */
 
 /**
- * Caution: create a copy of this file as local_config.php and change required 
+ * Caution: create a copy of this file as local_config.php and change required
  * configurations in it
  */
 
 /**
- * set error reporting on turn it off on production. Or just remove following 
- * two lines on production
+ * Set error reporting (E_ALL enable it)
  */
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
-
+error_reporting(0);
+ini_set('display_errors', 0);
 
 /**
- * define installation details
+ * Set the timezone
  */
-define('BASE_URL','www.aggregator.com');
-define('IMAGE_URL',BASE_URL.'/images/');
-define('CONTEST_IMAGE_URL',BASE_URL.'uploads/contestImage/');
+ini_set('date.timezone', 'Europe/Rome');
 
 /**
- * constant for database configuration
+ * Define installation details
  */
-define('DB_HOST', 'localhost');
-define('DB_NAME', 'aggregator');
-define('DB_USER', 'root');
-define('DB_PASS','a');
+define('BASE_URL', '{{ BASE_URL }}');
+define('IMAGE_URL', BASE_URL.'/images/');
+define('CONTEST_IMAGE_URL', BASE_URL.'uploads/contestImage/');
 
 /**
- * Define aggregator API URL 
+ * Constant for database configuration
  */
-define('AGGREGATOR_API_URL', 'AGGREGATOR_API_URL');
+define('DB_HOST', '{{ DB_HOST }}');
+define('DB_NAME', '{{ DB_NAME }}');
+define('DB_USER', '{{ DB_USER }}');
+define('DB_PASS', '{{ DB_PASSWORD }}');
 
 /**
- * define identity manager details
+ * Define aggregator API URL (http://API_URL/)
  */
-define('IDENTITY_MANAGER_API_URL', 'http://10.0.1.103:8001/v1/');
+define('AGGREGATOR_API_URL', '{{ AGGREGATOR_API_URL }}');
+
+/**
+ * Define identity manager details
+ */
+define('IDENTITY_MANAGER_API_URL', '{{ IDENTITY_MANAGER_API_URL }}');
 define('IDM_USER_ENTITY', 'users');
-define('IDM_API_KEY', 'yaiT6eequi7faig7aeSh0phi9id3iu3B');
+define('IDM_API_KEY', '{{ IDM_API_KEY }}');
 
 /**
  * Define application log file name
  */
-define('APP_LOG_FILE_NAME', 'aggreagtor-' . date('d-M-Y').'.log');
+define('APP_LOG_FILE_NAME', 'aggregator-' . date('d-M-Y').'.log');
 
 /**
  * Define site session cookie name
@@ -62,7 +65,7 @@ define('SITE_SESSION_COOKIE_NAME', 'contest');
 /**
  * Define contest Admin users email
  */
-define('CONTEST_ADMIN_USERS', '["santosh@incaendo.com", "rahul@incaendo.com"]');
+define('CONTEST_ADMIN_USERS', '["santosh@incaendo.com", "rahul@incaendo.com", "daniele@ahref.eu", "monica@ahref.eu"]');
 
 /**
  * Define site language
@@ -72,15 +75,15 @@ define('SITE_LANGUAGE', 'it_it');
 /**
  * Define site title
  */
-define('SITE_TITLE', 'Contest and Grants');
-define('SITE_NAME', 'StoryGrant');
+define('SITE_TITLE', '{{ SITE_TITLE }}');
+define('SITE_NAME', '{{ SITE_NAME }}');
 
-define('TWITTER_USERNAME', 'ImRaina');
-define('FACEBOOK_USERNAME', 'sankalp.mishra.35');
-define('LINKEDIN_USERNAME', 'ImRaina');
+define('TWITTER_USERNAME', '{{ TWITTER_USERNAME }}');
+define('FACEBOOK_USERNAME', '{{ FACEBOOK_USERNAME }}');
+define('LINKEDIN_USERNAME', '{{ LINKEDIN_USERNAME }}');
 
 /**
- * define constant for uploading image extension and size (in byte)
+ * Define constant for uploading image extension and size (in byte)
  */
-define('ALLOWED_IMAGE_EXTENSION', '["jpg"]');
+define('ALLOWED_IMAGE_EXTENSION', '["jpg", "png"]');
 define('UPLOAD_IMAGE_SIZE_LIMIT', 5242880);

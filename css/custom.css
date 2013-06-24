@@ -1047,6 +1047,10 @@ p::-moz-selection  {
   background: #4cbed7;
   color: #FFFFFF;
 }
+p::selection  {
+  background: #4cbed7;
+  color: #FFFFFF;
+}
 
 .regolomento{
   color: #4cbed7 !important;  
@@ -1062,4 +1066,7 @@ p::-moz-selection  {
  
  #loading-image {
    display:none;
+ }
+ .twitter-share-button {
+   width: 77px !important;
  }

@@ -89,7 +89,8 @@ return array(
       'fileExtension' => '.html',
       'functions' => array(
         'getTweets' => 'getTweets'    ,
-        'getFirstContest' => 'getFirstContest'   
+        'getFirstContest' => 'getFirstContest', 
+        'isAdminUser' => 'isAdminUser'  
       ) 
     ),
       

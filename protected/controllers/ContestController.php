@@ -40,27 +40,43 @@ class ContestController extends Controller {
    * This function is used for get entries for a contest and get contest detail
    */
   public function actionEntries() { 
-    $contest = new Contest(); 
+    $contest = new Contest();
     $contest->sort = '-creation_date';
     $contestInfo = array();
-    $entryCount = '';
-    $entries = array();    
+    $entryCount = 0;
+    $entries = array();
+    $countFromEntries = array();
     if (array_key_exists('slug', $_GET) && !empty($_GET['slug'])) {
       $contest->contestSlug = $_GET['slug'];
       $contestInfo = $contest->getContestDetail();
     }
-    if (array_key_exists('offset', $_GET) && isset($_GET['offset'])) { 
-      $return = array('success' => true, 'msg' => '', 'data' => array());
+    if (array_key_exists('offset', $_GET) && isset($_GET['offset'])) {
+      //check for ajax request
+      if (!array_key_exists('HTTP_X_REQUESTED_WITH', $_SERVER)) {
+        $this->actionError();
+        exit;
+      }
+      $return = array('success' => false, 'msg' => '', 'data' => array());
       $contest->offset = $_GET['offset'];
       $entries = $contest->getContestSubmission();
-      array_pop($entries);
-      foreach ($entries as $entry) {
-        $contestEntry['title'] = $entry['title'];
-        $contestEntry['description'] = $entry['content']['description'];
-        $contestEntry['authorName'] = $entry['author']['name'];
-        $contestEntry['image'] = $entry['image'];
-        $contestEntry['id'] = $entry['id'];
-        array_push($return['data'], $contestEntry);
+      
+      //check whether count is exist in entries array or not 
+      if (!empty($entries)) {
+        $return['success'] = true;
+        $countFromEntries = end($entries);
+        if (array_key_exists('count', $countFromEntries)) {
+          $entryCount = array_pop($entries);
+        }
+        foreach ($entries as $entry) {
+          $contestEntry['title'] = $entry['title'];
+          $contestEntry['description'] = $entry['content']['description'];
+          $contestEntry['authorName'] = $entry['author']['name'];
+          $contestEntry['image'] = $entry['image'];
+          $contestEntry['id'] = $entry['id'];
+          array_push($return['data'], $contestEntry);
+        }
+      } else {
+        $return['msg'] = t('contest', 'There are no more entries');
       }
       echo json_encode($return);
       exit;
@@ -75,20 +91,28 @@ class ContestController extends Controller {
         $entry['description'] = $entries['content']['description'];
         $entry['authorName'] = $entries['author']['name'];
         $entry['image'] = $entries['image'];
+        $entry['url'] = BASE_URL.'contest/entries/'.$contestInfo['contestSlug'].'/'. $_GET['id'];
       }
       $this->render('entry', array('entry' => $entry));
-    } else {
+    } else { 
       if (!empty($contestInfo['entryStatus'])) {
         $entries = $contest->getContestSubmission();
-        $entryCount = array_pop($entries);     
+        
+        //check whether count is exist in entries array or not 
+        if (!empty($entries)) {
+          $countFromEntries = end($entries);
+          if (array_key_exists('count', $countFromEntries)) {
+            $entryCount = array_pop($entries);
+          }
+        }
+        $contestInfo['briefDescription'] = '';
+        if (!empty($contestInfo)) {
+          $contestInfo['briefDescription'] = substr($contestInfo['contestDescription'], 0, 325);
+        }       
+        $this->render('contestEntries', array('entries' => $entries, 'contestInfo' => $contestInfo, 'entryCount' => $entryCount['count']));
       } else {
         $this->redirect(BASE_URL);
       }
-      $contestInfo['briefDescription'] = '';
-      if (!empty($contestInfo)) {
-        $contestInfo['briefDescription'] = substr($contestInfo['contestDescription'], 0, 325);
-      }
-      $this->render('contestEntries', array('entries' => $entries, 'contestInfo' => $contestInfo, 'entryCount' => $entryCount['count']));
     }
   }
 
@@ -96,7 +120,7 @@ class ContestController extends Controller {
     $contest = new Contest();
     $contestInfo = array();
     $entrySubmissionResponse = array();
-    $entryCount = '';
+    $entryCount = 0;
     $entries = array();
     if (array_key_exists('slug', $_GET) && !empty($_GET['slug'])) {
       $contest->contestSlug = $_GET['slug'];
@@ -111,6 +135,7 @@ class ContestController extends Controller {
     if (!empty(Yii::app()->session['user'])) {
       $aggregatorManager = new AggregatorManager();
       $aggregatorManager->authorSlug = Yii::app()->session['user']['id'];
+      $aggregatorManager->contestSlug = $_GET['slug'];
       $entrySubmittedByUser = $aggregatorManager->isUserAlreadySubmitEntry('title');
       if (!empty($_POST) && !$entrySubmittedByUser) {
         $postData = $_POST;
@@ -149,7 +174,7 @@ class ContestController extends Controller {
     $response = array();
     $contest = new Contest();
     try {
-      if (!empty($_POST)) { 
+      if (!empty($_POST)) {
         if (!empty($_FILES['image']['name'])) {
           $directory = 'uploads/contestImage/';
           $uploadBannerImage = $this->uploadImage($directory, 'image');
@@ -229,7 +254,7 @@ class ContestController extends Controller {
             
           }
         }
-      } catch (Exception $e) {       
+      } catch (Exception $e) {
         $staus['success'] = false;
         $staus['msg'] = $e->getMessage();
         Yii::log('', ERROR, Yii::t('contest', 'Error in actionRegisterUser method :') . $e->getMessage());
@@ -267,9 +292,9 @@ class ContestController extends Controller {
             $admin['admin'] = true;
             $admin['url'] = BASE_URL .'admin/contest/list';
           }
-        }        
+        }
         if (!empty($_GET['back'])) {
-            $backUrl = BASE_URL . substr($_GET['back'], 1);
+          $backUrl = BASE_URL . substr($_GET['back'], 1);
         }
       } catch (Exception $e) {
         $response['success'] = false;
@@ -402,7 +427,7 @@ class ContestController extends Controller {
         }
         if (array_key_exists('contestSlug', $contestDetails) && $_GET['slug']!= $contestDetails['contestSlug']) {
           throw new Exception(Yii::t('contest', 'You have make some mistake'));
-        } 
+        }
         if (empty($_FILES['image']['name'])) {
           $contest->contestImage = $contestDetails['image'];
         } else {
@@ -431,7 +456,7 @@ class ContestController extends Controller {
         $contest->contestRule = $contestDetails['contestRule'];
         $contest->contestDescription = $contestDetails['contestDescription'];
         if (empty($contest->contestImage )) {
-          $contest->contestImage = $uploadBannerImage['img'];  
+          $contest->contestImage = $uploadBannerImage['img'];
         }
         if (empty($contest->squareImage)) {
           $contest->squareImage = $uploadSquareImage['img'];
@@ -450,8 +475,8 @@ class ContestController extends Controller {
     if (array_key_exists('slug', $_GET) && !empty($_GET['slug'])) {
       $contest = new ContestAPI();
       if(empty($contest->contestSlug)) {
-        $contest->contestSlug = $_GET['slug'];  
-      }      
+        $contest->contestSlug = $_GET['slug'];
+      }
       try {
         $contestInfo = $contest->getContestDetailByContestSlug();
         if (empty($contestInfo)) {
@@ -469,7 +494,7 @@ class ContestController extends Controller {
       } catch (Exception $e) {
         $message['success'] = false;
         $message['msg'] = Yii::t('contest', $e->getMessage());
-
+        
       }
       
     }
@@ -542,9 +567,13 @@ class ContestController extends Controller {
     }
     $this->render('contestBrief', array('contestInfo' => $contestInfo));
   }
-  
+
   /**
    * entriesAdminView
+   * 
+   * This function is used for get entries when
+   *   admin user is logged in and entry status of
+   *   contest is hide.
    */
   public function actionEntriesAdminView() {
     $isAdmin = isAdminUser();
@@ -554,23 +583,27 @@ class ContestController extends Controller {
     $contest = new Contest();
     $contest->sort = '-creation_date';
     $contestInfo = array();
-    $entryCount = '';
+    $entryCount = 0;
     $entries = array();
+    $countFromEntries = array();
     if (array_key_exists('slug', $_GET) && !empty($_GET['slug'])) {
       $contest->contestSlug = $_GET['slug'];
       $contestInfo = $contest->getContestDetail();
     }
     $entries = $contest->getContestSubmission();
-    $count = array_pop($entries);
+    //check whether count exist in entries at last index    
     if (!empty($entries)) {
-      $entryCount = $count['count'];
+      $countFromEntries = end($entries);
+      if (array_key_exists('count', $countFromEntries)) {
+        $entryCount = array_pop($entries);
+      }
     }
     $contestInfo['briefDescription'] = '';
     if (!empty($contestInfo)) {
       $contestInfo['briefDescription'] = substr($contestInfo['contestDescription'], 0, 325);
     }
-    $this->render('contestEntries', array('entries' => $entries, 'contestInfo' => $contestInfo, 'entryCount' => $entryCount));
+    $this->render('contestEntries', array('entries' => $entries, 'contestInfo' => $contestInfo, 'entryCount' => $entryCount['count']));
   }
-
+  
 }
 

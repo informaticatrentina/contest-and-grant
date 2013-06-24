@@ -208,6 +208,7 @@ class AggregatorManager {
     }
     $inputData['author'] = $this->authorSlug;
     $inputData['tags'] = $this->contestSlug;
+    $inputData['offset'] = DEFAULT_OFFSET;
     if (!empty($returnField)) {
       $inputData['return_fields'] = $returnField;
     }

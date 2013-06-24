@@ -109,5 +109,9 @@
       'Show contest entry' => 'Rendi visibili i contenuti caricati',
       'Just another blog post' => 'Solo un altro post sul blog',
       'Great source of inspiration' => 'Grande fonte di ispirazione',
-      'No of entry' => 'No di entrata'
+      'No of entry' => 'No di entrata',
+      'Great source of inspiration' => 'Grande fonte di ispirazione',
+      'Just another blog post' => 'Grande Solo un altro post sul blog',
+      'Nobody has sumbitted anything yet' => 'Nessuno ha ancora partecipato a questo concorso',
+      'Be the first!' => 'Vuoi essere il primo?'
   );

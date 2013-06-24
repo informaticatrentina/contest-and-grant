@@ -1,12 +1,29 @@
 <div class="container maincontent">
   <div id="posts" class="row">
-    {% for entry in entries %} 
-      <div class="post span4">
-        <div style="padding: 10px 10px;"><h6>{{ entry.title }}</h6></div>
-        <a href="{{constant('BASE_URL')}}contest/entries/{{contestInfo.contestSlug }}/{{entry.id}}"><img src={{ entry.image }} width="600" height="450" /></a>
-        <div style="padding: 10px 10px; vertical-align:bottom;"> di {{ entry.author.name }} </div>
+    {% if entries is empty %}
+      <div class="container">
+        <div class="show-msg">
+          <div class="row">
+            <div class="span12">
+              <div style="padding:25px 25px;">    
+                <p class="show-msg-text">
+                  {{ t('contest','Nobody has sumbitted anything yet')}}   <a href="{{constant('BASE_URL')}}contest/submission/{{contestInfo.contestSlug }}">{{ t('contest','Be the first!')}}</a>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-    {% endfor %}
+    {% else %}
+      {% for entry in entries %} 
+        <div class="post span4">
+          <div style="padding: 10px 10px;"><h6>{{ entry.title }}</h6></div>
+            <a href="{{constant('BASE_URL')}}contest/entries/{{contestInfo.contestSlug }}/{{entry.id}}"><img src={{ entry.image }} width="600" height="450" /></a>
+          <div style="padding: 10px 10px; vertical-align:bottom;"> di {{ entry.author.name }} </div>
+        </div>
+      {% endfor %}
+    {% endif %}
+    
   </div>
     
   <div id="loading-image">

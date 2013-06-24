@@ -1082,4 +1082,20 @@ p::selection  {
  }
  .twitter-share-button {
    width: 77px !important;
- } 
+ }
+ 
+ .show-msg{
+   background-color:#4cbed7;
+   margin-bottom:50px;
+ }
+ 
+ .show-msg-text {
+   font-size:18px; 
+   color:#FFF; 
+   font-weight:lighter;
+ }
+ .show-msg-text a {
+   font-size:18px; 
+   color:#FFF; 
+   font-weight:lighter;
+ }

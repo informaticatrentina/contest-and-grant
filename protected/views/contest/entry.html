@@ -16,6 +16,11 @@
         <div style="padding: 20px 20px;"><h6>{{ entry.title }}</h6></div>
         <p><img src="{{entry.image}}" width="960" height="638" alt="entry image"></p>
         <div style="padding: 20px 20px;"><p>{{ entry.description }}</p>  </div>
+        <div style="text-align:right;">
+          <iframe src="//www.facebook.com/plugins/like.php?href={{entry.url}}&amp;send=false&amp;layout=button_count&amp;width=30&amp;show_faces=false&amp;font&amp;colorscheme=light&amp;action=like&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden;  height:21px; width:75px" allowTransparency="true" ></iframe>
+          <a href="https://twitter.com/share" class="twitter-share-button" data-url="{{entry.url}}" data-counturl="{{entry.url}}" width="30" height="30" alt="twitter" style="padding-left:10px;widh:77px"></a>
+          <a href="//pinterest.com/pin/create/button/?url={{entry.url}}&description=Next%20stop%3A%20Pinterest" data-pin-do="buttonPin" data-pin-config="above"><img src="social_30x30/pinterest_darkgrey.png" /></a>
+        </div>  
       </div>      
     </div>
     <div class="span4" >
@@ -25,5 +30,6 @@
       </div>
     </div>
   </div>
-</div>
+ </div>
 <script src="{{constant('BASE_URL')}}js/singleEntry.js"></script>
+<script type="text/javascript" src="//assets.pinterest.com/js/pinit.js"></script>

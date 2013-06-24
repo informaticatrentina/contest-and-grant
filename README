@@ -143,6 +143,15 @@ Please access the following URL to check if your Web server reaches the
 requirements by Yii, assuming "YiiPath" is where Yii is installed.
 
 
+Dependency List
+---------------
+
+PHP packages need to be installed are
+	1. php5-cli
+	2. php5-gd
+	3. php5-curl
+	4. php5-mysql
+
 Source code
 -----------
 

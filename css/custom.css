@@ -8,6 +8,19 @@ body {
 
 }
 
+.navbar-inner {
+
+  font-size:13px;
+}
+
+.brand-logo {
+  display:block; 
+  float:left; 
+  padding-top:10px; 
+  padding-right:20px;
+
+}
+
 .maincontent {
 
   padding-top: 20px;
@@ -696,7 +709,7 @@ textarea:focus, input[type="text"]:focus, input[type="password"]:focus, input[ty
     font-weight:normal;
     padding:20px 20px 20px 20px;
     line-height: 18px;
-
+   
   }
 
 
@@ -750,7 +763,7 @@ textarea:focus, input[type="text"]:focus, input[type="password"]:focus, input[ty
     color:#FFF; 
     font-weight:normal;
     padding:20px 20px 20px 20px;
-
+  
   }
 
 }
@@ -954,7 +967,7 @@ textarea:focus, input[type="text"]:focus, input[type="password"]:focus, input[ty
     font-weight:normal;
     padding:60px 20px 20px 20px;
     line-height: 22px;
-
+   
   }
 
   .myslider-controlbar {
@@ -1069,4 +1082,4 @@ p::selection  {
  }
  .twitter-share-button {
    width: 77px !important;
- }
+ } 

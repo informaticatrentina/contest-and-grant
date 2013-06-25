@@ -958,18 +958,14 @@ textarea:focus, input[type="text"]:focus, input[type="password"]:focus, input[ty
     margin-left:10px;
 
   }
-
-
-
-  .blueboxtext {
-    font-size:18px; 
-    color:#FFF; 
-    font-weight:normal;
-    padding:60px 20px 20px 20px;
-    line-height: 22px;
-   
-  }
-
+.blueboxtext {
+    font-family: 'Titillium Web', sans-serif;
+	font-size:18px; 
+	color:#FFF; 
+	font-weight:lighter;
+	padding:20px 20px 20px 20px;
+	line-height: 25px;
+}
   .myslider-controlbar {
     position:relative; 
     top:0px; 
@@ -1099,3 +1095,10 @@ p::selection  {
    color:#FFF; 
    font-weight:lighter;
  }
+
+.navbar .nav > li > a {
+	padding: 10px 15px 10px;
+}
+.navbar .btn, .navbar .btn-group {
+	margin-top: 6px;
+}

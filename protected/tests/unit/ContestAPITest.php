@@ -92,7 +92,7 @@ class ContestAPITest extends CTestCase {
     $this->assertEquals(Yii::t('contest','Please provide contest image'), $msg);
   }
   
-   /**
+  /**
    * testGetContestDetail
    * 
    * This function is used for test getContestDetail method in contest api
@@ -122,6 +122,24 @@ class ContestAPITest extends CTestCase {
     $this->assertEquals(1, count($contest));
   }
   
+  /**
+   * testDeleteContest
+   * 
+   * This function is used for test deleteContest function of ContestAPI
+   */
+  public function testDeleteContest(){
+    $contestApi = new ContestAPI();
+    
+    //when contestSlug is empty
+    $contestApi->contestSlug = '';
+    $contest = $contestApi->deleteContest();
+    $this->assertFalse($contest);
+    
+    //test when slug is exist
+    $contestApi->contestSlug = 'test_4123';
+    $contest = $contestApi->deleteContest();
+    $this->assertEquals(1, $contest);
+  }
  }
 ?>
   

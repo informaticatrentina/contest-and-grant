@@ -102,6 +102,26 @@ class ContestAPITest extends CTestCase {
     $contest = $contestApi->GetContestDetail(); 
     $this->assertLessThanOrEqual(1,count($contest)); 
   }
+  
+  /**
+   * testGetContestDetailByContestSlug
+   * 
+   * This function is used for test getContestDetailByContestSlug  method in contest api
+   */
+  public function testGetContestDetailByContestSlug() {
+    $contestApi = new ContestAPI();
+    $contest = array();
+    //test when slug is empty
+    $contestApi->contestSlug = '';
+    $contest = $contestApi->getContestDetailByContestSlug();
+    $this->assertEmpty($contest);
+
+    // check when slug is not empty
+    $contestApi->contestSlug = 'test_4123';
+    $contest[] = $contestApi->getContestDetailByContestSlug();
+    $this->assertEquals(1, count($contest));
+  }
+  
  }
 ?>
   

@@ -93,7 +93,7 @@ class ContestController extends Controller {
         $entry['image'] = $entries['image'];
         $entry['url'] = BASE_URL.'contest/entries/'.$contestInfo['contestSlug'].'/'. $_GET['id'];
       }
-      $this->render('entry', array('entry' => $entry));
+       $this->render('entry', array('entry' => $entry));
     } else { 
       if (!empty($contestInfo['entryStatus'])) {
         $entries = $contest->getContestSubmission();
@@ -176,7 +176,7 @@ class ContestController extends Controller {
     try {
       if (!empty($_POST)) {
         if (!empty($_FILES['image']['name'])) {
-          $directory = 'uploads/contestImage/';
+          $directory = UPLOAD_DIRECTORY .'contestImage/';
           $uploadBannerImage = $this->uploadImage($directory, 'image');
           if (!$uploadBannerImage['success']) {
             throw new Exception(Yii::t('contest', $uploadBannerImage['msg']));
@@ -185,7 +185,7 @@ class ContestController extends Controller {
           throw new Exception(Yii::t('contest', 'Please provide banner image'));
         }
         if (!empty($_FILES['squareImage']['name'])) {
-          $directory = 'uploads/contestImage/';
+          $directory = UPLOAD_DIRECTORY.'contestImage/';
           $uploadSquareImage = $this->uploadImage($directory, 'squareImage');
           if (!$uploadSquareImage['success']) {
             throw new Exception(Yii::t('contest', $uploadSquareImage['msg']));
@@ -326,7 +326,7 @@ class ContestController extends Controller {
         $response['msg'] = Yii::t('contest', 'Image size should be less than 5MB');
       } else {
         $contest = new Contest();
-        $directory = 'uploads/contestEntry/';
+        $directory = UPLOAD_DIRECTORY.'contestEntry/';
         $imageName = uploadFile($directory, 'contestEntry');
         $imagePath = $directory . $imageName;
         if ($imageName) {
@@ -431,7 +431,7 @@ class ContestController extends Controller {
         if (empty($_FILES['image']['name'])) {
           $contest->contestImage = $contestDetails['image'];
         } else {
-          $directory = 'uploads/contestImage/';
+          $directory = UPLOAD_DIRECTORY. 'contestImage/';
           $uploadBannerImage = $this->uploadImage($directory, 'image');
           if (!$uploadBannerImage['success']) {
             throw new Exception(Yii::t('contest', $uploadBannerImage['msg']));
@@ -440,7 +440,7 @@ class ContestController extends Controller {
         if (empty($_FILES['squareImage']['name'])) {
           $contest->squareImage = $contestDetails['squareImage'];
         } else {
-          $directory = 'uploads/contestImage/';
+          $directory = UPLOAD_DIRECTORY.'contestImage/';
           $uploadSquareImage = $this->uploadImage($directory, 'squareImage');
           if (!$uploadSquareImage['success']) {
             throw new Exception(Yii::t('contest', $uploadSquareImage['msg']));
@@ -536,7 +536,7 @@ class ContestController extends Controller {
       } else if ($_FILES[$name]['size'] > UPLOAD_IMAGE_SIZE_LIMIT) {
         $response['msg'] = Yii::t('contest', 'Image size should be less than 5MB');
       } else {
-        $directory = 'uploads/contestImage/';
+        $directory = UPLOAD_DIRECTORY.'contestImage/';
         $imageName = uploadFile($directory, $name);
         if ($imageName) {
           $response['img'] = $directory . $imageName;

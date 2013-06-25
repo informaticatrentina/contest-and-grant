@@ -98,3 +98,8 @@ define('LINKEDIN_USERNAME', '{{ LINKEDIN_USERNAME }}');
  */
 define('ALLOWED_IMAGE_EXTENSION', '["jpg", "png"]');
 define('UPLOAD_IMAGE_SIZE_LIMIT', 5242880);
+
+/**
+ * define constant upload directory
+ */
+define('UPLOAD_DIRECTORY', 'uploads/');

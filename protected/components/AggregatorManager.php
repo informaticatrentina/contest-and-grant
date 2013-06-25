@@ -22,6 +22,8 @@ class AggregatorManager {
   public $contestSlug;
   public $isMinor;
   public $minorName;
+  public $range = '';
+  public $returnField = '';
   /**
    * getEntry
    * 
@@ -224,4 +226,42 @@ class AggregatorManager {
     }
     return $entrySubmitByUser;
   }
+  
+  /**
+   * getEntryForPagination
+   * 
+   * This function is used for get entry for pagination
+   * @return array $entry
+   */
+  public function getEntryForPagination() {
+    $inputParam = '';
+    $inputData = array();
+    $entry = array();
+    try {
+      if (empty($this->range)) {
+        throw new Exception(Yii::t('contest', 'Range can not be empty for pagination'));
+      }
+      if (empty($this->returnField)) {
+        throw new Exception(Yii::t('contest', 'Return fields should not be empty'));
+      }
+      
+      $inputData['range'] = $this->range;
+      $inputData['return_fields'] = $this->returnField;
+      $inputData['tags'] = $this->contestSlug.'[contest]';
+      
+      // encode array into a query string
+      $inputParam =  http_build_query($inputData);
+      Yii::log('', INFO, Yii::t('contest', 'Input data in getEntryForPagination : ') . $inputParam);
+      $aggregatorAPI = new AggregatorAPI();
+      $data = $aggregatorAPI->curlGet(ENTRY, $inputParam);
+    } catch (Exception $e) {
+      Yii::log('', ERROR, Yii::t('contest', 'Error in getEntryForPagination method :') . $e->getMessage());
+    }
+
+    if (array_key_exists('status', $data) && $data['status'] == 'true') {
+      $entry = $data['data'];
+    }
+    return $entry;
+  }
+
 }

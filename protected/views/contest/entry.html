@@ -7,7 +7,7 @@
         </h1>
       </div>
     </div>
-  </div> 
+  </div>   
 </div>
 <div class="container" style="padding-top:30px;">
   <div class="row"> 
@@ -30,6 +30,20 @@
       </div>
     </div>
   </div>
- </div>
+  <div class="row"> 
+    {% if entry.prevEntryTitle is not empty%}
+      <div class="span4" style="position:relative;">
+        <img src="{{constant('BASE_URL')}}images/previous-arrow.png" width="9" height="12" alt="arrow" style="position:absolute; top:24px; left:20px;">
+        <a href="{{constant('BASE_URL')}}contest/entries/{{entry.contestSlug}}/{{entry.prevEntryId}}" class="previous-button btn-block">PRECEDENTE<br>{{entry.prevEntryTitle}}</a>
+      </div> 
+    {% endif%}
+    {% if entry.nextEntryTitle is not empty %}
+      <div class="span4" style="position:relative;">
+        <img src="{{constant('BASE_URL')}}images/next-arrow.png" width="9" height="12" alt="arrow" style="position:absolute; top:24px; right:20px;">
+        <a href="{{constant('BASE_URL')}}contest/entries/{{entry.contestSlug}}/{{entry.nextEntryId}}" class="next-button btn-block">SUCCESSIVO<br> {{entry.nextEntryTitle}} </a>
+      </div> 
+    {% endif %}
+  </div>
+</div>
 <script src="{{constant('BASE_URL')}}js/singleEntry.js"></script>
 <script type="text/javascript" src="//assets.pinterest.com/js/pinit.js"></script>

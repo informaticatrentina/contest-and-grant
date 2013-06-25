@@ -92,8 +92,23 @@ class ContestController extends Controller {
         $entry['authorName'] = $entries['author']['name'];
         $entry['image'] = $entries['image'];
         $entry['url'] = BASE_URL.'contest/entries/'.$contestInfo['contestSlug'].'/'. $_GET['id'];
+        $aggregatorMgr = new AggregatorManager(); 
+        $aggregatorMgr->contestSlug = $_GET['slug'];
+        $aggregatorMgr->range = $_GET['id'] .':'. 1;
+        $aggregatorMgr->returnField = 'title,id';     
+        $entryForPagination = $aggregatorMgr->getEntryForPagination();
+        if (!empty($entryForPagination)) {
+          if (array_key_exists('after', $entryForPagination) && !empty($entryForPagination['after'])) {
+            $entry['nextEntryId'] = $entryForPagination['after'][0]['id'];
+            $entry['nextEntryTitle'] = $entryForPagination['after'][0]['title'];
+          }          
+          if (array_key_exists('before', $entryForPagination) && !empty($entryForPagination['before'])) {
+            $entry['prevEntryId'] = $entryForPagination['before'][0]['id'];
+            $entry['prevEntryTitle'] = $entryForPagination['before'][0]['title'];
+          }          
+        }
       }
-       $this->render('entry', array('entry' => $entry));
+      $this->render('entry', array('entry' => $entry));
     } else { 
       if (!empty($contestInfo['entryStatus'])) {
         $entries = $contest->getContestSubmission();

@@ -87,4 +87,54 @@ class UserIdentityManagerTest extends CTestCase {
     $status = $identityManager->createUser($user);
     $this->assertFalse($status['success']);
   }
+  
+  /**
+   * testValidateUser
+   * 
+   * This function is used for test validateUser
+   */
+  public function testValidateUser() {
+    $identityManager = new UserIdentityManager();
+    
+    //validate user where email is empty
+    $user = array(
+        'email' => '',
+        'password' => 'contestandgrant7'
+    );
+    $status = $identityManager->validateUser($user);
+    $this->assertFalse($status['success']);
+    
+    
+    //validate user where email is not valid
+    $user = array(
+        'email' => 'contest@7',
+        'password' => '7contestandgrant'
+    );
+    $status = $identityManager->validateUser($user);
+    $this->assertFalse($status['success']);
+    
+    //validate user where password is empty
+    $user = array(
+        'email' => '7contest@grant.com',
+        'password' => ''
+    );
+    $status = $identityManager->validateUser($user);
+    $this->assertFalse($status['success']);
+    
+    //validate user where password is wrong
+    $user = array(
+        'email' => '7contest@grant.com',
+        'password' => '7lsgrantandcontesasdst'
+    );
+    $status = $identityManager->validateUser($user);    
+    $this->assertEquals(Yii::t('contest', 'You have entered either wrong email id or password. Please try again'), $status['msg']);
+    
+    //validate user where user credential are correct 
+    $user = array(
+        'email' => '7contest@grant.com',
+        'password' => '7contestandgrant'
+    );
+    $status = $identityManager->validateUser($user);
+    $this->assertTrue($status['success']);
+  }
 }

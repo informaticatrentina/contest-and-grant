@@ -76,13 +76,13 @@ class UserIdentityManager {
     $inputParam = '';
     $userStatus = array();
     $userStatus['success'] = false;
-    if (empty($userDetail['email']) || !filter_var($userDetail['email'], FILTER_VALIDATE_EMAIL)) {
-      throw new Exception(Yii::t('contest','Please enter a valid email'));
-    }
-    if (empty($userDetail['password'])) {
-      throw new Exception(Yii::t('contest','Please enter password'));
-    }
     try {
+      if (empty($userDetail['email']) || !filter_var($userDetail['email'], FILTER_VALIDATE_EMAIL)) {
+        throw new Exception(Yii::t('contest','Please enter a valid email'));
+      }
+      if (empty($userDetail['password'])) {
+        throw new Exception(Yii::t('contest','Please enter password'));
+      }
       $user = new UserIdentityAPI();
       $userStatus = $user->getUserDetail(IDM_USER_ENTITY, $userDetail);
       if (array_key_exists('success', $userStatus) && !$userStatus['success']) {

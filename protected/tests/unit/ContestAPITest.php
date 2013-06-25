@@ -91,6 +91,17 @@ class ContestAPITest extends CTestCase {
     }
     $this->assertEquals(Yii::t('contest','Please provide contest image'), $msg);
   }
-}
+  
+   /**
+   * testGetContestDetail
+   * 
+   * This function is used for test getContestDetail method in contest api
+   */
+  public function testGetContestDetail() {
+    $contestApi = new ContestAPI();
+    $contest = $contestApi->GetContestDetail(); 
+    $this->assertLessThanOrEqual(1,count($contest)); 
+  }
+ }
 ?>
   

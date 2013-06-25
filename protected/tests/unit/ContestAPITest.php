@@ -35,6 +35,9 @@ class ContestAPITest extends CTestCase {
     $contestApi->contestTitle = 'test 4123';
     $contestApi->contestSlug = 'test_4123';
     $contestApi->contestDescription = 'tset description';
+    $contestApi->squareImage = '/upload/abc.ipg';
+    $contestApi->contestRule = '<p>Testing of save method for a contest</p>';
+    $contestApi->entryStatus = false; 
     $result = $contestApi->save();
     $this->assertEquals(1, $result);         
       
@@ -46,7 +49,7 @@ class ContestAPITest extends CTestCase {
     } catch (Exception $e) {
       $msg = $e->getMessage();
     }
-    $this->assertEquals('Start date should not be empty', $msg);
+    $this->assertEquals(Yii::t('contest','Start date should not be empty'), $msg);
     
     //test when end date is empty
     $contestApi->startDate = '2013-05-09';
@@ -56,7 +59,7 @@ class ContestAPITest extends CTestCase {
     } catch (Exception $e) {
       $msg = $e->getMessage();
     }
-    $this->assertEquals('End date should not be empty', $msg);
+    $this->assertEquals(Yii::t('contest','End date should not be empty'), $msg);
     
     //test when contest title is empty
     $contestApi->endDate = '2013-05-09';
@@ -66,7 +69,7 @@ class ContestAPITest extends CTestCase {
     } catch (Exception $e) {
       $msg = $e->getMessage();
     }
-    $this->assertEquals('Contest title should not be empty', $msg);
+    $this->assertEquals(Yii::t('contest','Contest title should not be empty'), $msg);
     
     //test when contest description is empty
     $contestApi->contestTitle = 'test';
@@ -76,7 +79,7 @@ class ContestAPITest extends CTestCase {
     } catch (Exception $e) {
       $msg = $e->getMessage();
     }
-    $this->assertEquals('Contest description should not be empty', $msg);
+    $this->assertEquals(Yii::t('contest', 'Contest description should not be empty'), $msg);
     
     //test when contest image  is empty
     $contestApi->contestDescription = 'This is test contest';
@@ -86,7 +89,7 @@ class ContestAPITest extends CTestCase {
     } catch (Exception $e) {
       $msg = $e->getMessage();
     }
-    $this->assertEquals('Please provide contest image', $msg);
+    $this->assertEquals(Yii::t('contest','Please provide contest image'), $msg);
   }
 }
 ?>

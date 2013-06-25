@@ -103,3 +103,8 @@ define('UPLOAD_IMAGE_SIZE_LIMIT', 5242880);
  * define constant upload directory
  */
 define('UPLOAD_DIRECTORY', 'uploads/');
+
+/**
+ * define constant  for  runtime directory
+ */
+define('RUNTIME_DIRECTORY', dirname(__FILE__).'/../runtime');

@@ -84,6 +84,11 @@ CONFIGURATION
        This is define in  json format.
    
    k.  UPLOAD_IMAGE_SIZE_LIMIT The max size of uploading image in byte.
+   
+   l.  UPLOAD_DIRECTORY The name of upload direactory. Upload directory should be on root.    
+
+   m.  RUNTIME_DIRECTORY  The name of runtime directory. Default runtime directory
+         path is '/protected/runtime'
  
 
 - Now contest and grants application is ready to run. If you want to run

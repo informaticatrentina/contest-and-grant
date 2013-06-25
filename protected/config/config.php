@@ -66,6 +66,7 @@ define('ENTRY_LIMIT', 20);
 return array(
   'defaultController' => 'contest',  
   'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
+  'runtimePath' => RUNTIME_DIRECTORY,
   'name' => SITE_TITLE,  
   'import' => array(
     'application.models.*',

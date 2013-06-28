@@ -90,7 +90,10 @@ class ContestController extends Controller {
         $entry['title'] = $entries['title'];
         $entry['description'] = $entries['content']['description'];
         $entry['authorName'] = $entries['author']['name'];
-        $entry['image'] = $entries['image'];
+        if (!empty($entries['image']) && filter_var($entries['image'], FILTER_VALIDATE_URL)) {
+          $basePath = parse_url($entries['image']);
+        }
+        $entry['image'] = substr($basePath['path'],1);
         $entry['url'] = BASE_URL.'contest/entries/'.$contestInfo['contestSlug'].'/'. $_GET['id'];
         $aggregatorMgr = new AggregatorManager(); 
         $aggregatorMgr->contestSlug = $_GET['slug'];
@@ -120,10 +123,18 @@ class ContestController extends Controller {
             $entryCount = array_pop($entries);
           }
         }
+        $i = 0;
+        foreach ($entries as $entry) {
+          if (!empty($entry['image']) && filter_var($entry['image'], FILTER_VALIDATE_URL)) {
+            $basePath = parse_url($entry['image']);
+          }
+          $entries[$i]['image'] = substr($basePath['path'], 1);
+          $i++;
+        } 
         $contestInfo['briefDescription'] = '';
         if (!empty($contestInfo)) {
           $contestInfo['briefDescription'] = substr($contestInfo['contestDescription'], 0, 325);
-        }       
+        }    
         $this->render('contestEntries', array('entries' => $entries, 'contestInfo' => $contestInfo, 'entryCount' => $entryCount['count']));
       } else {
         $this->redirect(BASE_URL);

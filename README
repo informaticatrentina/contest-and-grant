@@ -156,6 +156,8 @@ PHP packages need to be installed are
 	2. php5-gd
 	3. php5-curl
 	4. php5-mysql
+        5. php-pear
+        6. phpunit
 
 Source code
 -----------
@@ -213,3 +215,11 @@ You have to backup:
 
 The contest and grant Developer Team
 http://www.incaendo.com
+
+
+Run Unit Test
+----------
+All unit test case are in protected/tests/unit.
+To run unit test, follow the steps given below:
+- Go to protected/tests
+- Run following command :     phpunit unit

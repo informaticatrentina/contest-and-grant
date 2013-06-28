@@ -14,32 +14,32 @@ To setup contest and grant you have to follow some steps mentioned below:
   . Download and setup yii framework  (see http://www.yiiframework.com/download/)
   . Checkout source code from repository into new directory (git@git.ahref.eu:apps/contest-and-grant.git)
       css                    contain all css file
-      images                 contain all images used in project   
-      js		           contain all js file 
-      protected/           
-        components           contain all api 
-        config/              
+      images                 contain all images used in project
+      js                           contain all js file
+      protected/
+        components           contain all api
+        config/
           Config.php         This file have configuration of project
-           test.php           This file have configuration for test cases 
-        controllers          This directory contain all controller used in project. 
-        extentions           extentions directory contain all extention used in project.  
+           test.php           This file have configuration for test cases
+        controllers          This directory contain all controller used in project.
+        extentions           extentions directory contain all extention used in project.
         models               Bussiness logic puts here.
-        runtime              Application log create in this directory 
-        tests                Test cases put hare. 
+        runtime              Application log create in this directory
+        tests                Test cases put hare.
         views/
-          layout             This directory contain  layout of project.   
-          contest            This directory contain html page that will be rendered from contest controller 
-          template           This directory contain all templates 
-      uploads                This directory contain subdirectory to save uploaded data (images file, text file etc). 
+          layout             This directory contain  layout of project.
+          contest            This directory contain html page that will be rendered from contest controller
+          template           This directory contain all templates
+      uploads                This directory contain subdirectory to save uploaded data (images file, text file etc).
       index.php
       index-test.php
-        
-  . create database and change configuration (/protected/Config/config.php) 
- 
 
-CONFIGURATION 
+  . create database and change configuration (/protected/Config/config.php)
+
+
+CONFIGURATION
 -------------
-       
+
 1. See local_config.php_sample file /protected/Config/local_config.php_sample)
    and copy this file as local_config.php (/protected/Config/local_config.php)
 
@@ -77,34 +77,34 @@ CONFIGURATION
     h. 'language' => 'SITE_LANGUAGE'
         SITE_LANGUAGE is language in which message have to be converted. (for
         English language you can use 'en')
-    
+
    i.  SITE_TITLE The name of site title.
-    
-   j.  ALLOWED_IMAGE_EXTENSION The list of allowed extenstion for upload image. 
+
+   j.  ALLOWED_IMAGE_EXTENSION The list of allowed extenstion for upload image.
        This is define in  json format.
-   
+
    k.  UPLOAD_IMAGE_SIZE_LIMIT The max size of uploading image in byte.
-   
-   l.  UPLOAD_DIRECTORY The name of upload direactory. Upload directory should be on root.    
+
+   l.  UPLOAD_DIRECTORY The name of upload direactory. Upload directory should be on root.
 
    m.  RUNTIME_DIRECTORY  The name of runtime directory. Default runtime directory
          path is '/protected/runtime'
- 
+
 
 - Now contest and grants application is ready to run. If you want to run
   application on your local machine (apache server), you have to create
   .htaccess file on root directory(/var/www/project).  To see setting of
   .htaccess file, Please visit
   http://www.yiiframework.com/doc/guide/1.1/en/quickstart.apache-nginx-config
-  
+
 
 PHP.ini Configuration
 ---------------------
 Following configuration need to be done in php.ini file:
-	1. For image upload size:
-		a. Change upload_max_filesize to 5M where 5M is 5MB. If your desired maximum upload size is 5MB.
-		b. post_max_size. Default value is 8M. If you want to increase the post data max size and than change its value.
-		
+        1. For image upload size:
+                a. Change upload_max_filesize to 5M where 5M is 5MB. If your desired maximum upload size is 5MB.
+                b. post_max_size. Default value is 8M. If you want to increase the post data max size and than change its value.
+
 After php.ini change you need to reload apapche or the php-fpm.
 
 
@@ -131,9 +131,9 @@ Create New Contest
    BASE_URL/contset/add
 2. Fill up contest form and submit.
 
-Only admin user can create a contest. 
+Only admin user can create a contest.
 In order to create admin user, Please add user email id in CONTEST_ADMIN_USERS array defined in local_config.php
-  
+
 
 Requirements
 ------------
@@ -152,10 +152,10 @@ Dependency List
 ---------------
 
 PHP packages need to be installed are
-	1. php5-cli
-	2. php5-gd
-	3. php5-curl
-	4. php5-mysql
+        1. php5-cli
+        2. php5-gd
+        3. php5-curl
+        4. php5-mysql
         5. php-pear
         6. phpunit
 

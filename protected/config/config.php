@@ -73,6 +73,8 @@ return array(
     'application.components.*',
     'application.extensions.JsTrans.*',
     ),
+  'sourceLanguage' => 'en',
+  'language' => SITE_LANGUAGE,    
   'preload' => array('log'),
   'components' => array(
     'log' => array(
@@ -132,8 +134,9 @@ return array(
     'errorHandler' => array(
         'errorAction' => 'contest/error',
     ),  
-  ),
-  'sourceLanguage' => 'en',
-  'language' => SITE_LANGUAGE
+    'message' => array(
+      'class' => 'CGettextMessageSource', 
+    )
+  ),    
 );
         

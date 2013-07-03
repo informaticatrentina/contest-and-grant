@@ -1,0 +1,320 @@
+# translation of contest.php to it_it
+# Copyright (C) 2013
+# This file is distributed under the same license as the contest.php package.
+#
+# FULL NAME <EMAIL@ADDRESS>, 2013.
+msgid ""
+msgstr ""
+"Project-Id-Version: contest.php\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-07-03 18:00+0000\n"
+"PO-Revision-Date: 2013-07-03 18:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: it_it <translation-team-it_it@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Yii EMessage\n"
+"Generated-By: Yii EMessage\n"
+"Plural-Forms: nplurals = 2; plural = n != 1;\n"
+
+msgid "Aggregator returning httpcode:"
+msgstr "Aggregatore restituisce codice:"
+
+msgid "Aggregator is not responding or Curl failed"
+msgstr "Aggregator non risponde o non è riuscita Curl"
+
+msgid "Zero length response not permitted"
+msgstr "Zero lunghezza di risposta non è permesso"
+
+msgid "Error in curlGet :"
+msgstr "Errore in curlGet:"
+
+msgid "Return fields should not be empty"
+msgstr "Campi di ritorno non devono essere vuoti"
+
+msgid "Input data in getEntry : "
+msgstr "I dati di ingresso in getEntry:"
+
+msgid "Error in getEntry method :"
+msgstr "Errore nel metodo getEntry:"
+
+msgid "Error in saveEntry method :"
+msgstr "Errore nel metodo saveEntry:"
+
+msgid "Start date should not be empty"
+msgstr "La data di inizio non può essere vuota"
+
+msgid "End date should not be empty"
+msgstr "Data di fine non deve essere vuoto"
+
+msgid "Creation date should not be empty"
+msgstr "La data di creazione non può essere vuota"
+
+msgid "Contest title should not be empty"
+msgstr "Titolo di concorso non deve essere vuoto"
+
+msgid "Contest description should not be empty"
+msgstr "Descrizione del concorso non deve essere vuoto"
+
+msgid "Please provide contest image"
+msgstr "Carica un'immagine"
+
+msgid "Please provide an image for entry"
+msgstr "Carica un'immagine"
+
+msgid "Identitity Manager returning httpcode: "
+msgstr "Identitity Responsabile ritorno httpcode:"
+
+msgid "Identitity Manager  is not responding or Curl failed"
+msgstr "Identitity Manager non risponde o non è riuscita Curl"
+
+msgid "Error in createUser :"
+msgstr "Errore in createUser:"
+
+msgid "Please enter first name"
+msgstr "Inserisci il nome"
+
+msgid "Please enter last name"
+msgstr "Inserisci il cognome"
+
+msgid "Please enter a valid email"
+msgstr "Si prega di inserire un indirizzo email valido"
+
+msgid "Please enter password"
+msgstr "Inserisci la password"
+
+msgid "You have successfully created your account"
+msgstr "È stato creato il tuo account"
+
+msgid "Please try again"
+msgstr "Riprova"
+
+msgid "Error in createUser method :"
+msgstr "Errore nel metodo createUser:"
+
+msgid ""
+"You have entered either wrong email id or password. Plery againase try again"
+msgstr ""
+"È stato immesso sia id mail o password errati. Plery againase riprovare"
+
+msgid "Error in validateUser method :"
+msgstr "Errore nel metodo actionRegisterUser:"
+
+msgid "Error in actionRegisterUser method :"
+msgstr "Errore nel metodo actionRegisterUser:"
+
+msgid "You have created a contest Succesfully"
+msgstr "È stato creato un concorso con success"
+
+msgid "Please enter valid start date"
+msgstr "Inserisci data di inizio valida (01/06/2013)"
+
+msgid "Please enter valid end date"
+msgstr "Inserisci data di fine valida (01/06/2013)"
+
+msgid "Please choose an image for upload"
+msgstr "Scegliere un immagine per l'upload"
+
+msgid "This contest title is already exist"
+msgstr "Questo titolo concorso è già presente"
+
+msgid "Error in createContest :"
+msgstr "Errore in createContest:"
+
+msgid "You have succesfully submit an entry"
+msgstr "La tua immagine è stata caricata"
+
+msgid "Error in submitContestEntry :"
+msgstr "Errore in submitContestEntry:"
+
+msgid "Please login to submit an entry"
+msgstr "Effettua il login per partecipare"
+
+msgid "Email id already in use, Please choose a different email id"
+msgstr "Email id già in uso, Seleziona un altro id e-mail"
+
+msgid "Some technical problem occurred, contact administrator"
+msgstr "Qualche problema tecnico si è verificato, amministratore di contatto"
+
+msgid "First Name"
+msgstr "Nome"
+
+msgid "Last Name"
+msgstr "Cognome"
+
+msgid "Email address"
+msgstr "Indirizzo e-mail"
+
+msgid "Password"
+msgstr "password"
+
+msgid "Accept the terms of Service"
+msgstr ""
+"Accetto i <a href=\"https://www.civiclinks.it/it/tos/\" "
+"target=\"_blank\">termini del servizio</a>"
+
+msgid "Register"
+msgstr "Registrati"
+
+msgid "Login"
+msgstr "Accedi"
+
+msgid "Register with Civic Links"
+msgstr "Registrati"
+
+msgid "You have already submitted an entry for this contest"
+msgstr "Hai già inserito una voce per questo concorso"
+
+msgid "Start Date"
+msgstr "Data di inizio"
+
+msgid "End Date"
+msgstr "Data di fine"
+
+msgid "Contest Description"
+msgstr "Descrizione del concorso"
+
+msgid "contest Title"
+msgstr "titolo del concorso"
+
+msgid "create contest"
+msgstr "crea concorso"
+
+msgid "Create Contest"
+msgstr "Crea concorso"
+
+msgid "Contest Entries"
+msgstr "Contenuti del concorso"
+
+msgid "Contest Brief"
+msgstr "Regolamento concorso"
+
+msgid "Submit and win"
+msgstr "Invia e vinci"
+
+msgid "winners"
+msgstr "vincitori"
+
+msgid "new perspectives contest"
+msgstr "nuovo concorso prospettive"
+
+msgid "Remember me"
+msgstr "Ricordati di me"
+
+msgid "Please sign in with your Civic Links account"
+msgstr "Per favore accedi con il tuo account Civic Links"
+
+msgid "Sign in"
+msgstr "Accedi"
+
+msgid "Upload Image"
+msgstr "Carica immagine"
+
+msgid "Entry title should not be empty"
+msgstr "Il titolo non deve essere vuoto"
+
+msgid "Entry description should not be empty"
+msgstr "Descrizione non deve essere vuota"
+
+msgid "Please upload an image"
+msgstr "Si prega di caricare un'immagine valida"
+
+msgid "Image size should be less than 5MB"
+msgstr "Dimensioni dell'immagine deve essere inferiore a 5 MB"
+
+msgid "Please upload jpg image"
+msgstr ""
+"Attenzione, i formati supportati sono jpg e png. L'immagine che hai caricato "
+"è nel formato sbagliato"
+
+msgid "Sorry, You want something which we dont offer!!"
+msgstr "Siamo spiacenti, si è verificato un errore"
+
+msgid "Update contest"
+msgstr "Aggiornamento contest"
+
+msgid "Edit"
+msgstr "Modifica"
+
+msgid "Edit Contest"
+msgstr "Modifica Contest"
+
+msgid "Delete"
+msgstr "Cancella"
+
+msgid "Some technical problem occurred, For more detail check log file"
+msgstr "Qualche problema tecnico si è verificato, maggiori dettagli nel log"
+
+msgid "contest image"
+msgstr "immagine concorso"
+
+msgid "Sign Up"
+msgstr "Iscriviti"
+
+msgid "Logout"
+msgstr "Logout"
+
+msgid "Welcome"
+msgstr "Benvenuto"
+
+msgid "Close"
+msgstr "Chiudi"
+
+msgid "Select image"
+msgstr "Seleziona immagine"
+
+msgid "Remove"
+msgstr "Rimuovi"
+
+msgid "Change"
+msgstr "Modifica"
+
+msgid "Home"
+msgstr "Home"
+
+msgid "Upload Square Image"
+msgstr "Carica immagine quadrata"
+
+msgid "Upload Banner Image"
+msgstr "Carica immagine baner"
+
+msgid "Banner image"
+msgstr "immagine del banner"
+
+msgid "Square image"
+msgstr "immagine quadrata"
+
+msgid "Please provide banner image"
+msgstr "Si prega di fornire immagine del banner"
+
+msgid "Please provide square image"
+msgstr "Si prega di fornire un'immagine quadrata"
+
+msgid "You have entered either wrong email id or password. Please try again"
+msgstr "È stato immesso sia id mail o password errati. Riprova"
+
+msgid "Contest Rule"
+msgstr "Contest regola"
+
+msgid "Contest rule should not be empty"
+msgstr "Contest regola non deve essere vuoto"
+
+msgid "Show contest entry"
+msgstr "Rendi visibili i contenuti caricati"
+
+msgid "Just another blog post"
+msgstr "Grande Solo un altro post sul blog"
+
+msgid "Great source of inspiration"
+msgstr "Grande fonte di ispirazione"
+
+msgid "No of entry"
+msgstr "No di entrata"
+
+msgid "Nobody has sumbitted anything yet"
+msgstr "Nessuno ha ancora partecipato a questo concorso"
+
+msgid "Be the first!"
+msgstr "Vuoi essere il primo?"
+

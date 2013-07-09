@@ -76,7 +76,7 @@ function resizeImageByPath($imagePath, $width, $height) {
     if (!empty($imageInfo)) {
       $resizeDirectoryName = $imageInfo['dirname'] .'/resize';
       if (!is_dir($resizeDirectoryName)) {
-        Yii::log('', ERROR, Yii::t('contest', 'resize folder does not exists in ' . $resizeDirectoryName));
+        Yii::log('', ERROR, Yii::t('contest', 'resize folder does not exists in ') . $resizeDirectoryName);
         return $resultImage;
       }
       $resizedImageName = $imageInfo['filename'] .'_r_' .$width .'_'.$height .'.' .$imageInfo['extension'];

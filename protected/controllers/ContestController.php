@@ -205,7 +205,7 @@ class ContestController extends Controller {
           $directory = UPLOAD_DIRECTORY .'contestImage/';
           $uploadBannerImage = $this->uploadImage($directory, 'image');
           if (!$uploadBannerImage['success']) {
-            throw new Exception(Yii::t('contest', $uploadBannerImage['msg']));
+            throw new Exception($uploadBannerImage['msg']);
           }
         } else {
           throw new Exception(Yii::t('contest', 'Please provide banner image'));
@@ -214,7 +214,7 @@ class ContestController extends Controller {
           $directory = UPLOAD_DIRECTORY.'contestImage/';
           $uploadSquareImage = $this->uploadImage($directory, 'squareImage');
           if (!$uploadSquareImage['success']) {
-            throw new Exception(Yii::t('contest', $uploadSquareImage['msg']));
+            throw new Exception($uploadSquareImage['msg']);
           }
         } else {
           throw new Exception(Yii::t('contest', 'Please provide square image'));
@@ -224,12 +224,12 @@ class ContestController extends Controller {
         if ($response['success']) {
           $this->redirect(BASE_URL . 'admin/contest/list');
         } else {
-          $response['msg'] = Yii::t('contest', $response['msg']);
+          $response['msg'] =  $response['msg'];
         }
       }
     } catch (Exception $e) {
       $response['success'] = false;
-      $response['msg'] = Yii::t('contest', $e->getMessage());
+      $response['msg'] = $e->getMessage();
     }
     $this->render('contestCreation', array('message' => $response, 'contest'=> $_POST ));
   }
@@ -496,7 +496,7 @@ class ContestController extends Controller {
       }
     } catch (Exception $e) {
       $message['success'] = false;
-      $message['msg'] = Yii::t('contest', $e->getMessage());
+      $message['msg'] = $e->getMessage();
     }
     if (array_key_exists('slug', $_GET) && !empty($_GET['slug'])) {
       $contest = new ContestAPI();
@@ -519,7 +519,7 @@ class ContestController extends Controller {
         $contestDetail['entryStatus'] = $contestInfo['entryStatus'];
       } catch (Exception $e) {
         $message['success'] = false;
-        $message['msg'] = Yii::t('contest', $e->getMessage());
+        $message['msg'] = $e->getMessage();
         
       }
       

@@ -223,3 +223,13 @@ All unit test case are in protected/tests/unit.
 To run unit test, follow the steps given below:
 - Go to protected/tests
 - Run following command :     phpunit unit
+
+Message Translation
+---------------------
+For message transalation, There is need to get all message from source code and convert it into .po file.
+- Get all message from php file, run ./protected/yiic message protected/message/config.php on root
+- Get all message from js file, run ./protected/yiic message protected/message/jsConfig.php on root
+  
+Now run following command to convert these php file into .po file
+./protected/yiic emessage php protected/message
+

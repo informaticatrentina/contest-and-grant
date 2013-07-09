@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: js.php\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-07-03 18:00+0000\n"
-"PO-Revision-Date: 2013-07-03 18:00+0000\n"
+"POT-Creation-Date: 2013-07-09 15:42+0000\n"
+"PO-Revision-Date: 2013-07-09 15:42+0000\n"
 "Last-Translator: \n"
 "Language-Team: it_it <translation-team-it_it@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -18,66 +18,60 @@ msgstr ""
 "Generated-By: Yii EMessage\n"
 "Plural-Forms: nplurals = 2; plural = n != 1;\n"
 
-msgid "Please enter Content Rule"
-msgstr "@@@@"
-
-msgid "Please upload an image"
-msgstr "@@Si prega di caricare unimmagine@@"
-
 msgid "Are you sure you want to delete this Contest ?"
-msgstr "Sei sicuro di voler eliminare questo concorso ?"
+msgstr ""
 
 msgid "Entry description should not be empty"
-msgstr "Descrizione Evento non deve essere vuoto"
+msgstr ""
 
 msgid "Entry title should not be empty"
-msgstr "Titolo di ingresso non deve essere vuoto"
+msgstr ""
 
 msgid "Please accept terms and condition"
-msgstr "Si prega di accettare i termini e condizioni"
+msgstr ""
 
 msgid "Please check atleast one checkBox"
-msgstr "Si prega di verificare, almeno una checkBox"
+msgstr ""
 
 msgid "Please enter Content Description"
-msgstr "Inserisci Content Descrizione"
+msgstr ""
 
 msgid "Please enter Contest Title"
-msgstr "Inserisci il concorso titolo"
+msgstr ""
 
 msgid "Please enter Contest rule"
-msgstr "Inserisci regola Contest"
+msgstr ""
 
 msgid "Please enter First Name"
-msgstr "Inserisci il nome"
+msgstr ""
 
 msgid "Please enter Last Name"
-msgstr "Inserisci il Cognome"
+msgstr ""
 
 msgid "Please enter Password"
-msgstr "Inserisci la password"
+msgstr ""
 
 msgid "Please enter a valid date"
-msgstr "Si prega di inserire una data valida"
+msgstr ""
 
 msgid "Please enter email id"
-msgstr "Inserisci ID e-mail"
+msgstr ""
 
 msgid "Please enter end date"
-msgstr "Inserisci data di fine"
+msgstr ""
 
 msgid "Please enter minor name"
-msgstr "Inserisci il nome del minore"
+msgstr ""
 
 msgid "Please enter start date"
-msgstr "Inserisci data di inizio"
+msgstr ""
 
 msgid "Please enter valid email id"
-msgstr "Inserisci ID e-mail valido"
+msgstr ""
 
 msgid "Please upload banner image"
-msgstr "Si prega di caricare immagine del banner"
+msgstr ""
 
 msgid "Please upload square image"
-msgstr "Si prega di caricare un'immagine quadrata"
+msgstr ""
 

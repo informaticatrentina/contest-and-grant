@@ -5,3 +5,10 @@ Aggregator version: 0.0.2.0
 Note:
 In this release gitlab milestone v0.0.3.0 is completed.
 After udpating to this release set runtime path correctly in local_config.php file
+
+v0.0.4.0
+--------
+Date: 10/July/2013
+Aggregator version: 0.0.3.0
+Note:
+In this release gitlab milestone v0.0.4.0 is completed.

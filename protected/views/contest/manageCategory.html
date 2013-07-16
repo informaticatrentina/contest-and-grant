@@ -1,0 +1,48 @@
+<div class="container darkheader">
+  <div class="row">
+    <div class="span12"><h1> {{ t('contest', 'Create Contest') }}</h1></div>
+  </div>
+</div>
+<div class="container maincontent">
+  <form class="form-create-contest" action="" method="post"  enctype = "multipart/form-data">
+    <div class="row">
+      <div class="span3 darkheader" >
+        <center><h1>{{ t('contest', 'Manage Category') }}</h1></center>
+      </div>      
+    </div>
+   
+    {% if categories is empty %}      
+        <div style="background-color:#f5f5f5; margin:25px 0px;">
+          <div class="row">
+            <div class="span3">
+              <div style="padding:25px 25px;">    
+                <h6> 
+                  {{ t('contest', 'There are no category for this contest')}}.<br>
+                </h6>
+              </div>
+            </div>
+          </div>
+        </div>
+      {% else %} 
+        {% for category in categories %}
+          <div class="span3">
+              <div style="padding:15px 15px;">    
+                <h6> 
+                  <a href="{{constant('BASE_URL')}}admin/category/manage/{{category.category_id}}">{{category.category_name}}</a>
+                </h6>
+              </div>
+            </div>
+        {% endfor %}
+      {% endif %}
+   
+    <div id="add-category" style="display:none">
+      <label>{{ t('contest','Add new category')}}</label>
+      <input type="text"  name="categoryName" value=""><br/>
+      <input type="hidden"  name="contestSlug" value="incaendo"><br/>
+      <button id="create" class="btn btn-large btn-primary" type="submit" name='contestDetail'>{{ t('contest', 'add') }}</button>
+    </div>
+    <div id="add-new-category" class="btn btn-large btn-primary">{{ t('contest', 'Add new category') }}</div>
+  </form> 
+</div>  
+<script src="{{constant('BASE_URL')}}js/common.js"></script>
+<script src="{{constant('BASE_URL')}}js/category.js"></script>

@@ -1,0 +1,34 @@
+<div class="container darkheader">
+  <div class="row">
+    <div class="span8"><h1> {{ t('contest', 'Manage Winner for ') }} {{category.category_name}}{{t('contest', ' category')}}</h1></div>
+  </div>
+</div>
+{% if addEntry == false %}
+<table class="container table table-bordered table-hover category-table">
+  <thead>
+    <tr>
+      <th>S. No.</th>
+      <th>Entry</th>
+      <th>Title</th>
+      <th>Author</th>
+      <th>Add Entry</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% set i = 1 %}
+    {% for entry in entries %}
+      <tr>
+        <td>{{ i }}</td>
+        <td><img src="{{constant('BASE_URL')}}{{resizeByPath(entry.image,'100','500')}}" alt="contest image" /></td>
+        <td>{{entry.title}}</td>
+        <td>{{entry.author}}</td>
+        <td><a href="{{constant('BASE_URL')}}admin/category/entry/{{ entry.id }}">Add</td>
+        {% set i = i + 1 %}
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% else %}
+  {% include  '/views/contest/prize.html' %} 
+{% endif %}
+<script src="{{constant('BASE_URL')}}js/category.js"></script>

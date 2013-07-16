@@ -631,5 +631,88 @@ class ContestController extends Controller {
     $this->render('contestEntries', array('entries' => $entries, 'contestInfo' => $contestInfo, 'entryCount' => $entryCount['count']));
   }
   
+   
+  /**
+   * actionManageCategory
+   * 
+   * This function is used for manage category for contest
+   */
+  
+  public function actionManageCategory() { 
+    $category = new Category();
+    $message = array();
+    $categoryDetail = array();
+    $category->contestSlug = 'incaendo';
+    if(!empty($_POST)) {
+      try {
+        if (array_key_exists('categoryName', $_POST) && empty($_POST['categoryName'])) {
+          throw new Exception(Yii::t('contest','Category name can not be empty'));
+        }
+        $category->categoryName = $_POST['categoryName'];        
+        $category->creationDate = date('Y-m-d H:i:s');
+        $response = $category->save();
+        if ($response) {
+          $message['success'] = true;
+        }
+      } catch(Exception $e){
+        $message['success'] = false;
+        $message['msg'] = $e->getMessage();
+      }      
+    }     
+    $categoryDetail = $category->get();
+    $this->render('manageCategory', array('categories' => $categoryDetail, 'message' => $message));
+  }
+  
+  /**
+   * actionManageWinner
+   * 
+   * This function is used for manage winner for each category
+   */
+  public function actionManageWinner() { ;
+    $category = new Category();
+    $message = array();
+    $addEntry = false;
+    $categoryDetail = array();
+    if (array_key_exists('id',$_GET) && !empty($_GET['id'])) {
+      $category->categoryId = $_GET['id'];
+    }
+    $contest = new Contest();
+    $contest->contestSlug = 'inacendo';
+    $contestSubmission = $contest->getContestSubmission();
+    foreach ($contestSubmission as $submission) { 
+      $entry = array();
+      if (array_key_exists('title', $submission) && !empty($submission['title'])) {
+        $entry['title'] = $submission['title'];
+      }
+      if (array_key_exists('id', $submission) && !empty($submission['id'])) {
+        $entry['id'] = $submission['id'];
+      }
+      if (array_key_exists('author', $submission) && !empty($submission['author'])) {
+        $entry['author'] = $submission['author']['name'];
+      }
+      if (array_key_exists('image', $submission) && !empty($submission['image'])) {
+        if (!empty($submission['image']) && filter_var($submission['image'], FILTER_VALIDATE_URL)) {
+          $basePath = parse_url($submission['image']);
+          if (!empty($basePath['path'])) {
+            $entry['image'] = substr($basePath['path'], 1);
+          }
+        } else {
+          $entry['image'] = $submission['image'];
+        }
+      }
+      if (!empty($entry)) {
+        $entries[] = $entry;
+      }   
+    }
+    $categoryName = $category->getCategory();
+    $this->render('manageWinner', array('category' => $categoryName, 'entries' => $entries, 'addEntry' => $addEntry));
+  }
+  
+  /**
+   * actionManageCategoryEntry
+   */
+  public function actionManageCategoryEntry() {
+    $this->render('prize');
+  } 
 }
 

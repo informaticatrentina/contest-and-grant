@@ -14,9 +14,11 @@
 class Category  {
   
   public $categoryId;
+  public $contestId;
   public $contestSlug;
   public $categoryName;
   public $creationDate;
+  public $status;
  
   /**
    * get
@@ -26,12 +28,13 @@ class Category  {
    */
   public function get() {
     $connection = Yii::app()->db;
-    if (empty($this->contestSlug)) {
+    if (empty($this->contestId)) {
       return array();
     }
-    $sql = "SELECT category_id, category_name FROM category where contest_slug = :contestSlug";
+    $sql = "SELECT ca.category_id, ca.category_name, co.contestTitle, co.contestSlug FROM category ca INNER JOIN 
+      contest co ON ca.contest_id = co.contestId where ca.contest_id = :contestId";
     $query = $connection->createCommand($sql);
-    $query->bindParam(":contestSlug", $this->contestSlug);
+    $query->bindParam(":contestId", $this->contestId);
     $category = $query->queryAll();
     if (!$category) {
       $category = array();
@@ -51,12 +54,13 @@ class Category  {
       throw new Exception(Yii::t('contest', 'Category name can not be empty'));
     }
     
-    $sql = "INSERT INTO category (contest_slug, category_name, creation_date)
-       VALUES( :contest_slug, :category_name, :creation_date)";
+    $sql = "INSERT INTO category (contest_id, category_name, creation_date, status)
+       VALUES( :contest_id, :category_name, :creation_date, :status)";
     $query = $connection->createCommand($sql);
-    $query->bindParam(":contest_slug", $this->contestSlug);
+    $query->bindParam(":contest_id", $this->contestId);
     $query->bindParam(":category_name", $this->categoryName);
     $query->bindParam(":creation_date", $this->creationDate);
+    $query->bindParam(":status", $this->status);
     $response = $query->execute();
     return $response;
   }
@@ -73,7 +77,7 @@ class Category  {
       return array();
     }
     
-    $sql = "SELECT category_name FROM category where category_id = :categoryId";
+    $sql = "SELECT category_id, contest_id, category_name FROM category where category_id = :categoryId";
     $query = $connection->createCommand($sql);
     $query->bindParam(":categoryId", $this->categoryId);
     $category = $query->queryRow();

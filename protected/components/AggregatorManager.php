@@ -24,6 +24,14 @@ class AggregatorManager {
   public $minorName;
   public $range = '';
   public $returnField = '';
+  public $entryId = '';
+  public $prize = '';
+  public $prizeWeight = '';
+  public $tag = array();
+  public $offset = 0;
+  public $sort;
+  public $category;
+  
   /**
    * getEntry
    * 
@@ -263,5 +271,92 @@ class AggregatorManager {
     }
     return $entry;
   }
+  
+  /**
+   * updateEntry
+   * 
+   * This function is used update existin entry
+   * @return $response
+   */
+  public function updateEntry() {
+    $inputParam = '';
+    $entry = array();
+    $response = array();
+    try {
+      if (empty($this->prize)) {
+        throw new Exception(Yii::t('contest', 'Prize can not be empty'));
+      }
+      if (empty($this->prizeWeight)) {
+        throw new Exception(Yii::t('contest', 'Prize weight can not be empty'));
+      }
+      if (empty($this->category)) {
+        throw new Exception(Yii::t('contest', 'Category can not be empty'));
+      }
+      
+      $categorySlug =  strtolower(preg_replace("/[^a-z0-9]+/i", "_", ($this->category)));
+      $prize =  strtolower(preg_replace("/[^a-z0-9]+/i", "_", ($this->prize)));
+      array_push($this->tags,array('name' => 'winner', 'slug' => 'winner', 
+          'scheme' => 'http://ahref.eu/contest/schema/contest/winner', 'weight' => $this->prizeWeight));
+      array_push($this->tags,array('name' => $this->category, 'slug' => $categorySlug,
+          'scheme' => 'http://ahref.eu/contest/schema/contest/'. $prize));
 
+      // prepare data according to aggregator API input (array)
+      $inputParam = array(
+        'tags' => $this->tags,
+        'id' => $this->entryId,
+      );
+     
+      $aggregatorAPI = new AggregatorAPI();
+      $response = $aggregatorAPI->curlPut(ENTRY, $inputParam);
+    } catch (Exception $e) {
+      Yii::log('', ERROR, Yii::t('contest', 'Error in updateEntry method :') . $e->getMessage());
+    }    
+    return $response;
+  }
+  
+   /**
+   * getEntryForPagination
+   * 
+   * This function is used for get entry for pagination
+   * @return array $entry
+   */
+  public function getWinnerEntry() {
+    $inputParam = '';
+    $inputData = array();
+    $entry = array();
+    $entries = array();
+    try {
+      if (empty($this->returnField)) {
+        throw new Exception(Yii::t('contest', 'Return fields should not be empty'));
+      }
+     
+      $inputData['return_fields'] = $this->returnField;
+      $inputData['tags'] = $this->tag;
+      $inputData['limit'] = ENTRY_LIMIT;
+      $inputData['offset'] = $this->offset;
+      $inputData['sort'] = $this->sort;
+      
+      // encode array into a query string
+      $inputParam =  http_build_query($inputData);
+      Yii::log('', INFO, Yii::t('contest', 'Input data in getWinnerEntry : ') . $inputParam);
+      $aggregatorAPI = new AggregatorAPI();
+      $data = $aggregatorAPI->curlGet(ENTRY, $inputParam);
+    } catch (Exception $e) {
+      Yii::log('', ERROR, Yii::t('contest', 'Error in getWinnerEntry method :') . $e->getMessage());
+    }
+
+    if (array_key_exists('status', $data) && $data['status'] == 'true') {
+      $entries = $data['data'];
+    }
+     $i = 0;
+     if (!empty($entries)) {
+      foreach ($entries as $entry) {
+        if (!empty($entry['links']['enclosures'])) {
+          $entries[$i]['image'] = $entry['links']['enclosures'][0]['uri'];
+          $i++;
+        }
+      }
+    }    
+    return $entries;
+  }
 }

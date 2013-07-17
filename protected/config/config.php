@@ -122,10 +122,11 @@ return array(
         'admin/category/<slug:[\w-]+>' => 'contest/manageCategory',
         'admin/category/manage/<id:[\w-]+>' => 'contest/manageWinner',
         'admin/category/entry/<id:[\w-]+>' => 'contest/manageCategoryEntry',
+        'admin/category/<id:[\w-]+>/add' => 'contest/addEntryInCategory',
         'contest/entries/<slug:[\w-]+>'=>'contest/entries',
         'contest/entries/<slug:[\w-]+>/<id:[\w-]+>'=>'contest/entries',
         'contest/brief/<slug:[\w-]+>'=>'contest/contestBrief',
-        'contest/submission/<slug:[\w-]+>'=>'contest/submitEntries',
+        'contest/submission/<slug:[\w-]+>'=>'contest/submitEntries',        
         'register' => 'contest/registerUser', 
         'login' => 'contest/login',  
         'logout' => 'contest/logout'          

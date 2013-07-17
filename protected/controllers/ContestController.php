@@ -639,10 +639,20 @@ class ContestController extends Controller {
    */
   
   public function actionManageCategory() { 
+    $isAdmin = isAdminUser();
+    if (!$isAdmin) {
+      $this->redirect(BASE_URL);
+    }
     $category = new Category();
     $message = array();
     $categoryDetail = array();
-    $category->contestSlug = 'incaendo';
+    $contestInfo = array();
+    $contest = new ContestAPI();
+    if (array_key_exists('slug', $_GET) && !empty($_GET['slug'])) {      
+      $contest->contestSlug = $_GET['slug'];
+    }    
+    $contestInfo = $contest->getContestDetailByContestSlug();
+    $category->contestId = $contestInfo['contestId'];
     if(!empty($_POST)) {
       try {
         if (array_key_exists('categoryName', $_POST) && empty($_POST['categoryName'])) {
@@ -650,6 +660,7 @@ class ContestController extends Controller {
         }
         $category->categoryName = $_POST['categoryName'];        
         $category->creationDate = date('Y-m-d H:i:s');
+        $category->status = 1;
         $response = $category->save();
         if ($response) {
           $message['success'] = true;
@@ -660,7 +671,7 @@ class ContestController extends Controller {
       }      
     }     
     $categoryDetail = $category->get();
-    $this->render('manageCategory', array('categories' => $categoryDetail, 'message' => $message));
+    $this->render('manageCategory', array('categories' => $categoryDetail, 'contest' =>  $contestInfo['contestTitle'], 'message' => $message));
   }
   
   /**
@@ -668,51 +679,193 @@ class ContestController extends Controller {
    * 
    * This function is used for manage winner for each category
    */
-  public function actionManageWinner() { ;
-    $category = new Category();
-    $message = array();
-    $addEntry = false;
-    $categoryDetail = array();
-    if (array_key_exists('id',$_GET) && !empty($_GET['id'])) {
-      $category->categoryId = $_GET['id'];
+  public function actionManageWinner() { 
+    $isAdmin = isAdminUser();
+    if (!$isAdmin) {
+      $this->redirect(BASE_URL);
     }
-    $contest = new Contest();
-    $contest->contestSlug = 'inacendo';
-    $contestSubmission = $contest->getContestSubmission();
-    foreach ($contestSubmission as $submission) { 
-      $entry = array();
-      if (array_key_exists('title', $submission) && !empty($submission['title'])) {
-        $entry['title'] = $submission['title'];
+    $winnerEntries = array();
+    $categoryInfo = array();
+    $contest = array();
+    
+    if (!empty($_POST)) {
+      $response = $this->actionUpdateCategoryEntry();
+      if (!$response['success']) {
+        $this->actionAddEntryInCategory($response['msg']);
+        exit;
       }
-      if (array_key_exists('id', $submission) && !empty($submission['id'])) {
-        $entry['id'] = $submission['id'];
-      }
-      if (array_key_exists('author', $submission) && !empty($submission['author'])) {
-        $entry['author'] = $submission['author']['name'];
-      }
-      if (array_key_exists('image', $submission) && !empty($submission['image'])) {
-        if (!empty($submission['image']) && filter_var($submission['image'], FILTER_VALIDATE_URL)) {
-          $basePath = parse_url($submission['image']);
-          if (!empty($basePath['path'])) {
-            $entry['image'] = substr($basePath['path'], 1);
-          }
-        } else {
-          $entry['image'] = $submission['image'];
-        }
-      }
-      if (!empty($entry)) {
-        $entries[] = $entry;
-      }   
     }
-    $categoryName = $category->getCategory();
-    $this->render('manageWinner', array('category' => $categoryName, 'entries' => $entries, 'addEntry' => $addEntry));
+    $categoryInfo = $this->getCategoryDetail();
+    if (!empty($categoryInfo)) {
+      $winnerEntries = $this->getWinnerEntry($categoryInfo['contest_name'], $categoryInfo['contest_slug'],$categoryInfo['category_name']);
+    }
+    $this->render('manageWinner', array('category' => $categoryInfo, 'entries' => $winnerEntries));
   }
   
   /**
    * actionManageCategoryEntry
+   * 
+   * This function is used for update existing category.
+   * @return $response
    */
-  public function actionManageCategoryEntry() {
-    $this->render('prize');
-  } 
+  public function actionUpdateCategoryEntry() {
+    try {
+      if (!empty($_POST)) {
+        $aggregatorManager = new AggregatorManager();
+        if (array_key_exists('prize', $_POST) && (!empty($_POST['prize']))) {
+          $aggregatorManager->prize = $_POST['prize'];
+        }
+        if (array_key_exists('weight', $_POST) && (!empty($_POST['weight']))) {
+          $aggregatorManager->prizeWeight = $_POST['weight'];
+        }
+        if (array_key_exists('id', $_POST) && (!empty($_POST['id']))) {
+          $aggregatorManager->entryId = $_POST['id'];
+        }
+        if (array_key_exists('tag', $_POST) && (!empty($_POST['tag']))) { 
+          $aggregatorManager->tags = unserialize($_POST['tag']);
+        }        
+        if (array_key_exists('category', $_POST) && (!empty($_POST['category']))) {
+          $aggregatorManager->category = $_POST['category'];
+        }        
+        $response = $aggregatorManager->updateEntry();
+        if ($response['success']) {
+          $response['msg'] = Yii::t('contest', 'You have succesfully add an entry');
+        } else {
+          $response['msg'] = Yii::t('contest', 'Some technical problem occurred, contact administrator');
+        }
+      }
+    } catch (Exception $e) {
+      Yii::log('', ERROR, Yii::t('contest', 'Error in updateCategoryEntry :') . $e->getMessage());
+      $response['success'] = false;
+      $response['msg'] = $e->getMessage();
+    }
+    return $response;
+  }
+  
+  /**
+   * actionAddEntryInCategory
+   * 
+   * This function is used for add entry in category
+   * @param $msg
+   */
+  public function actionAddEntryInCategory($msg = '') { 
+    $isAdmin = isAdminUser();
+    if (!$isAdmin) {
+      $this->redirect(BASE_URL);
+    }
+    try {
+      $entries = array();
+      $categoryInfo = array();
+      $categoryInfo = $this->getCategoryDetail();
+      $contest = new Contest();
+      $contest->contestSlug = $categoryInfo['contest_slug'];
+      $contestSubmission = $contest->getContestSubmission();     
+      foreach ($contestSubmission as $submission) { 
+        $alreadyExist = false;
+        $entry = array();
+        //check whether entry already exist or not
+        if(array_key_exists('tags', $submission)){ 
+          foreach($submission['tags'] as $tag){
+            if($tag['name'] == $categoryInfo['category_name']) {
+              $alreadyExist = true;
+            } 
+          }
+        }        
+        if($alreadyExist){
+          continue;
+        }
+        
+        if (array_key_exists('title', $submission) && !empty($submission['title'])) {
+          $entry['title'] = $submission['title'];
+        }
+        if (array_key_exists('id', $submission) && !empty($submission['id'])) {
+          $entry['id'] = $submission['id'];
+        }
+        if (array_key_exists('author', $submission) && !empty($submission['author'])) {
+          $entry['author'] = $submission['author']['name'];
+          $entry['tag'] = serialize($submission['tags']);
+        }
+        if (array_key_exists('image', $submission) && !empty($submission['image'])) {
+          if (!empty($submission['image']) && filter_var($submission['image'], FILTER_VALIDATE_URL)) {
+            $basePath = parse_url($submission['image']);
+            if (!empty($basePath['path'])) {
+              $entry['image'] = substr($basePath['path'], 1);
+            }
+          } else {
+            $entry['image'] = $submission['image'];
+          }
+        }
+        if (!empty($entry)) {
+          $entries[] = $entry;
+        }
+      }      
+    } catch (Exception $e) {
+      $message['success'] = false;
+      $message['msg'] = $e->getMessage();
+    }
+    $this->render('addWinner', array('category' => $categoryInfo, 'entries' => $entries, 'msg' => $msg));
+  }
+
+   /**
+   * actionGetWinnerEntry
+   * 
+   * This function is used for get winner entry
+   * @param $contestName
+   * @param $contestSlug
+   * @param $category
+   * @return $winner  (winner entry)
+   */
+  public function getWinnerEntry($contestName, $contestSlug, $category) {
+    $winner = array();
+    $aggregatorManager = new AggregatorManager();
+    $aggregatorManager->returnField = 'links,author,title,id,tags';
+    $aggregatorManager->contestSlug = $contestSlug;
+    $aggregatorManager->sort = '-modification_date';
+    $aggregatorManager->tag = $contestName . ',winner,' . $category;
+    $entries = $aggregatorManager->getWinnerEntry();
+    foreach ($entries as $entry) {
+      if (array_key_exists('image', $entry) && !empty($entry['image'])) {
+        if (!empty($entry['image']) && filter_var($entry['image'], FILTER_VALIDATE_URL)) {
+          $basePath = parse_url($entry['image']);
+          if (!empty($basePath['path'])) {
+            $WinnerEntry['image'] = substr($basePath['path'], 1);
+          }
+        } else {
+          $WinnerEntry['image'] = $entry['image'];
+        }
+      }
+      if (array_key_exists('author', $entry) && !empty($entry['author'])) {
+        $WinnerEntry['author'] = $entry['author']['name'];
+      }
+      if (array_key_exists('title', $entry) && !empty($entry['title'])) {
+        $WinnerEntry['title'] = $entry['title'];
+      }
+      $winner[] = $WinnerEntry;
+    }
+    return $winner;
+  }
+  
+  /**
+   * getCategoryDetail
+   * 
+   * This function is used for get category and contest detail
+   */
+  public function getCategoryDetail(){
+    $categoryInfo = array();
+    $category = new Category();
+    if (array_key_exists('id', $_GET) && !empty($_GET['id'])) {
+      $category->categoryId = $_GET['id'];
+    }   
+    $categoryInfo = $category->getCategory(); 
+    if(!empty($categoryInfo['contest_id'])) {
+      $category->contestId = $categoryInfo['contest_id'];
+      $contest = $category->get(); 
+      if(!empty($contest)){
+        $categoryInfo['contest_name'] = $contest[0]['contestTitle'];
+        $categoryInfo['contest_slug'] = $contest[0]['contestSlug'];
+      }
+    }   
+    return $categoryInfo;
+  }
 }
 

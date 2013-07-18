@@ -32,7 +32,7 @@ class Contest  {
     $aggregatorManager = new AggregatorManager();    
     $contestEntries = $aggregatorManager->getEntry(ENTRY_LIMIT, $this->offset, $this->entryId, 'active',
             $this->contestSlug.'[contest]', '', '', $this->count, '', '', '', '',array(), $this->sort,
-            'links,status,author,title,id,content','','');
+            'links,status,author,title,id,content,tags','','');
     $i = 0;
     foreach ($contestEntries as $entry) {
       if (!empty($entry['links']['enclosures'])) { 
@@ -181,7 +181,7 @@ class Contest  {
         
         $aggregatorManager->authorName = Yii::app()->session['user']['firstname'].' '. Yii::app()->session['user']['lastname'];
         $aggregatorManager->authorSlug = Yii::app()->session['user']['id'];
-        $aggregatorManager->imageUrl = BASE_URL . $imagePath;
+        $aggregatorManager->imageUrl =  $imagePath;
         $aggregatorManager->contestSlug = $contestSlug;
         $aggregatorManager->contestName = $_POST['contestTitle'];
         

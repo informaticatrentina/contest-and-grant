@@ -12,27 +12,42 @@
     </div>
    
     {% if categories is empty %}      
-        <div style="background-color:#f5f5f5; margin:25px 0px;">
-          <div class="row">
-            <div class="span3">
-              <div style="padding:25px 25px;">    
-                <h6> 
-                  {{ t('contest', 'There are no category for this contest')}}.<br>
-                </h6>
-              </div>
+      <div style="background-color:#f5f5f5; margin:25px 0px;">
+        <div class="row">
+          <div class="span3">
+            <div style="padding:25px 25px;">    
+              <h6> 
+                {{ t('contest', 'There are no category for this contest')}}.<br>
+              </h6>
             </div>
           </div>
         </div>
-      {% else %} 
-        {% for category in categories %}
-          <div class="span3">
-              <div style="padding:15px 15px;">    
-                <h6> 
-                  <a href="{{constant('BASE_URL')}}admin/category/manage/{{category.category_id}}">{{category.category_name}}</a>
-                </h6>
-              </div>
-            </div>
-        {% endfor %}
+      </div>
+    {% else %}         
+      <table class="container table table-bordered table-hover category-table">
+        <thead>
+          <tr>
+            <th>{{ t('contest', 'S. No.') }}</th>
+            <th>{{ t('contest', 'Category') }}</th>
+            <th>{{ t('contest', 'Manage Winner') }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% set i = 1 %}
+          {% for category in categories %}
+            <tr>
+              <td>{{ i }}</td>
+              <td>{{category.category_name}}</td>
+              <td>
+                <a href="{{constant('BASE_URL')}}admin/category/manage/{{category.category_id}}">
+                  {{ t ('contest', 'Manage Winner') }}
+                </a>  
+              </td>
+              {% set i = i + 1 %}
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
       {% endif %}
    
     <div id="add-category" style="display:none">

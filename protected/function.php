@@ -161,3 +161,18 @@ function getFirstContest() {
   }
   return $contestSlug;
 }
+
+/**
+ * sanitization
+ * 
+ * This function is used for convert a string in santized string
+ * @param $string
+ * @return  $sanitizeStr
+ */
+function sanitization($string){
+  $sanitizeStr = '';
+  if (!empty($string)) {
+    $sanitizeStr = strtolower(preg_replace("/[^a-z0-9]+/i", "_", $string));
+  }
+  return $sanitizeStr;
+}

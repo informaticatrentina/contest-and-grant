@@ -179,9 +179,15 @@ class Contest  {
           }
         } 
         
+        if (array_key_exists('minorName', $_POST) && !empty($_POST['minorName'])) {
+          $aggregatorManager->category = 'minor';
+        } else {
+          $aggregatorManager->category = 'adult';
+        }
+        
         $aggregatorManager->authorName = Yii::app()->session['user']['firstname'].' '. Yii::app()->session['user']['lastname'];
         $aggregatorManager->authorSlug = Yii::app()->session['user']['id'];
-        $aggregatorManager->imageUrl =  $imagePath;
+        $aggregatorManager->imageUrl =  BASE_URL . $imagePath;
         $aggregatorManager->contestSlug = $contestSlug;
         $aggregatorManager->contestName = $_POST['contestTitle'];
         

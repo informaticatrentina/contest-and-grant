@@ -30,7 +30,7 @@ class AggregatorManager {
   public $tag = array();
   public $offset = 0;
   public $sort;
-  public $category;
+  public $category = '';
   
   /**
    * getEntry
@@ -163,6 +163,8 @@ class AggregatorManager {
   
   public function saveEntry() { 
     $inputParam = array();
+    $categorySlug = '';
+    $tag = array();
     $aggregatorAPI = new AggregatorAPI();
     try { 
       if (empty($this->authorName)) {
@@ -181,15 +183,24 @@ class AggregatorManager {
       if (empty($this->imageUrl) || !filter_var($this->imageUrl, FILTER_VALIDATE_URL)) {
         throw new Exception(Yii::t('contest', 'Please provide an image for enrty '));
       }
-
-      // prepare data accordind to aggregator API input (array)
+      
+      $tag[] = array('name' => $this->contestName, 'slug' => $this->contestSlug, 'scheme' => 'http://ahref.eu/contest/schema/');
+      if (!empty($this->category)) {
+        $categorySlug = sanitization($this->category);
+        if (!empty($categorySlug)) {
+          array_push($tag, array('name' => $this->category, 'slug' => $categorySlug, 'scheme' => 'http://ahref.eu/schema/contest/category'));
+        }
+      }  
+      
+      
+      // prepare data accordind to aggregator API input (array) 
       $inputParam = array(
           'content' => array('description' => $this->entryDescription, 'is_minor' => $this->isMinor, 'minor_name' => $this->minorName),
           'title' => $this->entryTitle,
           'status' => 'active',
           'author' => array('name' => $this->authorName,
                             'slug' => $this->authorSlug),
-          'tags' => array(0 => array('name' => $this->contestName, 'slug' => $this->contestSlug, 'scheme' => 'http://ahref.eu/contest/schema/')),
+          'tags' => $tag,
           'links' => array('enclosures' => array(0 => array('type' => 'image/jpg', 'uri' => $this->imageUrl))),
           'creation_date' => time()
       );

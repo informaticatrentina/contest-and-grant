@@ -303,13 +303,12 @@ class AggregatorManager {
       if (empty($this->category)) {
         throw new Exception(Yii::t('contest', 'Category can not be empty'));
       }
-      
-      $categorySlug =  strtolower(preg_replace("/[^a-z0-9]+/i", "_", ($this->category)));
-      $prize =  strtolower(preg_replace("/[^a-z0-9]+/i", "_", ($this->prize)));
+     
+      $prizeSlug =  sanitization($this->prize);      
       array_push($this->tags,array('name' => 'winner', 'slug' => 'winner', 
           'scheme' => 'http://ahref.eu/contest/schema/contest/winner', 'weight' => $this->prizeWeight));
-      array_push($this->tags,array('name' => $this->category, 'slug' => $categorySlug,
-          'scheme' => 'http://ahref.eu/contest/schema/contest/'. $prize));
+      array_push($this->tags,array('name' => $this->prize, 'slug' => $prizeSlug,
+          'scheme' => 'http://ahref.eu/contest/schema/contest/prize'));
 
       // prepare data according to aggregator API input (array)
       $inputParam = array(

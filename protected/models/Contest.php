@@ -19,6 +19,7 @@ class Contest  {
   public $sort = '';
   public $offset = 0;
   public $count = 1;
+  public $tags ;
 
 
   /**
@@ -225,6 +226,27 @@ class Contest  {
       $entry['image'] = $entry['links']['enclosures'][0]['uri'];
     }
     return $entry;
+  }
+  
+  /**
+   * getContestSubmissionForCategory
+   * 
+   * This function is used for get entry for a category
+   */
+  public function getContestSubmissionForCategory() {
+    $contestEntries = array();
+    $aggregatorManager = new AggregatorManager();    
+    $contestEntries = $aggregatorManager->getEntry(ENTRY_LIMIT, $this->offset, '', 'active',
+            $this->tags, '', '', $this->count, '', '', '', '',array(), $this->sort,
+            'links,status,author,title,id,content,tags','','');
+    $i = 0;
+    foreach ($contestEntries as $entry) {
+      if (!empty($entry['links']['enclosures'])) { 
+        $contestEntries[$i]['image'] =  $entry['links']['enclosures'][0]['uri'] ;
+        $i++;
+      }
+    }
+    return $contestEntries;
   }
 
 }

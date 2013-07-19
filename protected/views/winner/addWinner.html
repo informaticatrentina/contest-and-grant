@@ -1,0 +1,73 @@
+<link rel="stylesheet" type="text/css" href="{{constant('BASE_URL')}}css/jquery.fancybox.css" />
+<link rel="stylesheet" type="text/css" href="{{constant('BASE_URL')}}css/jquery.fancybox-buttons.css" />
+<div class="container darkheader">
+  <div class="row">
+    <div class="span8"><h1> {{ t('contest', 'Manage Winner for ') }} {{category.category_name}}{{t('contest', ' category')}}</h1></div>
+  </div>
+</div>
+<div class="container ">
+  {% if msg is not empty %}
+    <div class="alert-error span5" id="error">
+      {{ msg }}
+    </div>
+    <br/>
+  {% endif %}  
+
+  {% if entries is empty %}      
+    <div style="background-color:#f5f5f5; margin:25px 0px;">
+      <div class="row">
+        <div class="span8">
+          <div style="padding:25px 25px;">    
+            <center> 
+              <h6>{{ t('contest', 'There are no entry in this category')}}</h6>
+            </center>
+          </div>
+        </div>
+      </div>
+    </div>
+  {% else %} 
+    <table class="table table-bordered table-hover category-table">
+      <thead>
+        <tr>
+          <th>{{ t('contest', 'S. No.') }}</th>
+          <th>{{ t('contest', 'Entry') }}</th>
+          <th>{{ t('contest', 'Title') }}</th>
+          <th>{{ t('contest', 'Author') }}</th>
+          <th>{{ t('contest', 'Add Entry') }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% set i = 1 %}
+        {% for entry in entries %}
+        <tr>
+          <td>{{ i }}</td>
+          <td><img src="{{constant('BASE_URL')}}{{resizeByPath(entry.image,'100','500')}}" alt="contest image" /></td>
+          <td>{{entry.title}}</td>
+          <td>{{entry.author}}</td>
+          <td tag='{{entry.tag}}' id="{{entry.id}}" category="{{category.category_name}}" class="add-entry"><a href="#add-entry-in-category">{{ t('contest', 'add') }}</a></td>
+          {% set i = i + 1 %}
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+    <input type="hidden" name="winnerWeight" value="{{winnerWeight}}" id="winnerWeight">
+  {%endif%}
+  <div class="hidden">
+    <form id="add-entry-in-category" class="form-manage-category" method="post" action="{{constant('BASE_URL')}}admin/category/winner/{{category.category_id}}">
+      <p id="error" class="alert-error" style="display:none"></p>
+      <input type="hidden" class="input-block-level" id="add-entry-id" name="id" value=""></input>
+      <input type="hidden" class="input-block-level" id="add-entry-tag" name="tag" value=""></input>
+      <input type="hidden" class="input-block-level" id="add-entry-category" name="category" value=""></input>
+      <label>{{ t('contest', 'Prize')}}</label>
+      <input type="text"class="input-block-level" name="prize" id="prize" value=""></input>
+      <label>{{ t('contest', 'weight')}}</label>
+      <input type="text" class="input-block-level" name="weight" id="weight" value=""></input>
+      <button class="btn btn-large btn-primary" id="add-entry-button" type="submit" name='submit'>{{ t('contest', 'Add Entry') }}</button>
+    </form>
+  </div>
+</div>
+<script type="text/javascript" src="{{constant('BASE_URL')}}js/jquery.fancybox.js"></script>
+<script type="text/javascript" src="{{constant('BASE_URL')}}js/jquery.fancybox.pack.js"></script>
+<script type="text/javascript" src="{{constant('BASE_URL')}}js/jquery.fancybox-buttons.js"></script>
+
+<script src="{{constant('BASE_URL')}}js/category.js"></script>

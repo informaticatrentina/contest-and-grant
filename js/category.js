@@ -22,10 +22,15 @@ $(document).ready(function() {
   });
   
   $('#add-entry-button').click(function() {
+    var prizeWeightArr =  Array();
     var prize = $('#prize').val();
     var weight = $('#weight').val();
+    var prizeWeight = $('#winnerWeight').val();
+    if (prizeWeight != '') {
+      prizeWeightArr = prizeWeight.split(",");
+    }
     if (prize == '') {      
-      $('#error').show();
+      $('#error').show();      
       $('#error').html(Yii.t('contest','Please enter prize'));
       return false;
     }
@@ -36,6 +41,10 @@ $(document).ready(function() {
     } else if (!(/^[0-9-+]+$/).test($.trim(weight))) {
       $('#error').show();
       $('#error').html(Yii.t('contest','Prize weight should be numeric'));
+      return false;
+    } else if (prizeWeightArr.indexOf(weight) > -1) {
+      $('#error').show();
+      $('#error').html(Yii.t('contest','Prize weight already exist'));
       return false;
     }
     $('#add-entry-in-category').submit();

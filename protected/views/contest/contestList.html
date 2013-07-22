@@ -2,32 +2,36 @@
   <div class="btn">
     <a href="{{constant('BASE_URL')}}admin/contest/add">{{ t('contest','create contest')}}</a>
   </div>
-  <div class="row">
-    <div class="span2">{{ t('contest', 'contest Title') }}</div>
-    <div class="span1">{{ t('contest', 'Start Date')}}</div>
-    <div class="span1">{{ t('contest', 'End Date')}}</div>
-    <div class="span2">{{ t('contest','Contest Description')}}</div>
-    <div class="span1">{{ t('contest','Banner image')}}</div>
-    <div class="span1">{{ t('contest','Square image')}}</div>
-    <div class="span1">{{ t('contest','No of entry')}}</div>
-    <div class="span1"></div>
-    <div class="span1"></div>
-    <div class="span1"></div>
-    <br/>
-  </div>
-  {% for info in contestInfo %}
-  <div class="row">
-    <div class="span2">{{ info.contestTitle }}</div>
-    <div class="span1">{{ info.startDate }}</div>
-    <div class="span1">{{ info.endDate  }}</div>
-    <div class="span2">{{ info.contestDescription }}</div>
-    <div class="span1"><img src="{{constant('BASE_URL')}}{{resizeByPath(info.imagePath,'100','500')}}" alt="contest image" /></div>
-    <div class="span1"><img src="{{constant('BASE_URL')}}{{resizeByPath(info.squareImage,'100','500')}}" alt="contest image" /></div>
-    <div class="span1">{{info.entryCount}}<a href="{{constant('BASE_URL')}}admin/contest/entries/{{ info.contestSlug }}">   view</a></div>
-    <div class="span1"><a href="{{constant('BASE_URL')}}admin/contest/edit/{{ info.contestSlug }}">{{ t('contest','Edit')}}</a></div>
-    <div class="span1 deleteContest"><a href="{{constant('BASE_URL')}}admin/contest/delete/{{ info.contestSlug }}">{{ t('contest','Delete')}}</a></div>
-    <div class="span1"><a href="{{constant('BASE_URL')}}admin/category/{{ info.contestSlug }}">{{ t('contest','Manage Category')}}</a></div>
-  </div>
-  {% endfor %}
-</div>
-<script src="{{constant('BASE_URL')}}js/deleteContest.js"></script>
+  <table class="container table table-bordered table-hover category-table">
+    <thead>
+      <tr>
+        <th>{{ t('contest', 'contest Title') }}</th>
+        <th>{{ t('contest', 'Start Date')}}</th>
+        <th>{{ t('contest', 'End Date')}}</th>
+        <th>{{ t('contest','Contest Description')}}</th>
+        <th>{{ t('contest','Banner image')}}</th>
+        <th>{{ t('contest','Square image')}}</div>
+        <th>{{ t('contest','No of entry')}}</div>
+        <th>{{ t('contest','Edit')}}</th>
+        <th>{{ t('contest','Delete')}}</th>
+        <th>{{ t('contest','Manage Category')}}</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for info in contestInfo %}
+      <tr>
+        <td>{{ info.contestTitle }}</td>
+        <td>{{ info.startDate }}</td>
+        <td>{{ info.endDate  }}</td>
+        <td>{{ info.contestDescription }}</td>
+        <td><img src="{{constant('BASE_URL')}}{{resizeByPath(info.imagePath,'100','500')}}" alt="contest image" /></td>
+        <td><img src="{{constant('BASE_URL')}}{{resizeByPath(info.squareImage,'100','500')}}" alt="contest image" /></td>
+        <td>{{info.entryCount}}<a href="{{constant('BASE_URL')}}admin/contest/entries/{{ info.contestSlug }}">   view</a></td>
+        <td><a href="{{constant('BASE_URL')}}admin/contest/edit/{{ info.contestSlug }}">{{ t('contest','Edit')}}</a></td>
+        <td class="deleteContest"><a href="{{constant('BASE_URL')}}admin/contest/delete/{{ info.contestSlug }}">{{ t('contest','Delete')}}</a></td>
+        <td><a href="{{constant('BASE_URL')}}admin/category/{{ info.contestSlug }}">{{ t('contest','Manage Category')}}</a></td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <script src="{{constant('BASE_URL')}}js/deleteContest.js"></script>

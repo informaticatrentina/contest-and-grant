@@ -1,3 +1,6 @@
+<link rel="stylesheet" type="text/css" href="{{constant('BASE_URL')}}css/jquery.fancybox.css" />
+<link rel="stylesheet" type="text/css" href="{{constant('BASE_URL')}}css/jquery.fancybox-buttons.css" />
+
 <div class="container darkheader">
   <div class="row">
     <div class="span8"><h1> {{ t('contest', 'Manage Winner for ') }} {{category.category_name}}{{t('contest', ' category')}}</h1></div>
@@ -31,6 +34,8 @@
           <th>{{ t('contest', 'Entry') }}</th>
           <th>{{ t('contest', 'Title') }}</th>
           <th>{{ t('contest', 'Author') }}</th>  
+          <th>{{ t('contest', 'Edit') }}</th>  
+          <th>{{ t('contest', 'Delete') }}</th>  
         </tr>
       </thead>
       <tbody>
@@ -41,11 +46,39 @@
             <td><img src="{{constant('BASE_URL')}}{{resizeByPath(entry.image,'100','500')}}" alt="contest image" /></td>
             <td>{{entry.title}}</td>
             <td>{{entry.author}}</td>
+            <td tag='{{entry.tag}}' id="{{entry.id}}" category="{{category.category_name}}" weight="{{entry.winnerWeight}}" prize="{{entry.prize}}" class="update-winner">
+              <a href="#update-winner-form">
+                {{ t('contest', 'Edit') }}
+              </a>
+            </td>  
+            <td tag='{{entry.tag}}' id="{{entry.id}}" class="delete-winner">
+              <a href="{{constant('BASE_URL')}}admin/category/winner/{{category.category_id}}/delete">
+                {{ t('contest', 'Delete') }}
+              </a>
+            </td> 
             {% set i = i + 1 %}
           </tr>
         {% endfor %}
       </tbody>
     </table>
+  <input type="hidden" name="winnerWeight" value="{{winnerWeight}}" id="winnerWeight">
   {% endif %}
+  
+  <div class="hidden">
+    <form id="update-winner-form" class="form-manage-category" method="post" action="{{constant('BASE_URL')}}admin/category/winner/{{category.category_id}}/edit">
+      <p id="error" class="alert-error" style="display:none"></p>
+      <input type="hidden" class="input-block-level" id="update-winner-id" name="id" value=""></input>
+      <input type="hidden" class="input-block-level" id="update-winner-tag" name="tag" value=""></input>
+      <input type="hidden" class="input-block-level" id="update-winner-category" name="category" value=""></input>
+      <label>{{ t('contest', 'Prize')}}</label>
+      <input type="text"class="input-block-level" name="prize" id="prize" value=""></input>
+      <label>{{ t('contest', 'weight')}}</label>
+      <input type="text" class="input-block-level" name="weight" id="weight" value=""></input>
+      <button class="btn btn-large btn-primary" id="update-winner-button" type="submit" name='update_winner'>{{ t('contest', ' save') }}</button>
+    </form>
+  </div>  
 </div>
+<script type="text/javascript" src="{{constant('BASE_URL')}}js/jquery.fancybox.js"></script>
+<script type="text/javascript" src="{{constant('BASE_URL')}}js/jquery.fancybox.pack.js"></script>
+<script type="text/javascript" src="{{constant('BASE_URL')}}js/jquery.fancybox-buttons.js"></script>
 <script src="{{constant('BASE_URL')}}js/category.js"></script>

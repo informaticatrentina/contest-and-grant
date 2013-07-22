@@ -72,20 +72,26 @@ class WinnerController extends Controller {
    * 
    * This function is used for manage winner for each category
    */
-  public function actionManageWinner() { 
+  public function actionManageWinner($winnerPage = false) { 
     $isAdmin = isAdminUser();
     if (!$isAdmin) {
       $this->redirect(BASE_URL);
     }
-    $winnerEntries = array();
+    $winnerEntries = array();    
     $categoryInfo = array();
     $contest = array();
+    $contestWinner = array();
+    $msg = '';
     
     if (!empty($_POST)) {
       $response = $this->actionUpdateCategoryEntry();
-      if (!$response['success']) {
-        $this->actionAddWinnerInCategory($response['msg']);
-        exit;
+      if (array_key_exists('success', $response) && !$response['success']) {
+        if ($winnerPage) {
+          $msg = $response['msg'];
+        } else {
+          $this->actionAddWinnerInCategory($response['msg']);
+          exit;
+        }
       }
     }
     $categoryInfo = $this->getCategoryDetail();
@@ -95,7 +101,25 @@ class WinnerController extends Controller {
     if (!empty($categoryInfo)) {
       $winnerEntries = $this->getWinner($categoryInfo['contest_slug'],$categorySlug);
     }
-    $this->render('manageWinner', array('category' => $categoryInfo, 'entries' => $winnerEntries));
+    foreach ($winnerEntries as $entry) {
+      if (array_key_exists('tags', $entry) && !empty($entry['tags'])) {
+        $winner['tag'] = serialize($entry['tags']);
+        foreach($entry['tags'] as $tag) {
+          if($tag['slug'] == 'winner'){
+            $winner['winnerWeight'] = $tag['weight'];
+          }
+          if($tag['scheme'] == 'http://ahref.eu/contest/schema/contest/prize') {
+            $winner['prize'] =  $tag['name'];
+          }
+        }
+      }
+      $winner['image'] = $entry['image'];
+      $winner['author'] = $entry['author'];
+      $winner['title'] = $entry['title'];
+      $winner['id'] = $entry['id'];
+      $contestWinner[] = $winner;
+    }
+    $this->render('manageWinner', array('category' => $categoryInfo, 'entries' => $contestWinner, 'msg' => $msg));
   }
   
   /**
@@ -122,9 +146,9 @@ class WinnerController extends Controller {
         }        
         if (array_key_exists('category', $_POST) && (!empty($_POST['category']))) {
           $aggregatorManager->category = $_POST['category'];
-        }   
+        }    
         $response = $aggregatorManager->updateEntry();
-        if ($response['success']) {
+        if (array_key_exists('success', $response) && $response['success']) {
           $response['msg'] = Yii::t('contest', 'You have succesfully add an entry');
         } else {
           $response['msg'] = Yii::t('contest', 'Some technical problem occurred, contact administrator');
@@ -340,6 +364,20 @@ class WinnerController extends Controller {
     } 
     $this->render('winner', array('contestInfo' => $contestInfo, 'categories' => $categoryInfo, 'entries' => $winner));
   }
+  
+  /**
+   * actionUpdateWinner
+   * 
+   * This function is used for update winner
+   */
+  public function actionUpdateWinner() {
+    $isAdmin = isAdminUser();
+    if (!$isAdmin) {
+      $this->redirect(BASE_URL);
+    }  
+    $winnerPage = true;
+    $this->actionManageWinner($winnerPage);    
+  }  
  }
 
 

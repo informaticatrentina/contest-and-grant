@@ -27,7 +27,7 @@ class AggregatorManager {
   public $entryId = '';
   public $prize = '';
   public $prizeWeight = '';
-  public $tag = array();
+  public $tags = array();
   public $offset = 0;
   public $sort;
   public $category = '';
@@ -294,22 +294,16 @@ class AggregatorManager {
     $entry = array();
     $response = array();
     try {
-      if (empty($this->prize)) {
-        throw new Exception(Yii::t('contest', 'Prize can not be empty'));
-      }
-      if (empty($this->prizeWeight)) {
-        throw new Exception(Yii::t('contest', 'Prize weight can not be empty'));
-      }
-      if (empty($this->category)) {
-        throw new Exception(Yii::t('contest', 'Category can not be empty'));
-      }
-     
-      $prizeSlug =  sanitization($this->prize);      
-      array_push($this->tags,array('name' => 'winner', 'slug' => 'winner', 
-          'scheme' => 'http://ahref.eu/contest/schema/contest/winner', 'weight' => $this->prizeWeight));
-      array_push($this->tags,array('name' => $this->prize, 'slug' => $prizeSlug,
+      if (!empty($this->prize)) {
+        $prizeSlug =  sanitization($this->prize);  
+        array_push($this->tags,array('name' => $this->prize, 'slug' => $prizeSlug,
           'scheme' => 'http://ahref.eu/contest/schema/contest/prize'));
-
+      }
+      if (!empty($this->prizeWeight)) { 
+          array_push($this->tags,array('name' => 'winner', 'slug' => 'winner', 
+          'scheme' => 'http://ahref.eu/contest/schema/contest/winner', 'weight' => $this->prizeWeight));
+      }
+          
       // prepare data according to aggregator API input (array)
       $inputParam = array(
         'tags' => $this->tags,

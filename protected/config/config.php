@@ -123,7 +123,7 @@ return array(
         'admin/category/winner/<id:[\w-]+>' => 'winner/manageWinner',
         'admin/category/winner/<id:[\w-]+>/edit' => 'winner/updateWinner',
         'admin/category/winner/<id:[\w-]+>/delete' => 'winner/deleteWinner',       
-        'admin/category/<id:[\w-]+>/add' => 'winner/addWinnerInCategory',
+        'admin/category/winner/<id:[\w-]+>/add' => 'winner/addWinnerInCategory',
         'contest/winner/<slug:[\w-]+>'=>'winner/getWinnerInfo',  
         'contest/entries/<slug:[\w-]+>'=>'contest/entries',
         'contest/entries/<slug:[\w-]+>/<id:[\w-]+>'=>'contest/entries',

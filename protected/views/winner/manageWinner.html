@@ -9,7 +9,7 @@
 <div class="container">
   <div class="row">
     <div class="span4">
-      <a class="contest-button btn-block" href="{{constant('BASE_URL')}}admin/category/{{category.category_id}}/add">
+      <a class="contest-button btn-block" href="{{constant('BASE_URL')}}admin/category/winner/{{category.category_id}}/add">
         {{ t('contest', 'Add new winner') }}
       </a>
     </div>
@@ -75,6 +75,11 @@
       <label>{{ t('contest', 'weight')}}</label>
       <input type="text" class="input-block-level" name="weight" id="weight" value=""></input>
       <button class="btn btn-large btn-primary" id="update-winner-button" type="submit" name='update_winner'>{{ t('contest', ' save') }}</button>
+    </form>
+    
+    <form id="delete-winner-form" method="post" action="{{constant('BASE_URL')}}admin/category/winner/{{category.category_id}}/delete">
+      <input type="hidden" class="input-block-level" id="delete-winner-id" name="id" value=""></input>
+      <input type="hidden" class="input-block-level" id="delete-winner-tag" name="tag" value=""></input>
     </form>
   </div>  
 </div>

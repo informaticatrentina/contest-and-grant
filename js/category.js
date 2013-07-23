@@ -1,3 +1,4 @@
+var prevWeight = '';
 $(document).ready(function() {
   $('#add-new-category').click(function() {
     $('#add-new-category').hide();
@@ -26,6 +27,7 @@ $(document).ready(function() {
     var winnerCategoryName = $(this).attr('category');
     var prize = $(this).attr('prize');
     var weight = $(this).attr('weight');
+    prevWeight = weight;
     if (winnerId != '') {
       $('#update-winner-id').attr('value',winnerId);
       $('#update-winner-tag').attr('value',winnerTag);
@@ -40,6 +42,22 @@ $(document).ready(function() {
     e.preventDefault();
     submitFancyBox('update-winner-form');     
    });        
+   
+   
+  $('.delete-winner').click(function(e) {
+    e.preventDefault();
+    var response =  confirm(Yii.t('js', "Are you sure you want to remove this winner ?"));
+    if (!response) {
+      return false;
+    }  
+    var winnerDelId = $(this).attr('id');
+    var winnerDelTag = $(this).attr('tag');
+    if (winnerDelId != '') {
+      $('#delete-winner-id').attr('value', winnerDelId);
+      $('#delete-winner-tag').attr('value', winnerDelTag);
+    }
+    $('#delete-winner-form').submit();
+  });
 });
 
 function openFancyBox(id) {
@@ -73,7 +91,7 @@ function submitFancyBox(formId) {
     $('#error').show();
     $('#error').html(Yii.t('contest', 'Prize weight should be numeric'));
     return false;
-  } else if (prizeWeightArr.indexOf(weight) > -1) {
+  } else if (prizeWeightArr.indexOf(weight) > -1 && weight != prevWeight) { 
     $('#error').show();
     $('#error').html(Yii.t('contest', 'Prize weight already exist'));
     return false;

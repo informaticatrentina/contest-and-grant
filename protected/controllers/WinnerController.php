@@ -1,4 +1,4 @@
-<?php
+  <?php
 
 /**
  * WinnerController
@@ -81,6 +81,8 @@ class WinnerController extends Controller {
     $categoryInfo = array();
     $contest = array();
     $contestWinner = array();
+    $WinnerDetail = array();
+    $winnerWeight = '';
     $msg = '';
     
     if (!empty($_POST)) {
@@ -95,31 +97,17 @@ class WinnerController extends Controller {
       }
     }
     $categoryInfo = $this->getCategoryDetail();
-    if (array_key_exists('category_name',$categoryInfo) && !empty($categoryInfo['category_name'])) {
-      $categorySlug = sanitization($categoryInfo['category_name']);
+    $contestWinner = $this->prepareWinner($categoryInfo);
+    if(array_key_exists('winner', $contestWinner) && (!empty($contestWinner['winner']))) {
+      $WinnerDetail =  $contestWinner['winner'];
     }
-    if (!empty($categoryInfo)) {
-      $winnerEntries = $this->getWinner($categoryInfo['contest_slug'],$categorySlug);
+    if(array_key_exists('winnerWeight', $contestWinner) && (!empty($contestWinner['winnerWeight']))) {
+      $winnerWeight =  implode(',',$contestWinner['winnerWeight']);
     }
-    foreach ($winnerEntries as $entry) {
-      if (array_key_exists('tags', $entry) && !empty($entry['tags'])) {
-        $winner['tag'] = serialize($entry['tags']);
-        foreach($entry['tags'] as $tag) {
-          if($tag['slug'] == 'winner'){
-            $winner['winnerWeight'] = $tag['weight'];
-          }
-          if($tag['scheme'] == 'http://ahref.eu/contest/schema/contest/prize') {
-            $winner['prize'] =  $tag['name'];
-          }
-        }
-      }
-      $winner['image'] = $entry['image'];
-      $winner['author'] = $entry['author'];
-      $winner['title'] = $entry['title'];
-      $winner['id'] = $entry['id'];
-      $contestWinner[] = $winner;
-    }
-    $this->render('manageWinner', array('category' => $categoryInfo, 'entries' => $contestWinner, 'msg' => $msg));
+    $this->render('manageWinner', array('category' => $categoryInfo, 
+        'entries' => $WinnerDetail, 
+        'winnerWeight'=> $winnerWeight,
+        'msg' => $msg));
   }
   
   /**
@@ -146,7 +134,7 @@ class WinnerController extends Controller {
         }        
         if (array_key_exists('category', $_POST) && (!empty($_POST['category']))) {
           $aggregatorManager->category = $_POST['category'];
-        }    
+        } 
         $response = $aggregatorManager->updateEntry();
         if (array_key_exists('success', $response) && $response['success']) {
           $response['msg'] = Yii::t('contest', 'You have succesfully add an entry');
@@ -378,6 +366,74 @@ class WinnerController extends Controller {
     $winnerPage = true;
     $this->actionManageWinner($winnerPage);    
   }  
- }
+  
+  /**
+   * actionDeleteWinner
+   * 
+   * This function is used for delete winner
+   */
+  public function actionDeleteWinner() {
+    $contestWinner = array();
+    $updateTag = array();
+    if (isset($_POST)) {
+      $aggregator = new AggregatorManager();
+      if (array_key_exists('id', $_POST) && !empty($_POST['id'])) {
+        $aggregator->entryId = $_POST['id'];
+      }
+      if (array_key_exists('tag', $_POST) && !empty($_POST['tag'])) {
+        $tags = unserialize($_POST['tag']);
+        foreach ($tags as $tag) {
+          if ($tag['scheme'] != 'http://ahref.eu/contest/schema/contest/prize' && $tag['scheme'] != 'http://ahref.eu/contest/schema/contest/winner') {
+            $updateTag[] = $tag;
+          }
+        }
+        $aggregator->tags = $updateTag;       
+      }
+      $response = $aggregator->updateEntry();
+      $this->redirect(BASE_URL.'admin/category/winner/'. $_GET['id']);
+    }
+  }
+
+  
+  /**
+   * prepareWinner
+   * 
+   * This function is used for prepare winner (preapare array of neccessary value)
+   * @param $categoryInfo
+   * @return $contestWinner
+   */
+  
+  public function prepareWinner($categoryInfo) {
+    $contestWinner = array();
+    if (array_key_exists('category_name', $categoryInfo) && !empty($categoryInfo['category_name'])) {
+      $categorySlug = sanitization($categoryInfo['category_name']);
+    }
+    if (!empty($categoryInfo)) {
+      $winnerEntries = $this->getWinner($categoryInfo['contest_slug'], $categorySlug);
+    }
+    foreach ($winnerEntries as $entry) {
+      if (array_key_exists('tags', $entry) && !empty($entry['tags'])) {
+        $winner['tag'] = serialize($entry['tags']);
+        foreach ($entry['tags'] as $tag) {
+          if ($tag['slug'] == 'winner') {
+            $winner['winnerWeight'] = $tag['weight'];
+            $winnerWeight[] =  $tag['weight'];
+          }
+          if ($tag['scheme'] == 'http://ahref.eu/contest/schema/contest/prize') {
+            $winner['prize'] = $tag['name'];
+          }
+        }
+      }
+      $winner['image'] = $entry['image'];
+      $winner['author'] = $entry['author'];
+      $winner['title'] = $entry['title'];
+      $winner['id'] = $entry['id'];
+      $contestWinner['winner'][] = $winner;
+    }
+    $contestWinner['winnerWeight'] = $winnerWeight;
+    return $contestWinner;
+  }
+
+}
 
 

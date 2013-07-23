@@ -405,6 +405,7 @@ class WinnerController extends Controller {
   
   public function prepareWinner($categoryInfo) {
     $contestWinner = array();
+    $winnerWeight = array();
     if (array_key_exists('category_name', $categoryInfo) && !empty($categoryInfo['category_name'])) {
       $categorySlug = sanitization($categoryInfo['category_name']);
     }
@@ -417,7 +418,7 @@ class WinnerController extends Controller {
         foreach ($entry['tags'] as $tag) {
           if ($tag['slug'] == 'winner') {
             $winner['winnerWeight'] = $tag['weight'];
-            $winnerWeight[] =  $tag['weight'];
+              $winnerWeight[] =  $tag['weight'];
           }
           if ($tag['scheme'] == 'http://ahref.eu/contest/schema/contest/prize') {
             $winner['prize'] = $tag['name'];

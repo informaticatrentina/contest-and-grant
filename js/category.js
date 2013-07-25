@@ -80,20 +80,20 @@ function submitFancyBox(formId) {
   }
   if (prize == '') {
     $('#error').show();
-    $('#error').html(Yii.t('contest', 'Please enter prize'));
+    $('#error').html(Yii.t('js', 'Please enter prize'));
     return false;
   }
   if (weight == '') {
     $('#error').show();
-    $('#error').html(Yii.t('contest', 'Please enter prize weight'));
+    $('#error').html(Yii.t('js', 'Please enter prize weight'));
     return false;
   } else if (!(/^[0-9-+]+$/).test($.trim(weight))) {
     $('#error').show();
-    $('#error').html(Yii.t('contest', 'Prize weight should be numeric'));
+    $('#error').html(Yii.t('js', 'Prize weight should be numeric'));
     return false;
   } else if (prizeWeightArr.indexOf(weight) > -1 && weight != prevWeight) { 
     $('#error').show();
-    $('#error').html(Yii.t('contest', 'Prize weight already exist'));
+    $('#error').html(Yii.t('js', 'Prize weight already exist'));
     return false;
   }
   $('#' + formId).submit();

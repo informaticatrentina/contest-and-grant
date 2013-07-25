@@ -72,7 +72,7 @@ return array(
     'application.models.*',
     'application.components.*',
     'application.extensions.JsTrans.*',
-    ),
+  ),
   'sourceLanguage' => 'en',
   'language' => SITE_LANGUAGE,    
   'preload' => array('log'),
@@ -138,10 +138,12 @@ return array(
       'sessionName' => SITE_SESSION_COOKIE_NAME,  
     ),
     'errorHandler' => array(
-        'errorAction' => 'contest/error',
+      'errorAction' => 'contest/error',
     ),  
-    'message' => array(
-      'class' => 'CGettextMessageSource', 
+    'messages' => array(
+      'class' => 'CGettextMessageSource',
+      'useMoFile' => FALSE,
+      'catalog' => 'contest'
     )
   ),    
 );

@@ -76,7 +76,7 @@ class ContestController extends Controller {
           array_push($return['data'], $contestEntry);
         }
       } else {
-        $return['msg'] = t('contest', 'There are no more entries');
+        $return['msg'] = Yii::t('contest', 'There are no more entries');
       }
       echo json_encode($return);
       exit;

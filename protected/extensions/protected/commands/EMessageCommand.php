@@ -545,7 +545,9 @@ EOD;
 			if (($pos = strpos($id, chr(4))) !== false) {
 				$content .= 'msgctxt "' . substr($id, 0, $pos) . "\"\n";
 				$id = substr($id, $pos+1);
-			}
+                        } else {
+                          $content .= 'msgctxt "contest" '. "\n";
+                        }
 			$content .= 'msgid "' . self::encode($id) . "\"\n";
 			$content .= 'msgstr "' . self::encode($message) . "\"\n\n";
 		}
@@ -559,7 +561,7 @@ EOD;
 	 * @return	string	the encoded message
 	 */
 	public static function encode($string, $beginning='msgstr') {
-		$encoded = str_replace(array('\\', '"', "\n", "\t", "\r"), array('\\\\', '\\"', "\\n", '\\t', '\\r'), $string);
+  		$encoded = str_replace(array('\\', '"', "\n", "\t", "\r"), array('\\\\', '\\"', "\\n", '\\t', '\\r'), $string);
 		$length = strlen($encoded);
 		//$length = mb_strlen($encoded);
 		$max_length = 77;

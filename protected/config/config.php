@@ -120,6 +120,8 @@ return array(
         'admin/contest/edit/<slug:[\w-]+>' => 'contest/updateContest',
         'admin/contest/entries/<slug:[\w-]+>'=>'contest/entriesAdminView',
         'admin/category/<slug:[\w-]+>' => 'winner/manageCategory',
+        'admin/category/<slug:[\w-]+>/edit' => 'winner/updateCategory',
+        'admin/category/<slug:[\w-]+>/delete/<id:[\d-]+>' => 'winner/deleteCategory',
         'admin/category/winner/<id:[\w-]+>' => 'winner/manageWinner',
         'admin/category/winner/<id:[\w-]+>/edit' => 'winner/updateWinner',
         'admin/category/winner/<id:[\w-]+>/delete' => 'winner/deleteWinner',       

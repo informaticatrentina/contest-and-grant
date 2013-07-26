@@ -83,5 +83,37 @@ class Category  {
     $category = $query->queryRow();
     return $category;
   }
-}
   
+  /**
+   * update
+   * 
+   * This function is used for update category by id for a contest
+   */
+  public function update() {
+    $connection = Yii::app()->db;
+    if (empty($this->categoryId)) {
+      return array();
+    }
+    $sql = "UPDATE category SET category_name = :categoryName WHERE category_id = :categoryId";
+    $query = $connection->createCommand($sql);
+    $query->bindParam(":categoryId", $this->categoryId);
+    $query->bindParam(":categoryName", $this->categoryName);
+    return $query->execute();
+  }
+  
+  /**
+   * delete
+   * 
+   * This function is used for delete category by id for a contest
+   */
+  public function delete() {
+    $connection = Yii::app()->db;
+    if (empty($this->categoryId)) {
+      return array();
+    }
+    $sql = "DELETE FROM category WHERE category_id = :categoryId";
+    $query = $connection->createCommand($sql);
+    $query->bindParam(":categoryId", $this->categoryId);
+    return $query->execute();
+  }  
+}

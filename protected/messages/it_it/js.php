@@ -17,10 +17,8 @@
  * NOTE, this file must be saved in UTF-8 encoding.
  */
 return array (
-  'Please enter prize' => 'Inserisci il premio',
-  'Please enter prize weight' => 'Inserisci il peso premio',
-  'Prize weight already exist' => 'Peso Premio già esiste',
-  'Prize weight should be numeric' => 'Peso Premio deve essere numerico',
+  'Are you sure you want to delete this Category ?' => 'Sei sicuro di voler eliminare questa categoria?',
+  'Category name can not be empty' => 'Nome della categoria non può essere vuoto',
   'Please enter Content Rule' => 'Inserisci Content Rule',
   'Please upload an image' => 'Si prega di caricare unimmagine',
   'Are you sure you want to delete this Contest ?' => 'Sei sicuro di voler eliminare questo concorso ?',
@@ -39,8 +37,12 @@ return array (
   'Please enter email id' => 'Inserisci ID e-mail',
   'Please enter end date' => 'Inserisci data di fine',
   'Please enter minor name' => 'Inserisci il nome del minore',
+  'Please enter prize' => 'Inserisci il premio',
+  'Please enter prize weight' => 'Inserisci il peso premio',
   'Please enter start date' => 'Inserisci data di inizio',
   'Please enter valid email id' => 'Inserisci ID e-mail valido',
   'Please upload banner image' => 'Si prega di caricare immagine del banner',
   'Please upload square image' => 'Si prega di caricare un\'immagine quadrata',
+  'Prize weight already exist' => 'Peso Premio già esiste',
+  'Prize weight should be numeric' => 'Peso Premio deve essere numerico',
 );

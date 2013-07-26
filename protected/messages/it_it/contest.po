@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: contest.php\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-07-25 15:51+0000\n"
-"PO-Revision-Date: 2013-07-25 15:51+0000\n"
+"POT-Creation-Date: 2013-07-26 15:44+0000\n"
+"PO-Revision-Date: 2013-07-26 15:44+0000\n"
 "Last-Translator: \n"
 "Language-Team: it_it <translation-team-it_it@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -19,12 +19,22 @@ msgstr ""
 "Plural-Forms: nplurals = 2; plural = n != 1;\n"
 
 msgctxt "contest" 
+msgid "Some technical problem occurred. Please try again"
+msgstr "Qualche problema tecnico si è verificato. Riprova"
+
+msgctxt "contest" 
 msgid " category"
 msgstr "categoria"
 
 msgctxt "contest" 
 msgid " save"
 msgstr "salvare"
+
+msgctxt "contest" 
+msgid "Accept the terms of Service"
+msgstr ""
+"Accetto i <a href=\"https://www.civiclinks.it/it/tos/\" "
+"target=\"_blank\">termini del servizio</a>"
 
 msgctxt "contest" 
 msgid "Add Entry"
@@ -43,158 +53,6 @@ msgid "Author"
 msgstr "autore"
 
 msgctxt "contest" 
-msgid "Category"
-msgstr "categoria"
-
-msgctxt "contest" 
-msgid "Entry"
-msgstr "entrata"
-
-msgctxt "contest" 
-msgid "Manage Category"
-msgstr "gestire Categoria"
-
-msgctxt "contest" 
-msgid "Manage Winner"
-msgstr "gestire Winner"
-
-msgctxt "contest" 
-msgid "Manage Winner for "
-msgstr "Gestione del vincitore a"
-
-msgctxt "contest" 
-msgid "Prize"
-msgstr "Premio"
-
-msgctxt "contest" 
-msgid "S. No."
-msgstr "S. No."
-
-msgctxt "contest" 
-msgid "Show winner"
-msgstr "Mostra vincitore"
-
-msgctxt "contest" 
-msgid "There are no category for this contest"
-msgstr "Non esistono categoria per questo concorso"
-
-msgctxt "contest" 
-msgid "There are no entry in this category"
-msgstr "Non ci sono entrata in questa categoria"
-
-msgctxt "contest" 
-msgid "There are no more entries"
-msgstr "Non ci sono più voci"
-
-msgctxt "contest" 
-msgid "There are no winner for this category"
-msgstr "Non ci sono vincitori per questa categoria"
-
-msgctxt "contest" 
-msgid "Title"
-msgstr "titolo"
-
-msgctxt "contest" 
-msgid "add"
-msgstr "aggiungi"
-
-msgctxt "contest" 
-msgid "contest Image"
-msgstr "contest Immagine"
-
-msgctxt "contest" 
-msgid "weight"
-msgstr "carico"
-
-msgctxt "contest" 
-msgid "Contest Brief"
-msgstr "Regolamento concorso"
-
-msgctxt "contest" 
-msgid "Contest Entries"
-msgstr "Contenuti del concorso"
-
-msgctxt "contest" 
-msgid "Entry description should not be empty"
-msgstr "Descrizione non deve essere vuota"
-
-msgctxt "contest" 
-msgid "Great source of inspiration"
-msgstr "Grande fonte di ispirazione"
-
-msgctxt "contest" 
-msgid "Just another blog post"
-msgstr "Grande Solo un altro post sul blog"
-
-msgctxt "contest" 
-msgid "Please choose an image for upload"
-msgstr "Scegliere un immagine per l'upload"
-
-msgctxt "contest" 
-msgid "Please enter prize"
-msgstr "Inserisci il premio"
-
-msgctxt "contest" 
-msgid "Please enter prize weight"
-msgstr "Inserisci il peso premio"
-
-msgctxt "contest" 
-msgid "Please try again"
-msgstr "Riprova"
-
-msgctxt "contest" 
-msgid "Please upload an image"
-msgstr "Si prega di caricare un'immagine valida"
-
-msgctxt "contest" 
-msgid "Prize weight already exist"
-msgstr "Peso Premio già esiste"
-
-msgctxt "contest" 
-msgid "Prize weight should be numeric"
-msgstr "Peso Premio deve essere numerico"
-
-msgctxt "contest" 
-msgid "Submit and win"
-msgstr "Invia e vinci"
-
-msgctxt "contest" 
-msgid "Upload Image"
-msgstr "Carica immagine"
-
-msgctxt "contest" 
-msgid ""
-"You have entered either wrong email id or password. Plery againase try again"
-msgstr ""
-"È stato immesso sia id mail o password errati. Plery againase riprovare"
-
-msgctxt "contest" 
-msgid "contest image"
-msgstr "immagine concorso"
-
-msgctxt "contest" 
-msgid "new perspectives contest"
-msgstr "nuovo concorso prospettive"
-
-msgctxt "contest" 
-msgid "winners"
-msgstr "vincitori"
-
-msgctxt "contest" 
-msgid "Accept the terms of Service"
-msgstr ""
-"Accetto i <a href=\"https://www.civiclinks.it/it/tos/\" "
-"target=\"_blank\">termini del servizio</a>"
-
-msgctxt "contest" 
-msgid "Aggregator is not responding or Curl failed"
-msgstr "Aggregator non risponde o non è riuscita Curl"
-
-msgctxt "contest" 
-msgid "Aggregator returning httpcode: "
-msgstr "Aggregatore restituisce codice:"
-
-msgctxt "contest" 
 msgid "Banner image"
 msgstr "immagine del banner"
 
@@ -203,8 +61,8 @@ msgid "Be the first!"
 msgstr "Vuoi essere il primo?"
 
 msgctxt "contest" 
-msgid "Category name can not be empty"
-msgstr "Nome della categoria non può essere vuoto"
+msgid "Category"
+msgstr "categoria"
 
 msgctxt "contest" 
 msgid "Change"
@@ -215,32 +73,24 @@ msgid "Close"
 msgstr "Chiudi"
 
 msgctxt "contest" 
+msgid "Contest Brief"
+msgstr "Regolamento concorso"
+
+msgctxt "contest" 
 msgid "Contest Description"
 msgstr "Descrizione del concorso"
+
+msgctxt "contest" 
+msgid "Contest Entries"
+msgstr "Contenuti del concorso"
 
 msgctxt "contest" 
 msgid "Contest Rule"
 msgstr "Contest regola"
 
 msgctxt "contest" 
-msgid "Contest description should not be empty"
-msgstr "Descrizione del concorso non deve essere vuoto"
-
-msgctxt "contest" 
-msgid "Contest rule should not be empty"
-msgstr "Contest regola non deve essere vuoto"
-
-msgctxt "contest" 
-msgid "Contest title should not be empty"
-msgstr "Titolo di concorso non deve essere vuoto"
-
-msgctxt "contest" 
 msgid "Create Contest"
 msgstr "Crea concorso"
-
-msgctxt "contest" 
-msgid "Creation date should not be empty"
-msgstr "La data di creazione non può essere vuota"
 
 msgctxt "contest" 
 msgid "Delete"
@@ -259,12 +109,270 @@ msgid "Email address"
 msgstr "Indirizzo e-mail"
 
 msgctxt "contest" 
-msgid "Email id already in use, Please choose a different email id"
-msgstr "Email id già in uso, Seleziona un altro id e-mail"
-
-msgctxt "contest" 
 msgid "End Date"
 msgstr "Data di fine"
+
+msgctxt "contest" 
+msgid "Entry"
+msgstr "entrata"
+
+msgctxt "contest" 
+msgid "Entry description should not be empty"
+msgstr "Descrizione non deve essere vuota"
+
+msgctxt "contest" 
+msgid "First Name"
+msgstr "Nome"
+
+msgctxt "contest" 
+msgid "Great source of inspiration"
+msgstr "Grande fonte di ispirazione"
+
+msgctxt "contest" 
+msgid "Home"
+msgstr "Home"
+
+msgctxt "contest" 
+msgid "Just another blog post"
+msgstr "Grande Solo un altro post sul blog"
+
+msgctxt "contest" 
+msgid "Last Name"
+msgstr "Cognome"
+
+msgctxt "contest" 
+msgid "Login"
+msgstr "Accedi"
+
+msgctxt "contest" 
+msgid "Logout"
+msgstr "Esci"
+
+msgctxt "contest" 
+msgid "Manage Category"
+msgstr "gestire Categoria"
+
+msgctxt "contest" 
+msgid "Manage Winner"
+msgstr "gestire Winner"
+
+msgctxt "contest" 
+msgid "Manage Winner for "
+msgstr "Gestione del vincitore a"
+
+msgctxt "contest" 
+msgid "No of entry"
+msgstr "No di entrata"
+
+msgctxt "contest" 
+msgid "Nobody has sumbitted anything yet"
+msgstr "Nessuno ha ancora partecipato a questo concorso"
+
+msgctxt "contest" 
+msgid "Password"
+msgstr "password"
+
+msgctxt "contest" 
+msgid "Please choose an image for upload"
+msgstr "Scegliere un immagine per l'upload"
+
+msgctxt "contest" 
+msgid "Please enter prize"
+msgstr "Inserisci il premio"
+
+msgctxt "contest" 
+msgid "Please enter prize weight"
+msgstr "Inserisci il peso premio"
+
+msgctxt "contest" 
+msgid "Please sign in with your Civic Links account"
+msgstr "Per favore accedi con il tuo account Civic Links"
+
+msgctxt "contest" 
+msgid "Please try again"
+msgstr "Riprova"
+
+msgctxt "contest" 
+msgid "Please upload an image"
+msgstr "Si prega di caricare un'immagine valida"
+
+msgctxt "contest" 
+msgid "Prize"
+msgstr "Premio"
+
+msgctxt "contest" 
+msgid "Prize weight already exist"
+msgstr "Peso Premio già esiste"
+
+msgctxt "contest" 
+msgid "Prize weight should be numeric"
+msgstr "Peso Premio deve essere numerico"
+
+msgctxt "contest" 
+msgid "Register"
+msgstr "Registrati"
+
+msgctxt "contest" 
+msgid "Register with Civic Links"
+msgstr "Registrati"
+
+msgctxt "contest" 
+msgid "Remember me"
+msgstr "Ricordati di me"
+
+msgctxt "contest" 
+msgid "Remove"
+msgstr "Rimuovi"
+
+msgctxt "contest" 
+msgid "S. No."
+msgstr "S. No."
+
+msgctxt "contest" 
+msgid "Select image"
+msgstr "Seleziona immagine"
+
+msgctxt "contest" 
+msgid "Show contest entry"
+msgstr "Rendi visibili i contenuti caricati"
+
+msgctxt "contest" 
+msgid "Show winner"
+msgstr "Mostra vincitore"
+
+msgctxt "contest" 
+msgid "Sign Up"
+msgstr "Iscriviti"
+
+msgctxt "contest" 
+msgid "Sign in"
+msgstr "Accedi"
+
+msgctxt "contest" 
+msgid "Sorry, You want something which we dont offer!!"
+msgstr "Siamo spiacenti, si è verificato un errore"
+
+msgctxt "contest" 
+msgid "Square image"
+msgstr "immagine quadrata"
+
+msgctxt "contest" 
+msgid "Start Date"
+msgstr "Data di inizio"
+
+msgctxt "contest" 
+msgid "Submit and win"
+msgstr "Invia e vinci"
+
+msgctxt "contest" 
+msgid "There are no category for this contest"
+msgstr "Non esistono categoria per questo concorso"
+
+msgctxt "contest" 
+msgid "There are no entry in this category"
+msgstr "Non ci sono entrata in questa categoria"
+
+msgctxt "contest" 
+msgid "There are no winner for this category"
+msgstr "Non ci sono vincitori per questa categoria"
+
+msgctxt "contest" 
+msgid "Title"
+msgstr "titolo"
+
+msgctxt "contest" 
+msgid "Update contest"
+msgstr "Aggiornamento contest"
+
+msgctxt "contest" 
+msgid "Upload Banner Image"
+msgstr "Carica immagine baner"
+
+msgctxt "contest" 
+msgid "Upload Image"
+msgstr "Carica immagine"
+
+msgctxt "contest" 
+msgid "Upload Square Image"
+msgstr "Carica immagine quadrata"
+
+msgctxt "contest" 
+msgid "Welcome"
+msgstr "Benvenuto"
+
+msgctxt "contest" 
+msgid "You have already submitted an entry for this contest"
+msgstr "Hai già inserito una voce per questo concorso"
+
+msgctxt "contest" 
+msgid ""
+"You have entered either wrong email id or password. Plery againase try again"
+msgstr ""
+"È stato immesso sia id mail o password errati. Plery againase riprovare"
+
+msgctxt "contest" 
+msgid "add"
+msgstr "aggiungi"
+
+msgctxt "contest" 
+msgid "contest Image"
+msgstr "contest Immagine"
+
+msgctxt "contest" 
+msgid "contest Title"
+msgstr "titolo del concorso"
+
+msgctxt "contest" 
+msgid "contest image"
+msgstr "immagine concorso"
+
+msgctxt "contest" 
+msgid "create contest"
+msgstr "crea concorso"
+
+msgctxt "contest" 
+msgid "new perspectives contest"
+msgstr "nuovo concorso prospettive"
+
+msgctxt "contest" 
+msgid "weight"
+msgstr "carico"
+
+msgctxt "contest" 
+msgid "winners"
+msgstr "vincitori"
+
+msgctxt "contest" 
+msgid "Aggregator is not responding or Curl failed"
+msgstr "Aggregator non risponde o non è riuscita Curl"
+
+msgctxt "contest" 
+msgid "Aggregator returning httpcode: "
+msgstr "Aggregatore restituisce codice:"
+
+msgctxt "contest" 
+msgid "Category name can not be empty"
+msgstr "Nome della categoria non può essere vuoto"
+
+msgctxt "contest" 
+msgid "Contest description should not be empty"
+msgstr "Descrizione del concorso non deve essere vuoto"
+
+msgctxt "contest" 
+msgid "Contest rule should not be empty"
+msgstr "Contest regola non deve essere vuoto"
+
+msgctxt "contest" 
+msgid "Contest title should not be empty"
+msgstr "Titolo di concorso non deve essere vuoto"
+
+msgctxt "contest" 
+msgid "Creation date should not be empty"
+msgstr "La data di creazione non può essere vuota"
+
+msgctxt "contest" 
+msgid "Email id already in use, Please choose a different email id"
+msgstr "Email id già in uso, Seleziona un altro id e-mail"
 
 msgctxt "contest" 
 msgid "End date should not be empty"
@@ -339,14 +447,6 @@ msgid "Error in validateUser method :"
 msgstr "Errore nel metodo actionRegisterUser:"
 
 msgctxt "contest" 
-msgid "First Name"
-msgstr "Nome"
-
-msgctxt "contest" 
-msgid "Home"
-msgstr "Home"
-
-msgctxt "contest" 
 msgid "Identitity Manager  is not responding or Curl failed"
 msgstr "Identitity Manager non risponde o non è riuscita Curl"
 
@@ -377,30 +477,6 @@ msgstr "I dati di ingresso in getEntryForPagination:"
 msgctxt "contest" 
 msgid "Input data in getWinnerEntry : "
 msgstr "I dati di ingresso in getWinnerEntry:"
-
-msgctxt "contest" 
-msgid "Last Name"
-msgstr "Cognome"
-
-msgctxt "contest" 
-msgid "Login"
-msgstr "Accedi"
-
-msgctxt "contest" 
-msgid "Logout"
-msgstr "Esci"
-
-msgctxt "contest" 
-msgid "No of entry"
-msgstr "No di entrata"
-
-msgctxt "contest" 
-msgid "Nobody has sumbitted anything yet"
-msgstr "Nessuno ha ancora partecipato a questo concorso"
-
-msgctxt "contest" 
-msgid "Password"
-msgstr "password"
 
 msgctxt "contest" 
 msgid "Please checked one check box"
@@ -459,10 +535,6 @@ msgid "Please provide square image"
 msgstr "Si prega di fornire un'immagine quadrata"
 
 msgctxt "contest" 
-msgid "Please sign in with your Civic Links account"
-msgstr "Per favore accedi con il tuo account Civic Links"
-
-msgctxt "contest" 
 msgid "Please upload jpg image"
 msgstr ""
 "Attenzione, i formati supportati sono jpg e png. L'immagine che hai caricato "
@@ -473,40 +545,8 @@ msgid "Range can not be empty for pagination"
 msgstr "Campo non può essere vuoto per l'impaginazione"
 
 msgctxt "contest" 
-msgid "Register"
-msgstr "Registrati"
-
-msgctxt "contest" 
-msgid "Register with Civic Links"
-msgstr "Registrati"
-
-msgctxt "contest" 
-msgid "Remember me"
-msgstr "Ricordati di me"
-
-msgctxt "contest" 
-msgid "Remove"
-msgstr "Rimuovi"
-
-msgctxt "contest" 
 msgid "Return fields should not be empty"
 msgstr "Campi di ritorno non devono essere vuoti"
-
-msgctxt "contest" 
-msgid "Select image"
-msgstr "Seleziona immagine"
-
-msgctxt "contest" 
-msgid "Show contest entry"
-msgstr "Rendi visibili i contenuti caricati"
-
-msgctxt "contest" 
-msgid "Sign Up"
-msgstr "Iscriviti"
-
-msgctxt "contest" 
-msgid "Sign in"
-msgstr "Accedi"
 
 msgctxt "contest" 
 msgid "Some error occured in image uploading"
@@ -521,44 +561,16 @@ msgid "Some technical problem occurred, contact administrator"
 msgstr "Qualche problema tecnico si è verificato, amministratore di contatto"
 
 msgctxt "contest" 
-msgid "Sorry, You want something which we dont offer!!"
-msgstr "Siamo spiacenti, si è verificato un errore"
-
-msgctxt "contest" 
-msgid "Square image"
-msgstr "immagine quadrata"
-
-msgctxt "contest" 
-msgid "Start Date"
-msgstr "Data di inizio"
-
-msgctxt "contest" 
 msgid "Start date should not be empty"
 msgstr "La data di inizio non può essere vuota"
 
 msgctxt "contest" 
+msgid "There are no more entries"
+msgstr "Non ci sono più voci"
+
+msgctxt "contest" 
 msgid "This contest title is already exist"
 msgstr "Questo titolo concorso è già presente"
-
-msgctxt "contest" 
-msgid "Update contest"
-msgstr "Aggiornamento contest"
-
-msgctxt "contest" 
-msgid "Upload Banner Image"
-msgstr "Carica immagine baner"
-
-msgctxt "contest" 
-msgid "Upload Square Image"
-msgstr "Carica immagine quadrata"
-
-msgctxt "contest" 
-msgid "Welcome"
-msgstr "Benvenuto"
-
-msgctxt "contest" 
-msgid "You have already submitted an entry for this contest"
-msgstr "Hai già inserito una voce per questo concorso"
 
 msgctxt "contest" 
 msgid "You have created a contest Succesfully"
@@ -587,14 +599,6 @@ msgstr "È stato creato il tuo account"
 msgctxt "contest" 
 msgid "Zero length response not permitted"
 msgstr "Zero lunghezza di risposta non è permesso"
-
-msgctxt "contest" 
-msgid "contest Title"
-msgstr "titolo del concorso"
-
-msgctxt "contest" 
-msgid "create contest"
-msgstr "crea concorso"
 
 msgctxt "contest" 
 msgid "resize folder does not exists in "

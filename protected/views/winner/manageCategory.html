@@ -1,16 +1,23 @@
+<link rel="stylesheet" type="text/css" href="{{constant('BASE_URL')}}css/jquery.fancybox.css" />
+<link rel="stylesheet" type="text/css" href="{{constant('BASE_URL')}}css/jquery.fancybox-buttons.css" />
 <div class="container darkheader">
   <div class="row">
-    <div class="span12"><h1> {{contest}}</h1></div>
+    <div class="span12"><h1> {{contest.title}}</h1></div>
   </div>
 </div>
 <div class="container maincontent">
-  <form class="form-create-contest" action="" method="post"  enctype = "multipart/form-data">
+  <form class="form-manage-category" action="" method="post"  enctype = "multipart/form-data">
     <div class="row">
       <div class="span3 darkheader" >
         <center><h1>{{ t('contest', 'Manage Category') }}</h1></center>
       </div>      
     </div>
-   
+    {% if message.msg is not empty %}
+      <div class="alert-error span4" >
+        {{ message.msg }}
+      </div>
+      <br/>
+    {% endif %} 
     {% if categories is empty %}      
       <div style="background-color:#f5f5f5; margin:25px 0px;">
         <div class="row">
@@ -29,7 +36,9 @@
           <tr>
             <th>{{ t('contest', 'S. No.') }}</th>
             <th>{{ t('contest', 'Category') }}</th>
-            <th>{{ t('contest', 'Manage Winner') }}</th>
+            <th>{{ t('contest', 'Edit') }}</th>
+            <th>{{ t('contest', 'Delete') }}</th>
+            <th>{{ t('contest', 'Manage Winner') }}</th>           
           </tr>
         </thead>
         <tbody>
@@ -38,10 +47,13 @@
             <tr>
               <td>{{ i }}</td>
               <td>{{category.category_name}}</td>
+              <td categoryId ="{{category.category_id}}" categoryName=" {{category.category_name}}" class="updatecategory">
+                <a href="#update-category">{{ t('contest', 'Edit') }}</a>
+              </td>  
+              <td class="delete-category">
+                <a href="{{constant('BASE_URL')}}admin/category/{{contest.slug}}/delete/{{category.category_id}}"> {{ t('contest', 'Delete') }}</a>  </td>
               <td>
-                <a href="{{constant('BASE_URL')}}admin/category/winner/{{category.category_id}}">
-                  {{ t ('contest', 'Manage Winner') }}
-                </a>  
+                <a href="{{constant('BASE_URL')}}admin/category/winner/{{category.category_id}}">{{ t ('contest', 'Manage Winner') }}</a>  
               </td>
               {% set i = i + 1 %}
             </tr>
@@ -50,14 +62,27 @@
       </table>
       {% endif %}
    
-    <div id="add-category" style="display:none">
+    <div id="add-category" style="display:none">      
       <label>{{ t('contest','Add new category')}}</label>
-      <input type="text"  name="categoryName" value=""><br/>
-      <input type="hidden"  name="contestSlug" value="incaendo"><br/>
-      <button id="create" class="btn btn-large btn-primary" type="submit" name='contestDetail'>{{ t('contest', 'add') }}</button>
+      <input type="text"  name="categoryName" id ="category-name" value=""><br/>
+      <input type="hidden"  name="contestSlug" value="{{contest.slug}}"><br/>
+      <button id="create-category" class="btn btn-large btn-primary" type="submit" name='contestDetail'>{{ t('contest', 'add') }}</button>
     </div>
     <div id="add-new-category" class="btn btn-large btn-primary">{{ t('contest', 'Add new category') }}</div>
   </form> 
+  
+  <div class="hidden">
+    <form id="update-category" class="form-manage-category" method="post" action="{{constant('BASE_URL')}}admin/category/{{contest.slug}}/edit">
+      <p id="error" class="alert-error" style="display:none"></p>
+      <input type="hidden" class="input-block-level" id="categoryId" name="id" value=""></input>
+      <label>{{ t('contest', 'Category')}}</label>
+      <input type="text"class="input-block-level" name="name" id="categoryName" value=""></input>
+       <button class="btn btn-large btn-primary" id="update-category-button" type="submit" name='update'>{{ t('contest', 'update') }}</button>
+    </form>
+  </div>
 </div>  
+<script type="text/javascript" src="{{constant('BASE_URL')}}js/jquery.fancybox.js"></script>
+<script type="text/javascript" src="{{constant('BASE_URL')}}js/jquery.fancybox.pack.js"></script>
+<script type="text/javascript" src="{{constant('BASE_URL')}}js/jquery.fancybox-buttons.js"></script>
 <script src="{{constant('BASE_URL')}}js/common.js"></script>
 <script src="{{constant('BASE_URL')}}js/category.js"></script>

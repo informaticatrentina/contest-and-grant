@@ -1,4 +1,5 @@
 var prevWeight = '';
+var catName = '';
 $(document).ready(function() {
   $('#add-new-category').click(function() {
     $('#add-new-category').hide();
@@ -58,6 +59,34 @@ $(document).ready(function() {
     }
     $('#delete-winner-form').submit();
   });
+  
+  $(".updatecategory").click(function() {
+    var categoryId = $(this).attr('categoryId');
+    var categoryName = $(this).attr('categoryName');
+    if (categoryId != '') {
+      $('#categoryId').attr('value', categoryId);
+      $('#categoryName').attr('value', categoryName);
+    }
+    openFancyBox('update-category');
+  });
+  $('#update-category-button').click(function(e) {
+    e.preventDefault();
+    var catName = $('#categoryName').val();
+    if ($.trim(catName) == '') {
+      $('#error').show();
+      $('#error').html(Yii.t('js', 'Category name can not be empty'));
+      return false;
+    }
+    $('#update-category').submit();
+  }); 
+  
+  $('.delete-category').click(function() { 
+    var response =  confirm(Yii.t('js', "Are you sure you want to delete this Category ?"));
+    if (!response) {
+      return false;
+    }  
+    
+  });
 });
 
 function openFancyBox(id) {
@@ -78,12 +107,12 @@ function submitFancyBox(formId) {
   if (prizeWeight != '') {
     prizeWeightArr = prizeWeight.split(",");
   }
-  if (prize == '') {
+  if ($.trim(prize) == '') {
     $('#error').show();
     $('#error').html(Yii.t('js', 'Please enter prize'));
     return false;
   }
-  if (weight == '') {
+  if ($.trim(weight) == '') {
     $('#error').show();
     $('#error').html(Yii.t('js', 'Please enter prize weight'));
     return false;

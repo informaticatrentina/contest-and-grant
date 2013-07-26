@@ -1,4 +1,4 @@
-  <?php
+<?php
 
 /**
  * WinnerController
@@ -13,23 +13,21 @@
  */
 class WinnerController extends Controller {
 
-   public function beforeAction($action) {
+  public function beforeAction($action) {
     new JsTrans('js', SITE_LANGUAGE);
     return true;
   }
-  
+
   public function actionError() {
     $this->render('error404');
   }
 
-  
   /**
    * actionManageCategory
    * 
    * This function is used for manage category for contest
    */
-  
-  public function actionManageCategory() { 
+  public function actionManageCategory($response = array()) {
     $isAdmin = isAdminUser();
     if (!$isAdmin) {
       $this->redirect(BASE_URL);
@@ -38,20 +36,25 @@ class WinnerController extends Controller {
     $message = array();
     $categoryDetail = array();
     $contestInfo = array();
+    $contestDetail = array();
     $contest = new ContestAPI();
-    if (array_key_exists('slug', $_GET) && !empty($_GET['slug'])) {      
+    if (array_key_exists('slug', $_GET) && !empty($_GET['slug'])) {
       $contest->contestSlug = $_GET['slug'];
-    }    
+    }
     $contestInfo = $contest->getContestDetailByContestSlug();
+    if (!empty($contestInfo)) {
+      $contestDetail['title'] = $contestInfo['contestTitle'];
+      $contestDetail['slug'] = $contestInfo['contestSlug'];
+    }
     if (array_key_exists('contestId', $contestInfo) && !empty($contestInfo['contestId'])) {
       $category->contestId = $contestInfo['contestId'];
-    }    
-    if(!empty($_POST)) {
+    }
+    if (array_key_exists('contestDetail', $_POST)) {
       try {
         if (array_key_exists('categoryName', $_POST) && empty($_POST['categoryName'])) {
           throw new Exception(Yii::t('contest','Category name can not be empty'));
         }
-        $category->categoryName = $_POST['categoryName'];        
+        $category->categoryName = trim($_POST['categoryName']);
         $category->creationDate = date('Y-m-d H:i:s');
         $category->status = 1;
         $response = $category->save();
@@ -61,30 +64,35 @@ class WinnerController extends Controller {
       } catch(Exception $e){
         $message['success'] = false;
         $message['msg'] = $e->getMessage();
-      }      
-    }     
+      }
+    }
     $categoryDetail = $category->get();
-    $this->render('manageCategory', array('categories' => $categoryDetail, 'contest' =>  $contestInfo['contestTitle'], 'message' => $message));
+    if (empty($message)) {
+      if(array_key_exists('msg', $response)) {
+        $message['msg'] = $response['msg'];
+      }      
+    }
+    $this->render('manageCategory', array('categories' => $categoryDetail, 'contest' => $contestDetail, 'message' => $message));
   }
-  
+
   /**
    * actionManageWinner
    * 
    * This function is used for manage winner for each category
    */
-  public function actionManageWinner($winnerPage = false) { 
+  public function actionManageWinner($winnerPage = false) {
     $isAdmin = isAdminUser();
     if (!$isAdmin) {
       $this->redirect(BASE_URL);
     }
-    $winnerEntries = array();    
+    $winnerEntries = array();
     $categoryInfo = array();
     $contest = array();
     $contestWinner = array();
     $WinnerDetail = array();
     $winnerWeight = '';
     $msg = '';
-    
+
     if (!empty($_POST)) {
       $response = $this->actionUpdateCategoryEntry();
       if (array_key_exists('success', $response) && !$response['success']) {
@@ -104,12 +112,12 @@ class WinnerController extends Controller {
     if(array_key_exists('winnerWeight', $contestWinner) && (!empty($contestWinner['winnerWeight']))) {
       $winnerWeight =  implode(',',$contestWinner['winnerWeight']);
     }
-    $this->render('manageWinner', array('category' => $categoryInfo, 
-        'entries' => $WinnerDetail, 
+    $this->render('manageWinner', array('category' => $categoryInfo,
+        'entries' => $WinnerDetail,
         'winnerWeight'=> $winnerWeight,
         'msg' => $msg));
   }
-  
+
   /**
    * actionUpdateCategoryEntry
    * 
@@ -129,12 +137,12 @@ class WinnerController extends Controller {
         if (array_key_exists('id', $_POST) && (!empty($_POST['id']))) {
           $aggregatorManager->entryId = $_POST['id'];
         }
-        if (array_key_exists('tag', $_POST) && (!empty($_POST['tag']))) { 
+        if (array_key_exists('tag', $_POST) && (!empty($_POST['tag']))) {
           $aggregatorManager->tags = unserialize($_POST['tag']);
-        }        
+        }
         if (array_key_exists('category', $_POST) && (!empty($_POST['category']))) {
           $aggregatorManager->category = $_POST['category'];
-        } 
+        }
         $response = $aggregatorManager->updateEntry();
         if (array_key_exists('success', $response) && $response['success']) {
           $response['msg'] = Yii::t('contest', 'You have succesfully add an entry');
@@ -149,7 +157,7 @@ class WinnerController extends Controller {
     }
     return $response;
   }
-  
+
   /**
    * actionAddWinnerInCategory
    * 
@@ -160,7 +168,7 @@ class WinnerController extends Controller {
     $isAdmin = isAdminUser();
     if (!$isAdmin) {
       $this->redirect(BASE_URL);
-    }   
+    }
     try {
       $entries = array();
       $categoryInfo = array();
@@ -170,7 +178,7 @@ class WinnerController extends Controller {
       $categoryInfo = $this->getCategoryDetail();
       if (array_key_exists('contest_slug',$categoryInfo) && !empty($categoryInfo['contest_slug'])) {
         $contestSlug = $categoryInfo['contest_slug'];
-      }      
+      }
       if (array_key_exists('category_name',$categoryInfo) && !empty($categoryInfo['category_name'])) {
         $categorySlug = sanitization($categoryInfo['category_name']);
       }
@@ -181,7 +189,7 @@ class WinnerController extends Controller {
         $contestSubmission = $contest->getContestSubmissionForCategory();
         if (!empty($contestSubmission)) {
           foreach ($contestSubmission as $submission) {
-            $entry = array();          
+            $entry = array();
 
             //check whether winner already exist or not
             if (array_key_exists('tags', $submission) && !empty($submission['tags'])) {
@@ -229,7 +237,7 @@ class WinnerController extends Controller {
     $this->render('addWinner', array('category' => $categoryInfo, 'entries' => $entries, 'winnerWeight'=>$winnerWeight, 'msg' => $msg));
   }
 
-   /**
+  /**
    * actionGetWinner
    * 
    * This function is used for get winner entry
@@ -239,7 +247,7 @@ class WinnerController extends Controller {
    */
   public function getWinner($contestSlug, $categorySlug) {
     $winner = array();
-    if (empty($contestSlug) || empty($categorySlug)) { 
+    if (empty($contestSlug) || empty($categorySlug)) {
       return array();
     }
     $aggregatorManager = new AggregatorManager();
@@ -275,7 +283,7 @@ class WinnerController extends Controller {
     }
     return $winner;
   }
-  
+
   /**
    * getCategoryDetail
    * 
@@ -286,19 +294,19 @@ class WinnerController extends Controller {
     $category = new Category();
     if (array_key_exists('id', $_GET) && !empty($_GET['id'])) {
       $category->categoryId = $_GET['id'];
-    }   
-    $categoryInfo = $category->getCategory(); 
+    }
+    $categoryInfo = $category->getCategory();
     if(!empty($categoryInfo['contest_id'])) {
       $category->contestId = $categoryInfo['contest_id'];
-      $contest = $category->get(); 
+      $contest = $category->get();
       if(!empty($contest)){
         $categoryInfo['contest_name'] = $contest[0]['contestTitle'];
         $categoryInfo['contest_slug'] = $contest[0]['contestSlug'];
       }
-    }   
+    }
     return $categoryInfo;
   }
-  
+
   /**
    * checkWinner
    * 
@@ -311,13 +319,13 @@ class WinnerController extends Controller {
     if (!empty($submission)) {
       foreach ($submission as $tag) {
         if ($tag['name'] == 'winner') {
-          $winnerWeight = $tag['weight'];        
+          $winnerWeight = $tag['weight'];
         }
       }
     }
     return $winnerWeight;
   }
-  
+
   /**
    * actionGetWinnerInfo
    * 
@@ -328,31 +336,31 @@ class WinnerController extends Controller {
     $contestInfo = array();
     $categoryDetail = array();
     $contest = new ContestAPI();
-    if (array_key_exists('slug', $_GET) && !empty($_GET['slug'])) {      
+    if (array_key_exists('slug', $_GET) && !empty($_GET['slug'])) {
       $contest->contestSlug = $_GET['slug'];
-    }    
+    }
     $contestInfo = $contest->getContestDetailByContestSlug();
     $category = new Category();
     if (array_key_exists('contestId', $contestInfo) && !empty($contestInfo['contestId'])) {
       $category->contestId = $contestInfo['contestId'];
-    }    
+    }
     $categoryDetail = $category->get();
     if (!empty($categoryDetail)) {
       foreach($categoryDetail as $category) {
         $cat = array();
         if (array_key_exists('category_name', $category) && !empty($category['category_name'])) {
           $cat['slug'] = sanitization($category['category_name']);
-          $cat['name'] = $category['category_name'];          
+          $cat['name'] = $category['category_name'];
         }
         if(!empty($cat['slug']) && !empty($category['contestSlug'])) { 
           $winner[$cat['slug']] = $this->getWinner($category['contestSlug'], $cat['slug']);
-        }      
+        }
         $categoryInfo[] = $cat;
       }
-    } 
+    }
     $this->render('winner', array('contestInfo' => $contestInfo, 'categories' => $categoryInfo, 'entries' => $winner));
   }
-  
+
   /**
    * actionUpdateWinner
    * 
@@ -362,11 +370,11 @@ class WinnerController extends Controller {
     $isAdmin = isAdminUser();
     if (!$isAdmin) {
       $this->redirect(BASE_URL);
-    }  
+    }
     $winnerPage = true;
-    $this->actionManageWinner($winnerPage);    
-  }  
-  
+    $this->actionManageWinner($winnerPage);
+  }
+
   /**
    * actionDeleteWinner
    * 
@@ -387,14 +395,13 @@ class WinnerController extends Controller {
             $updateTag[] = $tag;
           }
         }
-        $aggregator->tags = $updateTag;       
+        $aggregator->tags = $updateTag;
       }
       $response = $aggregator->updateEntry();
       $this->redirect(BASE_URL.'admin/category/winner/'. $_GET['id']);
     }
   }
 
-  
   /**
    * prepareWinner
    * 
@@ -402,7 +409,6 @@ class WinnerController extends Controller {
    * @param $categoryInfo
    * @return $contestWinner
    */
-  
   public function prepareWinner($categoryInfo) {
     $contestWinner = array();
     $winnerWeight = array();
@@ -435,6 +441,67 @@ class WinnerController extends Controller {
     return $contestWinner;
   }
 
+  /**
+   * actionUpdateCategory
+   * 
+   * This function is used for update category
+   */
+  public function actionUpdateCategory() {
+    $response = array();
+    $isAdmin = isAdminUser();
+    if (!$isAdmin) {
+      $this->redirect(BASE_URL);
+    }
+    try {         
+      $category = new Category();
+      if (array_key_exists('slug', $_GET) && !empty($_GET['slug'])) {
+        $slug = $_GET['slug'];
+      }
+      if (empty($_POST)) {
+        $this->redirect(BASE_URL . 'admin/category/' . $slug);
+      }
+      if (array_key_exists('name', $_POST) && empty($_POST['name'])) {
+        throw new Exception(Yii::t('contest', 'Category name can not be empty'));
+      }      
+      if (array_key_exists('id', $_POST) && !empty($_POST['id'])) {
+        $category->categoryId = $_POST['id'];
+      }
+      $category->categoryName = trim($_POST['name']);
+      $updateCategory = $category->update();
+      if (!isset($updateCategory)) {
+        throw new Exception(Yii::t('contest', 'Some technical problem occurred. Please try again'));
+      }
+    } catch (Exception $e) {
+      $response['success'] = false;
+      $response['msg'] = $e->getMessage();
+    }
+    $this->actionManageCategory($response);
+  }
+  
+  /**
+   * actionDeleteCategory
+   * 
+   * This function is used for delete an existing conteategory
+   */
+  public function actionDeleteCategory() {
+    try {
+      $isAdmin = isAdminUser();
+      if (!$isAdmin) {
+        $this->redirect(BASE_URL);
+      }
+      $response = array();
+      $category = new Category();
+      if (array_key_exists('id', $_GET) && (!empty($_GET['id']))) {
+        $category->categoryId = $_GET['id'];
+        $deleteCategory = $category->delete();
+        if (!isset($deleteCategory)) {
+          throw new Exception(Yii::t('contest', 'Some technical problem occurred. Please try again'));
+        }
+      }
+    } catch (Exception $e) {
+      $response['success'] = false;
+      $response['msg'] = $e->getMessage();
+    }
+    $this->actionManageCategory($response);
+  }
 }
-
-

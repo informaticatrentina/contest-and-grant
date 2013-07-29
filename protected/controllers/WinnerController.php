@@ -93,7 +93,7 @@ class WinnerController extends Controller {
     $winnerWeight = '';
     $msg = '';
 
-    if (!empty($_POST)) {
+    if (!empty($_POST)) { 
       $response = $this->actionUpdateCategoryEntry();
       if (array_key_exists('success', $response) && !$response['success']) {
         if ($winnerPage) {
@@ -126,7 +126,7 @@ class WinnerController extends Controller {
    */
   public function actionUpdateCategoryEntry() {
     try {
-      if (!empty($_POST)) {
+      if (!empty($_POST)) { 
         $aggregatorManager = new AggregatorManager();
         if (array_key_exists('prize', $_POST) && (!empty($_POST['prize']))) {
           $aggregatorManager->prize = $_POST['prize'];
@@ -174,7 +174,9 @@ class WinnerController extends Controller {
       $categoryInfo = array();
       $prizeWeight = array();
       $winnerWeight = '';
-      $contestSubmission = array();
+      $entryCount = '';
+      $offset = 0;
+      $winnerEntry = array();
       $categoryInfo = $this->getCategoryDetail();
       if (array_key_exists('contest_slug',$categoryInfo) && !empty($categoryInfo['contest_slug'])) {
         $contestSlug = $categoryInfo['contest_slug'];
@@ -182,59 +184,45 @@ class WinnerController extends Controller {
       if (array_key_exists('category_name',$categoryInfo) && !empty($categoryInfo['category_name'])) {
         $categorySlug = sanitization($categoryInfo['category_name']);
       }
-      if (!empty($contestSlug) && !empty($categorySlug)) {
-        $contest = new Contest();
-        $contest->tags = $contestSlug . '{http://ahref.eu/contest/schema/},' . $categorySlug . '{http://ahref.eu/schema/contest/category}';
-        $contest->sort = '-creation_date';
-        $contestSubmission = $contest->getContestSubmissionForCategory();
-        if (!empty($contestSubmission)) {
-          foreach ($contestSubmission as $submission) {
-            $entry = array();
-
-            //check whether winner already exist or not
-            if (array_key_exists('tags', $submission) && !empty($submission['tags'])) {
-              $weight = $this->checkWinner($submission['tags']);
-              if (!empty($weight)) {
-                $prizeWeight[] = $weight;
-                continue;
-              }
-            }
-            if (array_key_exists('title', $submission) && !empty($submission['title'])) {
-              $entry['title'] = $submission['title'];
-            }
-            if (array_key_exists('id', $submission) && !empty($submission['id'])) {
-              $entry['id'] = $submission['id'];
-            }
-            if (array_key_exists('author', $submission) && !empty($submission['author'])) {
-              $entry['author'] = $submission['author']['name'];
-            }
-            if (array_key_exists('tags', $submission) && !empty($submission['tags'])) {
-              $entry['tag'] = serialize($submission['tags']);
-            }
-            if (array_key_exists('image', $submission) && !empty($submission['image'])) {
-              if (!empty($submission['image']) && filter_var($submission['image'], FILTER_VALIDATE_URL)) {
-                $basePath = parse_url($submission['image']);
-                if (!empty($basePath['path'])) {
-                  $entry['image'] = substr($basePath['path'], 1);
-                }
-              } else {
-                $entry['image'] = $submission['image'];
-              }
-            }
-            if (!empty($entry)) {
-              $entries[] = $entry;
-            }
-          }
-        }
+      if (array_key_exists('offset',$_GET) && !empty($_GET['offset'])) {
+        $offset = $_GET['offset'];
       }
+      if (!empty($categorySlug)) {
+        $winnerEntry = $this->prepareEntryForWinner($contestSlug, $categorySlug, $offset);
+      }
+      if(array_key_exists('entry',$winnerEntry) && !empty($winnerEntry['entry'])){
+        $entries = $winnerEntry['entry']; 
+      }
+      if(array_key_exists('prize_weight',$winnerEntry) && !empty($winnerEntry['prize_weight'])){
+        $prizeWeight = $winnerEntry['prize_weight'];
+      }
+      if(array_key_exists('count',$winnerEntry) && !empty($winnerEntry['count'])){
+        $entryCount = $winnerEntry['count'];
+      }
+     
       if(!empty($prizeWeight)) {
         $winnerWeight = implode(',',$prizeWeight); 
-      }
+      }      
     } catch (Exception $e) {
       $message['success'] = false;
       $message['msg'] = $e->getMessage();
+    }  
+    //check for ajax request
+    if (array_key_exists('HTTP_X_REQUESTED_WITH', $_SERVER)) {
+      $return = array('success' => false, 'msg' => '', 'data' => array());     
+      if (!empty($entries)) {
+        $return['success'] = true;
+        $return['data']['entry'] = $entries;
+        $return['data']['category'] = $categoryInfo['category_name'];
+      } else {
+        $return['success'] = true;
+        $return['msg'] = Yii::t('contest', 'There are no more entry in this category');
+      }
+      echo json_encode($return);
+      exit;
     }
-    $this->render('addWinner', array('category' => $categoryInfo, 'entries' => $entries, 'winnerWeight'=>$winnerWeight, 'msg' => $msg));
+    $this->render('addWinner', array('category' => $categoryInfo, 'entries' => $entries,  'winnerWeight'=>$winnerWeight, 
+                                     'msg' => $msg, 'count' => $entryCount ));
   }
 
   /**
@@ -503,5 +491,71 @@ class WinnerController extends Controller {
       $response['msg'] = $e->getMessage();
     }
     $this->actionManageCategory($response);
+  }
+  
+  /**
+   * prepareEntryForWinner
+   * 
+   * This function is used for prepare entry(that is not winner)
+   * @param int $offset
+   * @param int $categorySlug
+   * @param $contestSlug
+   * @return $winnerEntry 
+   */
+  private function prepareEntryForWinner($contestSlug, $categorySlug, $offset = 0) {
+    $winnerEntries = array();
+    if (!empty($categorySlug)) {   
+      $contestSubmission = array();
+      $weight = '';
+      $contest = new Contest();
+      $contest->tags = $contestSlug . '{http://ahref.eu/contest/schema/},' . $categorySlug . '{http://ahref.eu/schema/contest/category}';
+      $contest->sort = '-creation_date';
+      $contest->offset = $offset;
+      $contestSubmission = $contest->getContestSubmissionForCategory();
+      if (!empty($contestSubmission)) {
+        $countFromEntries = end($contestSubmission);
+        if (array_key_exists('count', $countFromEntries)) {
+          $winnerEntries['count'] = $countFromEntries['count'];
+        }       
+        foreach ($contestSubmission as $submission) {
+          $entry = array();
+          
+          //check whether winner already exist or not
+          if (array_key_exists('tags', $submission) && !empty($submission['tags'])) {
+            $weight = $this->checkWinner($submission['tags']);
+            if (!empty($weight)) {
+              $winnerEntries['prize_weight'][] = $weight;
+              continue;
+            }
+          }
+          if (array_key_exists('title', $submission) && !empty($submission['title'])) {
+            $entry['title'] = $submission['title'];
+          }
+          if (array_key_exists('id', $submission) && !empty($submission['id'])) {
+            $entry['id'] = $submission['id'];
+          }
+          if (array_key_exists('author', $submission) && !empty($submission['author'])) {
+            $entry['author'] = $submission['author']['name'];
+          }
+          if (array_key_exists('tags', $submission) && !empty($submission['tags'])) {
+            $entry['tag'] = serialize($submission['tags']);
+          }
+          if (array_key_exists('image', $submission) && !empty($submission['image'])) {
+            if (!empty($submission['image']) && filter_var($submission['image'], FILTER_VALIDATE_URL)) {
+              $basePath = parse_url($submission['image']);
+              if (!empty($basePath['path'])) {
+                $entry['image'] = substr($basePath['path'], 1);
+              }
+            } else {
+              $entry['image'] = $submission['image'];
+            }
+          }
+          if (!empty($entry)) {
+            $winnerEntries['entry'][] = $entry;
+          }
+        }
+      }
+    }
+    return $winnerEntries;
   }
 }

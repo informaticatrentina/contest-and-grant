@@ -43,7 +43,7 @@
           <th>{{ t('contest', 'Add Entry') }}</th>
         </tr>
       </thead>
-      <tbody>
+      <tbody id="winner-row">
         {% set i = 1 %}
         {% for entry in entries %}
         <tr>
@@ -57,7 +57,13 @@
       {% endfor %}
       </tbody>
     </table>
-    <input type="hidden" name="winnerWeight" value="{{winnerWeight}}" id="winnerWeight">
+    <div id="loading-image">
+      <center><img src="{{constant('BASE_URL')}}images/loader.gif" alt="loading image" /></center>
+    </div>  
+    <input type="hidden" name="winnerWeight" value="{{winnerWeight}}" id="winnerWeight" />
+    <input type="hidden" name="entry_count" value="{{count}}" id="winnerCount" />
+    <input type="hidden" name="base_url" value="{{constant('BASE_URL')}}" id="baseUrl" />
+    <input type="hidden" name="winner_url" value="{{constant('BASE_URL')}}admin/category/winner/{{category.category_id}}/add" id="winnerPageUrl" />
   {%endif%}
   <div class="hidden">
     <form id="add-entry-in-category" class="form-manage-category" method="post" action="{{constant('BASE_URL')}}admin/category/winner/{{category.category_id}}">
@@ -73,8 +79,9 @@
     </form>
   </div>
 </div>
+<script src="{{constant('BASE_URL')}}js/jquery.masonry.min.js"></script>
 <script type="text/javascript" src="{{constant('BASE_URL')}}js/jquery.fancybox.js"></script>
 <script type="text/javascript" src="{{constant('BASE_URL')}}js/jquery.fancybox.pack.js"></script>
 <script type="text/javascript" src="{{constant('BASE_URL')}}js/jquery.fancybox-buttons.js"></script>
-
 <script src="{{constant('BASE_URL')}}js/category.js"></script>
+<script src="{{constant('BASE_URL')}}js/winner.js"></script>

@@ -5,7 +5,7 @@ $(document).ready(function() {
     $('#add-new-category').hide();
     $('#add-category').show();
   });
-  $(".add-entry").click(function() {
+  $(".add-entry").live('click',function() {
     var entryId = $(this).attr('id');
     var tag = $(this).attr('tag');
     var categoryName = $(this).attr('category');
@@ -17,7 +17,7 @@ $(document).ready(function() {
     openFancyBox('add-entry-in-category');
   });
   
-  $('#add-entry-button').click(function(e) {
+  $('#add-entry-button').live('click',function(e) { 
     e.preventDefault();
     submitFancyBox('add-entry-in-category');    
   });  

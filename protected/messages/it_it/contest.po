@@ -23,8 +23,12 @@ msgid "Some technical problem occurred. Please try again"
 msgstr "Qualche problema tecnico si è verificato. Riprova"
 
 msgctxt "contest" 
+msgid "update"
+msgstr "aggiornare"
+
+msgctxt "contest" 
 msgid " category"
-msgstr "categoria"
+msgstr " categoria"
 
 msgctxt "contest" 
 msgid " save"

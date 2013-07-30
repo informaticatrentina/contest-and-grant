@@ -32,7 +32,7 @@ msgstr " categoria"
 
 msgctxt "contest" 
 msgid " save"
-msgstr "salvare"
+msgstr "Salvare"
 
 msgctxt "contest" 
 msgid "Accept the terms of Service"
@@ -54,11 +54,11 @@ msgstr "Aggiungi nuovo vincitore"
 
 msgctxt "contest" 
 msgid "Author"
-msgstr "autore"
+msgstr "Autore"
 
 msgctxt "contest" 
 msgid "Banner image"
-msgstr "immagine del banner"
+msgstr "Immagine del banner"
 
 msgctxt "contest" 
 msgid "Be the first!"
@@ -66,7 +66,7 @@ msgstr "Vuoi essere il primo?"
 
 msgctxt "contest" 
 msgid "Category"
-msgstr "categoria"
+msgstr "Categoria"
 
 msgctxt "contest" 
 msgid "Change"
@@ -118,7 +118,7 @@ msgstr "Data di fine"
 
 msgctxt "contest" 
 msgid "Entry"
-msgstr "entrata"
+msgstr "Entrata"
 
 msgctxt "contest" 
 msgid "Entry description should not be empty"
@@ -154,11 +154,11 @@ msgstr "Esci"
 
 msgctxt "contest" 
 msgid "Manage Category"
-msgstr "gestire Categoria"
+msgstr "Gestire Categoria"
 
 msgctxt "contest" 
 msgid "Manage Winner"
-msgstr "gestire Winner"
+msgstr "Gestire Winner"
 
 msgctxt "contest" 
 msgid "Manage Winner for "
@@ -174,7 +174,7 @@ msgstr "Nessuno ha ancora partecipato a questo concorso"
 
 msgctxt "contest" 
 msgid "Password"
-msgstr "password"
+msgstr "Password"
 
 msgctxt "contest" 
 msgid "Please choose an image for upload"
@@ -258,7 +258,7 @@ msgstr "Siamo spiacenti, si è verificato un errore"
 
 msgctxt "contest" 
 msgid "Square image"
-msgstr "immagine quadrata"
+msgstr "Immagine quadrata"
 
 msgctxt "contest" 
 msgid "Start Date"
@@ -282,7 +282,7 @@ msgstr "Non ci sono vincitori per questa categoria"
 
 msgctxt "contest" 
 msgid "Title"
-msgstr "titolo"
+msgstr "Titolo"
 
 msgctxt "contest" 
 msgid "Update contest"
@@ -316,7 +316,7 @@ msgstr ""
 
 msgctxt "contest" 
 msgid "add"
-msgstr "aggiungi"
+msgstr "Aggiungi"
 
 msgctxt "contest" 
 msgid "contest Image"
@@ -324,11 +324,11 @@ msgstr "contest Immagine"
 
 msgctxt "contest" 
 msgid "contest Title"
-msgstr "titolo del concorso"
+msgstr "Titolo del concorso"
 
 msgctxt "contest" 
 msgid "contest image"
-msgstr "immagine concorso"
+msgstr "Immagine concorso"
 
 msgctxt "contest" 
 msgid "create contest"
@@ -340,7 +340,7 @@ msgstr "nuovo concorso prospettive"
 
 msgctxt "contest" 
 msgid "weight"
-msgstr "carico"
+msgstr "Carico"
 
 msgctxt "contest" 
 msgid "winners"
@@ -607,4 +607,3 @@ msgstr "Zero lunghezza di risposta non è permesso"
 msgctxt "contest" 
 msgid "resize folder does not exists in "
 msgstr "cartella di ridimensionamento non esiste in"
-

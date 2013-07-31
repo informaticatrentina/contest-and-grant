@@ -84,6 +84,7 @@ class ContestController extends Controller {
       $contest->entryId = $_GET['id'];
       $entry = array();
       $entries = $contest->getContestSubmissionInfo();
+      $entry['winner'] = false;
       if (!empty($entries)) {
         $entry['contestTitle'] = $contestInfo['contestTitle'];
         $entry['contestSlug'] = $contestInfo['contestSlug'];
@@ -95,6 +96,19 @@ class ContestController extends Controller {
         }
         $entry['image'] = substr($basePath['path'],1);
         $entry['url'] = BASE_URL.'contest/entries/'.$contestInfo['contestSlug'].'/'. $_GET['id'];
+          if (array_key_exists('tags', $entries) && !empty($entries['tags'])) {
+          foreach ($entries['tags'] as $tag) {
+            if ($tag['scheme'] == 'http://ahref.eu/contest/schema/contest/prize') {
+              $entry['prizeName'] = $tag['name'];
+            }
+            if ($tag['scheme'] == 'http://ahref.eu/contest/schema/contest/winner') {
+              $entry['winner'] = true;
+            }
+            if ($tag['scheme'] == 'http://ahref.eu/schema/contest/category') {
+              $entry['categoryName'] = $tag['name'];
+            }
+          }
+        }
         $aggregatorMgr = new AggregatorManager(); 
         $aggregatorMgr->contestSlug = $_GET['slug'];
         $aggregatorMgr->range = $_GET['id'] .':'. 1;

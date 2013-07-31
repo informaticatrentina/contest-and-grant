@@ -16,6 +16,9 @@
         <div style="padding: 20px 20px;"><h6>{{ entry.title }}</h6></div>
         <p><img src="{{constant('BASE_URL')}}{{resizeByPath(entry.image,'960','638')}}" width="960" height="638" alt="entry image"></p>
         <div style="padding: 20px 20px;"><p>{{ entry.description }}</p>  </div>
+        <div class="single-entry-tag" style="float:left">
+          <span style ="color:#646464"> TAG </span> : {{entry.categoryName}} 
+        </div>
         <div style="text-align:right;">
           <iframe src="//www.facebook.com/plugins/like.php?href={{entry.url}}&amp;send=false&amp;layout=button_count&amp;width=30&amp;show_faces=false&amp;font&amp;colorscheme=light&amp;action=like&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden;  height:21px; width:75px" allowTransparency="true" ></iframe>
           <a href="https://twitter.com/share" class="twitter-share-button" data-url="{{entry.url}}" data-counturl="{{entry.url}}" width="30" height="30" alt="twitter" style="padding-left:10px;widh:77px"></a>
@@ -26,8 +29,19 @@
     <div class="span4" >
       <div class="entry-content-right">
         <h5>{{ entry.authorName }}</h5>
-        <div style="position:absolute; top:103px; left:145px;"></div> 
       </div>
+      {% if entry.winner == true %}
+        <div class="entry-content-right">
+          <span class="awards">Premi</span>
+          <div class="winner-tropy">
+            <div style="float:left; width: 80px;">
+              <img src="{{constant('BASE_URL')}}images/small_trophy.png" width="80" height="60" alt="entry image">
+            </div>
+            <span class="category-prize" style="float:right; width: 59%;">{{entry.categoryName}}</span>
+          </div>
+          <p class="single-entry-tag">{{entry.prizeName}} - {{entry.categoryName}}</p>
+        </div>
+      {% endif %}
     </div>
   </div>
   <div class="row"> 

@@ -1,5 +1,21 @@
 @charset "UTF-8";
 /* CSS Document */
+@font-face {
+    font-family: TitilliumText25l;
+    src: url("Titillium_Text/TitilliumText25L.otf") format("opentype");
+}
+@font-face {
+    font-family: TitilliumText25l_6W;
+    src: url("Titillium_Text/TitilliumText25L002.otf") format("opentype");
+}
+@font-face {
+    font-family: TitilliumText25l_4W;
+    src: url("Titillium_Text/TitilliumText25L003.otf") format("opentype");
+}
+@font-face {
+    font-family: TitilliumText25l_2W;
+    src: url("Titillium_Text/TitilliumText25L004.otf") format("opentype");
+}
 
 body {
   padding-top: 70px;
@@ -115,7 +131,6 @@ body {
 {
   color: #000;
   border-bottom:#000 solid 2px;
-  text
 }
 
 .navcandg li .candgselected
@@ -1122,4 +1137,30 @@ p::selection  {
 }
 .add-entry {
  color:#0088CC;
+}
+.single-entry-tag {
+  text-align:left; 
+   font-family: 'TitilliumText25l_4W'; 
+  font-size: 16px; 
+  color:#000000; 
+  text-transform: uppercase;
+  padding: 20px;
+}
+
+.awards {
+  font-family: 'TitilliumText25l_6W'; 
+  font-size: 28px; 
+}
+
+.category-prize {
+  font-family: 'TitilliumText25l_4W'; 
+  font-size: 24px; 
+  line-height: 28px;
+  text-transform: uppercase; 
+}
+
+.winner-tropy{
+  float:left;
+  width: 100%;
+  margin-bottom: 15px;
 }

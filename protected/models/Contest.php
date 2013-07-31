@@ -220,7 +220,7 @@ class Contest  {
     $entry = array(); 
     $aggregatorManager = new AggregatorManager();
     $contestEntries = $aggregatorManager->getEntry('', '', $this->entryId, 'active', $this->contestSlug . '[contest]', '', '', 
-            $this->count, '', '', '', '', array(), $this->sort, 'links,status,author,title,id,content', '', '');
+            $this->count, '', '', '', '', array(), $this->sort, 'links,status,author,title,id,content,tags', '', '');
     $entry = $contestEntries[0]; 
     if (!empty($entry['links']['enclosures'])) {
       $entry['image'] = $entry['links']['enclosures'][0]['uri'];

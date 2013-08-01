@@ -241,10 +241,11 @@ class WinnerController extends Controller {
     $aggregatorManager = new AggregatorManager();
     $aggregatorManager->returnField = 'links,author,title,id,tags';
     $aggregatorManager->contestSlug = $contestSlug;
-    $aggregatorManager->sort = 'weight';
+    $aggregatorManager->sort = 'tags';
     $aggregatorManager->tag =  $contestSlug . '{http://ahref.eu/contest/schema/},winner,' . $categorySlug . '{http://ahref.eu/schema/contest/category}';
     $entries = $aggregatorManager->getWinnerEntry();
-    foreach ($entries as $entry) {
+    foreach ($entries as $entry) { 
+      $WinnerEntry = array();
       if (array_key_exists('image', $entry) && !empty($entry['image'])) {
         if (!empty($entry['image']) && filter_var($entry['image'], FILTER_VALIDATE_URL)) {
           $basePath = parse_url($entry['image']);
@@ -263,10 +264,18 @@ class WinnerController extends Controller {
       }
       if (array_key_exists('tags', $entry) && !empty($entry['tags'])) {
         $WinnerEntry['tags'] = $entry['tags'];
+        foreach($entry['tags'] as $tag) {
+          if($tag['scheme'] == 'http://ahref.eu/contest/schema/contest/prize') {
+            $WinnerEntry['prizeName'] = $tag['name'];
+          }
+          if($tag['scheme'] == 'http://ahref.eu/contest/schema/contest/winner') {
+            $WinnerEntry['prizeWeight'] = $tag['weight'];
+          }
+        }
       }
       if (array_key_exists('id', $entry) && !empty($entry['id'])) {
         $WinnerEntry['id'] = $entry['id'];
-      }
+      }     
       $winner[] = $WinnerEntry;
     }
     return $winner;
@@ -323,6 +332,7 @@ class WinnerController extends Controller {
     $winner = array();
     $contestInfo = array();
     $categoryDetail = array();
+    $categoryInfo = array();
     $contest = new ContestAPI();
     if (array_key_exists('slug', $_GET) && !empty($_GET['slug'])) {
       $contest->contestSlug = $_GET['slug'];
@@ -557,5 +567,5 @@ class WinnerController extends Controller {
       }
     }
     return $winnerEntries;
-  }
+  }  
 }

@@ -1,0 +1,44 @@
+<div class="container">
+  {% for category in categories %} 
+    <h3>{{ category.name }}</h3>   
+    {% if entries[category.slug] is empty %}      
+      <div style="background-color:#f5f5f5; margin:25px 0px;">
+        <div class="row">
+          <div class="span8">
+            <div style="padding:25px 25px;">    
+              <center> 
+                <h6>{{ t('contest', 'There are no winner for this category')}}</h6>
+              </center>
+            </div>
+          </div>
+        </div>
+      </div>
+    {% else %} 
+      {% for entry in entries[category.slug] %}
+        <div style="background-color:#f5f5f5;" >
+          <div class="row">
+            <div class="span12" >
+              <div style="padding:25px; float:left; width:80px;">
+                <img src="{{constant('BASE_URL')}}images/trophy.png" width="61" height="74" alt="trophy">
+                <h6 class="listing-title">{{entry.prizeName}}</h6>
+              </div>
+              <div style="float:left;">
+                <img src="{{constant('BASE_URL')}}{{resizeByPath(entry.image,'210','210')}}" class="listing-image" />
+              </div>
+              <div class="listing-details">
+                <h7>TITOLO:</h7>
+                <h5 class="pjtitle">{{entry.title}}</h5>
+                <div class="publishedby"><h7>PUBBLICATO DA:</h7>
+                  <div>
+                    <h6>{{entry.author}}</h6>
+                  </div>
+                </div> 
+              </div>    
+            </div>
+          </div>        
+        </div>   
+        <br>
+      {% endfor %}
+    {% endif %}
+  {% endfor %}
+</div>  

@@ -129,7 +129,6 @@ return array(
         'contest/winner/<slug:[\w-]+>'=>'winner/getWinnerInfo',  
         'contest/entries/<slug:[\w-]+>'=>'contest/entries',
         'contest/entries/<slug:[\w-]+>/<id:[\w-]+>'=>'contest/entries',
-        'contest/entries/<slug:[\w-]+>/category/<category:[\w-]+>'=>'contest/entries',
         'contest/brief/<slug:[\w-]+>'=>'contest/contestBrief',
         'contest/submission/<slug:[\w-]+>'=>'contest/submitEntries',              
         'register' => 'contest/registerUser', 

@@ -1164,9 +1164,3 @@ p::selection  {
   width: 100%;
   margin-bottom: 15px;
 }
-
-.category-background{
-  height: 24px;
-  background-color: rgb(76, 190, 215);
-  color: #FFFFFF !important  
-}

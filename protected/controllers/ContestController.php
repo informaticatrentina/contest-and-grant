@@ -45,27 +45,10 @@ class ContestController extends Controller {
     $contestInfo = array();
     $entryCount = 0;
     $entries = array();
-    $categoryDetail = array();
-    $selectedCategory = '';
     $countFromEntries = array();
     if (array_key_exists('slug', $_GET) && !empty($_GET['slug'])) {
       $contest->contestSlug = $_GET['slug'];
       $contestInfo = $contest->getContestDetail();
-      $category = new Category();
-      if (array_key_exists('contestId', $contestInfo) && !empty($contestInfo['contestId'])) {
-        $category->contestId = $contestInfo['contestId'];
-      }
-      $categoryInfo = $category->get();
-      if (!empty($categoryInfo)) {
-        foreach ($categoryInfo as $cat) {
-          $catInfo['category_name'] = $cat['category_name'];
-          $catInfo['category_slug'] = sanitization($cat['category_name']);
-          $categoryDetail[] = $catInfo;
-        }
-      }      
-    }
-    if (array_key_exists('category', $_GET) && !empty($_GET['category'])) {
-      $selectedCategory = sanitization($_GET['category']); 
     }
     if (array_key_exists('offset', $_GET) && isset($_GET['offset'])) {
       //check for ajax request
@@ -75,11 +58,8 @@ class ContestController extends Controller {
       }
       $return = array('success' => false, 'msg' => '', 'data' => array());
       $contest->offset = $_GET['offset'];
-      if (array_key_exists('category', $_GET) && !empty($_GET['category'])) {    
-        $entries = $this->loadEntryCategoryWise($contest, $_GET['category']);
-      } else {
-        $entries = $contest->getContestSubmission();  
-      }
+      $entries = $contest->getContestSubmission();
+      
       //check whether count is exist in entries array or not 
       if (!empty($entries)) {
         $return['success'] = true;
@@ -93,14 +73,6 @@ class ContestController extends Controller {
           $contestEntry['authorName'] = $entry['author']['name'];
           $contestEntry['image'] = $entry['image'];
           $contestEntry['id'] = $entry['id'];
-          if (array_key_exists('tags', $entry) && !empty($entry['tags'])) {
-            foreach ($entry['tags'] as $tag) {
-              if ($tag['scheme'] == 'http://ahref.eu/schema/contest/category') {
-                $contestEntry['categorySlug'] = $tag['slug'];
-                $contestEntry['categoryName'] = $tag['name'];
-              }
-            }
-          }
           array_push($return['data'], $contestEntry);
         }
       } else {
@@ -156,11 +128,7 @@ class ContestController extends Controller {
       $this->render('entry', array('entry' => $entry));
     } else { 
       if (!empty($contestInfo['entryStatus'])) {
-        if (!empty($selectedCategory)) {     
-          $entries = $this->loadEntryCategoryWise($contest, $selectedCategory);
-        } else {
-          $entries = $contest->getContestSubmission();
-        }       
+        $entries = $contest->getContestSubmission();
         
         //check whether count is exist in entries array or not 
         if (!empty($entries)) {
@@ -169,38 +137,19 @@ class ContestController extends Controller {
             $entryCount = array_pop($entries);
           }
         }
-        $contestSubmissions = array();
+        $i = 0;
         foreach ($entries as $entry) {
-          $contestSubmission = array();         
-          if (array_key_exists('tags', $entry) && !empty($entry['tags'])) {
-            foreach ($entry['tags'] as $tag) {
-              if ($tag['scheme'] == 'http://ahref.eu/schema/contest/category') {
-                $contestSubmission['categorySlug'] = $tag['slug'];
-                $contestSubmission['categoryName'] = $tag['name'];
-              }
-            }
-          }
-          if (array_key_exists('author', $entry) && !empty($entry['author'])) {
-            $contestSubmission['author'] = $entry['author'];
-          }
-          if (array_key_exists('title', $entry) && !empty($entry['title'])) {
-            $contestSubmission['title'] = $entry['title'];
-          }
-          if (array_key_exists('id', $entry) && !empty($entry['id'])) {
-            $contestSubmission['id'] = $entry['id'];
-          }
           if (!empty($entry['image']) && filter_var($entry['image'], FILTER_VALIDATE_URL)) {
             $basePath = parse_url($entry['image']);
           }
-          $contestSubmission['image'] = substr($basePath['path'], 1);
-          $contestSubmissions[] = $contestSubmission;
-        }
+          $entries[$i]['image'] = substr($basePath['path'], 1);
+          $i++;
+        } 
         $contestInfo['briefDescription'] = '';
         if (!empty($contestInfo)) {
           $contestInfo['briefDescription'] = substr($contestInfo['contestDescription'], 0, 325);
-        }   
-        $this->render('contestEntries', array('entries' => $contestSubmissions, 'contestInfo' => $contestInfo, 
-            'entryCount' => $entryCount['count'], 'category' => $categoryDetail, 'selectedCategory' => $selectedCategory));
+        }    
+        $this->render('contestEntries', array('entries' => $entries, 'contestInfo' => $contestInfo, 'entryCount' => $entryCount['count']));
       } else {
         $this->redirect(BASE_URL);
       }
@@ -694,22 +643,5 @@ class ContestController extends Controller {
       $contestInfo['briefDescription'] = substr($contestInfo['contestDescription'], 0, 325);
     }
     $this->render('contestEntries', array('entries' => $entries, 'contestInfo' => $contestInfo, 'entryCount' => $entryCount['count']));
-  }
-  
-  /**
-   * loadEntryCategoryWise
-   * 
-   * This function will be used for load entry for a particular category
-   * @param $contest - object of Contest class
-   * @param $categorySlug  
-   * @return array $entries
-   */
-  public function loadEntryCategoryWise($contest, $categorySlug) { 
-    $entries = array();
-    if (!empty($contest)) {
-      $contest->tags =  $contest->contestSlug . '{http://ahref.eu/contest/schema/},' .  $categorySlug . '{http://ahref.eu/schema/contest/category}';
-      $entries = $contest->getContestSubmissionForCategory();
-    }
-    return $entries;
   }
 }

@@ -14,7 +14,8 @@ $(document).ready(function() {
     } 
     if ($(window).scrollTop() == $(document).height() - $(window).height()) {
       $('#loading-image').show();
-      var pagrUrl = $('#submitContestEntry').val();      
+      var pagrUrl = $('#submitContestEntry').val();   
+      var category = $('#entryCategory').val();  
       if (flag) {
         flag = false;
         $.ajax({
@@ -22,7 +23,8 @@ $(document).ready(function() {
           url: pagrUrl,
           dataType: 'json',
           data: {
-            offset: entriesOffset
+            offset: entriesOffset,
+            category: category
           },
           success: function(resp) {
             $('#loading-image').hide();
@@ -35,7 +37,8 @@ $(document).ready(function() {
                 html += '<div class="post span4">';
                 html += '<div style="padding: 10px 10px;"><h6>' + data[key].title + '</h6></div>';
                 html += '<a href="' + pagrUrl + '/' + data[key].id + '"><img src="' + data[key].image + '" width="600" height="450" /></a>';
-                html += '<div style="padding: 10px 10px; vertical-align:bottom;"> di ' + data[key].authorName + ' </div></div>';
+                html += '<div style="padding: 10px 10px 0px 10px; vertical-align:bottom;"> di ' + data[key].authorName + ' </div>';
+                html += '<div style="padding: 0px 10px 10px 10px; vertical-align:top;"> tag: ' + data[key].categoryName + ' </div></div>';
               }
               $('#posts').append(html).masonry('reload') ;     
               flag = true;

@@ -701,7 +701,7 @@ class ContestController extends Controller {
    * 
    * This function will be used for load entry for a particular category
    * @param $contest - object of Contest class
-   * @param $categorySlug  
+   * @param $categorySlug  - category slug to load entries
    * @return array $entries
    */
   public function loadEntryCategoryWise($contest, $categorySlug) { 

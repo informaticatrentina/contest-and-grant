@@ -14,17 +14,17 @@
       </div>
     </div>
   {% else %}
-    <div id="posts" class="row">
-      {% for entry in entries %} 
-        <div class="post span4">
-          <div style="padding: 10px 10px;"><h6>{{ entry.title }}</h6></div>
-            <a href="{{constant('BASE_URL')}}contest/entries/{{contestInfo.contestSlug }}/{{entry.id}}"><img src= "{{constant('BASE_URL')}}{{resizeByPath(entry.image,'600','450')}}" width="600" height="450" /></a>
-          <div style="padding: 10px 10px; vertical-align:bottom;"> di {{ entry.author.name }} </div>
-        </div>
-      {% endfor %}
-    </div>
+  <div id="posts" class="row">
+    {% for entry in entries %} 
+      <div class="post span4">
+        <div style="padding: 10px 10px;"><h6>{{ entry.title }}</h6></div>
+        <a href="{{constant('BASE_URL')}}contest/entries/{{contestInfo.contestSlug }}/{{entry.id}}"><img src= "{{constant('BASE_URL')}}{{resizeByPath(entry.image,'600','450')}}" width="600" height="450" /></a>
+        <div style="padding: 10px 10px 0px 10px; vertical-align:bottom;"> di {{ entry.author.name }} </div>
+        <div style="padding:  0px 10px 10px 10px; vertical-align:top;"> tag: {{ entry.categoryName }} </div>
+      </div>
+    {% endfor %}
+  </div>
   {% endif %}
-    
 </div>
     
 <div id="loading-image">
@@ -39,21 +39,16 @@
       itemSelector: '.post',
       isAnimated: true,
       columnWidth: function(containerWidth) {
-
         var width = $(window).width();
         var col = 200;
-
-
         if (width < 1200 && width >= 980) {
           col = 160;
         }
         else if (width < 980 && width >= 768) {
           col = 8;
         }
-
         return col;
       }
     });
-
   });
 </script>

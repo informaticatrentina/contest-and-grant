@@ -519,7 +519,7 @@ class WinnerController extends Controller {
       $weight = '';
       $contest = new Contest();
       $contest->tags = $contestSlug . '{http://ahref.eu/contest/schema/},' . $categorySlug . '{http://ahref.eu/schema/contest/category}';
-      $contest->sort = '-creation_date';
+      $contest->sort = 'tags';
       $contest->offset = $offset;
       $contestSubmission = $contest->getContestSubmissionForCategory();
       if (!empty($contestSubmission)) {

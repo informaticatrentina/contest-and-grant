@@ -644,4 +644,21 @@ class ContestController extends Controller {
     }
     $this->render('contestEntries', array('entries' => $entries, 'contestInfo' => $contestInfo, 'entryCount' => $entryCount['count']));
   }
+  
+  /**
+   * loadEntryCategoryWise
+   * 
+   * This function will be used for load entry for a particular category
+   * @param $contest - object of Contest class
+   * @param $categorySlug  - category slug to load entries
+   * @return array $entries
+   */
+  public function loadEntryCategoryWise($contest, $categorySlug) { 
+    $entries = array();
+    if (!empty($contest)) {
+      $contest->tags =  $contest->contestSlug . '{http://ahref.eu/contest/schema/},' .  $categorySlug . '{http://ahref.eu/schema/contest/category}';
+      $entries = $contest->getContestSubmissionForCategory();
+    }
+    return $entries;
+  }
 }

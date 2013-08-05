@@ -253,7 +253,7 @@ class WinnerController extends Controller {
     $aggregatorManager = new AggregatorManager();
     $aggregatorManager->returnField = 'links,author,title,id,tags';
     $aggregatorManager->contestSlug = $contestSlug;
-    $aggregatorManager->sort = 'tags';
+    $aggregatorManager->sort = 'tag:winner';
     $aggregatorManager->tag =  $contestSlug . '{http://ahref.eu/contest/schema/},winner,' . $categorySlug . '{http://ahref.eu/schema/contest/category}';
     $entries = $aggregatorManager->getWinnerEntry();
     foreach ($entries as $entry) { 

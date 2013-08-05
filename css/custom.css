@@ -1170,3 +1170,8 @@ p::selection  {
   background-color: rgb(76, 190, 215);
   color: #FFFFFF !important  
 }
+
+.error-msg {
+  color:#FFFFFF;
+  background: #4cbed7;
+}

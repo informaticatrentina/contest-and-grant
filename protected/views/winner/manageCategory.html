@@ -13,7 +13,7 @@
       </div>      
     </div>
     {% if message.msg is not empty %}
-      <div class="alert-error span4" >
+      <div class="span4" id="error">
         {{ message.msg }}
       </div>
       <br/>
@@ -30,7 +30,8 @@
           </div>
         </div>
       </div>
-    {% else %}         
+    {% else %}       
+      <p id="addCategoryError" class="error-msg" style="display:none"></p>
       <table class="table table-bordered table-hover category-table">
         <thead>
           <tr>
@@ -64,7 +65,7 @@
    
     <div id="add-category" style="display:none">      
       <label>{{ t('contest','Add new category')}}</label>
-      <input type="text"  name="categoryName" id ="category-name" value=""><br/>
+      <input type="text"  name="categoryName" id ="addCategoryName" value=""><br/>
       <input type="hidden"  name="contestSlug" value="{{contest.slug}}"><br/>
       <button id="create-category" class="btn btn-large btn-primary" type="submit" name='contestDetail'>{{ t('contest', 'add') }}</button>
     </div>

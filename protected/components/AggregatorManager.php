@@ -31,6 +31,7 @@ class AggregatorManager {
   public $offset = 0;
   public $sort;
   public $category = '';
+  public $source = 'contest-grant';
   
   /**
    * getEntry
@@ -53,11 +54,13 @@ class AggregatorManager {
    * @param (string) $returnField (return these field as output)
    * @param (string) $returnContent 
    * @param (string) $returnTag
+   * @param (string) $source 
    * @return (array) $entry
    */
   
   public function getEntry($limit = 1, $offset = 0, $id, $status= 'active', $tags = '', $tagsName='', $guid = '', $count= 1, $dateFrom ='', 
-          $dateTo='', $enclosures = 1, $range='', $cordinate=array(), $sort, $returnField, $returnContent, $returnTag) {
+          $dateTo='', $enclosures = 1, $range='', $cordinate=array(), $sort, $returnField, 
+          $returnContent, $returnTag, $source= 'contest-grant') {
     $data = array();
     $entry = array();
     $inputData = array();
@@ -134,7 +137,11 @@ class AggregatorManager {
     
     if (!empty($returnTag)) {
       $inputData['returnTag'] = $returnTag;
-    }    
+    }   
+    
+    if (!empty($source)) {
+      $inputData['source'] = $source;
+    }   
     
     // encode array into a query string
     $inputParam =  http_build_query($inputData);
@@ -202,7 +209,8 @@ class AggregatorManager {
                             'slug' => $this->authorSlug),
           'tags' => $tag,
           'links' => array('enclosures' => array(0 => array('type' => 'image/jpg', 'uri' => $this->imageUrl))),
-          'creation_date' => time()
+          'creation_date' => time(),
+          'source' => $this->source
       );
       $entryStatus = $aggregatorAPI->curlPOST(ENTRY, $inputParam);
     } catch (Exception $e) {
@@ -227,6 +235,7 @@ class AggregatorManager {
     if (empty($this->authorSlug)) {
       throw new Exception(Yii::t('contest', 'Please login to submit an entry'));
     }
+    $inputData['source'] = $this->source;
     $inputData['author'] = $this->authorSlug;
     $inputData['tags'] = $this->contestSlug;
     $inputData['offset'] = DEFAULT_OFFSET;
@@ -267,6 +276,7 @@ class AggregatorManager {
       $inputData['range'] = $this->range;
       $inputData['return_fields'] = $this->returnField;
       $inputData['tags'] = $this->contestSlug.'[contest]';
+      $inputData['source'] = $this->source;
       
       // encode array into a query string
       $inputParam =  http_build_query($inputData);
@@ -308,6 +318,7 @@ class AggregatorManager {
       $inputParam = array(
         'tags' => $this->tags,
         'id' => $this->entryId,
+        'source' => $this->source
       );
      
       $aggregatorAPI = new AggregatorAPI();
@@ -339,6 +350,7 @@ class AggregatorManager {
       $inputData['limit'] = ENTRY_LIMIT;
       $inputData['offset'] = $this->offset;
       $inputData['sort'] = $this->sort;
+      $inputData['source'] = $this->source;
       
       // encode array into a query string
       $inputParam =  http_build_query($inputData);

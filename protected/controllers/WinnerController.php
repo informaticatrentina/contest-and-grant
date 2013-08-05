@@ -137,12 +137,24 @@ class WinnerController extends Controller {
         if (array_key_exists('id', $_POST) && (!empty($_POST['id']))) {
           $aggregatorManager->entryId = $_POST['id'];
         }
+        $tags = array();
         if (array_key_exists('tag', $_POST) && (!empty($_POST['tag']))) {
-          $aggregatorManager->tags = unserialize($_POST['tag']);
+          $tags = unserialize($_POST['tag']);
         }
         if (array_key_exists('category', $_POST) && (!empty($_POST['category']))) {
           $aggregatorManager->category = $_POST['category'];
         }
+        if (is_array($tags) && !empty($tags)) {
+          foreach ($tags  as $key => $tag) {
+            if (array_search('http://ahref.eu/contest/schema/contest/prize', $tag) !== false) {
+              unset($tags[$key]);
+            }
+            if (array_search('http://ahref.eu/contest/schema/contest/winner', $tag) !== false) {
+              unset($tags[$key]);
+            }
+          }          
+        }
+        $aggregatorManager->tags = $tags;
         $response = $aggregatorManager->updateEntry();
         if (array_key_exists('success', $response) && $response['success']) {
           $response['msg'] = Yii::t('contest', 'You have succesfully add an entry');

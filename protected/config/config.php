@@ -60,6 +60,9 @@ define('MINOR', 1);
  * define constant for entry limit 
  */
 define('ENTRY_LIMIT', 20);
+
+//define constant for source - save with entry
+define('SOURCE', 'contest-grant');
 /**
  * configuration for interaction of file
  */

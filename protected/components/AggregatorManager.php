@@ -31,7 +31,7 @@ class AggregatorManager {
   public $offset = 0;
   public $sort;
   public $category = '';
-  public $source = 'contest-grant';
+  public $source = SOURCE;
   
   /**
    * getEntry
@@ -60,7 +60,7 @@ class AggregatorManager {
   
   public function getEntry($limit = 1, $offset = 0, $id, $status= 'active', $tags = '', $tagsName='', $guid = '', $count= 1, $dateFrom ='', 
           $dateTo='', $enclosures = 1, $range='', $cordinate=array(), $sort, $returnField, 
-          $returnContent, $returnTag, $source= 'contest-grant') {
+          $returnContent, $returnTag, $source= SOURCE) {
     $data = array();
     $entry = array();
     $inputData = array();

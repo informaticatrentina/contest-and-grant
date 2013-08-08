@@ -14,7 +14,7 @@ $(document).ready(function() {
     } 
     if ($(window).scrollTop() == $(document).height() - $(window).height()) {
       $('#loading-image').show();
-      var pagrUrl = $('#submitContestEntry').val();   
+      var pagrUrl = $('#submitContestEntry').val();  
       var category = $('#entryCategory').val();  
       if (flag) {
         flag = false;
@@ -40,7 +40,11 @@ $(document).ready(function() {
                 html += '<div style="padding: 10px 10px 0px 10px; vertical-align:bottom;"> di ' + data[key].authorName + ' </div>';
                 html += '<div style="padding: 0px 10px 10px 10px; vertical-align:top;"> tag: ' + data[key].categoryName + ' </div></div>';
               }
-              $('#posts').append(html).masonry('reload') ;     
+              $('#posts').append(html);
+              var container = $('#posts');
+                container.imagesLoaded(function() { 
+                $('#posts').masonry('reload') ;                
+              });
               flag = true;
             } else {
               alert(resp.msg);

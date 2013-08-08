@@ -87,11 +87,15 @@ class ContestController extends Controller {
         if (array_key_exists('count', $countFromEntries)) {
           $entryCount = array_pop($entries);
         }
-        foreach ($entries as $entry) {
+        foreach ($entries as $entry) { 
           $contestEntry['title'] = $entry['title'];
           $contestEntry['description'] = $entry['content']['description'];
           $contestEntry['authorName'] = $entry['author']['name'];
-          $contestEntry['image'] = $entry['image'];
+          $contestEntry['image'] = ''; 
+          if (array_key_exists('image', $entry) && !empty($entry['image'])) {            
+            $basePath = parse_url($entry['image']);
+            $contestEntry['image'] = BASE_URL . resizeImageByPath( substr($basePath['path'],1),600,450);
+          }          
           $contestEntry['id'] = $entry['id'];
           if (array_key_exists('tags', $entry) && !empty($entry['tags'])) {
             foreach ($entry['tags'] as $tag) {
@@ -642,7 +646,7 @@ class ContestController extends Controller {
 
   
   /**
-   * actionEntries
+   * actionContestBrief
    * 
    * This function is used for get entries for a contest and get contest detail
    */

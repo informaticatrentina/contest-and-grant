@@ -426,6 +426,9 @@ class ContestController extends Controller {
         $imagePath = $directory . $imageName;
         if ($imageName) {
           $response = $contest->submitContestEntry($imagePath, $contestSlug);
+        } else {
+          Yii::log('', ERROR, Yii::t('contest', 'Error in entrySubmission :: Image name is empty') );
+          $response['msg'] = Yii::t('contest', 'Some technical problem occurred, contact administrator');
         }
       }
     }

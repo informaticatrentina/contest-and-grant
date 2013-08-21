@@ -54,7 +54,12 @@ function validateDate($date) {
 function uploadFile($directory, $name) {
   $image = CUploadedFile::getInstanceByName($name);
   $imageInfo = pathinfo($image->getName());
-  $imageName = $imageInfo['filename'] . generateRandomString(10) . '.' . $imageInfo['extension'];
+  if(array_key_exists('filename', $imageInfo)) {
+    $imageName = sanitization($imageInfo['filename'] . generateRandomString(10)) . '.' . $imageInfo['extension'];
+  } 
+  if (empty($imageName)) {
+    return '';
+  }
   $imagePath = $directory . $imageName;
   $imageUrl = BASE_URL. $imagePath;
   $ret = $image->saveAs($imagePath);

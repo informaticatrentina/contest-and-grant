@@ -35,6 +35,8 @@ class UserIdentityManager {
       }
       if (empty($userDetail['email']) || !filter_var($userDetail['email'], FILTER_VALIDATE_EMAIL)) {
         throw new Exception(Yii::t('contest','Please enter a valid email'));
+      } else {
+        $userDetail['email'] = urlencode($userDetail['email']);
       }
       if (empty($userDetail['password'])) {
         throw new Exception(Yii::t('contest', 'Please enter password'));
@@ -79,6 +81,8 @@ class UserIdentityManager {
     try {
       if (empty($userDetail['email']) || !filter_var($userDetail['email'], FILTER_VALIDATE_EMAIL)) {
         throw new Exception(Yii::t('contest','Please enter a valid email'));
+      } else {
+        $userDetail['email'] = urlencode($userDetail['email']);
       }
       if (empty($userDetail['password'])) {
         throw new Exception(Yii::t('contest','Please enter password'));

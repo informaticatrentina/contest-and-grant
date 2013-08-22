@@ -1,19 +1,4 @@
 <div class="container maincontent">
-  {% if entries is empty %}
-    <div class="container"> 
-      <div class="show-msg">
-        <div class="row">
-          <div class="span12">
-            <div style="padding:25px 25px;">    
-              <p class="show-msg-text">
-                {{ t('contest','Nobody has sumbitted anything yet')}}   <a href="{{constant('BASE_URL')}}contest/submission/{{contestInfo.contestSlug }}">{{ t('contest','Be the first!')}}</a>
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  {% else %}
   <div class="container">
     <div class="row">
       <div class="span12" style="margin-bottom:20px; position:relative;">
@@ -40,6 +25,21 @@
       </div>
     </div>
   </div>
+  {% if entries is empty %}
+    <div class="container"> 
+      <div class="show-msg">
+        <div class="row">
+          <div class="span12">
+            <div style="padding:25px 25px;">    
+              <p class="show-msg-text">
+                {{ t('contest','Nobody has sumbitted anything yet')}}   <a href="{{constant('BASE_URL')}}contest/submission/{{contestInfo.contestSlug }}">{{ t('contest','Be the first!')}}</a>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  {% else %}  
   <div id="posts" class="row">
     {% for entry in entries %} 
       <div class="post span4">

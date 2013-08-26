@@ -40,6 +40,8 @@ class UserIdentityManager {
       }
       if (empty($userDetail['password'])) {
         throw new Exception(Yii::t('contest', 'Please enter password'));
+      } else {
+        $userDetail['email'] = urlencode($userDetail['email']);
       }
        
       $user = new UserIdentityAPI();
@@ -86,6 +88,8 @@ class UserIdentityManager {
       }
       if (empty($userDetail['password'])) {
         throw new Exception(Yii::t('contest','Please enter password'));
+      } else {
+        $userDetail['password'] = urlencode($userDetail['password']);
       }
       $user = new UserIdentityAPI();
       $userStatus = $user->getUserDetail(IDM_USER_ENTITY, $userDetail);

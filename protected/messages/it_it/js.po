@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: js.php\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-07-23 12:48+0000\n"
-"PO-Revision-Date: 2013-07-23 12:48+0000\n"
+"POT-Creation-Date: 2013-08-29 11:23+0000\n"
+"PO-Revision-Date: 2013-08-29 11:30+0200\n"
 "Last-Translator: \n"
 "Language-Team: it_it <translation-team-it_it@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -18,81 +18,123 @@ msgstr ""
 "Generated-By: Yii EMessage\n"
 "Plural-Forms: nplurals = 2; plural = n != 1;\n"
 
-msgid "Are you sure you want to remove this winner ?"
-msgstr "Sei sicuro di voler rimuovere questo vincitore?"
+msgctxt "contest" 
+msgid "Please enter category name"
+msgstr "Inserisci il nome della categoria"
 
+msgctxt "contest" 
+msgid "add"
+msgstr "aggiungi"
+
+msgctxt "contest" 
+msgid "Are you sure you want to delete this Category ?"
+msgstr "Sei sicuro di voler eliminare questa categoria?"
+
+msgctxt "contest" 
+msgid "Category name can not be empty"
+msgstr "Il nome della categoria non può essere vuoto"
+
+msgctxt "contest" 
 msgid "Please enter Content Rule"
-msgstr "Inserisci Content Rule"
+msgstr "Inserisci il regolamento del concorso"
 
-msgid "Please enter prize"
-msgstr "Inserisci il premio"
-
-msgid "Please enter prize weight"
-msgstr "Inserisci il peso premio"
-
+msgctxt "contest" 
 msgid "Please upload an image"
-msgstr "Si prega di caricare unimmagine"
+msgstr "Si prega di caricare un’immagine"
 
-msgid "Prize weight should be numeric"
-msgstr "Peso Premio deve essere numerico"
-
+msgctxt "contest" 
 msgid "Are you sure you want to delete this Contest ?"
 msgstr "Sei sicuro di voler eliminare questo concorso ?"
 
+msgctxt "contest" 
+msgid "Are you sure you want to remove this winner ?"
+msgstr "Sei sicuro di voler rimuovere questo vincitore?"
+
+msgctxt "contest" 
 msgid "Entry description should not be empty"
-msgstr "Descrizione Evento non deve essere vuoto"
+msgstr "La descrizione dell’evento non deve essere vuota"
 
+msgctxt "contest" 
 msgid "Entry title should not be empty"
-msgstr "Titolo di ingresso non deve essere vuoto"
+msgstr "Il titolo non deve essere vuoto"
 
+msgctxt "contest" 
 msgid "Please accept terms and condition"
-msgstr "Si prega di accettare i termini e condizioni"
+msgstr "Si prega di accettare i termini e le condizioni"
 
+msgctxt "contest" 
 msgid "Please check atleast one checkBox"
-msgstr "Si prega di verificare, almeno una checkBox"
+msgstr "Si prega di selezionare almeno una casella di controllo"
 
+msgctxt "contest" 
 msgid "Please enter Content Description"
-msgstr "Inserisci Content Descrizione"
+msgstr "Inserisci la descrizione"
 
+msgctxt "contest" 
 msgid "Please enter Contest Title"
-msgstr "Inserisci il concorso titolo"
+msgstr "Inserisci il titolo del concorso"
 
+msgctxt "contest" 
 msgid "Please enter Contest rule"
-msgstr "Inserisci "
+msgstr "Inserisci il regolamento del concorso"
 
+msgctxt "contest" 
 msgid "Please enter First Name"
 msgstr "Inserisci il nome"
 
+msgctxt "contest" 
 msgid "Please enter Last Name"
-msgstr "Inserisci il Cognome"
+msgstr "Inserisci il cognome"
 
+msgctxt "contest" 
 msgid "Please enter Password"
 msgstr "Inserisci la password"
 
+msgctxt "contest" 
 msgid "Please enter a valid date"
 msgstr "Si prega di inserire una data valida"
 
+msgctxt "contest" 
 msgid "Please enter email id"
-msgstr "Inserisci ID e-mail"
+msgstr "Inserisci e-mail"
 
+msgctxt "contest" 
 msgid "Please enter end date"
 msgstr "Inserisci data di fine"
 
+msgctxt "contest" 
 msgid "Please enter minor name"
 msgstr "Inserisci il nome del minore"
 
+msgctxt "contest" 
+msgid "Please enter prize"
+msgstr "Inserisci il premio"
+
+msgctxt "contest" 
+msgid "Please enter prize weight"
+msgstr "Inserisci la posizione del premio"
+
+msgctxt "contest" 
 msgid "Please enter start date"
 msgstr "Inserisci data di inizio"
 
+msgctxt "contest" 
 msgid "Please enter valid email id"
-msgstr "Inserisci ID e-mail valido"
+msgstr "Inserisci e-mail valido"
 
+msgctxt "contest" 
 msgid "Please upload banner image"
 msgstr "Si prega di caricare immagine del banner"
 
+msgctxt "contest" 
 msgid "Please upload square image"
 msgstr "Si prega di caricare un'immagine quadrata"
 
+msgctxt "contest" 
 msgid "Prize weight already exist"
-msgstr "Peso Premio già esiste"
+msgstr "La posizione del premio esiste già"
+
+msgctxt "contest" 
+msgid "Prize weight should be numeric"
+msgstr "La posizione del premio deve essere numerica"
 

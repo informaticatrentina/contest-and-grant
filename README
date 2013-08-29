@@ -4,6 +4,8 @@ Contest and grant
 In contest and grant project, one can create a contest. All contest must have
 different name.  There are some entries related to each contest. Winners get
 some grant and prices.
+:author: The contest and grant Developer Team http://www.incaendo.com
+
 
 
 Installation
@@ -213,8 +215,6 @@ You have to backup:
 - the ``uploads`` directory
 
 
-The contest and grant Developer Team
-http://www.incaendo.com
 
 
 Run Unit Test

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: contest.php\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-07-26 15:44+0000\n"
-"PO-Revision-Date: 2013-07-26 15:44+0000\n"
+"PO-Revision-Date: 2013-08-29 11:06+0200\n"
 "Last-Translator: \n"
 "Language-Team: it_it <translation-team-it_it@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -20,11 +20,11 @@ msgstr ""
 
 msgctxt "contest" 
 msgid "Some technical problem occurred. Please try again"
-msgstr "Qualche problema tecnico si è verificato. Riprova"
+msgstr "Si è verificato qualche problema tecnico. Riprova più tardi."
 
 msgctxt "contest" 
 msgid "update"
-msgstr "aggiornare"
+msgstr "aggiorna"
 
 msgctxt "contest" 
 msgid " category"
@@ -32,7 +32,7 @@ msgstr " categoria"
 
 msgctxt "contest" 
 msgid " save"
-msgstr "Salvare"
+msgstr "Salva"
 
 msgctxt "contest" 
 msgid "Accept the terms of Service"
@@ -90,7 +90,7 @@ msgstr "Contenuti del concorso"
 
 msgctxt "contest" 
 msgid "Contest Rule"
-msgstr "Contest regola"
+msgstr "Regole del concorso"
 
 msgctxt "contest" 
 msgid "Create Contest"
@@ -106,7 +106,7 @@ msgstr "Modifica"
 
 msgctxt "contest" 
 msgid "Edit Contest"
-msgstr "Modifica Contest"
+msgstr "Modifica concorso"
 
 msgctxt "contest" 
 msgid "Email address"
@@ -118,11 +118,11 @@ msgstr "Data di fine"
 
 msgctxt "contest" 
 msgid "Entry"
-msgstr "Entrata"
+msgstr "Elaborato"
 
 msgctxt "contest" 
 msgid "Entry description should not be empty"
-msgstr "Descrizione non deve essere vuota"
+msgstr "La descrizione non deve essere vuota"
 
 msgctxt "contest" 
 msgid "First Name"
@@ -138,7 +138,7 @@ msgstr "Home"
 
 msgctxt "contest" 
 msgid "Just another blog post"
-msgstr "Grande Solo un altro post sul blog"
+msgstr "Solo un altro post sul blog"
 
 msgctxt "contest" 
 msgid "Last Name"
@@ -154,19 +154,19 @@ msgstr "Esci"
 
 msgctxt "contest" 
 msgid "Manage Category"
-msgstr "Gestire Categoria"
+msgstr "Gestire categorie"
 
 msgctxt "contest" 
 msgid "Manage Winner"
-msgstr "Gestire Winner"
+msgstr "Gestione vincitori"
 
 msgctxt "contest" 
 msgid "Manage Winner for "
-msgstr "Gestione del vincitore a"
+msgstr "Gestione dei vincitori per"
 
 msgctxt "contest" 
 msgid "No of entry"
-msgstr "No di entrata"
+msgstr "Posizione"
 
 msgctxt "contest" 
 msgid "Nobody has sumbitted anything yet"
@@ -182,11 +182,11 @@ msgstr "Scegliere un immagine per l'upload"
 
 msgctxt "contest" 
 msgid "Please enter prize"
-msgstr "Inserisci il premio"
+msgstr "Inserisci il nome del premio"
 
 msgctxt "contest" 
 msgid "Please enter prize weight"
-msgstr "Inserisci il peso premio"
+msgstr "Inserisci la posizione del premio"
 
 msgctxt "contest" 
 msgid "Please sign in with your Civic Links account"
@@ -206,11 +206,11 @@ msgstr "Premio"
 
 msgctxt "contest" 
 msgid "Prize weight already exist"
-msgstr "Peso Premio già esiste"
+msgstr "Posizione del premio già esiste"
 
 msgctxt "contest" 
 msgid "Prize weight should be numeric"
-msgstr "Peso Premio deve essere numerico"
+msgstr "La posizione del premio deve essere numerica"
 
 msgctxt "contest" 
 msgid "Register"
@@ -274,7 +274,7 @@ msgstr "Non esistono categoria per questo concorso"
 
 msgctxt "contest" 
 msgid "There are no entry in this category"
-msgstr "Non ci sono entrata in questa categoria"
+msgstr "Non ci sono elaborati in questa categoria"
 
 msgctxt "contest" 
 msgid "There are no winner for this category"
@@ -290,7 +290,7 @@ msgstr "Aggiornamento contest"
 
 msgctxt "contest" 
 msgid "Upload Banner Image"
-msgstr "Carica immagine baner"
+msgstr "Carica immagine banner"
 
 msgctxt "contest" 
 msgid "Upload Image"
@@ -320,7 +320,7 @@ msgstr "Aggiungi"
 
 msgctxt "contest" 
 msgid "contest Image"
-msgstr "contest Immagine"
+msgstr "Immagine per il concorso"
 
 msgctxt "contest" 
 msgid "contest Title"
@@ -328,7 +328,7 @@ msgstr "Titolo del concorso"
 
 msgctxt "contest" 
 msgid "contest image"
-msgstr "Immagine concorso"
+msgstr "Immagine per il concorso"
 
 msgctxt "contest" 
 msgid "create contest"
@@ -340,7 +340,7 @@ msgstr "nuovo concorso prospettive"
 
 msgctxt "contest" 
 msgid "weight"
-msgstr "Carico"
+msgstr "Posizione"
 
 msgctxt "contest" 
 msgid "winners"
@@ -348,27 +348,27 @@ msgstr "vincitori"
 
 msgctxt "contest" 
 msgid "Aggregator is not responding or Curl failed"
-msgstr "Aggregator non risponde o non è riuscita Curl"
+msgstr "Problemi con il database: Aggregator non risponde o la chiamata non è riuscita"
 
 msgctxt "contest" 
 msgid "Aggregator returning httpcode: "
-msgstr "Aggregatore restituisce codice:"
+msgstr "Aggregator restituisce il codice:"
 
 msgctxt "contest" 
 msgid "Category name can not be empty"
-msgstr "Nome della categoria non può essere vuoto"
+msgstr "Il nome della categoria non può essere vuoto"
 
 msgctxt "contest" 
 msgid "Contest description should not be empty"
-msgstr "Descrizione del concorso non deve essere vuoto"
+msgstr "La descrizione del concorso non deve essere vuota"
 
 msgctxt "contest" 
 msgid "Contest rule should not be empty"
-msgstr "Contest regola non deve essere vuoto"
+msgstr "Il regolamento del concorso non deve essere vuoto"
 
 msgctxt "contest" 
 msgid "Contest title should not be empty"
-msgstr "Titolo di concorso non deve essere vuoto"
+msgstr "Il titolo del concorso non deve essere vuoto"
 
 msgctxt "contest" 
 msgid "Creation date should not be empty"
@@ -376,11 +376,11 @@ msgstr "La data di creazione non può essere vuota"
 
 msgctxt "contest" 
 msgid "Email id already in use, Please choose a different email id"
-msgstr "Email id già in uso, Seleziona un altro id e-mail"
+msgstr "Email già in uso, usa altra e-mail"
 
 msgctxt "contest" 
 msgid "End date should not be empty"
-msgstr "Data di fine non deve essere vuoto"
+msgstr "La data di fine non deve essere vuota"
 
 msgctxt "contest" 
 msgid "Entry title should not be empty"
@@ -468,7 +468,7 @@ msgstr "Identitity Responsabile ritorno httpcode:"
 
 msgctxt "contest" 
 msgid "Image size should be less than 5MB"
-msgstr "Dimensioni dell'immagine deve essere inferiore a 5 MB"
+msgstr "La dimensione dell'immagine deve essere inferiore a 5 MB"
 
 msgctxt "contest" 
 msgid "Input data in getEntry : "
@@ -484,7 +484,7 @@ msgstr "I dati di ingresso in getWinnerEntry:"
 
 msgctxt "contest" 
 msgid "Please checked one check box"
-msgstr "Casella di controllo selezionata uno prega"
+msgstr "Per cortesia selezionare la casella di controllo"
 
 msgctxt "contest" 
 msgid "Please enter a valid email"
@@ -500,7 +500,7 @@ msgstr "Inserisci il cognome"
 
 msgctxt "contest" 
 msgid "Please enter minor name"
-msgstr "Si prega di fornire una immagine per enrty"
+msgstr "Si prega di caricare un’immagine"
 
 msgctxt "contest" 
 msgid "Please enter password"
@@ -520,7 +520,7 @@ msgstr "Effettua il login per partecipare"
 
 msgctxt "contest" 
 msgid "Please provide an image for enrty "
-msgstr "Si prega di fornire una immagine per enrty"
+msgstr "Si prega di caricare un’immagine"
 
 msgctxt "contest" 
 msgid "Please provide an image for entry"
@@ -562,7 +562,7 @@ msgstr "Qualche problema tecnico si è verificato, maggiori dettagli nel log"
 
 msgctxt "contest" 
 msgid "Some technical problem occurred, contact administrator"
-msgstr "Qualche problema tecnico si è verificato, amministratore di contatto"
+msgstr "Qualche problema tecnico si è verificato, contatta l’amministratore"
 
 msgctxt "contest" 
 msgid "Start date should not be empty"
@@ -574,35 +574,35 @@ msgstr "Non ci sono più voci"
 
 msgctxt "contest" 
 msgid "This contest title is already exist"
-msgstr "Questo titolo concorso è già presente"
+msgstr "Un concorso con questo titolo è già presente"
 
 msgctxt "contest" 
 msgid "You have created a contest Succesfully"
-msgstr "È stato creato un concorso con success"
+msgstr "È stato creato un nuovo concorso con successo"
 
 msgctxt "contest" 
 msgid "You have entered either wrong email id or password. Please try again"
-msgstr "È stato immesso sia id mail o password errati. Riprova"
+msgstr "Email o password non sono corretti. Riprova"
 
 msgctxt "contest" 
 msgid "You have make some mistake"
-msgstr "Devi fare qualche errore"
+msgstr "C‘è stato qualche errore"
 
 msgctxt "contest" 
 msgid "You have succesfully add an entry"
-msgstr "Avete successo aggiungere una voce"
+msgstr "La voce è stata aggiunta con successo"
 
 msgctxt "contest" 
 msgid "You have succesfully submit an entry"
-msgstr "La tua immagine è stata caricata"
+msgstr "Il tuo elaborato è stato caricato"
 
 msgctxt "contest" 
 msgid "You have successfully created your account"
-msgstr "È stato creato il tuo account"
+msgstr "Il tuo account è stato creato "
 
 msgctxt "contest" 
 msgid "Zero length response not permitted"
-msgstr "Zero lunghezza di risposta non è permesso"
+msgstr "Inserire una risposta"
 
 msgctxt "contest" 
 msgid "resize folder does not exists in "

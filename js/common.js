@@ -27,8 +27,6 @@ $(document).ready(function() {
   });
   
   $('.register-link').click(function() {
-    var pathname = window.location.pathname;
-    $.pageslide({ direction: 'left', href: page.base_url + 'register?back=' + pathname});
-    return false; 
+    window.location.replace(page.registration_url);
   });
 });    

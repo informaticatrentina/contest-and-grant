@@ -35,9 +35,13 @@ class UserIdentityManager {
       }
       if (empty($userDetail['email']) || !filter_var($userDetail['email'], FILTER_VALIDATE_EMAIL)) {
         throw new Exception(Yii::t('contest','Please enter a valid email'));
+      } else {
+        $userDetail['email'] = urlencode($userDetail['email']);
       }
       if (empty($userDetail['password'])) {
         throw new Exception(Yii::t('contest', 'Please enter password'));
+      } else {
+        $userDetail['email'] = urlencode($userDetail['email']);
       }
        
       $user = new UserIdentityAPI();
@@ -79,9 +83,13 @@ class UserIdentityManager {
     try {
       if (empty($userDetail['email']) || !filter_var($userDetail['email'], FILTER_VALIDATE_EMAIL)) {
         throw new Exception(Yii::t('contest','Please enter a valid email'));
+      } else {
+        $userDetail['email'] = urlencode($userDetail['email']);
       }
       if (empty($userDetail['password'])) {
         throw new Exception(Yii::t('contest','Please enter password'));
+      } else {
+        $userDetail['password'] = urlencode($userDetail['password']);
       }
       $user = new UserIdentityAPI();
       $userStatus = $user->getUserDetail(IDM_USER_ENTITY, $userDetail);
@@ -93,12 +101,24 @@ class UserIdentityManager {
         } else {
           Yii::app()->session->open();
           $user = array();
-          $user['firstname'] = $userStatus['_items'][0]['firstname'];
-          $user['lastname'] = $userStatus['_items'][0]['lastname'];
-          $user['email'] = $userStatus['_items'][0]['email'];
-          $user['creationDate'] = $userStatus['_items'][0]['created'];
-          $user['etag'] = $userStatus['_items'][0]['etag'];
-          $user['id'] = $userStatus['_items'][0]['_id'];
+          if (array_key_exists('firstname', $userStatus['_items'][0]) && !empty($userStatus['_items'][0]['firstname'])) {
+            $user['firstname'] = $userStatus['_items'][0]['firstname'];
+          }
+          if (array_key_exists('lastname', $userStatus['_items'][0]) && !empty($userStatus['_items'][0]['lastname'])) {
+             $user['lastname'] = $userStatus['_items'][0]['lastname'];
+          }
+          if (array_key_exists('email', $userStatus['_items'][0]) && !empty($userStatus['_items'][0]['email'])) {
+            $user['email'] = $userStatus['_items'][0]['email'];
+          }
+          if (array_key_exists('created', $userStatus['_items'][0]) && !empty($userStatus['_items'][0]['created'])) {
+            $user['creationDate'] = $userStatus['_items'][0]['created'];
+          }
+          if (array_key_exists('etag', $userStatus['_items'][0]) && !empty($userStatus['_items'][0]['etag'])) {
+            $user['etag'] = $userStatus['_items'][0]['etag'];
+          }
+          if (array_key_exists('_id', $userStatus['_items'][0]) && !empty($userStatus['_items'][0]['_id'])) {
+            $user['id'] = $userStatus['_items'][0]['_id'];
+          }
           Yii::app()->session['user'] = $user;
           $userStatus['success'] = true;
         }

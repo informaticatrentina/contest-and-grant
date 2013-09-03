@@ -87,6 +87,16 @@ $(document).ready(function() {
     }  
     
   });
+  
+  $('#create-category').click(function() { 
+    var categoryName =  $('#addCategoryName').val();
+    if ($.trim(categoryName) == '') { 
+      $('#addCategoryError').show();
+      $('#addCategoryError').html(Yii.t('js', 'Please enter category name'));
+      return false;
+    }
+    return true;
+  });
 });
 
 function openFancyBox(id) {

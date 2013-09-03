@@ -20,3 +20,10 @@ Aggregator version: 0.0.4.0
 Note:
 In this release gitlab milestone v0.0.5.0 is completed.
 After updating to this release run db migration
+
+v0.0.6.0
+--------
+Date: 08/August/2013
+Aggregator version: 0.0.5.0
+Note:
+In this release gitlab milestone v0.0.6.0 is completed.

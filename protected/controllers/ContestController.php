@@ -67,11 +67,15 @@ class ContestController extends Controller {
         if (array_key_exists('count', $countFromEntries)) {
           $entryCount = array_pop($entries);
         }
-        foreach ($entries as $entry) {
+        foreach ($entries as $entry) { 
           $contestEntry['title'] = $entry['title'];
           $contestEntry['description'] = $entry['content']['description'];
           $contestEntry['authorName'] = $entry['author']['name'];
-          $contestEntry['image'] = $entry['image'];
+          $contestEntry['image'] = ''; 
+          if (array_key_exists('image', $entry) && !empty($entry['image'])) {            
+            $basePath = parse_url($entry['image']);
+            $contestEntry['image'] = BASE_URL . resizeImageByPath( substr($basePath['path'],1),600,450);
+          }          
           $contestEntry['id'] = $entry['id'];
           array_push($return['data'], $contestEntry);
         }
@@ -371,6 +375,9 @@ class ContestController extends Controller {
         $imagePath = $directory . $imageName;
         if ($imageName) {
           $response = $contest->submitContestEntry($imagePath, $contestSlug);
+        } else {
+          Yii::log('', ERROR, Yii::t('contest', 'Error in entrySubmission :: Image name is empty') );
+          $response['msg'] = Yii::t('contest', 'Some technical problem occurred, contact administrator');
         }
       }
     }
@@ -591,7 +598,7 @@ class ContestController extends Controller {
 
   
   /**
-   * actionEntries
+   * actionContestBrief
    * 
    * This function is used for get entries for a contest and get contest detail
    */

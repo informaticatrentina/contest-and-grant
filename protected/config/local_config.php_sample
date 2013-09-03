@@ -108,3 +108,6 @@ define('UPLOAD_DIRECTORY', 'uploads/');
  * define constant  for  runtime directory
  */
 define('RUNTIME_DIRECTORY', dirname(__FILE__).'/../runtime');
+
+//constant for registration page url (page for user's registeration)
+define('REGISTRATION_URL','https://www.civiclinks.it/it/a/register/?network=storygrant');

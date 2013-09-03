@@ -17,6 +17,8 @@
  * NOTE, this file must be saved in UTF-8 encoding.
  */
 return array (
+  'Please enter category name' => 'Inserisci il nome della categoria',
+  'add' => 'aggiungi',
   'Are you sure you want to delete this Category ?' => 'Sei sicuro di voler eliminare questa categoria?',
   'Category name can not be empty' => 'Nome della categoria non può essere vuoto',
   'Please enter Content Rule' => 'Inserisci Content Rule',

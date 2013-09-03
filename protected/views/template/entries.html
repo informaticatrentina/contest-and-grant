@@ -13,20 +13,19 @@
         </div>
       </div>
     </div>
-  {% else %}
-    <div id="posts" class="row">
-      {% for entry in entries %} 
-        <div class="post span4">
-          <div style="padding: 10px 10px;"><h6>{{ entry.title }}</h6></div>
-            <a href="{{constant('BASE_URL')}}contest/entries/{{contestInfo.contestSlug }}/{{entry.id}}"><img src= "{{constant('BASE_URL')}}{{resizeByPath(entry.image,'600','450')}}" width="600" height="450" /></a>
-          <div style="padding: 10px 10px; vertical-align:bottom;"> di {{ entry.author.name }} </div>
-        </div>
-      {% endfor %}
-    </div>
-  {% endif %}
-    
-</div>
-    
+  {% else %}  
+  <div id="posts" class="row">
+    {% for entry in entries %} 
+      <div class="post span4">
+        <div style="padding: 10px 10px;"><h6>{{ entry.title }}</h6></div>
+        <a href="{{constant('BASE_URL')}}contest/entries/{{contestInfo.contestSlug }}/{{entry.id}}"><img src= "{{constant('BASE_URL')}}{{resizeByPath(entry.image,'600','450')}}" width="600" height="450" /></a>
+        <div style="padding: 10px 10px 0px 10px; vertical-align:bottom;"> di {{ entry.author.name }} </div>
+        <div style="padding:  0px 10px 10px 10px; vertical-align:top;"> tag: {{ entry.categoryName }} </div>
+      </div>
+    {% endfor %}
+  </div>
+  {% endif %}    
+</div>    
 <div id="loading-image">
   <center><img src="{{constant('BASE_URL')}}images/loader.gif" alt="loading image" /></center>
 </div>   

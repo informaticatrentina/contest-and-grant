@@ -164,6 +164,7 @@ class ContestController extends Controller {
     $contest = new Contest();
     $contestInfo = array();
     $entrySubmissionResponse = array();
+    $uploadFileSize = '2MB';
     $entryCount = 0;
     $entries = array();
     if (array_key_exists('slug', $_GET) && !empty($_GET['slug'])) {
@@ -180,13 +181,17 @@ class ContestController extends Controller {
       $aggregatorManager = new AggregatorManager();
       $aggregatorManager->authorSlug = Yii::app()->session['user']['id'];
       $aggregatorManager->contestSlug = $_GET['slug'];
-      $entrySubmittedByUser = $aggregatorManager->isUserAlreadySubmitEntry('title');
-      if (!empty($_POST) && !$entrySubmittedByUser) {
-        $postData = $_POST;
-        $entrySubmissionResponse = $this->entrySubmission();
+      $entrySubmittedByUser = $aggregatorManager->isUserAlreadySubmitEntry('title');$entrySubmittedByUser = 0;
+      if (!empty($_POST)) {
+        if ( !$entrySubmittedByUser ) {
+          $postData = $_POST;
+          $entrySubmissionResponse = $this->entrySubmission();
+        }
       }
     }
-    $this->render('contestSubmitEntries', array('entries' => $entries, 'contestInfo' => $contestInfo, 'entryCount' => $entryCount, 'message' => $entrySubmissionResponse, 'isEntrySubmit' => $entrySubmittedByUser, 'postData' => $postData));
+    $uploadFileSize = ini_get('upload_max_filesize') . 'B';
+    $this->render('contestSubmitEntries', array('entries' => $entries, 'contestInfo' => $contestInfo, 'entryCount' => $entryCount, 'message' => $entrySubmissionResponse, 
+        'isEntrySubmit' => $entrySubmittedByUser, 'postData' => $postData, 'uploadFileSize' => $uploadFileSize));
   }
 
   /**
@@ -357,11 +362,13 @@ class ContestController extends Controller {
   public function entrySubmission() {
     $contestSlug = $_GET['slug'];
     $response = array();
-    if (empty($_FILES['contestEntry']['name'])) {
+    $response['success'] = false;
+    if ($_FILES['contestEntry']['error'] != 0) { 
+      $response['msg'] = setFileUploadError($_FILES['contestEntry']['error']);
+    } else  if (empty($_FILES['contestEntry']['name'])) {
       $response['msg'] = Yii::t('contest', 'Please provide an image for entry');
-      $response['success'] = false;
     } else {
-      $extention = explode('.', $_FILES['contestEntry']['name']);
+      $extention = explode('/', $_FILES['contestEntry']['type']);
       $imageExtension = end($extention);
       $allowedImageExtention = json_decode(ALLOWED_IMAGE_EXTENSION, true);
       if (!in_array($imageExtension, $allowedImageExtention)) {

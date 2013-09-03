@@ -181,3 +181,35 @@ function sanitization($string){
   }
   return $sanitizeStr;
 }
+
+/**
+ * setFileUploadError
+ * 
+ * set error message for upload file
+ * @param numeric $errorCode 
+ * @return string message
+ */
+function setFileUploadError($errorCode) {
+  $msg = '';
+  switch($errorCode) {
+    case 1:
+      $msg = 'The uploaded file exceeds the upload file size limit '.ini_get('upload_max_filesize') .  'B';
+      break;
+    case 3:
+      $msg = 'The uploaded file was only partially uploaded';
+      break;
+    case 4:
+      $msg = 'file was not uploaded ';
+      break;
+    case 6:
+      $msg = 'Missing a temporary folder';
+      break;
+    case 7:
+      $msg = 'Failed to write file to disk';
+      break;
+    default:
+      $msg = 'Some error occured in file uploading';
+      break;      
+  }
+  return $msg;
+}

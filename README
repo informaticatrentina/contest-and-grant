@@ -4,6 +4,8 @@ Contest and grant
 In contest and grant project, one can create a contest. All contest must have
 different name.  There are some entries related to each contest. Winners get
 some grant and prices.
+:author: The contest and grant Developer Team http://www.incaendo.com
+
 
 
 Installation
@@ -11,37 +13,43 @@ Installation
 
 To setup contest and grant you have to follow some steps mentioned below:
 
-  . Download and setup yii framework  (see http://www.yiiframework.com/download/)
-  . Checkout source code from repository into new directory (git@git.ahref.eu:apps/contest-and-grant.git)
-      css                    contain all css file
-      images                 contain all images used in project
-      js                           contain all js file
-      protected/
-        components           contain all api
-        config/
-          Config.php         This file have configuration of project
-           test.php           This file have configuration for test cases
-        controllers          This directory contain all controller used in project.
-        extentions           extentions directory contain all extention used in project.
-        models               Bussiness logic puts here.
-        runtime              Application log create in this directory
-        tests                Test cases put hare.
-        views/
-          layout             This directory contain  layout of project.
-          contest            This directory contain html page that will be rendered from contest controller
-          template           This directory contain all templates
-      uploads                This directory contain subdirectory to save uploaded data (images file, text file etc).
-      index.php
-      index-test.php
+1. Download and setup yii framework (see
+   http://www.yiiframework.com/download/)
 
-  . create database and change configuration (/protected/Config/config.php)
+2. Checkout source code from repository into new directory
+(git@git.ahref.eu:apps/contest-and-grant.git)::
+
+    css                    contain all css file
+    images                 contain all images used in project
+    js                           contain all js file
+    protected/
+      components           contain all api
+      config/
+        Config.php         This file have configuration of project
+         test.php           This file have configuration for test cases
+      controllers          This directory contain all controller used in project.
+      extentions           extentions directory contain all extention used in project.
+      models               Bussiness logic puts here.
+      runtime              Application log create in this directory
+      tests                Test cases put hare.
+      views/
+        layout             This directory contain  layout of project.
+        contest            This directory contain html page that will be rendered from contest controller
+        template           This directory contain all templates
+    uploads                This directory contain subdirectory to save uploaded data (images file, text file etc).
+    index.php
+    index-test.php
+
+3. create database and change configuration
+   (/protected/Config/config.php)
 
 
 CONFIGURATION
 -------------
 
-1. See local_config.php_sample file /protected/Config/local_config.php_sample)
-   and copy this file as local_config.php (/protected/Config/local_config.php)
+1. See local_config.php_sample file
+   /protected/Config/local_config.php_sample) and copy this file as
+   local_config.php (/protected/Config/local_config.php)
 
 2. Configuration changes to be done in local_config.php
 
@@ -196,9 +204,12 @@ Starting with git 1.8.3 the last two command can be replaced with:
     git push --follow-tags
 
 Deleting entries from Mongo Shell
---------------------------------
-Go to entries page on site and grab the entry id you want to delete. Entry id is the alphanum id on single entry page url.
-Now login to mongo shell and go to desired DB and run below query (should replace ENTRY_ID with actual id):
+---------------------------------
+
+Go to entries page on site and grab the entry id you want to
+delete. Entry id is the alphanum id on single entry page url.  Now
+login to mongo shell and go to desired DB and run below query (should
+replace ENTRY_ID with actual id):
 
 db.entry.remove( {'_id': ObjectId('ENTRY_ID')} );
 
@@ -213,23 +224,39 @@ You have to backup:
 - the ``uploads`` directory
 
 
-The contest and grant Developer Team
-http://www.incaendo.com
-
-
 Run Unit Test
-----------
-All unit test case are in protected/tests/unit.
-To run unit test, follow the steps given below:
-- Go to protected/tests
-- Run following command :     phpunit unit
+-------------
+
+All unit test case are in protected/tests/unit.  To run unit test,
+follow the steps given below:
+
+.. code:: sh
+
+   cd protected/tests
+   phpunit unit
+
 
 Message Translation
----------------------
-For message transalation, There is need to get all message from source code and convert it into .po file.
-- Get all message from php file, run ./protected/yiic message protected/message/config.php on root
-- Get all message from js file, run ./protected/yiic message protected/message/jsConfig.php on root
+-------------------
+
+For message transalation, There is need to get all message from source
+code and convert it into .po file.
+
+To get all message from php file run in the checkout root:
+
+.. code:: sh
+
+    ./protected/yiic message protected/messages/config.php
+
+To get all message from js file, run in the checkout root:
+
+.. code:: sh
+
+    ./protected/yiic message protected/messages/jsConfig.php
   
 Now run following command to convert these php file into .po file
-./protected/yiic emessage php protected/message
+
+.. code:: sh
+
+    ./protected/yiic emessage php protected/message
 

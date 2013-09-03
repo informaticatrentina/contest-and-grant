@@ -215,7 +215,7 @@ class ContestController extends Controller {
     $contest = new Contest();
     $contestInfo = array();
     $entrySubmissionResponse = array();
-    $uploadFileSize = '2MB';
+    $uploadFileSize = UPLOAD_IMAGE_SIZE_LIMIT/(1024*1024) .'MB';
     $entryCount = 0;
     $entries = array();
     if (array_key_exists('slug', $_GET) && !empty($_GET['slug'])) {
@@ -232,7 +232,7 @@ class ContestController extends Controller {
       $aggregatorManager = new AggregatorManager();
       $aggregatorManager->authorSlug = Yii::app()->session['user']['id'];
       $aggregatorManager->contestSlug = $_GET['slug'];
-      $entrySubmittedByUser = $aggregatorManager->isUserAlreadySubmitEntry('title');$entrySubmittedByUser = 0;
+      $entrySubmittedByUser = $aggregatorManager->isUserAlreadySubmitEntry('title');
       if (!empty($_POST)) {
         if ( !$entrySubmittedByUser ) {
           $postData = $_POST;

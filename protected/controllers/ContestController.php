@@ -232,7 +232,7 @@ class ContestController extends Controller {
       $aggregatorManager = new AggregatorManager();
       $aggregatorManager->authorSlug = Yii::app()->session['user']['id'];
       $aggregatorManager->contestSlug = $_GET['slug'];
-      $entrySubmittedByUser = $aggregatorManager->isUserAlreadySubmitEntry('title');
+      $entrySubmittedByUser = $aggregatorManager->isUserAlreadySubmitEntry('title');$entrySubmittedByUser = 0;
       if (!empty($_POST)) {
         if ( !$entrySubmittedByUser ) {
           $postData = $_POST;
@@ -414,7 +414,10 @@ class ContestController extends Controller {
     $contestSlug = $_GET['slug'];
     $response = array();
     $response['success'] = false;
-    if ($_FILES['contestEntry']['error'] != 0) { 
+    //check for upload file size in ini
+    if (!$this->checkIniAllowedFileSize()) {
+       $response['msg'] = "Upload size define in config file is greater than size define in php.ini file";
+    } else if($_FILES['contestEntry']['error'] != 0) { 
       $response['msg'] = setFileUploadError($_FILES['contestEntry']['error']);
     } else  if (empty($_FILES['contestEntry']['name'])) {
       $response['msg'] = Yii::t('contest', 'Please provide an image for entry');
@@ -725,5 +728,22 @@ class ContestController extends Controller {
       $entries = $contest->getContestSubmissionForCategory();
     }
     return $entries;
+  }
+  
+  /**
+   * checkIniAllowedFileSize
+   * 
+   * check whether upload file size limit define in config file is greater then config file or not
+   * @return boolean
+   */
+  public function checkIniAllowedFileSize() {
+    $allowed = false;
+    $iniFileSize = ini_get('upload_max_filesize');
+    $iniFileSize  = substr($iniFileSize, 0, strlen($iniFileSize) - 1);
+    $iniFileSize = $iniFileSize * 1024 * 1024;  
+    if ($iniFileSize >= UPLOAD_IMAGE_SIZE_LIMIT) {
+      $allowed =  true;
+    }
+    return $allowed;
   }
 }

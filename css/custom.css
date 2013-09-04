@@ -1183,3 +1183,16 @@ p::selection  {
   color:#FFFFFF;
   background: #4cbed7;
 }
+
+.pjtitle:hover {
+  color: #4cbed7;
+  text-decoration: none
+}
+
+.entry-title:hover {
+  text-decoration: none
+}
+.entry-title>h5:hover {
+  color: #4cbed7 !important;
+  text-decoration: none
+}

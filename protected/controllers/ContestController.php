@@ -153,7 +153,8 @@ class ContestController extends Controller {
         if (!empty($contestInfo)) {
           $contestInfo['briefDescription'] = substr($contestInfo['contestDescription'], 0, 325);
         }    
-        $this->render('contestEntries', array('entries' => $entries, 'contestInfo' => $contestInfo, 'entryCount' => $entryCount['count']));
+        $this->render('contestEntries', array('entries' => $contestSubmissions, 'contestInfo' => $contestInfo, 
+            'entryCount' => $entryCount['count']));
       } else {
         $this->redirect(BASE_URL);
       }
@@ -175,7 +176,7 @@ class ContestController extends Controller {
     $postData = array();
     $contestInfo['briefDescription'] = '';
     if (!empty($contestInfo)) {
-      $contestInfo['briefDescription'] = substr($contestInfo['contestDescription'], 0, 325);
+      $contestInfo['briefDescription'] = substr($contestInfo['contestDescription'], 0, 512);
     }
     if (!empty(Yii::app()->session['user'])) {
       $aggregatorManager = new AggregatorManager();
@@ -617,7 +618,7 @@ class ContestController extends Controller {
     $contestInfo = $contest->getContestDetail();
     $contestInfo['briefDescription'] = '';
     if (!empty($contestInfo)) {
-      $contestInfo['briefDescription'] = substr($contestInfo['contestDescription'], 0, 325);
+      $contestInfo['briefDescription'] = substr($contestInfo['contestDescription'], 0, 512);
     }
     $this->render('contestBrief', array('contestInfo' => $contestInfo));
   }
@@ -654,7 +655,7 @@ class ContestController extends Controller {
     }
     $contestInfo['briefDescription'] = '';
     if (!empty($contestInfo)) {
-      $contestInfo['briefDescription'] = substr($contestInfo['contestDescription'], 0, 325);
+      $contestInfo['briefDescription'] = substr($contestInfo['contestDescription'], 0, 512);
     }
     $this->render('contestEntries', array('entries' => $entries, 'contestInfo' => $contestInfo, 'entryCount' => $entryCount['count']));
   }

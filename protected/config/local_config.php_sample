@@ -96,7 +96,7 @@ define('LINKEDIN_USERNAME', '{{ LINKEDIN_USERNAME }}');
 /**
  * Define constant for uploading image extension and size (in byte)
  */
-define('ALLOWED_IMAGE_EXTENSION', '["jpg", "png"]');
+define('ALLOWED_IMAGE_EXTENSION', '["jpg", "png", "jpeg"]');
 define('UPLOAD_IMAGE_SIZE_LIMIT', 5242880);
 
 /**

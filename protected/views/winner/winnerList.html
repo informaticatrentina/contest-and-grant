@@ -23,14 +23,20 @@
                 <h6 class="listing-title">{{entry.prizeName}}</h6>
               </div>
               <div style="float:left;">
-                <img src="{{constant('BASE_URL')}}{{resizeByPath(entry.image,'210','210')}}" class="listing-image" />
+                <a href="{{constant('BASE_URL')}}contest/entries/{{contestInfo.contestSlug}}/{{entry.id}}">
+                  <img src="{{constant('BASE_URL')}}{{resizeByPath(entry.image,'210','210')}}" class="listing-image" />
+                </a>  
               </div>
               <div class="listing-details">
                 <h7>TITOLO:</h7>
-                <h5 class="pjtitle">{{entry.title}}</h5>
+                <a href="{{constant('BASE_URL')}}contest/entries/{{contestInfo.contestSlug}}/{{entry.id}}" class="entry-title">
+                  <h5>{{entry.title}}</h5>
+                </a>  
                 <div class="publishedby"><h7>PUBBLICATO DA:</h7>
                   <div>
-                    <h6>{{entry.author}}</h6>
+                    <a href="{{constant('BASE_URL')}}contest/entries/{{contestInfo.contestSlug}}/{{entry.id}}" class="pjtitle">
+                      <h6>{{entry.author}}</h6>
+                    </a>  
                   </div>
                 </div> 
               </div>    

@@ -607,3 +607,15 @@ msgstr "Inserire una risposta"
 msgctxt "contest" 
 msgid "resize folder does not exists in "
 msgstr "cartella di ridimensionamento non esiste in"
+
+msgctxt "contest" 
+msgid "Show"
+msgstr "mostrare"
+
+msgctxt "contest" 
+msgid "Hide"
+msgstr "Nascondi"
+
+msgctxt "contest" 
+msgid "Winner status"
+msgstr "Stato vincitore"

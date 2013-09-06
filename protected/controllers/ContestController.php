@@ -232,7 +232,7 @@ class ContestController extends Controller {
       $aggregatorManager = new AggregatorManager();
       $aggregatorManager->authorSlug = Yii::app()->session['user']['id'];
       $aggregatorManager->contestSlug = $_GET['slug'];
-      $entrySubmittedByUser = $aggregatorManager->isUserAlreadySubmitEntry('title');$entrySubmittedByUser = 0;
+      $entrySubmittedByUser = $aggregatorManager->isUserAlreadySubmitEntry('title');
       if (!empty($_POST)) {
         if ( !$entrySubmittedByUser ) {
           $postData = $_POST;

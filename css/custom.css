@@ -1196,3 +1196,8 @@ p::selection  {
   color: #4cbed7 !important;
    text-decoration: none
 }
+
+.winner-status {
+  cursor: pointer;
+  color: rgb(0, 136, 204);
+}

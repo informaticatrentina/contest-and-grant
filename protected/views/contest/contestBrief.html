@@ -48,9 +48,11 @@
       <div class="span3">
         <a href="{{constant('BASE_URL')}}contest/submission/{{ contestInfo.contestSlug }}"  class="contest-button btn-block">PARTECIPA</a>
       </div> 
-      <div class="span3">
-        <a href="{{constant('BASE_URL')}}contest/winner/{{ contestInfo.contestSlug }}"  class="contest-button btn-block">VINCITORI</a>
-      </div> 
+      {% if contestInfo.winnerStatus == 1 %}
+        <div class="span3">
+          <a href="{{constant('BASE_URL')}}contest/winner/{{ contestInfo.contestSlug }}"  class="contest-button btn-block">VINCITORI</a>
+        </div>
+      {% endif %}
     </div> 
   </div>
 </div>

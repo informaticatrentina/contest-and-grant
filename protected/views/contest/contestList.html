@@ -15,6 +15,7 @@
         <th>{{ t('contest','Edit')}}</th>
         <th>{{ t('contest','Delete')}}</th>
         <th>{{ t('contest','Manage Category')}}</th>
+        <th>{{ t('contest','Show/hide winner')}}</th>
       </tr>
     </thead>
     <tbody>
@@ -30,8 +31,17 @@
         <td><a href="{{constant('BASE_URL')}}admin/contest/edit/{{ info.contestSlug }}">{{ t('contest','Edit')}}</a></td>
         <td class="deleteContest"><a href="{{constant('BASE_URL')}}admin/contest/delete/{{ info.contestSlug }}">{{ t('contest','Delete')}}</a></td>
         <td><a href="{{constant('BASE_URL')}}admin/category/{{ info.contestSlug }}">{{ t('contest','Manage Category')}}</a></td>
+        {% set winner = t('contest', 'Show') %}
+        {% if info.winnerStatus == 1 %}
+          {% set winner = t('contest', 'Hide') %}
+        {% endif %}
+        <td class="winner-status" contestId="{{info.id}}">{{winner}}</td>
       </tr>
       {% endfor %}
     </tbody>
   </table>
   <script src="{{constant('BASE_URL')}}js/deleteContest.js"></script>
+  <script src="{{constant('BASE_URL')}}js/contest.js"></script>
+  <script type="text/javascript">
+    var page = { url : "{{constant('BASE_URL')}}admin/winner/status"};
+  </script>

@@ -350,6 +350,9 @@ class WinnerController extends Controller {
       $contest->contestSlug = $_GET['slug'];
     }
     $contestInfo = $contest->getContestDetailByContestSlug();
+    if (array_key_exists('winnerStatus', $contestInfo) && empty($contestInfo['winnerStatus']))  {
+      $this->redirect(BASE_URL);
+    }
     $category = new Category();
     if (array_key_exists('contestId', $contestInfo) && !empty($contestInfo['contestId'])) {
       $category->contestId = $contestInfo['contestId'];

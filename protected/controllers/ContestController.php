@@ -232,7 +232,7 @@ class ContestController extends Controller {
       $aggregatorManager = new AggregatorManager();
       $aggregatorManager->authorSlug = Yii::app()->session['user']['id'];
       $aggregatorManager->contestSlug = $_GET['slug'];
-      $entrySubmittedByUser = $aggregatorManager->isUserAlreadySubmitEntry('title');
+      $entrySubmittedByUser = $aggregatorManager->isUserAlreadySubmitEntry('title');$entrySubmittedByUser = 0;
       if (!empty($_POST)) {
         if ( !$entrySubmittedByUser ) {
           $postData = $_POST;
@@ -481,6 +481,8 @@ class ContestController extends Controller {
         $contestDetail[$i]['contestDescription'] = substr($info['contestDescription'], 0, 20);
         $contestDetail[$i]['contestSlug'] = $info['contestSlug'];
         $contestDetail[$i]['squareImage'] = $info['squareImage'];
+        $contestDetail[$i]['id'] = $info['contestId'];
+        $contestDetail[$i]['winnerStatus'] = $info['winnerStatus'];
         $contest->contestSlug = $info['contestSlug'];
         $contest->count = 2;
         $entry = $contest->getContestSubmission();
@@ -745,5 +747,36 @@ class ContestController extends Controller {
       $allowed =  true;
     }
     return $allowed;
+  }
+  
+  /**
+   * winnerStatus
+   * 
+   * This function is used for update status 
+   */
+  public function actionWinnerStatus() {
+    if (!array_key_exists('HTTP_X_REQUESTED_WITH', $_SERVER)) {
+      $this->actionError();
+      exit;
+    }  else {
+      $return = array('success' => false, 'status' => '');
+      if (array_key_exists('id', $_GET) && !empty($_GET['id'])) {
+        $contest = new ContestAPI();
+        $contest->contestId = $_GET['id'];
+        if (array_key_exists('status', $_GET) && !empty($_GET['status'])) {
+          $return['status'] = Yii::t('contest', 'Show');
+          if ($_GET['status'] == (Yii::t('contest', 'Show'))) { 
+            $return['status'] = Yii::t('contest', 'Hide');
+            $contest->winnerStatus = true;
+          } 
+        }
+        $isUpdate = $contest->updateContestWinnerStatus();
+        if (!empty($isUpdate)) {
+          $return['success'] = true;
+        }
+      }
+    }
+    echo json_encode($return);
+    exit;
   }
 }

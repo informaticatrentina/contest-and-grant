@@ -50,4 +50,30 @@ $(document).ready(function() {
     $('#entrySubmission').hide();
     return false;
   });
+  
+  $('.winner-status').click(function() {
+    var area = $(this);
+    var contestId = $(this).attr('contestId');
+    var status = $(this).html();
+    
+    $.ajax({
+      type: 'GET',
+      url: page.url,
+      dataType: 'json',
+      data: {
+        id: contestId,
+        status: status
+      },      
+      success: function(resp) {   
+        if (resp.success) {
+          area.html(resp.status);
+        } else {
+          area.html(status);
+        }
+      }, 
+      error: function(resp){
+        area.html(status);
+      }        
+    });
+  });
 });

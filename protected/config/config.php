@@ -136,7 +136,8 @@ return array(
         'contest/submission/<slug:[\w-]+>'=>'contest/submitEntries',              
         'register' => 'contest/registerUser', 
         'login' => 'contest/login',  
-        'logout' => 'contest/logout'          
+        'logout' => 'contest/logout',
+        'admin/winner/status' => 'contest/winnerStatus'
       ),
     ),
     'session' => array (      

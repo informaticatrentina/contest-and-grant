@@ -23,6 +23,7 @@ class ContestAPI {
   public $squareImage;
   public $contestRule;
   public $entryStatus = false;  
+  public $winnerStatus = false;  
 
   /**
    * save
@@ -30,7 +31,7 @@ class ContestAPI {
    * This function is used for inserting contest details    
    * @return (int) $response
    */
-  public function save() {
+  public function save() { 
     $response = '';
     $connection = Yii::app()->db;
     if (empty($this->startDate)) {
@@ -85,7 +86,7 @@ class ContestAPI {
   public function getContestDetail() { 
     $connection = Yii::app()->db;
     $sql = "SELECT contestId, startDate, endDate, creationDate, imagePath, contestTitle, contestDescription, contestSlug, 
-      squareImage,rule, entryStatus FROM contest";
+      squareImage,rule, entryStatus, winnerStatus FROM contest";
     $query = $connection->createCommand($sql);
     $contestDetails = $query->queryAll();
     return $contestDetails;
@@ -126,7 +127,7 @@ class ContestAPI {
       return array();
     }    
     $sql = "SELECT contestId, startDate, endDate, creationDate, imagePath, contestTitle, contestDescription, contestSlug, 
-      squareImage, rule, entryStatus FROM contest where contestSlug = :contestSlug ";
+      squareImage, rule, entryStatus, winnerStatus FROM contest where contestSlug = :contestSlug ";
     $query = $connection->createCommand($sql);
     $query->bindParam(":contestSlug", $this->contestSlug);
     $contestDetails = $query->queryRow();
@@ -177,10 +178,20 @@ class ContestAPI {
     $query->bindParam(":contestSlug", $this->contestSlug);
     return  $query->execute();
   }
+  
+  /**
+   * updateContestWinnerStatus
+   * 
+   * This function is used for update status of winner
+   * @return - no of row updated
+   */
+  public function updateContestWinnerStatus() {
+    $connection = Yii::app()->db;
+    $sql = "UPDATE contest SET winnerStatus = :winnerStatus where contestId = :contestId";
+    $query = $connection->createCommand($sql);
+    $query->bindParam(":winnerStatus", $this->winnerStatus);
+    $query->bindParam(":contestId", $this->contestId);
+    return  $query->execute();
+  }
 }
 ?>
-
-
-
-
-

@@ -41,7 +41,9 @@ $(document).ready(function() {
 });
 
 function isDate(txtDate) {
-    var currVal = txtDate;
+    var dateTime = txtDate;
+    var dateTimeArr = dateTime.split(' ');
+    var currVal = dateTimeArr[0];
     if (currVal == '')
         return false;
 

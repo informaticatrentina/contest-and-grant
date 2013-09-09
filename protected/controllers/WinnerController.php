@@ -42,6 +42,12 @@ class WinnerController extends Controller {
       $contest->contestSlug = $_GET['slug'];
     }
     $contestInfo = $contest->getContestDetailByContestSlug();
+    if (array_key_exists('startDate', $contestInfo) && !empty($contestInfo['startDate'])) {
+      $contestInfo['startDate'] = date('Y-m-d', strtotime($contestInfo['startDate']));
+    }
+    if (array_key_exists('endDate', $contestInfo) && !empty($contestInfo['endDate'])) {
+      $contestInfo['endDate'] = date('Y-m-d', strtotime($contestInfo['endDate']));
+    }
     if (!empty($contestInfo)) {
       $contestDetail['title'] = $contestInfo['contestTitle'];
       $contestDetail['slug'] = $contestInfo['contestSlug'];
@@ -350,6 +356,12 @@ class WinnerController extends Controller {
       $contest->contestSlug = $_GET['slug'];
     }
     $contestInfo = $contest->getContestDetailByContestSlug();
+    if (array_key_exists('startDate', $contestInfo) && !empty($contestInfo['startDate'])) {
+      $contestInfo['startDate'] = date('Y-m-d', strtotime($contestInfo['startDate']));
+    }
+    if (array_key_exists('endDate', $contestInfo) && !empty($contestInfo['endDate'])) {
+      $contestInfo['endDate'] = date('Y-m-d', strtotime($contestInfo['endDate']));
+    }
     if (array_key_exists('winnerStatus', $contestInfo) && empty($contestInfo['winnerStatus']))  {
       $this->redirect(BASE_URL);
     }

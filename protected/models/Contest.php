@@ -68,8 +68,10 @@ class Contest  {
         } else if (!validateDate($contestDetails['startDate'])){
           throw new Exception(Yii::t('contest', 'Please enter valid start date'));
         } else {
-          $startDateArr = explode('/', $contestDetails['startDate']);
-          $startTime = mktime(0, 0, 0, $startDateArr[0], $startDateArr[1], $startDateArr[2]);
+          $startDateTimeArr =  explode(' ', $contestDetails['startDate']);
+          $startDateArr = explode('/', $startDateTimeArr[0]);
+          $startTimeArr = explode(':', $startDateTimeArr[1]);
+          $startTime = mktime($startTimeArr[0], $startTimeArr[1], 0, $startDateArr[0], $startDateArr[1], $startDateArr[2]);
           $contestAPI->startDate = date('Y-m-d H:i:s', $startTime);
         }
         if(array_key_exists('endDate', $contestDetails) && empty($contestDetails['endDate'])) {
@@ -77,8 +79,10 @@ class Contest  {
         }  else if (!validateDate($contestDetails['endDate'])){
           throw new Exception(Yii::t('contest','Please enter valid end date'));
         } else {
-          $endDateArr = explode('/', $contestDetails['endDate']);
-          $endTime = mktime(0, 0, 0, $endDateArr[0], $endDateArr[1], $endDateArr[2]);
+          $endDateTimeArr =  explode(' ', $contestDetails['endDate']);
+          $endDateArr = explode('/', $endDateTimeArr[0]);
+          $endTimeArr = explode(':', $endDateTimeArr[1]);
+          $endTime = mktime($endTimeArr[0], $endTimeArr[1], 0, $endDateArr[0], $endDateArr[1], $endDateArr[2]);
           $contestAPI->endDate = date('Y-m-d H:i:s', $endTime);
         }
         if(array_key_exists('contestDescription', $contestDetails) && empty($contestDetails['contestDescription'])) {
@@ -138,7 +142,8 @@ class Contest  {
         $contestDetail['startDate'] = date('Y-m-d', strtotime($contestDetail['startDate']));
       }
       if(array_key_exists('endDate', $contestDetail) && !empty($contestDetail['endDate'])) {
-        $contestDetail['endDate'] = date('Y-m-d', strtotime($contestDetail['endDate']));
+        $contestDetail['closingDate'] = date('Y-m-d H:i:s', strtotime($contestDetail['endDate']));
+        $contestDetail['endDate'] = date('Y-m-d', strtotime($contestDetail['endDate']));        
       }
     } else {
       $contestDetail = $contestAPI->getContestDetail();

@@ -2,7 +2,7 @@ var e_date = '';
 var s_date = '';
 $(document).ready(function() {
   if ($('#startDate').length > 0) { 
-    $( "#startDate" ).datepicker({
+    $( "#startDate" ).datetimepicker({
       changeMonth: true,
       changeYear: true,
       yearRange:"-90:+0",
@@ -10,7 +10,7 @@ $(document).ready(function() {
         $( "#endDate" ).datepicker( "option", "minDate", selectedDate );        
       }
     });
-    $( "#endDate" ).datepicker({
+    $( "#endDate" ).datetimepicker({
       changeMonth: true,
       changeYear: true,
       yearRange:"-90:+0",

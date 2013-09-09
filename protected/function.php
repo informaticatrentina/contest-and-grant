@@ -36,7 +36,8 @@ function validateDate($date) {
   if (empty($date)) {
     return false;
   }
-  $dateArr = explode('/', $date);
+  $dateTime = explode(' ', $date);
+  $dateArr = explode('/', $dateTime[0]);
   if (count($dateArr)!= 3) {
     return false;
   }

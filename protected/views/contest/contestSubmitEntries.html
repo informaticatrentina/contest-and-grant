@@ -58,7 +58,9 @@
   </div>
 </div>
 <div id="entrySubmission">
-  {% if isEntrySubmit == 0 %}
+  {% if hasClosedContest %}
+    {% include  '/views/contest/contestClosed.html' %}
+  {% elseif isEntrySubmit == 0 %}
     {% set showsubmit = 1 %}
     {% if message.msg is not empty %}
       {% if message.success is not empty %}

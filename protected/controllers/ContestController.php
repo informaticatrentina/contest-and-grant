@@ -215,6 +215,8 @@ class ContestController extends Controller {
     $contest = new Contest();
     $contestInfo = array();
     $entrySubmissionResponse = array();
+    $contestCloseDate = time();
+    $hasClosedContest = false;
     $uploadFileSize = UPLOAD_IMAGE_SIZE_LIMIT/(1024*1024) .'MB';
     $entryCount = 0;
     $entries = array();
@@ -222,6 +224,12 @@ class ContestController extends Controller {
       $contest->contestSlug = $_GET['slug'];
     }
     $contestInfo = $contest->getContestDetail();
+    if(array_key_exists('closingDate', $contestInfo) && !empty($contestInfo['closingDate'])) {
+      $contestCloseDate = strtotime($contestInfo['closingDate']);
+    }
+    if ($contestCloseDate < time()) {
+      $hasClosedContest = true;
+    }
     $entrySubmittedByUser = false;
     $postData = array();
     $contestInfo['briefDescription'] = '';
@@ -242,7 +250,7 @@ class ContestController extends Controller {
     }
     $uploadFileSize = ini_get('upload_max_filesize') . 'B';
     $this->render('contestSubmitEntries', array('entries' => $entries, 'contestInfo' => $contestInfo, 'entryCount' => $entryCount, 'message' => $entrySubmissionResponse, 
-        'isEntrySubmit' => $entrySubmittedByUser, 'postData' => $postData, 'uploadFileSize' => $uploadFileSize));
+        'isEntrySubmit' => $entrySubmittedByUser, 'postData' => $postData, 'uploadFileSize' => $uploadFileSize, 'hasClosedContest' => $hasClosedContest));
   }
 
   /**
@@ -519,8 +527,10 @@ class ContestController extends Controller {
         } else if (!validateDate($contestDetails['startDate'])) {
           throw new Exception(Yii::t('contest', 'Please enter valid start date'));
         } else {
-          $startDateArr = explode('/', $contestDetails['startDate']);
-          $startTime = mktime(0, 0, 0, $startDateArr[0], $startDateArr[1], $startDateArr[2]);
+          $startDateTimeArr =  explode(' ', $contestDetails['startDate']);
+          $startDateArr = explode('/', $startDateTimeArr[0]);
+          $startTimeArr = explode(':', $startDateTimeArr[1]);
+          $startTime = mktime($startTimeArr[0], $startTimeArr[1], 0, $startDateArr[0], $startDateArr[1], $startDateArr[2]);
           $contest->startDate = date('Y-m-d H:i:s', $startTime);
         }
         if (array_key_exists('endDate', $contestDetails) && empty($contestDetails['endDate'])) {
@@ -528,8 +538,10 @@ class ContestController extends Controller {
         } else if (!validateDate($contestDetails['endDate'])) {
           throw new Exception(Yii::t('contest', 'Please enter valid end date'));
         } else {
-          $endDateArr = explode('/', $contestDetails['endDate']);
-          $endTime = mktime(0, 0, 0, $endDateArr[0], $endDateArr[1], $endDateArr[2]);
+          $endDateTimeArr =  explode(' ', $contestDetails['endDate']);
+          $endDateArr = explode('/', $endDateTimeArr[0]);
+          $endTimeArr = explode(':', $endDateTimeArr[1]);
+          $endTime = mktime($endTimeArr[0], $endTimeArr[1], 0, $endDateArr[0], $endDateArr[1], $endDateArr[2]);
           $contest->endDate = date('Y-m-d H:i:s', $endTime);
         }
         if (array_key_exists('contestDescription', $contestDetails) && empty($contestDetails['contestDescription'])) {
@@ -593,8 +605,8 @@ class ContestController extends Controller {
           Yii::log('', ERROR, Yii::t('contest','Error in getContestDetailByContestSlug'));
           throw new Exception(Yii::t('contest','Some technical problem occurred, For more detail check log file'));
         }
-        $contestDetail['startDate'] = date('m/d/Y', strtotime($contestInfo['startDate']));
-        $contestDetail['endDate'] = date('m/d/Y', strtotime($contestInfo['endDate']));
+        $contestDetail['startDate'] = date('m/d/Y H:i', strtotime($contestInfo['startDate']));
+        $contestDetail['endDate'] = date('m/d/Y H:i', strtotime($contestInfo['endDate']));
         $contestDetail['imagePath'] = $contestInfo['imagePath'];
         $contestDetail['contestDescription'] = $contestInfo['contestDescription'];
         $contestDetail['contestSlug'] = $contestInfo['contestSlug'];

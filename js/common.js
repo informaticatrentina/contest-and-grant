@@ -7,7 +7,14 @@ $(document).ready(function() {
       changeYear: true,
       yearRange:"-90:+0",
       onSelect: function( selectedDate ) {
-        $( "#endDate" ).datepicker( "option", "minDate", selectedDate );        
+        var endDateTime = $("#endDate" ).val();
+        var startDateTime = $("#startDate" ).val();
+        $( "#endDate" ).datepicker( "option", "minDate", selectedDate );    
+        if (new Date(startDateTime) > new Date(endDateTime)) {
+          $("#endDate" ).val(startDateTime);
+        } else {
+           $("#endDate" ).val(endDateTime);
+        }
       }
     });
     $( "#endDate" ).datetimepicker({
@@ -15,7 +22,14 @@ $(document).ready(function() {
       changeYear: true,
       yearRange:"-90:+0",
       onSelect: function( selectedDate ) {
-        $( "#startDate" ).datepicker( "option", "maxDate", selectedDate );       
+        var endDateTime = $("#endDate" ).val();
+        var startDateTime = $("#startDate" ).val();
+         $( "#startDate" ).datepicker( "option", "maxDate", selectedDate );    
+         if (new Date(startDateTime) > new Date(endDateTime)) {
+          $("#startDate" ).val(endDateTime);
+        } else {
+          $("#startDate" ).val(startDateTime);
+        }
       }
     });
   }
@@ -30,3 +44,7 @@ $(document).ready(function() {
     window.location.replace(page.registration_url);
   });
 });    
+
+function compareDateTime(startDateTime, endDateTime) {
+  
+}

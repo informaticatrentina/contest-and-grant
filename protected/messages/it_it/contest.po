@@ -598,7 +598,7 @@ msgstr "Il tuo elaborato è stato caricato"
 
 msgctxt "contest" 
 msgid "You have successfully created your account"
-msgstr "Il tuo account è stato creato "
+msgstr "Il tuo account è stato creato"
 
 msgctxt "contest" 
 msgid "Zero length response not permitted"
@@ -606,16 +606,16 @@ msgstr "Inserire una risposta"
 
 msgctxt "contest" 
 msgid "resize folder does not exists in "
-msgstr "cartella di ridimensionamento non esiste in"
+msgstr "la cartella di ridimensionamento non esiste in "
 
 msgctxt "contest" 
 msgid "Show"
-msgstr "mostrare"
+msgstr "Visibili"
 
 msgctxt "contest" 
 msgid "Hide"
-msgstr "Nascondi"
+msgstr "Nascosti"
 
 msgctxt "contest" 
 msgid "Winner status"
-msgstr "Stato vincitore"
+msgstr "Visualizzazione vincitori"

@@ -619,3 +619,7 @@ msgstr "Nascosti"
 msgctxt "contest" 
 msgid "Winner status"
 msgstr "Visualizzazione vincitori"
+
+msgctxt "contest" 
+msgid "The contest was closed on"
+msgstr "Il concorso è stato chiuso in data "

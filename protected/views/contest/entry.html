@@ -30,7 +30,7 @@
       <div class="entry-content-right">
         <h5>{{ entry.authorName }}</h5>
       </div>
-      {% if entry.winner == true %}
+      {% if entry.winner == true and entry.winnerStatus == 1 %}
         <div class="entry-content-right">
           <span class="awards">Premi</span>
           <div class="winner-tropy">

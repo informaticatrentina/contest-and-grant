@@ -803,7 +803,7 @@ class ContestController extends Controller {
       if (array_key_exists('contest_slug', $_GET) && !empty($_GET['contest_slug'])) {
         $aggManager = new AggregatorManager();
         $entries = $aggManager->getEntry(9999, 0, '', 'active', $_GET['contest_slug'].'[contest]', '', '',
-                0, '', '', 1, '', array(), '', 'links,author,id,tags', '', '', SOURCE);
+                0, '', '', 1, '', array(), '', 'links,author,id,tags,title,content', '', '', SOURCE);
         if (empty($entries)) {
           Yii::log('actionDownloadSubmission ', INFO, 'There is no submission in this contest');
           $message = Yii::t('contest', 'There is no submission in this contest');
@@ -813,9 +813,13 @@ class ContestController extends Controller {
               if (!empty($entry['links']['enclosures'])) {
                 $contestSubmission['image'] = $entry['links']['enclosures'][0]['uri'];
               }
-              if (array_key_exists('author', $entry) && !empty($entry['author'])) {
+              if (array_key_exists('content', $entry) && !empty($entry['content'])) {
+                if ($entry['content']['is_minor'] == MINOR) {
+                  $contestSubmission['author'] = $entry['content']['minor_name'];
+                }
+              } else if (array_key_exists('author', $entry) && !empty($entry['author'])) {
                 $contestSubmission['author'] = $entry['author']['name'];
-              }
+              }              
               if (array_key_exists('tags', $entry) && !empty($entry['tags'])) {
                 foreach ($entry['tags'] as $tag) {
                   if ($tag['scheme'] == 'http://ahref.eu/schema/contest/category') {
@@ -823,6 +827,9 @@ class ContestController extends Controller {
                     break;
                   }
                 }
+              }
+              if (array_key_exists('title', $entry) && !empty($entry['title'])) {
+                $contestSubmission['title'] = sanitization($entry['title']);
               }
             }
             $contestSubmissions[] = $contestSubmission;
@@ -879,9 +886,7 @@ class ContestController extends Controller {
           if (!in_array(strtolower($pathinfo['extension']), json_decode(ALLOWED_IMAGE_EXTENSION))) {
             Yii::log('createZipFile :: ', INFO, 'file extention is not allowed ' . $submission['entry_image_path']); 
             continue;
-          }
-        }
-        if (array_key_exists('basename', $pathinfo) && !empty($pathinfo['basename'])) {
+          }              
           $authorName = '';
           $tag = '';
           if (array_key_exists('author', $submission) && !empty($submission['author'])) {
@@ -890,8 +895,8 @@ class ContestController extends Controller {
           if (array_key_exists('tag', $submission) && !empty($submission['tag'])) {
             $tag = $submission['tag']; 
           }
-          $filename = $tag .'-'.$authorName.'-'.$pathinfo['basename'];
-        }        
+          $filename = $tag .'-'.$authorName.'-'.$submission['title'] . '.'.$pathinfo['extension'];
+        }
       }
       if (!empty($filename)) {
         $zip->addFile($submission['entry_image_path'], $filename);

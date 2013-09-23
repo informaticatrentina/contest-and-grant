@@ -74,7 +74,7 @@ class Image_GD_Driver extends Image_Driver {
 		$this->image = $image;
 
 		// Create the GD image resource
-		$this->tmp_image = $create($image['file']);
+		$this->tmp_image = @$create($image['file']);
 
 		include_once(dirname(__FILE__).'/../CArray.php');
 

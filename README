@@ -20,6 +20,8 @@ To setup contest and grant you have to follow some steps mentioned below:
 (git@git.ahref.eu:apps/contest-and-grant.git)::
 
     css                    contain all css file
+    downloads              directory contain sub-directories for download file. You need to set permission(755 and owner www-data) to this directory. 
+      entryZip               directory contain  zip file (create for download)   
     images                 contain all images used in project
     js                           contain all js file
     protected/
@@ -37,6 +39,7 @@ To setup contest and grant you have to follow some steps mentioned below:
         contest            This directory contain html page that will be rendered from contest controller
         template           This directory contain all templates
     uploads                This directory contain subdirectory to save uploaded data (images file, text file etc).
+  
     index.php
     index-test.php
 
@@ -98,7 +101,14 @@ CONFIGURATION
    m.  RUNTIME_DIRECTORY  The name of runtime directory. Default runtime directory
          path is '/protected/runtime'
 
+   n.  REGISTRATION_URL   Url for register user
 
+   p.  DOWNLOAD_ZIP_DIRECTORY  directory path to create zip file. This path is used 
+       in download zip file functionality.   
+
+   q.  SUBMISSION_IMAGE  Path where original submission's image are saved.  
+
+ 
 - Now contest and grants application is ready to run. If you want to run
   application on your local machine (apache server), you have to create
   .htaccess file on root directory(/var/www/project).  To see setting of

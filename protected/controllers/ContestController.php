@@ -895,7 +895,7 @@ class ContestController extends Controller {
           if (array_key_exists('tag', $submission) && !empty($submission['tag'])) {
             $tag = $submission['tag']; 
           }
-          $filename = $tag .'-'.$authorName.'-'.$submission['title'] . '.'.$pathinfo['extension'];
+          $filename = $tag .'-'.$authorName.'+'.$submission['title'] . '.'.$pathinfo['extension'];
         }
       }
       if (!empty($filename)) {

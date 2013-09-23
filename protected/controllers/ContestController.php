@@ -800,6 +800,7 @@ class ContestController extends Controller {
   public function actionDownloadSubmission() { 
     try {
       $message = '';
+      $contestSubmissions = array();
       if (array_key_exists('contest_slug', $_GET) && !empty($_GET['contest_slug'])) {
         $aggManager = new AggregatorManager();
         $entries = $aggManager->getEntry(9999, 0, '', 'active', $_GET['contest_slug'].'[contest]', '', '',
@@ -809,16 +810,18 @@ class ContestController extends Controller {
           $message = Yii::t('contest', 'There is no submission in this contest');
         } else {
           foreach ($entries as $entry) {
+            $contestSubmission = array();
             if (array_key_exists('links', $entry) && !empty($entry['links'])) {
               if (!empty($entry['links']['enclosures'])) {
                 $contestSubmission['image'] = $entry['links']['enclosures'][0]['uri'];
               }
+              if (array_key_exists('author', $entry) && !empty($entry['author'])) {
+                $contestSubmission['author'] = $entry['author']['name'];
+              }
               if (array_key_exists('content', $entry) && !empty($entry['content'])) {
                 if ($entry['content']['is_minor'] == MINOR) {
                   $contestSubmission['author'] = $entry['content']['minor_name'];
-                }
-              } else if (array_key_exists('author', $entry) && !empty($entry['author'])) {
-                $contestSubmission['author'] = $entry['author']['name'];
+                } 
               }              
               if (array_key_exists('tags', $entry) && !empty($entry['tags'])) {
                 foreach ($entry['tags'] as $tag) {

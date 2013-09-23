@@ -62,7 +62,7 @@ define('MINOR', 1);
 define('ENTRY_LIMIT', 20);
 
 //define constant for source - save with entry
-define('SOURCE', 'civico');
+define('SOURCE', 'contest-grant');
 /**
  * configuration for interaction of file
  */

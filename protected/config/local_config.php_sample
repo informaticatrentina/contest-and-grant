@@ -111,3 +111,9 @@ define('RUNTIME_DIRECTORY', dirname(__FILE__).'/../runtime');
 
 //constant for registration page url (page for user's registeration)
 define('REGISTRATION_URL','https://www.civiclinks.it/it/a/register/?network=storygrant');
+
+/**
+ * directory path to save zip file
+ */
+define('DOWNLOAD_ZIP_DIRECTORY', dirname(__FILE__).'/../../downloads/entriesZip/');
+define('SUBMISSION_IMAGE', realpath(dirname(__FILE__)).'/../../'. UPLOAD_DIRECTORY.'contestEntry/');

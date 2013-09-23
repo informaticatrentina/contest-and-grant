@@ -16,6 +16,7 @@
         <th>{{ t('contest','Delete')}}</th>
         <th>{{ t('contest','Manage Category')}}</th>
         <th>{{ t('contest','Winner status')}}</th>
+        <th>{{ t('contest','Download Submission')}}</th>
       </tr>
     </thead>
     <tbody>
@@ -36,6 +37,11 @@
           {% set winner = t('contest', 'Hide') %}
         {% endif %}
         <td class="winner-status" contestId="{{info.id}}">{{winner}}</td>
+        <td>    
+          {% if (info.entryCount != 0) %}
+            <a href="{{constant('BASE_URL')}}admin/contest/submission/download/{{ info.contestSlug }}">{{t('contest', 'Download')}}
+          {% endif %} 
+         </td>
       </tr>
       {% endfor %}
     </tbody>

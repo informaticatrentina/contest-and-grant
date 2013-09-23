@@ -62,7 +62,7 @@ define('MINOR', 1);
 define('ENTRY_LIMIT', 20);
 
 //define constant for source - save with entry
-define('SOURCE', 'contest-grant');
+define('SOURCE', 'civico');
 /**
  * configuration for interaction of file
  */
@@ -119,6 +119,7 @@ return array(
         '' => 'contest/index',   
         'admin/contest/add'=>'contest/createContest',  
         'admin/contest/list' => 'contest/getContest',
+        'admin/contest/submission/download/<contest_slug:[\w-]+>' => 'contest/downloadSubmission',
         'admin/contest/delete/<slug:[\w-]+>' => 'contest/deleteContest',
         'admin/contest/edit/<slug:[\w-]+>' => 'contest/updateContest',
         'admin/contest/entries/<slug:[\w-]+>'=>'contest/entriesAdminView',

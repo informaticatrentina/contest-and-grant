@@ -792,4 +792,112 @@ class ContestController extends Controller {
     echo json_encode($return);
     exit;
   }
+  
+  /**
+   * actionDownloadSubmission
+   * function for download zip file (all submission image)
+   */
+  public function actionDownloadSubmission() { 
+    try {
+      $message = '';
+      if (array_key_exists('contest_slug', $_GET) && !empty($_GET['contest_slug'])) {
+        $aggManager = new AggregatorManager();
+        $entries = $aggManager->getEntry(9999, 0, '', 'active', $_GET['contest_slug'].'[contest]', '', '',
+                0, '', '', 1, '', array(), '', 'links,author,id,tags', '', '', SOURCE);
+        if (empty($entries)) {
+          Yii::log('actionDownloadSubmission ', INFO, 'There is no submission in this contest');
+          $message = Yii::t('contest', 'There is no submission in this contest');
+        } else {
+          foreach ($entries as $entry) {
+            if (array_key_exists('links', $entry) && !empty($entry['links'])) {
+              if (!empty($entry['links']['enclosures'])) {
+                $contestSubmission['image'] = $entry['links']['enclosures'][0]['uri'];
+              }
+              if (array_key_exists('author', $entry) && !empty($entry['author'])) {
+                $contestSubmission['author'] = $entry['author']['name'];
+              }
+              if (array_key_exists('tags', $entry) && !empty($entry['tags'])) {
+                foreach ($entry['tags'] as $tag) {
+                  if ($tag['scheme'] == 'http://ahref.eu/schema/contest/category') {
+                    $contestSubmission['tag'] = $tag['slug'];
+                    break;
+                  }
+                }
+              }
+            }
+            $contestSubmissions[] = $contestSubmission;
+          }
+          //create zip file
+          $filename = $this->createZipFile($contestSubmissions);          
+          if ($filename) {
+            downloadZipFile($filename);
+          } else {
+            Yii::log('Error in actionDownloadSubmission ', ERROR,' failed to create zip file');
+            $message = Yii::t('contest', 'Some technical error occur. Please contact adminstrator');
+          }
+        }
+      } else {
+        Yii::log('Error in actionDownloadSubmission ', ERROR, ' contest slug is empty');
+        $message = Yii::t('contest', 'Some technical error occur. Please contact adminstrator');
+      }
+    } catch (Exception $e) {
+       Yii::log('Error in actionDownloadSubmission ', ERROR, $e->getMessage());
+       $message = Yii::t('contest', 'Some technical error occur. Please contact adminstrator');
+    }  
+    $this->render('downloadSubmission', array('message' => $message));
+  }
+
+  /**
+   * createZipFile
+   * function for create zip file
+   * @param array $contestSubmissions  - submission detail
+   * @return string $destination - zip file name
+   */
+  public function createZipFile($contestSubmissions) {
+    if (empty($contestSubmissions)) {
+      return '';
+    }
+    $zip = new ZipArchive();
+    $destination = DOWNLOAD_ZIP_DIRECTORY . $_GET['contest_slug'].'_submission_'. time().'.zip';
+    if ($zip->open($destination, ZIPARCHIVE::CREATE) !== true) {
+      Yii::log('Error in createZipFile ', ERROR,' failed to create zip archive');
+      return '';
+    }
+
+    foreach ($contestSubmissions as $submission) { 
+      $filename = '';
+      if (array_key_exists('image', $submission) && !empty($submission['image'])) {        
+        $pathinfo = pathinfo($submission['image']);        
+        if (array_key_exists('basename', $pathinfo) && !empty($pathinfo['basename'])) {
+          $submission['entry_image_path'] = SUBMISSION_IMAGE. $pathinfo['basename'];
+        }
+        if (array_key_exists('entry_image_path', $submission) && !file_exists( $submission['entry_image_path'])) {          
+          Yii::log('createZipFile :: ', INFO, 'file does not exist ' . $submission['entry_image_path']);
+          continue;
+        }       
+        if (array_key_exists('extension', $pathinfo) && !empty($pathinfo['extension'])) {
+          if (!in_array(strtolower($pathinfo['extension']), json_decode(ALLOWED_IMAGE_EXTENSION))) {
+            Yii::log('createZipFile :: ', INFO, 'file extention is not allowed ' . $submission['entry_image_path']); 
+            continue;
+          }
+        }
+        if (array_key_exists('basename', $pathinfo) && !empty($pathinfo['basename'])) {
+          $authorName = '';
+          $tag = '';
+          if (array_key_exists('author', $submission) && !empty($submission['author'])) {
+            $authorName = str_replace(' ', '-',  strtolower($submission['author']));
+          }
+          if (array_key_exists('tag', $submission) && !empty($submission['tag'])) {
+            $tag = $submission['tag']; 
+          }
+          $filename = $tag .'-'.$authorName.'-'.$pathinfo['basename'];
+        }        
+      }
+      if (!empty($filename)) {
+        $zip->addFile($submission['entry_image_path'], $filename);
+      }      
+    }
+    $zip->close();
+    return $destination;
+  }
 }

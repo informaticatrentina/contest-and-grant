@@ -214,3 +214,26 @@ function setFileUploadError($errorCode) {
   }
   return $msg;
 }
+/**
+ * downloadZipFile
+ * this function is used for download zip file
+ * @param string $file - file path
+ */
+function downloadZipFile($file) {
+  if (file_exists($file)) {
+    $pathParts = pathinfo($file);
+    $ext = strtolower($pathParts['extension']);
+    if ($ext != 'zip') {
+      throw new Exception(Yii::t('contest', 'You have not permission for downlopad this file.'));
+      Yii::log('Error in downloadZipFile ', ERROR, 'This is not zip file' . $file);
+    }
+    header("Content-Type: application/zip");
+    header('Content-Disposition: attachment; filename="' . $pathParts['basename'] . '"');
+    header('Content-Length: ' . filesize($file));
+    readfile($file);
+    exit;
+  } else {
+    Yii::log('Error in downloadZipFile ', ERROR, 'This zip file does not exist - ' . $file);
+    throw new Exception(Yii::t('contest', 'Some error occur in downloading file. Please try again'));
+  }
+}

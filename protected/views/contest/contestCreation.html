@@ -57,8 +57,8 @@
     <label>{{ t('contest','Contest Rule')}}</label>
     {% set contestRule = '' %}
     {% if contest is not empty %}
-      {% if contest.contestRule is not empty %}
-        {% set contestRule = contest.contestRule %}
+      {% if contest.contest_rule is not empty %}
+        {% set contestRule = contest.contest_rule %}
       {% endif %}
     {% endif %}
     <textarea  class="input-block-level textarea" id="contestRule" name="contestRule">{{contestRule}}</textarea> 

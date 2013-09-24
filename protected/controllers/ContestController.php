@@ -284,6 +284,9 @@ class ContestController extends Controller {
     $contest = new Contest();
     try {
       if (!empty($_POST)) {
+        if (array_key_exists('contestRule', $_POST) && !empty($_POST['contestRule'])) {
+          $_POST['contest_rule'] = htmlspecialchars($_POST['contestRule']);
+        }
         if (!empty($_FILES['image']['name'])) {
           $directory = UPLOAD_DIRECTORY .'contestImage/';
           $uploadBannerImage = $this->uploadImage($directory, 'image');
@@ -577,7 +580,7 @@ class ContestController extends Controller {
         }
         $contest->contestSlug = $contestDetails['contestSlug'];
         $contest->contestRule = $contestDetails['contestRule'];
-        $contest->contestDescription = $contestDetails['contestDescription'];
+        $contest->contestDescription = trim($contestDetails['contestDescription']);
         if (empty($contest->contestImage )) {
           $contest->contestImage = $uploadBannerImage['img'];
         }
@@ -612,7 +615,7 @@ class ContestController extends Controller {
         $contestDetail['contestDescription'] = $contestInfo['contestDescription'];
         $contestDetail['contestSlug'] = $contestInfo['contestSlug'];
         $contestDetail['squareImage'] = $contestInfo['squareImage'];
-        $contestDetail['contestRule'] = $contestInfo['rule'];
+        $contestDetail['contestRule'] = htmlspecialchars($contestInfo['rule']);
         $contestDetail['entryStatus'] = $contestInfo['entryStatus'];
       } catch (Exception $e) {
         $message['success'] = false;

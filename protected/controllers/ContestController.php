@@ -245,7 +245,18 @@ class ContestController extends Controller {
       if (!empty($_POST)) {
         if ( !$entrySubmittedByUser ) {
           $postData = $_POST;
-          $entrySubmissionResponse = $this->entrySubmission();
+          switch ($_GET['slug']) {
+            case 'photo_contest':
+              $entrySubmissionResponse = $this->entrySubmission();
+              break;
+            case 'falling_walls_2013':
+              $entrySubmissionResponse = $contest->fallingWallsEntrySubmission();
+              break;
+            default :
+              $entrySubmissionResponse['success'] = false;
+              $entrySubmissionResponse['msg'] = 'Invalid access';
+              break;
+          }         
         }
       }
     }

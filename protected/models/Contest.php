@@ -254,4 +254,58 @@ class Contest  {
     return $contestEntries;
   }
 
+  /**
+   * fallingWallsEntrySubmission
+   * save entry for falling wall entry submission
+   */
+  public function fallingWallsEntrySubmission() {
+    $postData = array_map('trim', $_POST);
+    try {
+      $response = array('success' => false, 'msg' => '');
+      if (array_key_exists('entryTitle', $postData) && empty($postData['entryTitle'])) {
+        throw new Exception(Yii::t('contest', 'Entry title should not be empty'));
+      }
+      if (array_key_exists('entryDescription', $postData) && empty($postData['entryDescription'])) {
+        throw new Exception(Yii::t('contest', 'Entry description should not be empty'));
+      }
+      if (array_key_exists('videoUrl', $postData) && empty($postData['videoUrl'])) {
+        throw new Exception(Yii::t('contest', 'Video url can not be empty'));
+      } else if (!preg_match("/^(https?:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/", trim($postData['videoUrl']))) {
+        throw new Exception(Yii::t('contest', 'Please enter valid url'));
+      } else {
+        $pathinfo = parse_url($postData['videoUrl']);
+        if (!array_key_exists('scheme', $pathinfo)) {
+          $postData['videoUrl'] = 'http://' . $postData['videoUrl'];
+          $pathinfo = parse_url($postData['videoUrl']);
+        }
+        if (array_key_exists('host', $pathinfo) && strpos($pathinfo['host'], 'youtube') === false && strpos($pathinfo['host'], 'vimeo') === false) {
+          throw new Exception(Yii::t('contest', 'Please enter either youtube or vemio vedio url'));
+        }
+        if (!array_key_exists('path', $pathinfo) && !array_key_exists('query', $pathinfo)) {
+          throw new Exception(Yii::t('contest', 'Please enter proper video url'));
+        }
+      }
+      if (!array_key_exists('checkBox', $postData)) {
+        throw new Exception(Yii::t('contest', 'Please checked one check box'));
+      }
+      $aggregatorManager = new AggregatorManager();
+      $aggregatorManager->entryTitle = trim($postData['entryTitle']);
+      $aggregatorManager->entryDescription = trim($postData['entryDescription']);
+      $aggregatorManager->authorName = Yii::app()->session['user']['firstname'] . ' ' . Yii::app()->session['user']['lastname'];
+      $aggregatorManager->authorSlug = Yii::app()->session['user']['id'];
+      $aggregatorManager->videoUrl = trim($postData['videoUrl']);
+      $aggregatorManager->contestSlug = $this->contestSlug;
+      $aggregatorManager->contestName = $postData['contestTitle'];
+      $response = $aggregatorManager->saveEntry();
+      if (array_key_exists('success', $response) && $response['success']) {
+        $response['msg'] = Yii::t('contest', 'You have succesfully submit an entry');
+      } else {
+        $response['msg'] = Yii::t('contest', 'Some technical problem occurred, contact administrator');
+      }
+    } catch (Exception $e) {
+      $response['msg'] = $e->getMessage();
+    }
+    return $response;
+  }
+
 }

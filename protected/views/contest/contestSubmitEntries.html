@@ -69,12 +69,17 @@
       {% endif %}
     {% endif %}
     {% if showsubmit == 1 %}
+      {% if contestInfo.contestSlug == 'photo_contest' %}
         {% include  '/views/contest/entrySubmission.html' %}
+        <script src="{{constant('BASE_URL')}}js/contest.js"></script>
+      {% elseif contestInfo.contestSlug == 'falling_walls_2013' %}  
+        {% include  '/views/contest/fallingWallSubmission.html' %}  
+        <script src="{{constant('BASE_URL')}}js/fallingWallsContest.js"></script>
+      {% endif %}
     {% endif %}
   {% else %}
     {% include  '/views/contest/entryAlreadySubmited.html' %}
   {% endif %}  
   
 </div>
-<script src="{{constant('BASE_URL')}}js/contest.js"></script>
 <script src="{{constant('BASE_URL')}}js/bootstrap-fileupload.js"></script>

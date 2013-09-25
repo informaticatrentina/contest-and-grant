@@ -32,7 +32,8 @@ class AggregatorManager {
   public $sort;
   public $category = '';
   public $source = SOURCE;
-  
+  public $videoUrl;
+
   /**
    * getEntry
    * 
@@ -172,6 +173,7 @@ class AggregatorManager {
     $inputParam = array();
     $categorySlug = '';
     $tag = array();
+    $links = array();
     $aggregatorAPI = new AggregatorAPI();
     try { 
       if (empty($this->authorName)) {
@@ -187,10 +189,16 @@ class AggregatorManager {
         throw new Exception(Yii::t('contest','Entry title should not be empty'));
       }
       
-      if (empty($this->imageUrl) || !filter_var($this->imageUrl, FILTER_VALIDATE_URL)) {
-        throw new Exception(Yii::t('contest', 'Please provide an image for enrty '));
+      if (!empty($this->imageUrl)) {
+        if(!filter_var($this->imageUrl, FILTER_VALIDATE_URL)) {
+          throw new Exception(Yii::t('contest', 'Please provide an image for enrty ')); 
+        } else {
+          $links = array('enclosures' => array(array('type' => 'image/jpg', 'uri' => $this->imageUrl)));
+        }               
       }
-      
+      if (!empty($this->videoUrl)) {
+        $links = array('enclosures' => array(array('type' => 'video', 'uri' => $this->videoUrl)));
+      }
       $tag[] = array('name' => $this->contestName, 'slug' => $this->contestSlug, 'scheme' => 'http://ahref.eu/contest/schema/');
       if (!empty($this->category)) {
         $categorySlug = sanitization($this->category);
@@ -208,7 +216,7 @@ class AggregatorManager {
           'author' => array('name' => $this->authorName,
                             'slug' => $this->authorSlug),
           'tags' => $tag,
-          'links' => array('enclosures' => array(0 => array('type' => 'image/jpg', 'uri' => $this->imageUrl))),
+          'links' => $links,
           'creation_date' => time(),
           'source' => $this->source
       );

@@ -1,0 +1,112 @@
+<div class="container" style="padding-top:30px;">
+  <div class="row">  
+    {% if App.session is not empty %}
+    <div class="span8">
+      <div class="entry-content-left">
+        <div style="padding: 20px 40px;">          
+          <form action="" method="post">
+            {% set class = 'alert-error' %}
+            {% if message.msg is not empty %}
+              {% if message.success is not empty %}
+                {% set class = 'alert-success' %}
+              {% endif %}      
+            {% endif %}
+            <div class="{{class}}" id="error">
+              {% if message.msg is not empty %}
+                {{ message.msg }}
+              {% endif %}  
+            </div>
+           
+            {% set entityTitle = '' %}
+            {% if postData is not empty %}
+               {% if postData.entryTitle is not empty %}
+                  {% set entityTitle = postData.entryTitle %}
+               {% endif %}
+            {% endif %}
+            <h6 class="formtitle">Titolo</h6>
+            <p><em>Inserisci un titolo coerente e preciso</em></p>
+            <textarea rows="3" class="input-block-level" id="entryTitle" name="entryTitle">{{entityTitle}}</textarea>
+            <img src="chrome://itsalltext/locale/gumdrop.png" title="It's All Text!" style="cursor: pointer ! important; display: none ! important; position: absolute ! important; padding: 0px ! important; margin: 0px ! important; border: medium none ! important; width: 28px ! important; height: 14px ! important; opacity: 0.0194444 ! important; left: 1068px ! important; top: 1122px ! important;"><img style="cursor: pointer ! important; display: none ! important; position: absolute ! important; padding: 0px ! important; margin: 0px ! important; border: medium none ! important; width: 28px ! important; height: 14px ! important; opacity: 0.0194444 ! important; left: 517px ! important; top: 1041px ! important;" title="It's All Text!" src="chrome://itsalltext/locale/gumdrop.png">
+            
+            {% set entityDesc = '' %}
+            {% if postData is not empty %}
+               {% if postData.entryDescription is not empty %}
+                  {% set entityDesc = postData.entryDescription %}
+               {% endif %}
+            {% endif %}
+            <h6 class="formtitle">Descrizione</h6>
+            <p><em>Inserisci una descrizione coerente e completa</em></p>
+            <textarea rows="5" class="input-block-level" id="entryDescription" name="entryDescription">{{entityDesc}}</textarea>
+            <img src="chrome://itsalltext/locale/gumdrop.png" title="It's All Text!" style="cursor: pointer ! important; display: none ! important; position: absolute ! important; padding: 0px ! important; margin: 0px ! important; border: medium none ! important; width: 28px ! important; height: 14px ! important; opacity: 0.0194444 ! important; left: 1068px ! important; top: 1364px ! important;"><img style="cursor: pointer ! important; display: none ! important; position: absolute ! important; padding: 0px ! important; margin: 0px ! important; border: medium none ! important; width: 28px ! important; height: 14px ! important; opacity: 0.0194444 ! important; left: 517px ! important; top: 1283px ! important;" title="It's All Text!" src="chrome://itsalltext/locale/gumdrop.png">
+            
+            {% set videoUrl = '' %}
+            {% if postData is not empty %}
+               {% if postData.videoUrl is not empty %}
+                  {% set videoUrl = postData.videoUrl %}
+               {% endif %}
+            {% endif %}
+            <h6 class="formtitle">Video</h6>
+            <p><em>Inserisci l’url del video da youtube/vimeo</em></p>
+            <input id="videoUrl" type="text" name="videoUrl" value="{{videoUrl}}">
+            <div></div>
+            
+            {% set checkBox = '' %}
+            {% if postData is not empty %}
+              {% if postData.checkBox == 1 %}
+                {% set checkBox = 'checked' %}                  
+              {% endif %}
+            {% endif %}
+             <h6 class="formtitle">Liberatoria</h6>
+            <label class="checkbox">
+              <input type="checkbox" {{checkBox}} id="checkBox" name="checkBox" value="1">
+              Cliccando su questo box dichiaro di essere titolare del diritto d'autore e di ogni diritto di pubblicazione sull’opera fotografica da me caricata. Dichiaro inoltre di aver letto e di accettare integralmente il Regolamento del contest.
+            </label>
+            <br>
+           
+            <input type="hidden" name="contestTitle" value="falling walls 2013">  
+            <button class="btn pull-right" id="contestEntrySubmitbutton" type="submit" name="contestEntry">CARICA</button>
+            <br>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="span4">
+      <div class="entry-content-right">
+        <h6 class="formtitle">Specifiche Upload</h6>
+        <p>Carica il tou video su youtube/vimeo e poi copia l’indirizzo nel campo video!</p>
+      </div>
+    </div>
+
+    {%else%}
+    <div class="container">
+      <div class="show-msg">
+        <div class="row">
+          <div class="span12">
+            <div style="padding:25px 25px;">    
+              <p class="show-msg-text">Per i minorenni, è necessario che l’iscrizione a CIVICLINKS, l’accettazione dei relativi Termini di Servizio, dell’informativa sulla privacy e del Regolamento, nonchè il caricamento dell’opera fotografica del minore, siano effettuati dal genitore esercente la parentale potestà o dal tutore.</p></div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div style="background-color:#f5f5f5; margin:25px 0px;">
+        <div class="row">
+          <div class="span12">
+            <div style="padding:25px 25px;">    
+              <h6> 
+                <div class="pull-right">
+                  <a  class="register-link" href="#"><button class="btn btn-block btn-large" type="button">{{ t('contest', 'Sign Up') }}</button></a><br>
+                  <a class="login-link" href="#" ><button class="btn btn-block btn-large" type="button">{{ t('contest', 'Login') }}</button></a>
+                </div>
+                Solo gli iscritti a CIVICLINKS possono partecipare al contest.<br>
+                Iscriviti o effettua il login per continuare.
+              </h6>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    {%endif%}
+  </div>
+</div>

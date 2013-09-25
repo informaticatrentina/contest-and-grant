@@ -9,9 +9,7 @@
   <div class="row" style="padding-top:30px;">
     <div class="span4">
       {% set activeContestSlug = '' %}
-      {% if constant('ACTIVE_CONTEST_SLUG') is not empty %} 
-        {% set activeContestSlug = constant('ACTIVE_CONTEST_SLUG') %}
-      {% endif %}
+      {% set activeContestSlug = getFirstContest() %}
       {% if activeContestSlug == '' %}
         <a href="#">
       {% else %}

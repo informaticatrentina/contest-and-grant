@@ -117,3 +117,11 @@ define('REGISTRATION_URL','https://www.civiclinks.it/it/a/register/?network=stor
  */
 define('DOWNLOAD_ZIP_DIRECTORY', dirname(__FILE__).'/../../downloads/entriesZip/');
 define('SUBMISSION_IMAGE', realpath(dirname(__FILE__)).'/../../'. UPLOAD_DIRECTORY.'contestEntry/');
+/**
+ * image name of active contest
+ */
+define('ACTIVE_HOMEPAGE_CONTEST_IMAGE_NAME', 'homepage_falling_forms_contest.jpg');
+/**
+ * slug of active contest
+ */
+define('ACTIVE_CONTEST_SLUG', 'falling_forms_2013');

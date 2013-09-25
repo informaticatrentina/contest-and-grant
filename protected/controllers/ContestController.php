@@ -722,6 +722,14 @@ class ContestController extends Controller {
       $countFromEntries = end($entries);
       if (array_key_exists('count', $countFromEntries)) {
         $entryCount = array_pop($entries);
+      } 
+      $i = 0;
+      foreach ($entries as $entry) {
+        if (array_key_exists('image', $entry) && !empty($entry['image']) && filter_var($entry['image'], FILTER_VALIDATE_URL)) {
+          $basePath = parse_url($entry['image']);
+          $entries[$i]['image'] = substr($basePath['path'], 1);
+          $i++;
+        }
       }
     }
     $contestInfo['briefDescription'] = '';

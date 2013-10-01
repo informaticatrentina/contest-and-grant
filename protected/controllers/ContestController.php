@@ -249,7 +249,7 @@ class ContestController extends Controller {
             case 'photo_contest':
               $entrySubmissionResponse = $this->entrySubmission();
               break;
-            case 'falling_walls_2013':
+            case ACTIVE_CONTEST_SLUG :
               $entrySubmissionResponse = $contest->fallingWallsEntrySubmission();
               break;
             default :

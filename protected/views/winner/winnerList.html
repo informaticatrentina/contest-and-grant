@@ -22,9 +22,9 @@
                 <img src="{{constant('BASE_URL')}}images/trophy.png" width="61" height="74" alt="trophy">
                 <h6 class="listing-title">{{entry.prizeName}}</h6>
               </div>
-              <div class="listing-image">
+              <div >
                 <a href="{{constant('BASE_URL')}}contest/entries/{{contestInfo.contestSlug}}/{{entry.id}}">
-                  <img src="{{constant('BASE_URL')}}{{resizeByPath(entry.image,'250','250','height')}}" />
+                  <img src="{{constant('BASE_URL')}}{{resizeByPath(entry.image,'250','250',1)}}" class="listing-image"/>
                 </a>  
               </div>
               <div class="listing-details">

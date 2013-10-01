@@ -73,9 +73,15 @@ function uploadFile($directory, $name) {
 /**
  * Function to resize image
  */
-function resizeImageByPath($imagePath, $width, $height, $resizeBy = '') {
+function resizeImageByPath($imagePath, $width, $height,  $crop = 0, $resizeBy = '') {
     if (empty($imagePath)) {
       return false;
+    }
+    $resizeWidth = $width;
+    $resizeHeight = $height;
+    if ($crop == 1) {
+      $resizeWidth = $width + 50;
+      $resizeHeight = $height + 50;
     }
     $imageInfo = pathinfo($imagePath);
     $resultImage = $imagePath;
@@ -91,23 +97,29 @@ function resizeImageByPath($imagePath, $width, $height, $resizeBy = '') {
         $imageResize = Yii::app()->image->load($imagePath);
         switch($resizeBy) {
           case 'none':
-            $imageResize->resize($width, $height, Image::NONE);
+            $imageResize->resize($resizeWidth, $resizeHeight, Image::NONE);
             break;
           case 'height':
-            $imageResize->resize($width, $height, Image::HEIGHT);
+            $imageResize->resize($resizeWidth, $resizeHeight, Image::HEIGHT);
             break;
           case 'width':
-            $imageResize->resize($width, $height, Image::WIDTH);
+            $imageResize->resize($resizeWidth, $resizeHeight, Image::WIDTH);
             break;
           default : 
-            $imageResize->resize($width, $height, Image::WIDTH);
+            $imageResize->resize($resizeWidth, $resizeHeight, Image::WIDTH);
             break;
         } 
         $imageResize->save($resizedImageAbPath);
       }
       $resultImage = $resizeDirectoryName . '/' . $resizedImageName;
-    }
+      if ($crop == 1) {
+        $imageCrop = Yii::app()->image->load($resultImage);
+        $imageCrop->crop($width, $height);
+        $imageCrop->save($resizedImageAbPath);
+        $resultImage = $resizeDirectoryName . '/' . $resizedImageName;
+      }
     return $resultImage;
+  }
 }
 
 /**

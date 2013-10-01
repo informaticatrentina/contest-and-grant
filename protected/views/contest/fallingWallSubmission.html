@@ -26,8 +26,6 @@
             <h6 class="formtitle">Titolo</h6>
             <p><em>Inserisci un titolo coerente e preciso</em></p>
             <textarea rows="3" class="input-block-level" id="entryTitle" name="entryTitle">{{entityTitle}}</textarea>
-            <img src="chrome://itsalltext/locale/gumdrop.png" title="It's All Text!" style="cursor: pointer ! important; display: none ! important; position: absolute ! important; padding: 0px ! important; margin: 0px ! important; border: medium none ! important; width: 28px ! important; height: 14px ! important; opacity: 0.0194444 ! important; left: 1068px ! important; top: 1122px ! important;"><img style="cursor: pointer ! important; display: none ! important; position: absolute ! important; padding: 0px ! important; margin: 0px ! important; border: medium none ! important; width: 28px ! important; height: 14px ! important; opacity: 0.0194444 ! important; left: 517px ! important; top: 1041px ! important;" title="It's All Text!" src="chrome://itsalltext/locale/gumdrop.png">
-
             {% set entityDesc = '' %}
             {% if postData is not empty %}
                {% if postData.entryDescription is not empty %}
@@ -37,8 +35,6 @@
             <h6 class="formtitle">Descrizione</h6>
             <p><em>Inserisci una descrizione coerente e completa</em></p>
             <textarea rows="5" class="input-block-level" id="entryDescription" name="entryDescription">{{entityDesc}}</textarea>
-            <img src="chrome://itsalltext/locale/gumdrop.png" title="It's All Text!" style="cursor: pointer ! important; display: none ! important; position: absolute ! important; padding: 0px ! important; margin: 0px ! important; border: medium none ! important; width: 28px ! important; height: 14px ! important; opacity: 0.0194444 ! important; left: 1068px ! important; top: 1364px ! important;"><img style="cursor: pointer ! important; display: none ! important; position: absolute ! important; padding: 0px ! important; margin: 0px ! important; border: medium none ! important; width: 28px ! important; height: 14px ! important; opacity: 0.0194444 ! important; left: 517px ! important; top: 1283px ! important;" title="It's All Text!" src="chrome://itsalltext/locale/gumdrop.png">
-
             {% set videoUrl = '' %}
             {% if postData is not empty %}
                {% if postData.videoUrl is not empty %}

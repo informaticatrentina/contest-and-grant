@@ -4,7 +4,7 @@
     <div class="row">
       <div class="span12"><h1 class="innerpagetitle">{{ contestInfo.contestTitle }}</h1></div>
     </div>
-  </div> 
+  </div>
 </div>
 
 <div class="container maincontent">
@@ -29,32 +29,32 @@
     <div class="span6">
       <div class="internal-blue-box">
         <h4>{{ t('contest', 'Start Date')}}: {{ contestInfo.startDate }}<br>
-          {{ t('contest', 'End Date')}}: {{ contestInfo.endDate }}</h4>  
+          {{ t('contest', 'End Date')}}: {{ contestInfo.endDate }}</h4>
         <p class="internal-blue-box-text">{{ contestInfo.briefDescription }}</p></div>
     </div>
   </div>
-</div> 
+</div>
 
 <div style="background-color:#4cbed7; margin-top:25px; margin-bottom:25px;">
   <div class="container">
-    <div class="row">   
+    <div class="row">
       {% if contestInfo.entryStatus == 1 %}
         <div class="span3">
           <a href="{{constant('BASE_URL')}}contest/entries/{{ contestInfo.contestSlug }}"  class="contest-button btn-block">PARTECIPANTI</a>
         </div>
-      {% endif %}       
+      {% endif %}
       <div class="span3">
-        <a href="{{constant('BASE_URL')}}contest/brief/{{ contestInfo.contestSlug }}" class="contest-button btn-block">REGOLAMENTO</a>        
-      </div>        
+        <a href="{{constant('BASE_URL')}}contest/brief/{{ contestInfo.contestSlug }}" class="contest-button btn-block">REGOLAMENTO</a>
+      </div>
       <div class="span3">
         <a href="{{constant('BASE_URL')}}contest/submission/{{ contestInfo.contestSlug }}"  class="contest-button btn-block active">PARTECIPA</a>
-      </div> 
+      </div>
       {% if contestInfo.winnerStatus == 1 %}
         <div class="span3">
           <a href="{{constant('BASE_URL')}}contest/winner/{{ contestInfo.contestSlug }}"  class="contest-button btn-block">VINCITORI</a>
         </div>
       {% endif %}
-    </div> 
+    </div>
   </div>
 </div>
 <div id="entrySubmission">
@@ -72,14 +72,14 @@
       {% if contestInfo.contestSlug == 'photo_contest' %}
         {% include  '/views/contest/entrySubmission.html' %}
         <script src="{{constant('BASE_URL')}}js/contest.js"></script>
-      {% elseif contestInfo.contestSlug == 'falling_walls_2013' %}  
-        {% include  '/views/contest/fallingWallSubmission.html' %}  
+      {% elseif contestInfo.contestSlug == 'falling_walls_2013' %}
+        {% include  '/views/contest/fallingWallSubmission.html' %}
         <script src="{{constant('BASE_URL')}}js/fallingWallsContest.js"></script>
       {% endif %}
     {% endif %}
   {% else %}
     {% include  '/views/contest/entryAlreadySubmited.html' %}
-  {% endif %}  
-  
+  {% endif %}
+
 </div>
 <script src="{{constant('BASE_URL')}}js/bootstrap-fileupload.js"></script>

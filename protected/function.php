@@ -73,7 +73,7 @@ function uploadFile($directory, $name) {
 /**
  * Function to resize image
  */
-function resizeImageByPath($imagePath, $width, $height) {
+function resizeImageByPath($imagePath, $width, $height, $resizeBy = '') {
     if (empty($imagePath)) {
       return false;
     }
@@ -89,7 +89,20 @@ function resizeImageByPath($imagePath, $width, $height) {
       $resizedImageAbPath = dirname(__FILE__) . '/../' . $resizeDirectoryName . '/'. $resizedImageName;
       if (!file_exists($resizedImageAbPath)) {
         $imageResize = Yii::app()->image->load($imagePath);
-        $imageResize->resize($width, $height, Image::WIDTH);
+        switch($resizeBy) {
+          case 'none':
+            $imageResize->resize($width, $height, Image::NONE);
+            break;
+          case 'height':
+            $imageResize->resize($width, $height, Image::HEIGHT);
+            break;
+          case 'width':
+            $imageResize->resize($width, $height, Image::WIDTH);
+            break;
+          default : 
+            $imageResize->resize($width, $height, Image::WIDTH);
+            break;
+        } 
         $imageResize->save($resizedImageAbPath);
       }
       $resultImage = $resizeDirectoryName . '/' . $resizedImageName;

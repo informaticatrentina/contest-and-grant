@@ -31,13 +31,13 @@
         <h5>{{ entry.authorName }}</h5>
       </div>
       {% if entry.winner == true and entry.winnerStatus == 1 %}
-        <div class="entry-content-right">
+        <div class="entry-content-right entry-content-winner">
           <span class="awards">Premi</span>
           <div class="winner-tropy">
-            <div style="float:left; width: 80px;">
-              <img src="{{constant('BASE_URL')}}images/small_trophy.png" width="80" height="60" alt="entry image">
+            <div style="float:left;" >
+              <img src="{{constant('BASE_URL')}}images/small_trophy.png" alt="winner trophy">
             </div>
-            <span class="category-prize" style="float:right; width: 59%;">{{entry.categoryName}}</span>
+            <span class="category-prize">LA RICERCA IN UNO SCATTO&nbsp;!</span>
           </div>
           <p class="single-entry-tag">{{entry.prizeName}} - {{entry.categoryName}}</p>
         </div>

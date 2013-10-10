@@ -1208,3 +1208,12 @@ p::selection  {
 .entry-content-winner{
   padding: 20px 20px 2px;
 }
+
+.play-button {
+  position:absolute;
+  vertical-align: middle;
+  left: 170px;
+}
+.thumbnail-image{
+  position:relative;
+}

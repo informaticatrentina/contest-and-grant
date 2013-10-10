@@ -124,4 +124,15 @@ define('ACTIVE_HOMEPAGE_CONTEST_IMAGE_NAME', 'homepage_falling_forms_contest.jpg
 /**
  * slug of active contest
  */
-define('ACTIVE_CONTEST_SLUG', 'falling_forms_2013');
+
+define('FIRST_CONTEST_SLUG', 'incaendo');define('FIRST_CONTEST_SLUG', 'incaendo');
+define('FALLING_WALLS_CONTEST_SLUG', 'falling_walls_2013');
+define('ACTIVE_CONTEST_SLUG', FALLING_WALLS_CONTEST_SLUG);
+
+define('YOUTUBE_VIDEO_IMAGE_URL', 'http://img.youtube.com/vi/');
+define('VIMEO_VIDEO_IMAGE_URL', 'http://vimeo.com/api/v2/video/');
+define('EMBED_YOUTUBE_VIDEO_URL', 'http://www.youtube.com/v/');
+define('EMBED_VIMEO_VIDEO_URL', 'http://player.vimeo.com/video/');
+define('YOUTUBE', 'youtube');
+define('VIMEO', 'vimeo');
+define('FALLING_WALL_IMAGE_DIRECTORY', 'contestEntry/fallingWalls/');

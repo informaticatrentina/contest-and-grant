@@ -56,7 +56,11 @@
   </div>
 </div>
 <div id="contestEntries">
-  {% include  '/views/template/entries.html' %}
+  {% if contestInfo.contestSlug == constant('FIRST_CONTEST_SLUG') %}
+    {% include  '/views/template/entries.html' %}
+  {% elseif contestInfo.contestSlug == constant('ACTIVE_CONTEST_SLUG') %}
+    {% include  '/views/template/fallingWallEntries.html' %}
+  {% endif %}
 </div>
 <script src="{{constant('BASE_URL')}}js/contest.js"></script>
 <script src="{{constant('BASE_URL')}}js/bootstrap-fileupload.js"></script>

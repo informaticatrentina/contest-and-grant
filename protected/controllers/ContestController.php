@@ -40,6 +40,25 @@ class ContestController extends Controller {
    * This function is used for get entries for a contest and get contest detail
    */
   public function actionEntries() { 
+    $contestSlug = '';
+    if (array_key_exists('slug', $_GET) && !empty($_GET['slug'])) {
+      $contestSlug = $_GET['slug'];
+    }
+    switch ($contestSlug) {
+       case FIRST_CONTEST_SLUG : 
+         $this->actionContestEntries();
+         break;
+       case  FALLING_WALLS_CONTEST_SLUG : 
+         $controller = new FallingwallsController('fallingwalls');
+         $controller->actionContestEntries();
+         break;
+       default :
+         $this->actionContestEntries();
+         break;
+    }
+  }
+
+  public function actionContestEntries() { 
     $contest = new Contest();
     $contest->sort = '-creation_date';
     $contestInfo = array();

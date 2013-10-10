@@ -262,3 +262,16 @@ function downloadZipFile($file) {
     throw new Exception(Yii::t('contest', 'Some error occur in downloading file. Please try again'));
   }
 }
+
+/**
+ * function for get actual dimention of image
+ */
+function getImageDimension($imageUrl) {
+  $dimension = array('width' => 600, 'height' => 450);
+  if (!empty($imageUrl)) {
+    list($width, $height, $type, $attr) = getimagesize($imageUrl);
+    $dimension['width'] = $width;
+    $dimension['height'] = $height;
+  }
+  return $dimension;
+}

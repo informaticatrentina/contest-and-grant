@@ -74,6 +74,7 @@ return array(
   'import' => array(
     'application.models.*',
     'application.components.*',
+    'application.controllers.*',
     'application.extensions.JsTrans.*',
   ),
   'sourceLanguage' => 'en',
@@ -96,7 +97,8 @@ return array(
       'functions' => array(
         'getTweets' => 'getTweets'    ,
         'getFirstContest' => 'getFirstContest', 
-        'isAdminUser' => 'isAdminUser'  
+        'isAdminUser' => 'isAdminUser',  
+        'getImageDimension' => 'getImageDimension'  
       ) 
     ),
       
@@ -116,7 +118,7 @@ return array(
       'showScriptName' => false,
       'caseSensitive'=>false,  
       'rules'=> array(
-        '' => 'contest/index',   
+        '' => 'contest/index',
         'admin/contest/add'=>'contest/createContest',  
         'admin/contest/list' => 'contest/getContest',
         'admin/contest/submission/download/<contest_slug:[\w-]+>' => 'contest/downloadSubmission',

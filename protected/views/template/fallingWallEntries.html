@@ -1,0 +1,34 @@
+<div class="container maincontent">
+  {% if entries is empty %}
+    {% include  '/views/template/emptyEntryMessage.html' %}
+  {% else %}  
+    <div id="posts" class="row">
+      {% for entry in entries %} 
+        <div class="post span4">
+          <div style="padding: 10px 10px;">
+            <h6>{{ entry.title }}</h6>            
+          </div>
+          {% set imageUrl = constant('BASE_URL')~resizeByPath(entry.videoImagePath,'600','450') %}
+          {% set imageDim = getImageDimension(imageUrl) %}
+          {% set height = imageDim.height/4 %}
+          <div class="thumbnail-image" video-id="{{entry.video_id}}" video-domain="{{entry.url_info.type}}">            
+            <img src= "{{imageUrl}}" width="600" height="450" /> 
+            <span class="play-button" style="top:{{height}}px;">
+              <img width="50" src="{{constant('BASE_URL')}}images/button_play.png" alt="play">
+            </span>
+          </div>          
+          <div style="padding: 10px 10px 0px 10px; vertical-align:bottom;"> di {{ entry.author.name }} </div>
+        </div>
+      {% endfor %}
+    </div>
+  {% endif %}    
+</div>    
+<script type="text/javascript"> 
+  var page = {
+    youtubeEmbedVideoUrl :  "{{constant('EMBED_YOUTUBE_VIDEO_URL')}}",
+    vimeoEmbedVideoUrl :  "{{constant('EMBED_VIMEO_VIDEO_URL')}}"
+  };
+</script>
+<input type="hidden" value="{{entryCount}}" id="entryCount">
+<script src="{{constant('BASE_URL')}}js/jquery.masonry.min.js"></script>
+<script src="{{constant('BASE_URL')}}js/fallingWalls.js"></script>

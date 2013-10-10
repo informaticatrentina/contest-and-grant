@@ -1,0 +1,28 @@
+{% include  '/views/template/innerContestUpperPart.html' %}
+<div style="background-color:#4cbed7; margin-top:25px; margin-bottom:25px;">
+  <div class="container">
+    <div class="row">   
+      <div class="span3">
+        <input type='hidden' id="submitContestEntry" value="{{constant('BASE_URL')}}contest/entries/{{ contestInfo.contestSlug }}">
+        <input type='hidden' id="entryCategory" value="{{selectedCategory}}" />
+        <a href="{{constant('BASE_URL')}}contest/entries/{{ contestInfo.contestSlug }}" class="contest-button btn-block active">PARTECIPANTI</a>
+      </div>       
+      <div class="span3">
+        <a href="{{constant('BASE_URL')}}contest/brief/{{ contestInfo.contestSlug }}" class="contest-button btn-block ">REGOLAMENTO</a>        
+      </div>        
+      <div class="span3">
+        <a href="{{constant('BASE_URL')}}contest/submission/{{ contestInfo.contestSlug }}"  class="contest-button btn-block">PARTECIPA</a>
+      </div> 
+      {% if contestInfo.winnerStatus == 1 %}
+        <div class="span3">
+          <a href="{{constant('BASE_URL')}}contest/winner/{{ contestInfo.contestSlug }}"  class="contest-button btn-block">VINCITORI</a>
+        </div>
+      {% endif %}
+    </div> 
+  </div>
+</div>
+<div id="contestEntries">
+  {% include  '/views/template/fallingWallEntries.html' %}
+</div>
+<script src="{{constant('BASE_URL')}}js/contest.js"></script>
+<script src="{{constant('BASE_URL')}}js/bootstrap-fileupload.js"></script>

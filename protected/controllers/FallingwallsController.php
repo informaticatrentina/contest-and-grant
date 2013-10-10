@@ -12,6 +12,7 @@
  * This file can not be copied and/or distributed without the express permission of <ahref Foundation.
  */
 class FallingWallsController extends Controller {
+  public $isAdmin;
 
   public function actionIndex() {
     $this->redirect(BASE_URL);
@@ -36,9 +37,11 @@ class FallingWallsController extends Controller {
         $contestInfo['briefDescription'] = substr($contestInfo['contestDescription'], 0, 512);
       }
       
-      if (array_key_exists('entryStatus', $contestInfo) && empty($contestInfo['entryStatus'])) {
-        Yii::log('', INFO, 'Entry status is false for this contest');
-        $this->redirect(BASE_URL);
+      if (!$this->isAdmin) {
+        if (array_key_exists('entryStatus', $contestInfo) && empty($contestInfo['entryStatus'])) {
+          Yii::log('', INFO, 'Entry status is false for this contest');
+          $this->redirect(BASE_URL);
+        }
       }
      
       $fallingWallContest = new FallingWallsContest();
@@ -55,5 +58,5 @@ class FallingWallsController extends Controller {
     }
     $this->render('contestEntries', array('entries' => $contestSubmission, 'contestInfo' => $contestInfo,
         'entryCount' => $entryCount));
-  }
+  }  
 }

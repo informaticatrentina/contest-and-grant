@@ -731,7 +731,31 @@ class ContestController extends Controller {
    *   admin user is logged in and entry status of
    *   contest is hide.
    */
-  public function actionEntriesAdminView() {
+   public function actionEntriesAdminView() { 
+    $isAdmin = isAdminUser();
+    if (!$isAdmin) {
+      $this->redirect(BASE_URL);
+    }
+    $contestSlug = '';
+    if (array_key_exists('slug', $_GET) && !empty($_GET['slug'])) {
+      $contestSlug = $_GET['slug'];
+    }
+    switch ($contestSlug) {
+       case FIRST_CONTEST_SLUG : 
+         $this->actionContestEntriesAdminView();
+         break;
+       case  FALLING_WALLS_CONTEST_SLUG : 
+         $controller = new FallingwallsController('fallingwalls');
+         $controller->isAdmin = true;
+         $controller->actionContestEntries();
+         break;
+       default :
+         $this->actionContestEntries();
+         break;
+    }
+  }
+
+  public function actionContestEntriesAdminView() {
     $isAdmin = isAdminUser();
     if (!$isAdmin) {
       $this->redirect(BASE_URL);

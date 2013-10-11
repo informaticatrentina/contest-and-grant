@@ -14,6 +14,7 @@ class FallingWallsContest {
 
   public $slug;
   public $offset = '';
+  public $entryId = '';
 
   /**
    * loadContestEntries
@@ -28,6 +29,9 @@ class FallingWallsContest {
       $countFromEntries = array();
       if ($this->offset && is_numeric($this->offset)) {
         $contest->offset = $this->offset;
+      }
+      if ($this->entryId) {
+        $contest->entryId = $this->entryId;
       }
       if (empty($this->slug)) {
         $this->redirect(BASE_URL);
@@ -65,6 +69,9 @@ class FallingWallsContest {
         }
         if (array_key_exists('id', $entry) && !empty($entry['id'])) {
           $contestSubmission['id'] = $entry['id'];
+        }
+        if (array_key_exists('content', $entry) && !empty($entry['content'])) {
+          $contestSubmission['description'] = $entry['content']['description'];
         }
         $contestSubmissions[] = $contestSubmission;
       }
@@ -172,6 +179,30 @@ class FallingWallsContest {
       }
     }
     return $videoId;
+  }
+
+  /**
+   * loadSingleContestEntries
+   * load single contest entry detail
+   */
+  public function loadSingleContestEntries() {
+    $entries = array();
+    $entry = array();
+    $contestEntries = $this->loadContestEntries();
+    if (array_key_exists('contest_submission', $contestEntries) && array_key_exists(0, $contestEntries['contest_submission'])) {
+      $entries = $contestEntries['contest_submission'][0];
+    }
+
+    if (!empty($entries)) {
+      $entry['title'] = $entries['title'];
+      $entry['description'] = $entries['description'];
+      $entry['author_name'] = $entries['author']['name'];
+      $entry['video_image_url'] = $entries['videoImagePath'];
+      $entry['video_id'] = $entries['video_id'];
+      $entry['video_domain'] = $entries['url_info']['type'];
+      $entry['url'] = BASE_URL . 'contest/entries/' . $this->slug . '/' . $_GET['id'];
+    }
+    return $entry;    
   }
 
 }

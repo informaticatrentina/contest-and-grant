@@ -42,7 +42,9 @@ class FallingWallsController extends Controller {
         $this->loadEntryByAjax();
         exit;
       }
-
+      if (array_key_exists('id', $_GET) && !empty($_GET['id'])) {
+        $this->singleContestEntry($contestInfo);
+      }
       if (!$this->isAdmin) {
         if (array_key_exists('entryStatus', $contestInfo) && empty($contestInfo['entryStatus'])) {
           Yii::log('', INFO, 'Entry status is false for this contest');
@@ -114,6 +116,39 @@ class FallingWallsController extends Controller {
       $return['msg'] = Yii::t('contest', 'There are no more entries');
     }
     echo json_encode($return);
+    exit;
+  }
+  
+  /**
+   * singleContestEntry
+   * this function is used for load a single entry
+   * @param array $contestInfo
+   */
+  public function singleContestEntry($contestInfo) {
+    $contest = new FallingWallsContest();
+    $contest->entryId = $_GET['id'];
+    $contest->slug = FALLING_WALLS_CONTEST_SLUG;
+    $entry = array();
+    $entries = array();
+    $entry = $contest->loadSingleContestEntries();
+    $entry['contest_title'] = $contestInfo['contestTitle'];
+    $entry['contest_slug'] = $contestInfo['contestSlug'];
+    $aggregatorMgr = new AggregatorManager();
+    $aggregatorMgr->contestSlug = $_GET['slug'];
+    $aggregatorMgr->range = $_GET['id'] . ':' . 1;
+    $aggregatorMgr->returnField = 'title,id';
+    $entryForPagination = $aggregatorMgr->getEntryForPagination();
+    if (!empty($entryForPagination)) {
+      if (array_key_exists('after', $entryForPagination) && !empty($entryForPagination['after'])) {
+        $entry['next_entry_id'] = $entryForPagination['after'][0]['id'];
+        $entry['next_entry_title'] = $entryForPagination['after'][0]['title'];
+      }
+      if (array_key_exists('before', $entryForPagination) && !empty($entryForPagination['before'])) {
+        $entry['prev_entry_id'] = $entryForPagination['before'][0]['id'];
+        $entry['prev_entry_title'] = $entryForPagination['before'][0]['title'];
+      }
+    }
+    $this->render('entry', array('entry' => $entry));
     exit;
   }
 

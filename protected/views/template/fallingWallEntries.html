@@ -6,7 +6,7 @@
       {% for entry in entries %} 
         <div class="post span4">
           <div style="padding: 10px 10px;">
-            <h6>{{ entry.title }}</h6>            
+            <h6><a href="{{constant('BASE_URL')}}contest/entries/{{contestInfo.contestSlug }}/{{entry.id}}">{{ entry.title }}</a></h6>            
           </div>
           {% set imageUrl = constant('BASE_URL')~resizeByPath(entry.videoImagePath,'600','450') %}
           {% set imageDim = getImageDimension(imageUrl) %}

@@ -1,0 +1,64 @@
+<div style="background-color:#f5f5f5; height:120px;">
+  <div class="container">
+    <div class="row">
+      <div class="span12">
+        <h1 class="innerpagetitle">
+          <a href="{{constant('BASE_URL')}}contest/entries/{{entry.contest_slug}}">{{ entry.contest_title }}</a>
+        </h1>
+      </div>
+    </div>
+  </div>   
+</div>
+<div class="container" style="padding-top:30px;">
+  <div class="row"> 
+    <div class="single-entry-image span8">
+      <div class="entry-content-left">
+        <div style="padding: 20px 20px;"><h6>{{ entry.title }}</h6></div>
+        <div class="thumbnail-image" style="position:relative;" video-id="{{entry.video_id}}" video-domain="{{entry.video_domain}}">
+          {% set imageUrl = constant('BASE_URL')~resizeByPath(entry.video_image_url,'960','638') %}
+          {% set imageDim = getImageDimension(imageUrl) %}
+          {% set height = imageDim.height/4 %}
+          {% set width = imageDim.width/3 %}
+          <img src="{{imageUrl}}" width="960" height="638" alt="entry image">
+          <span class="play-button" style="top:{{height}}px; left:{{width}}px;">
+            <img width="60px" src="{{constant('BASE_URL')}}images/button_play.png" alt="play">
+          </span>
+        </div>
+         
+        <div style="padding: 20px 20px;"><p>{{ entry.description }}</p>  </div>       
+        <div style="text-align:right;">
+          <iframe src="//www.facebook.com/plugins/like.php?href={{entry.url}}&amp;send=false&amp;layout=button_count&amp;width=30&amp;show_faces=false&amp;font&amp;colorscheme=light&amp;action=like&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden;  height:21px; width:75px" allowTransparency="true" ></iframe>
+          <a href="https://twitter.com/share" class="twitter-share-button" data-url="{{entry.url}}" data-counturl="{{entry.url}}" width="30" height="30" alt="twitter" style="padding-left:10px;widh:77px"></a>
+          <a href="//pinterest.com/pin/create/button/?url={{entry.url}}&description=Next%20stop%3A%20Pinterest" data-pin-do="buttonPin" data-pin-config="above"><img src="social_30x30/pinterest_darkgrey.png" /></a>
+        </div>  
+      </div>      
+    </div>
+    <div class="span4" >
+      <div class="entry-content-right">
+        <h5>{{ entry.author_name }}</h5>
+      </div>      
+    </div>
+  </div>
+  <div class="row"> 
+    {% if entry.prev_entry_title is not empty%}
+      <div class="span4" style="position:relative;">
+        <img src="{{constant('BASE_URL')}}images/previous-arrow.png" width="9" height="12" alt="arrow" style="position:absolute; top:24px; left:20px;">
+        <a href="{{constant('BASE_URL')}}contest/entries/{{entry.contest_slug}}/{{entry.prev_entry_id}}" class="previous-button btn-block">PRECEDENTE<br>{{entry.prevEntryTitle}}</a>
+      </div> 
+    {% endif%}
+    {% if entry.next_entry_title is not empty %}
+      <div class="span4" style="position:relative;">
+        <img src="{{constant('BASE_URL')}}images/next-arrow.png" width="9" height="12" alt="arrow" style="position:absolute; top:24px; right:20px;">
+        <a href="{{constant('BASE_URL')}}contest/entries/{{entry.contest_slug}}/{{entry.next_entry_id}}" class="next-button btn-block">SUCCESSIVO<br> {{entry.nextEntryTitle}} </a>
+      </div> 
+    {% endif %}
+  </div>
+</div>
+<script src="{{constant('BASE_URL')}}js/FallingWallsSingleEntry.js"></script>
+<script type="text/javascript" src="//assets.pinterest.com/js/pinit.js"></script>
+<script type="text/javascript"> 
+  var page = {
+    youtubeEmbedVideoUrl :  "{{constant('EMBED_YOUTUBE_VIDEO_URL')}}",
+    vimeoEmbedVideoUrl :  "{{constant('EMBED_VIMEO_VIDEO_URL')}}"
+  };
+</script>

@@ -23,10 +23,14 @@
     </div>
   {% endif %}    
 </div>    
+<div id="loading-image">
+  <center><img src="{{constant('BASE_URL')}}images/loader.gif" alt="loading image" /></center>
+</div>   
 <script type="text/javascript"> 
   var page = {
     youtubeEmbedVideoUrl :  "{{constant('EMBED_YOUTUBE_VIDEO_URL')}}",
-    vimeoEmbedVideoUrl :  "{{constant('EMBED_VIMEO_VIDEO_URL')}}"
+    vimeoEmbedVideoUrl :  "{{constant('EMBED_VIMEO_VIDEO_URL')}}",
+    loadContestEntryUrl : "{{constant('BASE_URL')}}contest/entries/{{ contestInfo.contestSlug }}"
   };
 </script>
 <input type="hidden" value="{{entryCount}}" id="entryCount">

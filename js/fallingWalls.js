@@ -1,3 +1,8 @@
+var postLimit = 20;
+var entriesOffset = postLimit;
+var flag = true;
+var count = postLimit;
+
 $(document).ready(function() {
   $('#home').find("a").removeClass('candgselected');
   $('#createContest').find("a").addClass('candgselected');
@@ -35,7 +40,7 @@ $(document).ready(function() {
     }
   });
 
-  $('.thumbnail-image').click(function() {
+  $('.thumbnail-image').live('click', function() {
     var youtubeEmbedVideoUrl = page.youtubeEmbedVideoUrl;
     var vimeoEmbedVideoUrl = page.vimeoEmbedVideoUrl;
     var currentHtml = $(this).html();
@@ -60,4 +65,58 @@ $(document).ready(function() {
     }
     $(this).html(html);
   });
+  
+  
+  $(window).scroll(function() {
+    var totalEntry = $("#entryCount").val();
+    if(count >= totalEntry) {
+      return false;
+    } 
+    if ($(window).scrollTop() == $(document).height() - $(window).height()) {
+      $('#loading-image').show();     
+      if (flag) {
+        flag = false;
+        $.ajax({
+          type: 'GET',
+          url: page.loadContestEntryUrl,
+          dataType: 'json',
+          data: {
+            offset: entriesOffset
+          },     
+          success: function(resp) {
+            $('#loading-image').hide();
+            if (resp.success) {
+              entriesOffset += postLimit;
+              var data = resp.data;
+              var html = '';
+              for (key in data) {
+                count++;
+                var height = (data[key].video_image_dimension.height)/4; 
+                html += '<div class="post span4">\n\
+                         <div style="padding: 10px 10px;">\n\
+                           <h6>'+ data[key].title +'</h6>\n\
+                         </div>\n\
+                         <div class="thumbnail-image" video-id="'+ data[key].video_id +'" video-domain="'+ data[key].video_domain +'">\n\
+                           <img src= "'+ data[key].video_image_Url +'" width="600" height="450" />\n\
+                           <span class="play-button" style="top:'+ height +';">\n\
+                             <img width="50" src="'+ data[key].play_button_url +'" alt="play"> \n\
+                           </span>\n\
+                         </div>\n\
+                         <div style="padding: 10px 10px 0px 10px; vertical-align:bottom;"> di '+ data[key].author_name +'</div>\n\
+                       </div>';
+             }
+             $('#posts').append(html).masonry('reload');     
+             flag = true;
+            } else {
+              alert(resp.msg);
+            }            
+          },
+          error: function() {
+            $('#loading-image').hide();
+          }
+        });
+      }     
+      return false;
+    }
+   });
 });

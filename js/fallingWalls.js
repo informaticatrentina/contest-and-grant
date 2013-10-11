@@ -7,37 +7,38 @@ $(document).ready(function() {
   $('#home').find("a").removeClass('candgselected');
   $('#createContest').find("a").addClass('candgselected');
 
+  $("#posts").imagesLoaded(function() {
+    $("#posts").masonry({
+      itemSelector: '.post',
+      isAnimated: true,
+      columnWidth: function(containerWidth) {
+        var width = $(window).width();
+        var col = 200;
 
-  $("#posts").masonry({
-    itemSelector: '.post',
-    isAnimated: true,
-    columnWidth: function(containerWidth) {
-      var width = $(window).width();     
-      var col = 200;
-      
-      var widthOfPostClass = $('.post').css('width');
-      var widthForPlayBtn = parseInt(widthOfPostClass)/2 - 20;
-      $('.play-button').css('left', widthForPlayBtn);
-      $('#posts').find('.post').each(function(){
-        var heightOfImage = $(this).find('.thumbnail-image').height();
-        var heightForPlayBtn = heightOfImage/2 -20;
-        $(this).find('.play-button').css('top', heightForPlayBtn);   
-        
-        var currentHtml = $(this).find('.thumbnail-image').html();
-        if (currentHtml.indexOf('iframe') != -1) {
-          var widthOfIframe = parseInt(widthOfPostClass) - 5;
-          $(this).find('.thumbnail-image iframe').attr('width', widthOfIframe);
-          $(this).find('.thumbnail-image iframe').attr('height', heightOfImage);
-        }      
-      });      
-      
-      if (width < 1200 && width >= 980) {
-        col = 160;
-      } else if (width < 980 && width >= 768) {
-        col = 8;
+        var widthOfPostClass = $('.post').css('width');
+        var widthForPlayBtn = parseInt(widthOfPostClass) / 2 - 20;
+        $('.play-button').css('left', widthForPlayBtn);
+        $('#posts').find('.post').each(function() {
+          var heightOfImage = $(this).find('.thumbnail-image').height();
+          var heightForPlayBtn = heightOfImage / 2 - 20;
+          $(this).find('.play-button').css('top', heightForPlayBtn);
+
+          var currentHtml = $(this).find('.thumbnail-image').html();
+          if (currentHtml.indexOf('iframe') != -1) {
+            var widthOfIframe = parseInt(widthOfPostClass) - 5;
+            $(this).find('.thumbnail-image iframe').attr('width', widthOfIframe);
+            $(this).find('.thumbnail-image iframe').attr('height', heightOfImage);
+          }
+        });
+
+        if (width < 1200 && width >= 980) {
+          col = 160;
+        } else if (width < 980 && width >= 768) {
+          col = 8;
+        }
+        return col;
       }
-      return col;
-    }
+    });
   });
 
   $('.thumbnail-image').live('click', function() {

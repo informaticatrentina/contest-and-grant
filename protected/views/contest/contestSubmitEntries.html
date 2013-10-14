@@ -72,7 +72,7 @@
       {% if contestInfo.contestSlug == 'photo_contest' %}
         {% include  '/views/contest/entrySubmission.html' %}
         <script src="{{constant('BASE_URL')}}js/contest.js"></script>
-      {% elseif contestInfo.contestSlug == constant('ACTIVE_CONTEST_SLUG') %}
+      {% elseif contestInfo.contestSlug == constant('FALLING_WALLS_CONTEST_SLUG') %}
         {% include  '/views/contest/fallingWallSubmission.html' %}
         <script src="{{constant('BASE_URL')}}js/fallingWallsContest.js"></script>
       {% endif %}

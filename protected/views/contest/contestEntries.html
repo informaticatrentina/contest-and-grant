@@ -58,7 +58,7 @@
 <div id="contestEntries">
   {% if contestInfo.contestSlug == constant('FIRST_CONTEST_SLUG') %}
     {% include  '/views/template/entries.html' %}
-  {% elseif contestInfo.contestSlug == constant('ACTIVE_CONTEST_SLUG') %}
+  {% elseif contestInfo.contestSlug == constant('FALLING_WALLS_CONTEST_SLUG') %}
     {% include  '/views/template/fallingWallEntries.html' %}
   {% endif %}
 </div>

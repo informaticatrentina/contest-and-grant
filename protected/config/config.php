@@ -98,7 +98,8 @@ return array(
         'getTweets' => 'getTweets'    ,
         'getFirstContest' => 'getFirstContest', 
         'isAdminUser' => 'isAdminUser',  
-        'getImageDimension' => 'getImageDimension'  
+        'getImageDimension' => 'getImageDimension',
+        'getContestList' => 'getContestList',  
       ) 
     ),
       

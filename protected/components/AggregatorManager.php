@@ -383,4 +383,23 @@ class AggregatorManager {
     }
     return $entries;
   }
+  
+  /**
+   * saveContestEntry
+   * function is used for save contest entry
+   */
+  public function saveContestEntry($inputParam) {
+    $aggregatorAPI = new AggregatorAPI();
+    try {
+      if (empty($inputParam)) {
+        throw new Exception( Yii::t('contest', 'There is no data to save'));
+      }
+      $entryStatus = $aggregatorAPI->curlPOST(ENTRY, $inputParam);
+    } catch (Exception $e) {
+      Yii::log('', ERROR, Yii::t('contest', 'Error in saveContestEntry method :') . $e->getMessage());
+      $entryStatus['success'] = false;
+      $entryStatus['msg'] = $e->getMessage();
+    }
+    return $entryStatus;
+  }
 }

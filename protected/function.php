@@ -275,3 +275,21 @@ function getImageDimension($imageUrl) {
   }
   return $dimension;
 }
+
+/**
+ * getContestList
+ * functon is used for get contest detail
+ * @return array $contestList (contest title, slug)
+ */
+function getContestList() {
+  $contest = new Contest();
+  $contestList = array();
+  $contestDetail = $contest->getContestDetail();
+  foreach($contestDetail as $list) {
+    $contestArr = array();
+    $contestArr['slug'] = $list['contestSlug'];
+    $contestArr['title'] = $list['contestTitle'];
+    $contestList[] = $contestArr;
+  }
+  return $contestList;
+}

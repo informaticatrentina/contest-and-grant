@@ -26,8 +26,16 @@ class ContestController extends Controller {
    */
   public function actionIndex() {
     $contest = new Contest();
+    $banners = array();
     $contestInfo = $contest->getContestDetail();
-    $this->render('index', array('contestInfo' => $contestInfo));
+    $banner = json_decode(IMAGE_FOR_BANNER_SLIDE);
+    foreach($banner as $key => $val) {
+      $bnr['slug'] = $key;
+      $bnr['image'] = $val;
+      $banners[] = $bnr;
+    }
+    $bannerImagesCount = count($banners); 
+    $this->render('index', array('contestInfo' => $contestInfo, 'banners' => $banners , 'bannerImagesCount' => $bannerImagesCount));
   }
 
   public function actionError() {
@@ -231,7 +239,28 @@ class ContestController extends Controller {
     }
   }
 
-  public function actionSubmitEntries() {
+  public function actionSubmitEntries() { 
+    $contestSlug = '';
+    if (array_key_exists('slug', $_GET) && !empty($_GET['slug'])) {
+      $contestSlug = $_GET['slug'];
+    }
+    switch ($contestSlug) {
+       case FIRST_CONTEST_SLUG :
+        $this->actionSubmitContestEntries();
+        break;
+      case FALLING_WALLS_CONTEST_SLUG :
+        $this->actionSubmitContestEntries();
+        break;
+       case HELLO_FIEMME_ORGANIZER : 
+        $helloFiemme = new HellofiemmeorganizerController('hellofiemmeorganizer');
+        $helloFiemme->actionSubmitEntries();
+        break;
+      default :
+        $this->actionSubmitContestEntries();
+        break;
+    }
+  }
+  public function actionSubmitContestEntries() {
     $contest = new Contest();
     $contestInfo = array();
     $entrySubmissionResponse = array();
@@ -268,7 +297,7 @@ class ContestController extends Controller {
             case 'photo_contest':
               $entrySubmissionResponse = $this->entrySubmission();
               break;
-            case ACTIVE_CONTEST_SLUG :
+            case FALLING_WALLS_CONTEST_SLUG :
               $entrySubmissionResponse = $contest->fallingWallsEntrySubmission();
               break;
             default :

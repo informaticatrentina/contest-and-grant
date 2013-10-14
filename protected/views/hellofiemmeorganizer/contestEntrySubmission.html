@@ -1,0 +1,43 @@
+{% include  '/views/template/innerContestUpperPart.html' %}
+<div style="background-color:#4cbed7; margin-top:25px; margin-bottom:25px;">
+  <div class="container">
+    <div class="row">
+      {% if contestInfo.entryStatus == 1 %}
+        <div class="span3">
+          <a href="{{constant('BASE_URL')}}contest/entries/{{ contestInfo.contestSlug }}"  class="contest-button btn-block">PARTECIPANTI</a>
+        </div>
+      {% endif %}
+      <div class="span3">
+        <a href="{{constant('BASE_URL')}}contest/brief/{{ contestInfo.contestSlug }}" class="contest-button btn-block">REGOLAMENTO</a>
+      </div>
+      <div class="span3">
+        <a href="{{constant('BASE_URL')}}contest/submission/{{ contestInfo.contestSlug }}"  class="contest-button btn-block active">PARTECIPA</a>
+      </div>
+      {% if contestInfo.winnerStatus == 1 %}
+        <div class="span3">
+          <a href="{{constant('BASE_URL')}}contest/winner/{{ contestInfo.contestSlug }}"  class="contest-button btn-block">VINCITORI</a>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+<div id="entrySubmission">
+  {% if hasClosedContest %}
+    {% include  '/views/contest/contestClosed.html' %}
+  {% elseif isEntrySubmit == 0 %}
+    {% set showsubmit = 1 %}
+    {% if message.msg is not empty %}
+      {% if message.success is not empty %}
+         {% set showsubmit = 0%}
+         {% include  '/views/contest/submissionSuccessMessage.html' %}
+      {% endif %}
+    {% endif %}
+    {% if showsubmit == 1 %}
+      {% include  '/views/hellofiemmeorganizer/entrySubmission.html' %}
+    {% endif %}
+  {% else %}
+    {% include  '/views/contest/entryAlreadySubmited.html' %}
+  {% endif %}
+</div>
+
+<script src="{{constant('BASE_URL')}}js/hellofiemmeOrganizer.js"></script>

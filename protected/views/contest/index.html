@@ -1,12 +1,25 @@
 <div class="container maincontent">
   <ul class="rslides" id="myslider">
-    <li>
-      <a href="{{constant('BASE_URL')}}contest/brief/{{constant('ACTIVE_CONTEST_SLUG')}} ">
-        <img src="{{constant('BASE_URL')}}images/{{constant('ACTIVE_HOMEPAGE_CONTEST_IMAGE_NAME')}}" alt="{{ t('contest', 'contest Image')}}" />
-      </a>
-    </li>  
-  </ul> 
-  <div class="row" style="padding-top:30px;">
+    {% for banner in banners %}
+      <li>
+        <a href="{{constant('BASE_URL')}}contest/brief/{{banner.slug}}">
+          <img src="{{constant('BASE_URL')}}images/{{banner.image}}" alt="{{ t('contest', 'contest Image')}}" />
+        </a>
+      </li>  
+    {% endfor %}
+  </ul>
+  {% if bannerImagesCount > 1 %}
+    <div class="homepage-slider-container">
+      <ul id="myslider-pager" class="homepage-slider">
+        {% set i = 1 %}
+        {% for banner in banners %}
+          <li><a href="#">{{i}}</a></li>
+           {% set i = i+1 %}
+        {% endfor %}  
+      </ul>
+    </div>
+  {% endif %}
+  <div class="row" style="padding-top:50px;">
     <div class="span4">
       {% set activeContestSlug = '' %}
       {% set activeContestSlug = getFirstContest() %}

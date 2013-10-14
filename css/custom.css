@@ -1217,3 +1217,57 @@ p::selection  {
 .thumbnail-image{
   position:relative;
 }
+
+.homepage-slider-container{
+  position:relative; 
+  top:-60px; 
+  z-index:9; 
+  list-style:circle;
+}
+.homepage-slider{
+  list-style:circle; 
+  background-color:#000000;
+  padding:7px 0 !important;
+}
+
+.contest-menu {
+    background-clip: padding-box;
+    background-color: rgb(100,100,100);
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    float: left;
+    list-style: none outside none;
+    margin: 2px 0 0;
+    min-width: 160px;
+    padding: 0px 0 !important;
+    position: absolute;
+    top: 100%;
+    z-index: 1000;
+    font-size: 12px;
+    font-family: titiliium;
+
+}
+.dropdown-menu{
+  padding: 0 !important; 
+  width: auto;
+}
+
+.dropdown-menu li > a:hover{
+  color:  rgb(76,190,215) !important;
+  background: #fff;
+}
+.dropdown-menu li {
+  width: 100%;
+  border: 0 none !important;
+}
+.contest-menu > li > a {
+  white-space: normal !important;
+  color: white !important;
+  text-align: center;
+  
+}
+
+.contest-menu-text :hover{
+  color: rgb(76,190,215) !important;
+  background: white !important;
+}

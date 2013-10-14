@@ -50,16 +50,22 @@
           </ul>
           <a href="#" class="btn pull-right visible-desktop register-link">{{ t('contest', 'Sign Up') }}</a>         
         {% endif %}
-        
+        {% set contestList = '' %}
+        {% set contestList = getContestList() %}
         <ul class="nav visible-phone">
           <li><a href="{{constant('BASE_URL')}}">{{ t('contest', 'Home') }}</a></li>
-          <li>            
+          <li class="dropdown">            
             {% if activeContestSlug is not empty %}
-              <a href="{{constant('BASE_URL')}}contest/brief/{{activeContestSlug}}">
+              <a class="header-bar dropdown-toggle" data-toggle="contest-menu" href="#">
             {%else%}
               <a href="#">
             {%endif%}
-            Contest</a>
+              Contest</a>
+              <ul class="dropdown-menu contest-menu">
+                {% for list in contestList%}
+                  <li><a class="contest-menu-text" href="{{constant('BASE_URL')}}contest/brief/{{list.slug}}">{{list.title}}</a></li>
+                {% endfor %}
+              </ul>
           </li>          
           {% if adminUser == true %}            
             <li><a href="{{constant('BASE_URL')}}admin/contest/list">Admin</a></li>
@@ -78,13 +84,18 @@
         <div class="candg pull-right">
           <ul class="navcandg hidden-phone">
             <li id="home" ><a href="{{constant('BASE_URL')}}" class="candgselected header-bar">{{ t('contest', 'Home') }}</a></li>
-            <li id="createContest">              
+            <li id="createContest" class="dropdown">              
               {% if activeContestSlug is not empty %}
-                <a href="{{constant('BASE_URL')}}contest/brief/{{activeContestSlug}}" class="header-bar">
+                <a class="header-bar dropdown-toggle" data-toggle="dropdown" href="#">
               {%else%}
                 <a href="#" class="header-bar">
               {%endif%}
               Contest</a>
+              <ul class="dropdown-menu contest-menu">
+                 {% for list in contestList %}
+                  <li><a class="contest-menu-text" href="{{constant('BASE_URL')}}contest/brief/{{list.slug}}">{{list.title}}</a></li>
+                {% endfor %}
+              </ul>
             </li>
             {% if adminUser == true %}            
               <li><a href="{{constant('BASE_URL')}}admin/contest/list" class="header-bar">ADMIN</a></li>

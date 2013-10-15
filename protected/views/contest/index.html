@@ -1,24 +1,30 @@
 <div class="container maincontent">
-  <ul class="rslides" id="myslider">
-    {% for banner in banners %}
-      <li>
-        <a href="{{constant('BASE_URL')}}contest/brief/{{banner.slug}}">
-          <img src="{{constant('BASE_URL')}}images/{{banner.image}}" alt="{{ t('contest', 'contest Image')}}" />
-        </a>
-      </li>  
-    {% endfor %}
-  </ul>
-  {% if bannerImagesCount > 1 %}
-    <div class="homepage-slider-container">
-      <ul id="myslider-pager" class="homepage-slider">
-        {% set i = 1 %}
-        {% for banner in banners %}
-          <li><a href="#">{{i}}</a></li>
-           {% set i = i+1 %}
-        {% endfor %}  
-      </ul>
+  <div id="myCarousel" class="carousel slide">
+    <ol class="carousel-indicators">
+      {% set active = 'active' %}
+      {% set i = 0 %}
+      {% for banner in banners %}
+        <li data-target="#myCarousel" data-slide-to="{{i}}" class="{{active}}"></li>
+        {% set i = i + 1 %}
+        {% set active = ' ' %}
+      {% endfor %} 
+    </ol>
+    {% set active = 'active' %}
+    <div class="carousel-inner">
+      {% for banner in banners %}
+        <div class="item {{active}}">
+          <a href="{{constant('BASE_URL')}}contest/brief/{{banner.slug}}">
+            <img src="{{constant('BASE_URL')}}images/{{banner.image}}" alt="{{ t('contest', 'contest Image')}}" />
+          </a>
+        </div>
+        {% if active is not empty %}
+          {% set active = '' %}
+        {% endif %}
+      {% endfor %}
     </div>
-  {% endif %}
+    <a class="left carousel-control" href="#myCarousel" data-slide="prev">&lsaquo;</a>
+    <a class="right carousel-control" href="#myCarousel" data-slide="next">&rsaquo;</a>
+  </div>  
   <div class="row" style="padding-top:50px;">
     <div class="span4">
       {% set activeContestSlug = '' %}

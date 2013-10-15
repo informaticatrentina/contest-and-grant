@@ -1,6 +1,7 @@
 $(document).ready(function() {
   $('#home').find("a").removeClass('candgselected');
   $('#createContest').find("a").addClass('candgselected');
+  $('.contest-menu-text').removeClass('candgselected');  
 
   var widthOfPostClass = $('.single-entry-image').css('width');
   var widthForPlayBtn = (parseInt(widthOfPostClass) / 2) - 50;

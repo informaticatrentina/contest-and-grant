@@ -6,6 +6,7 @@ var count = postLimit;
 $(document).ready(function() {
   $('#home').find("a").removeClass('candgselected');
   $('#createContest').find("a").addClass('candgselected');  
+  $('.contest-menu-text').removeClass('candgselected');  
   
   $(window).scroll(function() {
     var totalEntry = $("#entryCount").val();

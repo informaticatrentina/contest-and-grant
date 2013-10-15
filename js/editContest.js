@@ -1,6 +1,8 @@
 $(document).ready(function() {
    $('#home').find("a").removeClass('candgselected');
    $('#createContest').find("a").addClass('candgselected');
+   $('.contest-menu-text').removeClass('candgselected');  
+   
    $('#create').click(function() {
         if ($('#startDate').val() == '') {
             $('#error').html(Yii.t('js', "Please enter start date")).css('color', 'red');

@@ -1,6 +1,7 @@
 $(document).ready(function() {
   $('#home').find("a").removeClass('candgselected');
   $('#createContest').find("a").addClass('candgselected');
+  $('.contest-menu-text').removeClass('candgselected');  
   
   $('#contestEntrySubmitbutton').click(function() {
     if(($('#entryTitle').val()).trim() == '') {

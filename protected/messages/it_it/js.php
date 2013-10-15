@@ -17,14 +17,16 @@
  * NOTE, this file must be saved in UTF-8 encoding.
  */
 return array (
-  'Please enter category name' => 'Inserisci il nome della categoria',
-  'add' => 'aggiungi',
-  'Are you sure you want to delete this Category ?' => 'Sei sicuro di voler eliminare questa categoria?',
-  'Category name can not be empty' => 'Nome della categoria non può essere vuoto',
+  'Please checked check box' => 'Si prega di verificare  checkBox',
+  'Please enter valid video url' => 'Inserisci il video URL valido',
+  'Please enter video url' => 'Inserisci il video url',
   'Please enter Content Rule' => 'Inserisci Content Rule',
   'Please upload an image' => 'Si prega di caricare unimmagine',
+  'add' => 'aggiungi',
+  'Are you sure you want to delete this Category ?' => 'Sei sicuro di voler eliminare questa categoria?',
   'Are you sure you want to delete this Contest ?' => 'Sei sicuro di voler eliminare questo concorso ?',
   'Are you sure you want to remove this winner ?' => 'Sei sicuro di voler rimuovere questo vincitore?',
+  'Category name can not be empty' => 'Nome della categoria non può essere vuoto',
   'Entry description should not be empty' => 'Descrizione Evento non deve essere vuoto',
   'Entry title should not be empty' => 'Titolo di ingresso non deve essere vuoto',
   'Please accept terms and condition' => 'Si prega di accettare i termini e condizioni',
@@ -36,6 +38,7 @@ return array (
   'Please enter Last Name' => 'Inserisci il Cognome',
   'Please enter Password' => 'Inserisci la password',
   'Please enter a valid date' => 'Si prega di inserire una data valida',
+  'Please enter category name' => 'Inserisci il nome della categoria',
   'Please enter email id' => 'Inserisci ID e-mail',
   'Please enter end date' => 'Inserisci data di fine',
   'Please enter minor name' => 'Inserisci il nome del minore',

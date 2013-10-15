@@ -623,3 +623,15 @@ msgstr "Visualizzazione vincitori"
 msgctxt "contest" 
 msgid "The contest was closed on"
 msgstr "Il concorso è stato chiuso in data "
+
+msgctxt "contest" 
+msgid "Please choose a pdf file"
+msgstr "Seleziona un file PDF"
+
+msgctxt "contest" 
+msgid "Some error occured in file uploading"
+msgstr "Si è verificato un errore di caricamento"
+
+msgctxt "contest" 
+msgid "Please upload only pdf file"
+msgstr "Puoi caricare solo file in formato PDF"

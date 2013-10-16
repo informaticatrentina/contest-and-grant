@@ -108,6 +108,19 @@ CONFIGURATION
 
    q.  SUBMISSION_IMAGE  Path where original submission's image are saved.  
 
+   r.  ALLOWED_FILE_TYPE_FOR_HELLOFIEMME_CONTEST The list of allowed extension of upload file in 
+       Hellofiemme organizer contest.
+  
+   s.  PDF_FILE_DIR The path of directory to save uploaded file in Hellofiemme organizer contest.  
+
+   t. IMAGE_FOR_BANNER_SLIDE   The list of home page active banner image. List of image is define in
+      json format(key : value). Key replace with contest slug and  value replace with contest banner 
+      image.
+      
+   v. STATIC_IMAGE_FOR_BANNER_SLIDE   The list of home page static banner image. List of image is 
+      define in json format(key : value). Key replace with url and value replace with static banner 
+      image.
+
  
 - Now contest and grants application is ready to run. If you want to run
   application on your local machine (apache server), you have to create

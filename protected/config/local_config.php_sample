@@ -142,4 +142,4 @@ define('FALLING_WALL_IMAGE_DIRECTORY', 'contestEntry/fallingWalls/');
 define('ALLOWED_FILE_TYPE_FOR_HELLOFIEMME_CONTEST', 'pdf');
 define('PDF_FILE_DIR', 'contestEntry/hellofiemmeorganizer/pdfFile/');
 define('IMAGE_FOR_BANNER_SLIDE', '{"falling_walls_2013":"falling_walls_homepage_banner.jpg","hellofiemme_organizer":"hellofiemme_organizer.jpg"}');
-
+define('STATIC_IMAGE_FOR_BANNER_SLIDE', '{"http://premiodigitale.lastampa.it":"premio_digitale_lastampa.jpg"}');

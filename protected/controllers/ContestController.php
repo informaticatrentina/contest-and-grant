@@ -25,17 +25,23 @@ class ContestController extends Controller {
    * when an action is not explicitly requested by users.
    */
   public function actionIndex() {
-    $contest = new Contest();
     $banners = array();
-    $contestInfo = $contest->getContestDetail();
-    $banner = json_decode(IMAGE_FOR_BANNER_SLIDE);
-    foreach($banner as $key => $val) {
-      $bnr['slug'] = $key;
-      $bnr['image'] = $val;
-      $banners[] = $bnr;
+    $staticBanners = array();
+    if (defined('IMAGE_FOR_BANNER_SLIDE')) {
+      $banner = json_decode(IMAGE_FOR_BANNER_SLIDE);
+      foreach ($banner as $key => $val) {
+        $banners[] = array('slug' => $key, 'image' => $val);
+      }
     }
-    $bannerImagesCount = count($banners); 
-    $this->render('index', array('contestInfo' => $contestInfo, 'banners' => $banners , 'bannerImagesCount' => $bannerImagesCount));
+
+    //prapare array for static banner   
+    if (defined('STATIC_IMAGE_FOR_BANNER_SLIDE')) {
+      $staticBanner = json_decode(STATIC_IMAGE_FOR_BANNER_SLIDE);
+      foreach ($staticBanner as $key => $val) {
+        $staticBanners[] = array('url' => $key, 'image' => $val);
+      }
+    }
+    $this->render('index', array('banners' => $banners, 'staticBanners' => $staticBanners));
   }
 
   public function actionError() {

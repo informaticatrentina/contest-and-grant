@@ -1258,18 +1258,18 @@ p::selection  {
   background: #fff; 
 }
 .dropdown-menu li {
-  width: 100%;
+  width: 75%;
+  padding: 0 !important;
   border: 0 none !important; 
 }
 .contest-menu > li > a {
-  white-space: normal !important;
-  color: white !important;
-  text-align: left;
-  font-family: 'Titillium Web', sans-serif;
-  padding: 5px 0 15px 0;
+  color: #FFFFFF !important;
+  font-family: 'Titillium Web',sans-serif;
   line-height: 16px;
-  width: 114px;
-
+  text-align: center;
+  padding-bottom: 10px !important;
+  white-space: normal !important;
+  width: 100%;
 }
 
 .contest-menu-text :hover{

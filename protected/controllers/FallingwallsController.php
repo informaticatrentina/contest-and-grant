@@ -93,17 +93,12 @@ class FallingWallsController extends Controller {
           $contestEntry = array();
           if (array_key_exists('videoImagePath', $entry) && !empty($entry['videoImagePath'])) {
             $contestEntry['video_image_Url'] = BASE_URL . resizeImageByPath($entry['videoImagePath'], '600', '450');
-            $contestEntry['video_image_dimension'] = getImageDimension($contestEntry['video_image_Url']);
-            $contestEntry['play_button_url'] = BASE_URL . 'images/button_play.png';
           }
           if (array_key_exists('title', $entry) && !empty($entry['title'])) {
             $contestEntry['title'] = $entry['title'];
           }
-          if (array_key_exists('video_id', $entry) && !empty($entry['video_id'])) {
-            $contestEntry['video_id'] = $entry['video_id'];
-          }
-          if (array_key_exists('url_info', $entry) && array_key_exists('type', $entry['url_info']) && !empty($entry['url_info']['type'])) {
-            $contestEntry['video_domain'] = $entry['url_info']['type'];
+          if (array_key_exists('id', $entry) && !empty($entry['id'])) {
+            $contestEntry['id'] = $entry['id'];
           }
           if (array_key_exists('author', $entry) && array_key_exists('name', $entry['author']) && !empty($entry['author']['name'])) {
             $contestEntry['author_name'] = $entry['author']['name'];

@@ -1280,3 +1280,11 @@ p::selection  {
 .carousel-control { 
   top:50% !important;
 }
+.blackfooter > .container > .row > .span12 > a {
+  color: #fff !important;
+}
+
+.blackfooter > .container > .row > .span12 > a:hover {
+  font-weight: bold;
+  text-decoration: none;
+}

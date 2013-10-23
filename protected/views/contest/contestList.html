@@ -31,7 +31,11 @@
         <td>{{info.entryCount}}<a href="{{constant('BASE_URL')}}admin/contest/entries/{{ info.contestSlug }}">   view</a></td>
         <td><a href="{{constant('BASE_URL')}}admin/contest/edit/{{ info.contestSlug }}">{{ t('contest','Edit')}}</a></td>
         <td class="deleteContest"><a href="{{constant('BASE_URL')}}admin/contest/delete/{{ info.contestSlug }}">{{ t('contest','Delete')}}</a></td>
-        <td><a href="{{constant('BASE_URL')}}admin/category/{{ info.contestSlug }}">{{ t('contest','Manage Category')}}</a></td>
+        {% if info.contestSlug == constant('FALLING_WALLS_CONTEST_SLUG') %}
+          <td><a href="{{constant('BASE_URL')}}admin/contest/winner/{{ info.contestSlug }}">{{ t('contest','Manage Winner')}}</a></td>
+        {% else %}
+          <td><a href="{{constant('BASE_URL')}}admin/category/{{ info.contestSlug }}">{{ t('contest','Manage Category')}}</a></td>
+        {% endif %}  
         {% set winner = t('contest', 'Show') %}
         {% if info.winnerStatus == 1 %}
           {% set winner = t('contest', 'Hide') %}

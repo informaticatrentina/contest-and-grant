@@ -1,0 +1,67 @@
+<div class="container darkheader">
+  <div class="row">
+    <div class="span8"><h1> {{ t('contest', 'Manage Winner for ') ~ contest.contestTitle }}</h1></div>
+  </div>
+</div>
+<div class="container">
+  <div class="row">
+    <div class="span4">
+      <a class="contest-button btn-block" href="{{constant('BASE_URL')}}admin/contest/winner/add/{{contest.contestSlug}}">
+        {{ t('contest', 'Add new winner') }}
+      </a>
+    </div>
+  </div>
+  {% if entries is empty %}      
+    <div class="container" style="background-color:#f5f5f5; margin:25px 0px;">
+      <div class="row">
+        <div class="span8">
+          <div style="padding:25px 25px;">    
+            <center>
+              <h6>{{ t('contest', 'There are no winner for this category')}}</h6><br>
+            </center>
+          </div>
+        </div>
+      </div>
+    </div>
+  {% else %} 
+    <table class="container table table-bordered table-hover category-table">
+      <thead>
+        <tr>
+          <th>{{ t('contest', 'S. No.') }}</th>
+          <th>{{ t('contest', 'Entry') }}</th>
+          <th>{{ t('contest', 'Title') }}</th>
+          <th>{{ t('contest', 'Prize') }}</th>
+          <th>{{ t('contest', 'weight') }}</th>
+          <th>{{ t('contest', 'Author') }}</th>  
+          <th>{{ t('contest', 'Edit') }}</th>  
+          <th>{{ t('contest', 'Delete') }}</th>  
+        </tr>
+      </thead>
+      <tbody>
+        {% set i = 1 %}
+        {% for entry in entries %}
+          <tr>
+            <td>{{ i }}</td>
+            <td><img src="{{constant('BASE_URL')}}{{resizeByPath(entry.videoImagePath,'100','500')}}" alt="contest image" /></td>
+            <td>{{entry.title}}</td>
+            <td>{{entry.prize}}</td>
+            <td>{{entry.prize_weight}}</td>
+            <td>{{entry.author.name}}</td>
+            <td id="{{entry.id}}" weight="{{entry.prize_weight}}" prize="{{entry.prize}}" class="update-winner">
+              <a href="#edit-prize-modal" data-toggle="modal">{{ t('contest', 'Edit') }}</a>
+            </td>  
+            <td class="delete-winner">
+              <a href="{{constant('BASE_URL')}}admin/contest/winner/delete/{{contest.contestSlug}}/{{entry.id}}">
+                {{ t('contest', 'Delete') }}
+              </a>
+            </td> 
+            {% set i = i + 1 %}
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  <input type="hidden" name="winnerWeight" value="{{winner_weight}}" id="winnerWeight">
+  {% endif %}
+</div>
+
+<script src="{{constant('BASE_URL')}}js/fallingWallsWinner.js"></script>

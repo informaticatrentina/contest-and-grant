@@ -595,4 +595,46 @@ class WinnerController extends Controller {
     }
     return $winnerEntries;
   }  
+  
+  /**
+   * actionAddWinner
+   * function is used for manage add winner functionality for contest
+   */
+  public function actionAddWinner() { 
+    $isAdmin = isAdminUser();
+    if (!$isAdmin) {
+      $this->redirect(BASE_URL);
+    }
+    if (!array_key_exists('slug', $_GET) || empty($_GET['slug'])) { 
+      $this->redirect(BASE_URL);
+    }
+    switch($_GET['slug']) {
+      case FALLING_WALLS_CONTEST_SLUG :  
+        $controller = new FallingwallsController('fallingwalls');
+        $controller->actionEntriesForWinner();
+        break;
+      default :
+        Yii::log('Error in actionAddWinner ', ERROR, ' Unknown contest slug');
+        $this->redirect(BASE_URL);
+    }
+  }
+  
+  public function actionWinner() { 
+    $isAdmin = isAdminUser();
+    if (!$isAdmin) {
+      $this->redirect(BASE_URL);
+    }
+    if (!array_key_exists('slug', $_GET) || empty($_GET['slug'])) {
+      $this->redirect(BASE_URL);
+    }
+    switch ($_GET['slug']) {
+      case FALLING_WALLS_CONTEST_SLUG :
+        $controller = new FallingwallsController('fallingwalls');
+        $controller->actionWinner();
+        break;
+      default :
+        Yii::log('Error in actionWinner ', ERROR, ' Unknown contest slug');
+        $this->redirect(BASE_URL);
+    }
+  }
 }

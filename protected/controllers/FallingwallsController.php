@@ -147,4 +147,74 @@ class FallingWallsController extends Controller {
     exit;
   }
 
-}
+  /**
+   * actionEntriesForWinner
+   * function is used for load entries that are not declare as winner   * 
+   */
+  public function actionEntriesForWinner() { 
+    try {
+      $response = array();
+      $nonWinnerEntries = array();
+      $nonWinner = array();
+      $winnerWeight = '';
+      $msg = '';
+      $contest = new Contest();
+      $contest->contestSlug = FALLING_WALLS_CONTEST_SLUG;
+      $contestInfo = $contest->getContestDetail();
+      $fallingWallContest = new FallingWallsContest();
+      
+      if (!empty($_POST)) { 
+        $response = $fallingWallContest->saveWinner();
+        if (array_key_exists('success', $response) && $response['success']) {
+          $this->redirect(BASE_URL . 'admin/contest/winner/'. FALLING_WALLS_CONTEST_SLUG );
+        } else {
+          Yii::log('', ERROR, 'Error in actionEntriesForWinner - failed to save winner');
+          $msg = Yii::t('contest', 'Some technical problem occurred, contact administrator');
+        }
+      }
+      $nonWinner = $fallingWallContest->loadNonWinnerEntries();
+      if (array_key_exists('non_winner_entry', $nonWinner) && !empty($nonWinner['non_winner_entry'])) {
+        $nonWinnerEntries = $nonWinner['non_winner_entry'];
+      }
+      if (array_key_exists('winner_weight', $nonWinner) && !empty($nonWinner['winner_weight'])) {
+        $winnerWeight = implode(',', $nonWinner['winner_weight']);
+      }
+    } catch (Exception $e) {      
+      $msg = $e->getMessage();
+      Yii::log('Error in actionEntriesForWinner ', ERROR, $msg);
+    }
+    $this->render('addWinner', array('entries' => $nonWinnerEntries, 'contest' => $contestInfo, 
+       'winner_weight' => $winnerWeight,'msg' => $msg));
+  }
+  
+  /**
+   * actionEntriesForWinner
+   * function is used for load entries that are not declare as winner   
+   */
+  public function actionWinner() {
+    try {
+      $winners = array();
+      $winnerEntries = array(); 
+      $winnerWeight = '';
+      $msg = '';
+      $contest = new Contest();
+      $contest->contestSlug = FALLING_WALLS_CONTEST_SLUG;
+      $contestInfo = $contest->getContestDetail();
+      
+      $fallingWallContest = new FallingWallsContest();
+      $winners = $fallingWallContest->loadWinnerEntries();
+      if (array_key_exists('winner_entry', $winners) && !empty($winners['winner_entry'])) {
+        $winnerEntries = $winners['winner_entry'];
+      }
+      if (array_key_exists('winner_weight', $winners) && !empty($winners['winner_weight'])) {
+        $winnerWeight = implode(',', $winners['winner_weight']);
+      }
+    } catch (Exception $e) {      
+      $msg = $e->getMessage();
+      Yii::log('Error in actionEntriesForWinner ', ERROR, $msg);
+    }
+  
+    $this->render('manageWinner', array('entries' => $winnerEntries, 'contest' => $contestInfo, 
+        'winner_weight' => $winnerWeight, 'msg' => $msg));
+  }  
+} 

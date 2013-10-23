@@ -15,7 +15,7 @@ class FallingWallsContest {
   public $slug;
   public $offset = '';
   public $entryId = '';
-
+  public $sort = '-creation_date';
   /**
    * loadContestEntries
    * function is used for get contest submission
@@ -23,7 +23,7 @@ class FallingWallsContest {
   public function loadContestEntries() {
     try {
       $contest = new contest();
-      $contest->sort = '-creation_date';
+      $contest->sort = $this->sort;
       $entryCount = 0;
       $entries = array();
       $countFromEntries = array();
@@ -72,6 +72,9 @@ class FallingWallsContest {
         }
         if (array_key_exists('content', $entry) && !empty($entry['content'])) {
           $contestSubmission['description'] = $entry['content']['description'];
+        }
+        if (array_key_exists('tags', $entry) && !empty($entry['tags'])) {
+          $contestSubmission['tags'] = $entry['tags'];
         }
         $contestSubmissions[] = $contestSubmission;
       }
@@ -205,4 +208,133 @@ class FallingWallsContest {
     return $entry;    
   }
 
+  /**
+   * loadWinnerEntries
+   * function is used for loading winners
+   * @return array winnerEntries, winnerWeight 
+   */
+  public function loadWinnerEntries() {
+    $entries = array();
+    $winnerEntries = array();
+    $winnerWeight = array();
+    $this->slug = FALLING_WALLS_CONTEST_SLUG;
+    $entries = $this->loadContestEntries();
+    if (!array_key_exists('contest_submission', $entries) || empty($entries['contest_submission'])) {
+      throw new Exception(Yii::t('contest', 'There is no entry in this contest'));
+    }
+    foreach ($entries['contest_submission'] as $entry) {
+      $winnerWt = '';
+      if (array_key_exists('tags', $entry)) {
+        $winnerWt = $this->checkForWinner($entry['tags']);
+        if (!empty($winnerWt)) {
+          foreach ($entry['tags'] as $tag) {
+            if ($tag['scheme'] == PRIZE_TAG_SCHEME) {
+              $entry['prize'] = $tag['name'];
+            }
+            if ($tag['scheme'] == WINNER_TAG_SCHEME) {
+              $entry['prize_weight'] = $tag['weight'];
+            }
+          }
+          $winnerEntries[] = $entry;
+          $winnerWeight[] = $winnerWt;
+        }        
+      }
+    }
+    return array('winner_entry' => $winnerEntries, 'winner_weight' => $winnerWeight);
+  }
+  
+  /**
+   * loadNonWinnerEntries
+   * function ios used for load entry that does contain winner tag
+   * @return array nonWinnerEntries, winnerWeight
+   */
+  public function loadNonWinnerEntries() {
+    $entries = array();
+    $nonWinnerEntries = array();
+    $winnerWeight = array();
+    $this->slug = FALLING_WALLS_CONTEST_SLUG;
+    $entries = $this->loadContestEntries();
+    if (!array_key_exists('contest_submission', $entries) || empty($entries['contest_submission'])) {
+      throw new Exception(Yii::t('contest', 'There is no entry in this contest'));
+    }
+    foreach ($entries['contest_submission'] as $entry) {
+      $winnerWt = '';
+      if (array_key_exists('tags', $entry)) {
+        $winnerWt = $this->checkForWinner($entry['tags']);
+        if (empty($winnerWt)) {
+          $nonWinnerEntries[] = $entry;
+        } else {          
+          $winnerWeight[] =  $winnerWt;
+        }       
+      }
+    }
+    return array('non_winner_entry' => $nonWinnerEntries, 'winner_weight' => $winnerWeight);
+  }
+  
+  /**
+   * saveWinner
+   * function is used for update entry as winner
+   * @return array - response of update entry
+   */
+  public function saveWinner() { 
+    $postData = $_POST;
+    if (array_key_exists('id', $postData) && empty($postData['id'])) {
+      throw new Exception('Entry is empty');
+    }
+    if (array_key_exists('prize', $postData) && empty($postData['prize'])) {
+      throw new Exception('Prize name is empty');
+    }
+    if (array_key_exists('weight', $postData) && empty($postData['weight'])) {
+      throw new Exception('Prize weight is empty');
+    }
+   
+    $aggregator = new AggregatorManager();
+    $aggregator->prize = $postData['prize'];
+    $aggregator->prizeWeight = $postData['weight'];
+    $aggregator->tags = $this->getEntryTags($postData['id']);
+    $aggregator->entryId = $postData['id'];
+    return $aggregator->updateEntry();
+  }
+
+  /**
+   * checkForWinner
+   * function is used for check wether winner tag exist in entry or not
+   * @param array $tags   - entry  tag
+   * @retrn int $winnerWeight 
+   */
+  private function checkForWinner($tags) {
+    $winnerWeight = '';
+    if (!is_array($tags) || empty($tags)) {
+      return $winnerWeight;
+    } 
+    foreach ($tags as $tag) {
+      if ($tag['scheme'] == WINNER_TAG_SCHEME) {
+        $winnerWeight = $tag['weight'];
+        break;
+      }
+    }
+    return $winnerWeight;
+  }
+  
+  /**
+   * getEntryTags
+   * function is used for loading tags for an entry
+   * @param string  $entryId  
+   * @return array $tags  
+   */
+  public function getEntryTags($entryId) {
+    $entryInfo = array();
+    $tags = array();
+    if (empty($entryId)) {
+      return $tags;
+    }
+    $contest = new Contest();
+    $contest->entryId = $entryId;
+    $contest->contestSlug = FALLING_WALLS_CONTEST_SLUG;
+    $entryInfo = $contest->getContestSubmissionInfo();
+    if (array_key_exists('tags', $entryInfo) && !empty($entryInfo['tags'])) {
+      $tags = $entryInfo['tags'];
+    }
+    return $tags;
+  }
 }

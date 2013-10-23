@@ -216,5 +216,40 @@ class FallingWallsController extends Controller {
   
     $this->render('manageWinner', array('entries' => $winnerEntries, 'contest' => $contestInfo, 
         'winner_weight' => $winnerWeight, 'msg' => $msg));
-  }  
+  }
+  
+  /**
+   * actionDeleteWinner
+   * function is used for delete existing winner
+   */
+  public function actionDeleteWinner() {
+    try {
+      $updateTag = array();
+      $tags = array();
+      if (array_key_exists('id', $_GET) && empty($_GET['id'])) {
+        throw new Exception('Entry id is empty');
+      }
+      $aggregator = new AggregatorManager();
+      $aggregator->entryId = $_GET['id'];
+      $contest = new FallingWallsContest();
+      $tags = $contest->getEntryTags($_GET['id']);
+      foreach ($tags as $tag) {
+        if ($tag['scheme'] != PRIZE_TAG_SCHEME && $tag['scheme'] != WINNER_TAG_SCHEME) {
+          $updateTag[] = $tag;
+        }
+      }
+      if (empty($updateTag)) {
+        $this->redirect(BASE_URL . 'admin/contest/winner/' . FALLING_WALLS_CONTEST_SLUG);
+      }
+      $aggregator->tags = $updateTag;
+      $response = $aggregator->updateEntry();
+      if (array_key_exists('success', $response) && $response['success']) {
+        Yii::log('', ERROR, 'Error in actionDeleteWinner function of fallingWallsController - failed to delete winner');
+      }     
+    } catch (Exception $e) {
+      Yii::log('', ERROR, 'Error in actionDeleteWinner of fallingWallsController ' . $e->getMessage());
+    }
+    $this->redirect(BASE_URL . 'admin/contest/winner/' . FALLING_WALLS_CONTEST_SLUG);
+  }
+  
 } 

@@ -637,4 +637,28 @@ class WinnerController extends Controller {
         $this->redirect(BASE_URL);
     }
   }
+  
+  
+  /**
+   * actionDeleteContestWinner 
+   * This function is used for delete winner
+   */
+   public function actionDeleteContestWinner() { 
+    $isAdmin = isAdminUser();
+    if (!$isAdmin) {
+      $this->redirect(BASE_URL);
+    }
+    if (!array_key_exists('slug', $_GET) || empty($_GET['slug'])) {
+      $this->redirect(BASE_URL);
+    }
+    switch ($_GET['slug']) { 
+      case FALLING_WALLS_CONTEST_SLUG :
+        $controller = new FallingwallsController('fallingwalls');
+        $controller->actionDeleteWinner();
+        break;
+      default :
+        Yii::log('Error in actionDeleteContestWinner ', ERROR, ' Unknown contest slug');
+        $this->redirect(BASE_URL);
+    }
+  }
 }

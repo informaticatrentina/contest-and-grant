@@ -10,6 +10,13 @@ $(document).ready(function() {
     e.preventDefault();
     submitPrizeModal('add-prize-modal-form');    
   });    
+  
+  $('.delete-winner').click(function(e) {
+    var response =  confirm(Yii.t('js', "Are you sure you want to remove this winner ?"));
+    if (!response) {
+      return false;
+    }  
+  });  
 });
 
 function submitPrizeModal(formId) {

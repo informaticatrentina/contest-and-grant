@@ -252,4 +252,46 @@ class FallingWallsController extends Controller {
     $this->redirect(BASE_URL . 'admin/contest/winner/' . FALLING_WALLS_CONTEST_SLUG);
   }
   
+  /**
+   * actionUpdateWinner
+   * function is used for update existing winner
+   */
+  public function actionUpdateWinner() {
+    try {
+      $updateTag = array();
+      $tags = array();
+      if (array_key_exists('id', $_POST) && empty($_POST['id'])) {
+        throw new Exception('Entry id is empty');
+      }
+      if (array_key_exists('prize', $_POST) && empty($_POST['prize'])) {
+        throw new Exception('Prize title is empty');
+      }
+      if (array_key_exists('weight', $_POST) && empty($_POST['weight'])) {
+        throw new Exception('Prize weight is empty');
+      }
+      $aggregator = new AggregatorManager();
+      $aggregator->entryId = $_POST['id'];
+      $contest = new FallingWallsContest();
+      $tags = $contest->getEntryTags($_POST['id']);
+      foreach ($tags as $tag) {
+        if ($tag['scheme'] != PRIZE_TAG_SCHEME && $tag['scheme'] != WINNER_TAG_SCHEME) {
+          $updateTag[] = $tag;
+        }
+      }
+      if (empty($updateTag)) {
+        $this->redirect(BASE_URL . 'admin/contest/winner/' . FALLING_WALLS_CONTEST_SLUG);
+      }
+      $aggregator->tags = $updateTag;
+      $aggregator->prize = $_POST['prize'];
+      $aggregator->prizeWeight = $_POST['weight'];
+      $response = $aggregator->updateEntry();
+      if (array_key_exists('success', $response) && $response['success']) {
+        Yii::log('', ERROR, 'Error in actionUpdateWinner function of fallingWallsController - failed to update winner');
+      }     
+    } catch (Exception $e) {
+      Yii::log('', ERROR, 'Error in actionUpdateWinner of fallingWallsController ' . $e->getMessage());
+    }
+    $this->redirect(BASE_URL . 'admin/contest/winner/' . FALLING_WALLS_CONTEST_SLUG);
+  }
+  
 } 

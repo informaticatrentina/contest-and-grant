@@ -42,8 +42,14 @@
         {% for entry in entries %}
           <tr>
             <td>{{ i }}</td>
-            <td><img src="{{constant('BASE_URL')}}{{resizeByPath(entry.videoImagePath,'100','500')}}" alt="contest image" /></td>
-            <td>{{entry.title}}</td>
+            <td>
+              <a href="{{constant('BASE_URL')}}contest/entries/{{contest.contestSlug}}/{{entry.id}}">
+                <img src="{{constant('BASE_URL')}}{{resizeByPath(entry.videoImagePath,'100','500')}}" alt="contest image" />
+              </a>
+            </td>
+            <td>
+              <a href="{{constant('BASE_URL')}}contest/entries/{{contest.contestSlug}}/{{entry.id}}">{{entry.title}}</a>
+            </td>
             <td>{{entry.prize}}</td>
             <td>{{entry.prize_weight}}</td>
             <td>{{entry.author.name}}</td>
@@ -63,5 +69,25 @@
   <input type="hidden" name="winnerWeight" value="{{winner_weight}}" id="winnerWeight">
   {% endif %}
 </div>
-
+<div class="modal hide fade" id="edit-prize-modal">
+  <div class="modal-header">
+    <a class="close" data-dismiss="modal">×</a>
+    <center>Edit Prize</center>
+  </div>
+  <div class="modal-body" style="padding: 27px 30px 29px 60px">
+    <form  method="post" id="update-winner-form" action="{{constant('BASE_URL')}}admin/contest/winner/edit/{{contest.contestSlug}}">
+      <div id="add-prize-modal-error" class="alert-error" style="display:none"></div>
+      <input type="hidden" class="input-block-level" id="edit-entry-id" name="id" value=""></input>
+      <label>{{ t('contest', 'Prize')}}</label>
+      <input type="text"class="input-block-level" name="prize" id="prize" value=""></input>
+      <label>{{ t('contest', 'weight')}}</label>
+      <input type="text" class="input-block-level" name="weight" id="weight" value=""></input>      
+    </form>
+  </div>
+  <div class="modal-footer">
+    <a href="#" class="btn" data-dismiss="modal">{{ t('contest', 'Close')}}</a>
+    <a href="#" class="btn" id="edit-prize-modal-save">{{ t('contest', 'Save')}}</a>
+  </div>
+</div>
+ 
 <script src="{{constant('BASE_URL')}}js/fallingWallsWinner.js"></script>

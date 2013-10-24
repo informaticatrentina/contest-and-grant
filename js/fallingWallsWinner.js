@@ -1,3 +1,4 @@
+var prevWeight = '';
 $(document).ready(function() {
   $(".add-entry").live('click',function() {
     var entryId = $(this).attr('id');
@@ -17,6 +18,20 @@ $(document).ready(function() {
       return false;
     }  
   });  
+  
+  $('.update-winner').click(function(){
+    var entryId = $(this).attr('id');
+    var weight = $(this).attr('weight');
+    var prizeTitle = $(this).attr('prize');
+    prevWeight = weight;
+    $('#edit-entry-id').attr('value',entryId);
+    $('#prize').attr('value',prizeTitle);
+    $('#weight').attr('value',weight);
+    
+  }); 
+  $('#edit-prize-modal-save').click(function() {
+    submitPrizeModal('update-winner-form');
+  });
 });
 
 function submitPrizeModal(formId) {
@@ -41,7 +56,7 @@ function submitPrizeModal(formId) {
     $('#add-prize-modal-error').show();
     $('#add-prize-modal-error').html(Yii.t('js', 'Prize weight should be numeric'));
     return false;
-  } else if (prizeWeightArr.indexOf(weight) > -1) { 
+  } else if (prizeWeightArr.indexOf(weight) > -1 && prevWeight != weight) { 
     $('#add-prize-modal-error').show();
     $('#add-prize-modal-error').html(Yii.t('js', 'Prize weight already exist'));
     return false;

@@ -46,8 +46,14 @@
         {% for entry in entries %}
         <tr>
           <td>{{ i }}</td>
-          <td><img src="{{constant('BASE_URL')}}{{resizeByPath(entry.videoImagePath,'100','500')}}" alt="contest image" /></td>
-          <td>{{entry.title}}</td>
+          <td>
+            <a href="{{constant('BASE_URL')}}contest/entries/{{contest.contestSlug}}/{{entry.id}}">
+              <img src="{{constant('BASE_URL')}}{{resizeByPath(entry.videoImagePath,'100','500')}}" alt="contest image" />
+            </a>
+          </td>
+          <td>
+            <a href="{{constant('BASE_URL')}}contest/entries/{{contest.contestSlug}}/{{entry.id}}">{{entry.title}}</a>
+          </td>
           <td>{{entry.author.name}}</td>
           <td id="{{entry.id}}" class="add-entry">
             <a href="#add-prize-modal"  data-toggle="modal">{{ t('contest', 'add') }}</a>

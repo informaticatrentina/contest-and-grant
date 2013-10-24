@@ -148,7 +148,7 @@ return array(
         'admin/winner/status' => 'contest/winnerStatus',
         'admin/contest/winner/add/<slug:[\w-]+>' => 'winner/addWinner',  
         'admin/contest/winner/<slug:[\w-]+>' => 'winner/winner',  
-        'admin/contest/winner/edit/<slug:[\w-]+>/<id:[\w-]+>' => 'winner/deleteContestWinner',  
+        'admin/contest/winner/edit/<slug:[\w-]+>' => 'winner/updateContestWinner',  
         'admin/contest/winner/delete/<slug:[\w-]+>/<id:[\w-]+>' => 'winner/deleteContestWinner'  
       ),
     ),

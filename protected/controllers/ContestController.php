@@ -27,6 +27,7 @@ class ContestController extends Controller {
   public function actionIndex() {
     $banners = array();
     $staticBanners = array();
+    $homepageBox = array();
     if (defined('IMAGE_FOR_BANNER_SLIDE')) {
       $banner = json_decode(IMAGE_FOR_BANNER_SLIDE);
       foreach ($banner as $key => $val) {
@@ -41,7 +42,11 @@ class ContestController extends Controller {
         $staticBanners[] = array('url' => $key, 'image' => $val);
       }
     }
-    $this->render('index', array('banners' => $banners, 'staticBanners' => $staticBanners));
+    if (defined('HOME_PAGE_BOX_IMAGE')) {
+      $homepageBox = json_decode(HOME_PAGE_BOX_IMAGE);
+      $homepageBox = array_chunk($homepageBox, 3);
+    }
+    $this->render('index', array('banners' => $banners, 'staticBanners' => $staticBanners, 'homepageBoxes' => $homepageBox));
   }
 
   public function actionError() {

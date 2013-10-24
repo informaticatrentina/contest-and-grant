@@ -121,6 +121,7 @@ CONFIGURATION
       define in json format(key : value). Key replace with url and value replace with static banner 
       image.
 
+   w. HOME_PAGE_BOX_IMAGE  The list of homepage box images with respected link and caption. 
  
 - Now contest and grants application is ready to run. If you want to run
   application on your local machine (apache server), you have to create

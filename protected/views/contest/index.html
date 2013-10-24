@@ -41,7 +41,26 @@
       <a class="right carousel-control" href="#myCarousel" data-slide="next">&rsaquo;</a>
     {% endif %}  
   </div>  
-  <div class="row" style="padding-top:50px;">
+  {% set padding = 'style="padding-top:50px;"' %}
+  {% for homepageBox in homepageBoxes %}
+    <div class="row" {{padding}}">
+      {% for boxes in homepageBox %}      
+        <div class="span4">
+          <a href="{{boxes.url}}">
+            <div style="position:relative;" class="demo">
+              <img src="{{constant('BASE_URL')}}images/{{boxes.image}}" width="750" height="750" alt="Youth">
+              <div class="homepage-box">
+                <h2>{{boxes.caption}}</h2>
+              </div>
+            </div>
+          </a>
+          <div class="hidden-desktop" style="height:20px"></div>
+        </div>
+      {% endfor %}
+      {% set padding = 'style="padding-top:30px;"' %}
+    </div>
+  {% endfor %}
+  <div class="row" style="padding-top:30px;">
     <div class="span4">
       {% set activeContestSlug = '' %}
       {% set activeContestSlug = getFirstContest() %}
@@ -50,7 +69,7 @@
       {% else %}
          <a href="{{constant('BASE_URL')}}contest/winner/{{activeContestSlug}}">
       {% endif %}
-        <div style="position:relative;">
+        <div style="position:relative;"  class="demo">
           <img src="{{constant('BASE_URL')}}images/photo_contest_winner_750_750.jpg" width="750" height="750" alt="Youth">
           <div class="homepage-box">
             <h2>La ricerca in uno scatto!</h2>

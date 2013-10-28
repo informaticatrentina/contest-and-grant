@@ -336,4 +336,33 @@ class FallingWallsController extends Controller {
     echo json_encode($return);
     exit; 
   }
+  
+  /**
+   * actionContestWinner
+   * function is used for loading all winner
+   */
+  public function actionContestWinner() {
+    try {
+      $winner = array();
+      $contest = new Contest();
+      $contest->contestSlug = FALLING_WALLS_CONTEST_SLUG;
+      $contestInfo = $contest->getContestDetail();
+      $contestInfo['briefDescription'] = '';
+      if (array_key_exists('contestDescription', $contestInfo) && empty($contestInfo['contestDescription'])) {
+        $contestInfo['briefDescription'] = substr($contestInfo['contestDescription'], 0, 512);
+      }
+      $fallingWalls = new FallingWallsContest();
+      $winnerInfo = $fallingWalls->loadWinnerEntries();
+      if (array_key_exists('winner_entry', $winnerInfo) && !empty($winnerInfo['winner_entry'])) {
+        foreach ($winnerInfo['winner_entry'] as $info) {
+          $winner[] = array('image_url' => $info['videoImagePath'], 'id' => $info['id'], 'title' => $info['title'],
+              'author' => $info['author']['name'], 'prize_title' => $info['prize']);
+        }
+      }
+    } catch (Exception $e) {
+      Yii::log('', ERROR, 'Error in actionContestWinner ' . $e->getMessage());
+    }
+    $this->render('winner', array('contestInfo' => $contestInfo, 'entries' => $winner));
+  }
+  
 } 

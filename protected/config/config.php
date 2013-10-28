@@ -66,6 +66,7 @@ define('SOURCE', 'contest-grant');
 //define constant for  tag scheme
 define('WINNER_TAG_SCHEME','http://ahref.eu/contest/schema/contest/winner');
 define('PRIZE_TAG_SCHEME','http://ahref.eu/contest/schema/contest/prize');
+define('CONTEST_TAG_SCHEME','http://ahref.eu/contest/schema/');
 
 /**
  * configuration for interaction of file
@@ -146,7 +147,7 @@ return array(
         'login' => 'contest/login',  
         'logout' => 'contest/logout',
         'admin/winner/status' => 'contest/winnerStatus',
-        'admin/contest/winner/add/<slug:[\w-]+>' => 'winner/addWinner',  
+        'admin/contest/winner/add/<slug:[\w-]+>' => 'winner/addWinner', 
         'admin/contest/winner/<slug:[\w-]+>' => 'winner/winner',  
         'admin/contest/winner/edit/<slug:[\w-]+>' => 'winner/updateContestWinner',  
         'admin/contest/winner/delete/<slug:[\w-]+>/<id:[\w-]+>' => 'winner/deleteContestWinner'  

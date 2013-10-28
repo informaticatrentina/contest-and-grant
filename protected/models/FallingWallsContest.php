@@ -204,6 +204,14 @@ class FallingWallsContest {
       $entry['video_id'] = $entries['video_id'];
       $entry['video_domain'] = $entries['url_info']['type'];
       $entry['url'] = BASE_URL . 'contest/entries/' . $this->slug . '/' . $_GET['id'];
+      $entry['winner'] = $this->checkForWinner($entries['tags']);
+      if (!empty($entry['winner'])) {
+        foreach ($entries['tags'] as $tag) {
+          if ($tag['scheme'] == PRIZE_TAG_SCHEME) {
+            $entry['prize_title'] = $tag['name'];
+          }
+        }
+      }
     }
     return $entry;    
   }
@@ -217,12 +225,24 @@ class FallingWallsContest {
     $entries = array();
     $winnerEntries = array();
     $winnerWeight = array();
-    $this->slug = FALLING_WALLS_CONTEST_SLUG;
-    $entries = $this->loadContestEntries();
-    if (!array_key_exists('contest_submission', $entries) || empty($entries['contest_submission'])) {
+    $aggregatorManager = new AggregatorManager();
+    $aggregatorManager->returnField = 'links,author,title,id,tags';
+    $aggregatorManager->contestSlug = FALLING_WALLS_CONTEST_SLUG;
+    $aggregatorManager->sort = 'tag:winner';
+    $aggregatorManager->tag =  FALLING_WALLS_CONTEST_SLUG . '{'. CONTEST_TAG_SCHEME .'},winner';
+    $entries = $aggregatorManager->getWinnerEntry();
+    if (empty($entries)) {
       throw new Exception(Yii::t('contest', 'There is no entry in this contest'));
     }
-    foreach ($entries['contest_submission'] as $entry) {
+    foreach ($entries as $entry) {
+      if (array_key_exists('links', $entry) && array_key_exists('enclosures', $entry['links']) && array_key_exists(0, $entry['links']['enclosures'])) {
+        if (array_key_exists('uri', $entry['links']['enclosures'][0]) && !empty($entry['links']['enclosures'][0]['uri'])) {
+          $entry['videoImagePath'] = $this->getVideoImage($entry['links']['enclosures'][0]['uri']);
+          if (empty($contestSubmission['videoImagePath'])) {
+            Yii::log('', ERROR, 'Failed to load thumbnail image :: url' . $entry['links']['enclosures'][0]['uri']);
+          }
+        }
+      }
       $winnerWt = '';
       if (array_key_exists('tags', $entry)) {
         $winnerWt = $this->checkForWinner($entry['tags']);
@@ -237,7 +257,7 @@ class FallingWallsContest {
           }
           $winnerEntries[] = $entry;
           $winnerWeight[] = $winnerWt;
-        }        
+        }
       }
     }
     return array('winner_entry' => $winnerEntries, 'winner_weight' => $winnerWeight);
@@ -252,6 +272,7 @@ class FallingWallsContest {
     $entries = array();
     $nonWinnerEntries = array();
     $winnerWeight = array();
+    $entryCount = 0;
     $this->slug = FALLING_WALLS_CONTEST_SLUG;
     $entries = $this->loadContestEntries();
     if (!array_key_exists('contest_submission', $entries) || empty($entries['contest_submission'])) {
@@ -268,7 +289,10 @@ class FallingWallsContest {
         }       
       }
     }
-    return array('non_winner_entry' => $nonWinnerEntries, 'winner_weight' => $winnerWeight);
+    if (array_key_exists('entry_count', $entries) && array_key_exists('count', $entries['entry_count'])) {
+      $entryCount =  $entries['entry_count']['count'];
+    }
+    return array('non_winner_entry' => $nonWinnerEntries, 'winner_weight' => $winnerWeight, 'entry_count' => $entryCount);
   }
   
   /**

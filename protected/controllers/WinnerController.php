@@ -347,6 +347,28 @@ class WinnerController extends Controller {
    * This function is used for get winner information
    */
   public function actionGetWinnerInfo() {
+    if (!array_key_exists('slug', $_GET) || empty($_GET['slug'])) {
+      $this->redirect(BASE_URL);
+    }
+    switch ($_GET['slug']) {
+      case FIRST_CONTEST_SLUG :
+        $this->getContestWinner();
+        break;
+      case FALLING_WALLS_CONTEST_SLUG :
+        $controller = new FallingwallsController('fallingwalls');
+        $controller->actionContestWinner();
+        break;
+      default :
+        Yii::log('Error in actionGetWinnerInfo ', ERROR, ' Unknown contest slug');
+        $this->redirect(BASE_URL);
+    }
+  }
+  
+  /**
+   * getContestWinner
+   * function  is used for loading all winner (for frontend winner page )
+   */
+  public function getContestWinner() {
     $winner = array();
     $contestInfo = array();
     $categoryDetail = array();

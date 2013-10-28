@@ -37,6 +37,18 @@
       <div class="entry-content-right">
         <h5>{{ entry.author_name }}</h5>
       </div>      
+      {% if entry.winner is not empty and entry.winner_status == 1  %}
+        <div class="entry-content-right entry-content-winner">
+          <span class="awards">Premi</span>
+          <div class="winner-tropy">
+            <div style="float:left;" >
+              <img src="{{constant('BASE_URL')}}images/small_trophy.png" alt="winner trophy">
+            </div>
+            <span class="category-prize">LA RICERCA IN UNO SCATTO&nbsp;!</span>
+          </div>
+          <p class="single-entry-tag">{{entry.prize_title}}</p>
+        </div>
+      {% endif %}
     </div>
   </div>
   <div class="row"> 

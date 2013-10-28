@@ -1,4 +1,8 @@
 var prevWeight = '';
+var flag = true;
+var postLimit = 20;
+var entriesOffset = postLimit;
+var nonWinnerEntryCount = postLimit;
 $(document).ready(function() {
   $(".add-entry").live('click',function() {
     var entryId = $(this).attr('id');
@@ -31,6 +35,16 @@ $(document).ready(function() {
   }); 
   $('#edit-prize-modal-save').click(function() {
     submitPrizeModal('update-winner-form');
+  });
+  
+  $(window).scroll(function() {  
+    var totalEntry = $("#winnerCount").val(); 
+    if (nonWinnerEntryCount >= totalEntry) {     
+      return false;
+    }
+    if ($(window).scrollTop() == $(document).height() - $(window).height()) { 
+      loadNonWinnerEntry();
+    }
   });
 });
 
@@ -66,3 +80,55 @@ function submitPrizeModal(formId) {
   $('#' + formId).submit();
 } 
 
+function loadNonWinnerEntry() { 
+  var baseUrl = $('#baseUrl').val();
+  var winnerWeight = $('#winnerWeight').val();
+  var sNo = $("tr:last").find("td:first").html();
+  $('#loading-image').show();
+  if (flag) {
+    flag = false;
+    $.ajax({
+      type: 'GET',
+      url: addWinnerPageUrl,
+      dataType: 'json',
+      data: {
+        offset: entriesOffset
+      },
+      success: function(resp) {
+        $('#loading-image').hide();
+        if (resp.success) {
+          entriesOffset += postLimit;
+          nonWinnerEntryCount += postLimit;
+          var data = resp.data.non_winner_entry;          
+          if (resp.data.winner_weight != '') {
+            winnerWeight = winnerWeight + ',' + resp.data.winner_weight;
+            $('#winnerWeight').val(winnerWeight);
+          }          
+          var html = '';
+          for (key in data) {
+            sNo++;
+            html += '<tr>\n\
+                      <td>'+ sNo +'</td>\n\
+                      <td>\n\
+                        <a href="' + baseUrl + 'contest/entries/'+ resp.data.contest_slug +'/'+ data[key].id +'">\n\
+                          <img src="' + baseUrl + data[key].videoImagePath +'" alt="contest image" />\n\
+                        </a>\n\
+                      </td>\n\
+                      <td><a href="' + baseUrl + 'contest/entries/'+ resp.data.contest_slug +'/'+ data[key].id+'">'+ data[key].title +'</a></td>\n\
+                      <td>'+ data[key].author.name +'</td>\n\
+                      <td id="'+ data[key].id +'" class="add-entry"><a href="#add-prize-modal"  data-toggle="modal">aggiungi</a></td>\n\
+                    </tr>';
+          }
+          $('#winner-row').append(html);
+          flag = true;
+        } else {
+          alert(resp.msg);
+        }
+      },
+      error: function() {
+        $('#loading-image').hide();
+      }
+    });
+  }
+  return false;
+}

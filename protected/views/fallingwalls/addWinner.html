@@ -47,12 +47,12 @@
         <tr>
           <td>{{ i }}</td>
           <td>
-            <a href="{{constant('BASE_URL')}}contest/entries/{{contest.contestSlug}}/{{entry.id}}">
-              <img src="{{constant('BASE_URL')}}{{resizeByPath(entry.videoImagePath,'100','500')}}" alt="contest image" />
+            <a href="{{constant('BASE_URL')}}contest/entries/{{contest.contestSlug}}/{{entry.id}}" target="_blank">
+               <img src="{{constant('BASE_URL')}}{{resizeByPath(entry.videoImagePath,'100','500')}}" alt="contest image" />
             </a>
           </td>
           <td>
-            <a href="{{constant('BASE_URL')}}contest/entries/{{contest.contestSlug}}/{{entry.id}}">{{entry.title}}</a>
+            <a href="{{constant('BASE_URL')}}contest/entries/{{contest.contestSlug}}/{{entry.id}}"  target="_blank">{{entry.title}}</a>
           </td>
           <td>{{entry.author.name}}</td>
           <td id="{{entry.id}}" class="add-entry">
@@ -67,7 +67,7 @@
       <center><img src="{{constant('BASE_URL')}}images/loader.gif" alt="loading image" /></center>
     </div>  
     <input type="hidden" name="winnerWeight" value="{{winner_weight}}" id="winnerWeight" />
-    <input type="hidden" name="entry_count" value="{{count}}" id="winnerCount" />
+    <input type="hidden" name="entry_count" value="{{entry_count}}" id="winnerCount" />
     <input type="hidden" name="base_url" value="{{constant('BASE_URL')}}" id="baseUrl" />
     <input type="hidden" name="winner_url" value="{{constant('BASE_URL')}}admin/contest/winner/add/{{category.category_id}}/add" id="winnerPageUrl" />
   {%endif%}
@@ -93,4 +93,7 @@
     </div>
   </div>
 </div>
+<script>
+  var addWinnerPageUrl = "{{constant('BASE_URL')}}admin/contest/winner/add/{{constant('FALLING_WALLS_CONTEST_SLUG')}}";
+</script>
 <script src="{{constant('BASE_URL')}}js/fallingWallsWinner.js"></script>

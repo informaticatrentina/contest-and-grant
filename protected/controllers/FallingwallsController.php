@@ -128,6 +128,7 @@ class FallingWallsController extends Controller {
     $entry = $contest->loadSingleContestEntries();
     $entry['contest_title'] = $contestInfo['contestTitle'];
     $entry['contest_slug'] = $contestInfo['contestSlug'];
+    $entry['winner_status'] = $contestInfo['winnerStatus'];
     $aggregatorMgr = new AggregatorManager();
     $aggregatorMgr->contestSlug = $_GET['slug'];
     $aggregatorMgr->range = $_GET['id'] . ':' . 1;
@@ -158,8 +159,14 @@ class FallingWallsController extends Controller {
       $nonWinner = array();
       $winnerWeight = '';
       $msg = '';
+      $entryCount = 0;
       $contest = new Contest();
-      $contest->contestSlug = FALLING_WALLS_CONTEST_SLUG;
+      $contest->contestSlug = FALLING_WALLS_CONTEST_SLUG;      
+          
+       //check for ajax request
+      if (array_key_exists('HTTP_X_REQUESTED_WITH', $_SERVER)) {
+        $this->loadNonWinnerEntryByAjax();  
+      }
       $contestInfo = $contest->getContestDetail();
       $fallingWallContest = new FallingWallsContest();
       
@@ -179,12 +186,15 @@ class FallingWallsController extends Controller {
       if (array_key_exists('winner_weight', $nonWinner) && !empty($nonWinner['winner_weight'])) {
         $winnerWeight = implode(',', $nonWinner['winner_weight']);
       }
+      if (array_key_exists('entry_count', $nonWinner) && !empty($nonWinner['entry_count'])) {
+        $entryCount = $nonWinner['entry_count'];
+      }
     } catch (Exception $e) {      
       $msg = $e->getMessage();
       Yii::log('Error in actionEntriesForWinner ', ERROR, $msg);
     }
     $this->render('addWinner', array('entries' => $nonWinnerEntries, 'contest' => $contestInfo, 
-       'winner_weight' => $winnerWeight,'msg' => $msg));
+       'winner_weight' => $winnerWeight,'msg' => $msg, 'entry_count' => $entryCount));
   }
   
   /**
@@ -293,5 +303,37 @@ class FallingWallsController extends Controller {
     }
     $this->redirect(BASE_URL . 'admin/contest/winner/' . FALLING_WALLS_CONTEST_SLUG);
   }
-  
+
+  /**
+   * loadNonWinnerEntryByAjax
+   * function is used for loading non winner entry
+   */
+  public function loadNonWinnerEntryByAjax(){
+    try {
+      $return = array('success' => false, 'msg' => '', 'data' => array());
+      $nonWinnerEntries = array();
+      $winnerWeight =  '';
+      if (array_key_exists('offset', $_GET) && !empty($_GET['offset'])) {
+        $fallingWallContest = new FallingWallsContest();
+        $fallingWallContest->offset = $_GET['offset'];
+        $nonWinner = $fallingWallContest->loadNonWinnerEntries();
+        if (array_key_exists('non_winner_entry', $nonWinner) && !empty($nonWinner['non_winner_entry'])) {
+           foreach ( $nonWinner['non_winner_entry'] as $entry) {
+            $entry['videoImagePath'] = resizeImageByPath($entry['videoImagePath'],'100','500');
+            $nonWinnerEntries[] = $entry;
+          }
+        }
+        if (array_key_exists('winner_weight', $nonWinner) && !empty($nonWinner['winner_weight'])) {
+          $winnerWeight = implode(',', $nonWinner['winner_weight']);
+        }
+      }
+    } catch (Exception $e) {
+      $return['msg'] = Yii::t('contest', 'Some technical problem occurred, contact administrator');
+      Yii::log('', ERROR, 'Error in loadNonWinnerEntryByAjax ' . $e->getMessage());
+    }
+    $return['success'] = true;
+    $return['data'] = array('non_winner_entry' => $nonWinnerEntries, 'winner_weight' => $winnerWeight, 'contest_slug' => FALLING_WALLS_CONTEST_SLUG);
+    echo json_encode($return);
+    exit; 
+  }
 } 

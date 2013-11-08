@@ -1317,3 +1317,9 @@ p::selection  {
   -webkit-transition-timing-function: ease-out;
   -webkit-transition-duration: 500ms;
 }
+
+.winner-prize-image {
+  padding:40px; 
+  float:left; 
+  width:80px;
+}

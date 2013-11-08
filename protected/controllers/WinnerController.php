@@ -355,6 +355,7 @@ class WinnerController extends Controller {
         $this->getContestWinner();
         break;
       case FALLING_WALLS_CONTEST_SLUG :
+      case HELLO_FIEMME_ORGANIZER :  
         $controller = new FallingwallsController('fallingwalls');
         $controller->actionContestWinner();
         break;
@@ -631,7 +632,8 @@ class WinnerController extends Controller {
       $this->redirect(BASE_URL);
     }
     switch($_GET['slug']) {
-      case FALLING_WALLS_CONTEST_SLUG :  
+      case FALLING_WALLS_CONTEST_SLUG : 
+      case HELLO_FIEMME_ORGANIZER :  
         $controller = new FallingwallsController('fallingwalls');
         $controller->actionEntriesForWinner();
         break;
@@ -651,6 +653,7 @@ class WinnerController extends Controller {
     }
     switch ($_GET['slug']) {
       case FALLING_WALLS_CONTEST_SLUG :
+      case HELLO_FIEMME_ORGANIZER : 
         $controller = new FallingwallsController('fallingwalls');
         $controller->actionWinner();
         break;
@@ -675,6 +678,7 @@ class WinnerController extends Controller {
     }
     switch ($_GET['slug']) { 
       case FALLING_WALLS_CONTEST_SLUG :
+      case HELLO_FIEMME_ORGANIZER :
         $controller = new FallingwallsController('fallingwalls');
         $controller->actionDeleteWinner();
         break;
@@ -698,6 +702,7 @@ class WinnerController extends Controller {
     }
     switch ($_GET['slug']) { 
       case FALLING_WALLS_CONTEST_SLUG :
+      case HELLO_FIEMME_ORGANIZER :
         $controller = new FallingwallsController('fallingwalls');
         $controller->actionUpdateWinner();
         break;

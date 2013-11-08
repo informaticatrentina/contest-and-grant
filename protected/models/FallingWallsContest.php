@@ -47,19 +47,23 @@ class FallingWallsContest {
         }
       }
       $contestSubmissions = array();
-      foreach ($entries as $entry) {
+      foreach ($entries as $entry) {  
+        $videoFlag = false;
         $contestSubmission = array();
-        if (array_key_exists('links', $entry) && array_key_exists('enclosures', $entry['links']) && array_key_exists(0, $entry['links']['enclosures'])) {
-          if (array_key_exists('uri', $entry['links']['enclosures'][0]) && !empty($entry['links']['enclosures'][0]['uri'])) {
-            $contestSubmission['videoImagePath'] = $this->getVideoImage($entry['links']['enclosures'][0]['uri']);
-            if (empty($contestSubmission['videoImagePath'])) {
-              Yii::log('', ERROR, 'Failed to load thumbnail image :: url' . $entry['links']['enclosures'][0]['uri']);
-              continue;
+        if (array_key_exists('links', $entry) && array_key_exists('enclosures', $entry['links'])) {
+          $contestSubmission['videoImagePath'] = DEFAULT_VIDEO_THUMBNAIL;
+          foreach ($entry['links']['enclosures'] as $key => $val) {
+            if (array_key_exists('type', $val) && $val['type'] == 'video') {
+              $contestSubmission['videoImagePath'] = $this->getVideoImage($entry['links']['enclosures'][$key]['uri']);
+              if (empty($contestSubmission['videoImagePath'])) {
+                Yii::log('', ERROR, 'Failed to load thumbnail image :: url' . $entry['links']['enclosures'][$key]['uri']);
+                continue;
+              }
+              $contestSubmission['video_id'] = $this->getVideoId($entry['links']['enclosures'][$key]['uri']);
+              $contestSubmission['url_info'] = $this->getUrlInfo($entry['links']['enclosures'][$key]['uri']);
             }
-            $contestSubmission['video_id'] = $this->getVideoId($entry['links']['enclosures'][0]['uri']);
-            $contestSubmission['url_info'] = $this->getUrlInfo($entry['links']['enclosures'][0]['uri']);
           }
-        }
+        } 
 
         if (array_key_exists('author', $entry) && !empty($entry['author'])) {
           $contestSubmission['author'] = $entry['author'];
@@ -227,21 +231,24 @@ class FallingWallsContest {
     $winnerWeight = array();
     $aggregatorManager = new AggregatorManager();
     $aggregatorManager->returnField = 'links,author,title,id,tags';
-    $aggregatorManager->contestSlug = FALLING_WALLS_CONTEST_SLUG;
+    $aggregatorManager->contestSlug = $_GET['slug'];
     $aggregatorManager->sort = 'tag:winner';
-    $aggregatorManager->tag =  FALLING_WALLS_CONTEST_SLUG . '{'. CONTEST_TAG_SCHEME .'},winner';
+    $aggregatorManager->tag =  $_GET['slug'] . '{'. CONTEST_TAG_SCHEME .'},winner';
     $entries = $aggregatorManager->getWinnerEntry();
     if (empty($entries)) {
       throw new Exception(Yii::t('contest', 'There is no entry in this contest'));
     }
-    foreach ($entries as $entry) {
-      if (array_key_exists('links', $entry) && array_key_exists('enclosures', $entry['links']) && array_key_exists(0, $entry['links']['enclosures'])) {
-        if (array_key_exists('uri', $entry['links']['enclosures'][0]) && !empty($entry['links']['enclosures'][0]['uri'])) {
-          $entry['videoImagePath'] = $this->getVideoImage($entry['links']['enclosures'][0]['uri']);
-          if (empty($contestSubmission['videoImagePath'])) {
-            Yii::log('', ERROR, 'Failed to load thumbnail image :: url' . $entry['links']['enclosures'][0]['uri']);
+    foreach ($entries as $entry) { 
+      if (array_key_exists('links', $entry) && array_key_exists('enclosures', $entry['links']) && !empty($entry['links']['enclosures'])) {
+        $entry['videoImagePath'] = DEFAULT_VIDEO_THUMBNAIL;
+        foreach ($entry['links']['enclosures'] as $key => $val) {          
+          if (array_key_exists('type', $val) && $val['type'] == 'video') {
+            $entry['videoImagePath'] = $this->getVideoImage($entry['links']['enclosures'][$key]['uri']);
+            if (!$entry['videoImagePath']) {
+              Yii::log('', ERROR, 'Error in loadWinnerEntries - Failed to load thumbnail image :: url '. $entry['links']['enclosures'][$key]['uri']);
+            }
           }
-        }
+        }        
       }
       $winnerWt = '';
       if (array_key_exists('tags', $entry)) {
@@ -273,7 +280,7 @@ class FallingWallsContest {
     $nonWinnerEntries = array();
     $winnerWeight = array();
     $entryCount = 0;
-    $this->slug = FALLING_WALLS_CONTEST_SLUG;
+    $this->slug = $_GET['slug'];
     $entries = $this->loadContestEntries();
     if (!array_key_exists('contest_submission', $entries) || empty($entries['contest_submission'])) {
       throw new Exception(Yii::t('contest', 'There is no entry in this contest'));
@@ -354,7 +361,7 @@ class FallingWallsContest {
     }
     $contest = new Contest();
     $contest->entryId = $entryId;
-    $contest->contestSlug = FALLING_WALLS_CONTEST_SLUG;
+    $contest->contestSlug = $_GET['slug'];
     $entryInfo = $contest->getContestSubmissionInfo();
     if (array_key_exists('tags', $entryInfo) && !empty($entryInfo['tags'])) {
       $tags = $entryInfo['tags'];

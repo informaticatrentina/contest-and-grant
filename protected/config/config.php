@@ -68,6 +68,7 @@ define('WINNER_TAG_SCHEME','http://ahref.eu/contest/schema/contest/winner');
 define('PRIZE_TAG_SCHEME','http://ahref.eu/contest/schema/contest/prize');
 define('CONTEST_TAG_SCHEME','http://ahref.eu/contest/schema/');
 
+define('DEFAULT_VIDEO_THUMBNAIL','images/novideo_100_500.jpeg');
 /**
  * configuration for interaction of file
  */

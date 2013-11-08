@@ -68,6 +68,7 @@ class ContestController extends Controller {
          $this->actionContestEntries();
          break;
        case  FALLING_WALLS_CONTEST_SLUG : 
+       case HELLO_FIEMME_ORGANIZER :
          $controller = new FallingwallsController('fallingwalls');
          $controller->actionContestEntries();
          break;
@@ -571,6 +572,15 @@ class ContestController extends Controller {
         $contestDetail[$i]['entryCount'] = 0;
         if (!empty($entry)) {
           $contestDetail[$i]['entryCount']= $entry[0]['count'];
+        }
+        $contestDetail[$i]['category_exists'] = false;
+        if (array_key_exists('contestId', $info) && !empty($info['contestId'])) {
+          $category = new Category();
+          $category->contestId = $info['contestId'];
+          $categoryInfo = $category->get();
+          if (!empty($categoryInfo)) {
+            $contestDetail[$i]['categoryExist'] = true;
+          }
         }
         $i++;
       }

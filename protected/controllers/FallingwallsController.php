@@ -30,7 +30,7 @@ class FallingWallsController extends Controller {
       $entryCount = 0;
       $contestSubmission = array();
       $contest = new Contest();
-      $contest->contestSlug = FALLING_WALLS_CONTEST_SLUG;
+      $contest->contestSlug = $_GET['slug'];
       $contestInfo = $contest->getContestDetail();
 
       $contestInfo['briefDescription'] = '';
@@ -53,7 +53,7 @@ class FallingWallsController extends Controller {
       }
 
       $fallingWallContest = new FallingWallsContest();
-      $fallingWallContest->slug = FALLING_WALLS_CONTEST_SLUG;
+      $fallingWallContest->slug = $_GET['slug'];
       $entries = $fallingWallContest->loadContestEntries();
       if (array_key_exists('contest_submission', $entries) && !empty($entries['contest_submission'])) {
         $contestSubmission = $entries['contest_submission'];
@@ -122,7 +122,7 @@ class FallingWallsController extends Controller {
   public function singleContestEntry($contestInfo) {
     $contest = new FallingWallsContest();
     $contest->entryId = $_GET['id'];
-    $contest->slug = FALLING_WALLS_CONTEST_SLUG;
+    $contest->slug = $_GET['slug'];
     $entry = array();
     $entries = array();
     $entry = $contest->loadSingleContestEntries();
@@ -161,7 +161,7 @@ class FallingWallsController extends Controller {
       $msg = '';
       $entryCount = 0;
       $contest = new Contest();
-      $contest->contestSlug = FALLING_WALLS_CONTEST_SLUG;      
+      $contest->contestSlug = $_GET['slug'];      
           
        //check for ajax request
       if (array_key_exists('HTTP_X_REQUESTED_WITH', $_SERVER)) {
@@ -173,7 +173,7 @@ class FallingWallsController extends Controller {
       if (!empty($_POST)) { 
         $response = $fallingWallContest->saveWinner();
         if (array_key_exists('success', $response) && $response['success']) {
-          $this->redirect(BASE_URL . 'admin/contest/winner/'. FALLING_WALLS_CONTEST_SLUG );
+          $this->redirect(BASE_URL . 'admin/contest/winner/'. $_GET['slug'] );
         } else {
           Yii::log('', ERROR, 'Error in actionEntriesForWinner - failed to save winner');
           $msg = Yii::t('contest', 'Some technical problem occurred, contact administrator');
@@ -193,8 +193,13 @@ class FallingWallsController extends Controller {
       $msg = $e->getMessage();
       Yii::log('Error in actionEntriesForWinner ', ERROR, $msg);
     }
-    $this->render('addWinner', array('entries' => $nonWinnerEntries, 'contest' => $contestInfo, 
+    if ($_GET['slug'] == FALLING_WALLS_CONTEST_SLUG) {
+      $this->render('addWinner', array('entries' => $nonWinnerEntries, 'contest' => $contestInfo, 
        'winner_weight' => $winnerWeight,'msg' => $msg, 'entry_count' => $entryCount));
+    } else {
+      $this->render('helloFiemmeAddWinner', array('entries' => $nonWinnerEntries, 'contest' => $contestInfo, 
+       'winner_weight' => $winnerWeight,'msg' => $msg, 'entry_count' => $entryCount));
+    }  
   }
   
   /**
@@ -208,7 +213,7 @@ class FallingWallsController extends Controller {
       $winnerWeight = '';
       $msg = '';
       $contest = new Contest();
-      $contest->contestSlug = FALLING_WALLS_CONTEST_SLUG;
+      $contest->contestSlug = $_GET['slug'];
       $contestInfo = $contest->getContestDetail();
       
       $fallingWallContest = new FallingWallsContest();
@@ -223,9 +228,13 @@ class FallingWallsController extends Controller {
       $msg = $e->getMessage();
       Yii::log('Error in actionEntriesForWinner ', ERROR, $msg);
     }
-  
-    $this->render('manageWinner', array('entries' => $winnerEntries, 'contest' => $contestInfo, 
+    if ($_GET['slug'] == FALLING_WALLS_CONTEST_SLUG) {
+      $this->render('manageWinner', array('entries' => $winnerEntries, 'contest' => $contestInfo, 
         'winner_weight' => $winnerWeight, 'msg' => $msg));
+    } else {
+      $this->render('helloFiemmeManageWinner', array('entries' => $winnerEntries, 'contest' => $contestInfo, 
+        'winner_weight' => $winnerWeight, 'msg' => $msg));
+    }
   }
   
   /**
@@ -249,7 +258,7 @@ class FallingWallsController extends Controller {
         }
       }
       if (empty($updateTag)) {
-        $this->redirect(BASE_URL . 'admin/contest/winner/' . FALLING_WALLS_CONTEST_SLUG);
+        $this->redirect(BASE_URL . 'admin/contest/winner/' . $_GET['slug']);
       }
       $aggregator->tags = $updateTag;
       $response = $aggregator->updateEntry();
@@ -259,7 +268,7 @@ class FallingWallsController extends Controller {
     } catch (Exception $e) {
       Yii::log('', ERROR, 'Error in actionDeleteWinner of fallingWallsController ' . $e->getMessage());
     }
-    $this->redirect(BASE_URL . 'admin/contest/winner/' . FALLING_WALLS_CONTEST_SLUG);
+    $this->redirect(BASE_URL . 'admin/contest/winner/' . $_GET['slug']);
   }
   
   /**
@@ -289,7 +298,7 @@ class FallingWallsController extends Controller {
         }
       }
       if (empty($updateTag)) {
-        $this->redirect(BASE_URL . 'admin/contest/winner/' . FALLING_WALLS_CONTEST_SLUG);
+        $this->redirect(BASE_URL . 'admin/contest/winner/' . $_GET['slug']);
       }
       $aggregator->tags = $updateTag;
       $aggregator->prize = $_POST['prize'];
@@ -301,7 +310,7 @@ class FallingWallsController extends Controller {
     } catch (Exception $e) {
       Yii::log('', ERROR, 'Error in actionUpdateWinner of fallingWallsController ' . $e->getMessage());
     }
-    $this->redirect(BASE_URL . 'admin/contest/winner/' . FALLING_WALLS_CONTEST_SLUG);
+    $this->redirect(BASE_URL . 'admin/contest/winner/' . $_GET['slug']);
   }
 
   /**
@@ -332,7 +341,7 @@ class FallingWallsController extends Controller {
       Yii::log('', ERROR, 'Error in loadNonWinnerEntryByAjax ' . $e->getMessage());
     }
     $return['success'] = true;
-    $return['data'] = array('non_winner_entry' => $nonWinnerEntries, 'winner_weight' => $winnerWeight, 'contest_slug' => FALLING_WALLS_CONTEST_SLUG);
+    $return['data'] = array('non_winner_entry' => $nonWinnerEntries, 'winner_weight' => $winnerWeight, 'contest_slug' => $_GET['slug']);
     echo json_encode($return);
     exit; 
   }
@@ -345,7 +354,7 @@ class FallingWallsController extends Controller {
     try {
       $winner = array();
       $contest = new Contest();
-      $contest->contestSlug = FALLING_WALLS_CONTEST_SLUG;
+      $contest->contestSlug = $_GET['slug'];
       $contestInfo = $contest->getContestDetail();
       $contestInfo['briefDescription'] = '';
       if (array_key_exists('contestDescription', $contestInfo) && empty($contestInfo['contestDescription'])) {
@@ -362,7 +371,11 @@ class FallingWallsController extends Controller {
     } catch (Exception $e) {
       Yii::log('', ERROR, 'Error in actionContestWinner ' . $e->getMessage());
     }
-    $this->render('winner', array('contestInfo' => $contestInfo, 'entries' => $winner));
+    if ($_GET['slug'] == FALLING_WALLS_CONTEST_SLUG) {
+      $this->render('winner', array('contestInfo' => $contestInfo, 'entries' => $winner));
+    } else {
+      $this->render('helloFiemmeWinner', array('contestInfo' => $contestInfo, 'entries' => $winner));  
+    }
   }
   
 } 

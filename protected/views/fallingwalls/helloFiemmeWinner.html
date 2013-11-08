@@ -5,7 +5,9 @@
       <div class="span3">
         <input type='hidden' id="submitContestEntry" value="{{constant('BASE_URL')}}contest/entries/{{ contestInfo.contestSlug }}">
         <input type='hidden' id="entryCategory" value="{{selectedCategory}}" />
-        <a href="{{constant('BASE_URL')}}contest/entries/{{ contestInfo.contestSlug }}" class="contest-button btn-block">PARTECIPANTI</a>
+        {% if contestInfo.entryStatus == 1 %}
+          <a href="{{constant('BASE_URL')}}contest/entries/{{ contestInfo.contestSlug }}" class="contest-button btn-block">PARTECIPANTI</a>
+        {% endif  %}  
       </div>       
       <div class="span3">
         <a href="{{constant('BASE_URL')}}contest/brief/{{ contestInfo.contestSlug }}" class="contest-button btn-block ">REGOLAMENTO</a>        

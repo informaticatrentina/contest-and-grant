@@ -145,3 +145,5 @@ define('IMAGE_FOR_BANNER_SLIDE', '{"falling_walls_2013":"falling_walls_homepage_
 define('STATIC_IMAGE_FOR_BANNER_SLIDE', '{"http://premiodigitale.lastampa.it":"premio_digitale_lastampa.jpg"}');
 define('HOME_PAGE_BOX_IMAGE', '[{"image":"coordinatore.jpg","url":"'.BASE_URL.'contest/winner/'.FIRST_CONTEST_SLUG.'","caption":"HelloFiemme Organizer"},
   {"image":"capitani_coraggiosi.jpg","url":"#","caption":"Premio Informazione Digitale"}]');
+
+define('SESSION_TIMEOUT_TIME', 172800);

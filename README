@@ -122,6 +122,8 @@ CONFIGURATION
       image.
 
    w. HOME_PAGE_BOX_IMAGE  The list of homepage box images with respected link and caption. 
+
+   x. SESSION_TIMEOUT_TIME  The time in seconds. After this time session will be expired.  
  
 - Now contest and grants application is ready to run. If you want to run
   application on your local machine (apache server), you have to create

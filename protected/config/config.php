@@ -154,8 +154,10 @@ return array(
         'admin/contest/winner/delete/<slug:[\w-]+>/<id:[\w-]+>' => 'winner/deleteContestWinner'  
       ),
     ),
-    'session' => array (      
-      'sessionName' => SITE_SESSION_COOKIE_NAME,  
+    'session' => array(
+      'sessionName' => SITE_SESSION_COOKIE_NAME,
+      'class' => 'ModifiedHttpSession',
+      'lifetime' => SESSION_TIMEOUT_TIME 
     ),
     'errorHandler' => array(
       'errorAction' => 'contest/error',

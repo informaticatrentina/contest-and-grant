@@ -2,4 +2,6 @@
 /protected/messages/it_it
 /protected/extensions/JsTrans/assets
 /protected/runtime
-
+/uploads
+/downloads
+/assets

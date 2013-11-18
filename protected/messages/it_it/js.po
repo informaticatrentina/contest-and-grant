@@ -138,3 +138,16 @@ msgctxt "contest"
 msgid "Prize weight should be numeric"
 msgstr "La posizione del premio deve essere numerica"
 
+
+msgctxt "contest" 
+msgid "Please checked check box"
+msgstr "Si prega di verificare  checkBox"
+
+msgctxt "contest" 
+msgid "Please enter valid video url"
+msgstr "Inserisci il video URL valido"
+
+msgctxt "contest" 
+msgid "Please enter video url"
+msgstr "Inserisci il video url"
+

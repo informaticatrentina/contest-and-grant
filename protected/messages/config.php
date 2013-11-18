@@ -7,6 +7,7 @@ return array(
     'launchpad' => false,
     'overwrite' => true,
     'autoMerge' => true,
+    'removeOld' => true,
     'exclude' => array(
         '.git',
         '.svn',

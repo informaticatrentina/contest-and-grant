@@ -7,10 +7,12 @@ return array(
     'languages' => array('it_it'),
     'fileTypes' => array('js'),
     'overwrite' => true,
+    'removeOld' => true,
     'exclude' => array(
         '.git',
         '.svn',
         '/framework',
         '/protected',
+        '/message/'
     ),
 );

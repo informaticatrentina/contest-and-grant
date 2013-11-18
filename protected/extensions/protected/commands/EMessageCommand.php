@@ -400,7 +400,7 @@ EOD;
 			$language = basename(dirname($file));
 			// Convert PHP files to PO
 			if ($ext == 'php') {
-				if (basename($file) == 'config.php') {
+				if (basename($file) == 'config.php' || basename($file) == 'jsConfig.php') {
 					continue;
 				}
 				$destfile = str_replace('.php', '.po', $file);
@@ -527,32 +527,40 @@ EOD;
 	}
 
 	/**
-	 * Saves messages to a PO file.
-	 *
-	 * Note if the message has a context, the message id must be prefixed with
-	 * the context with chr(4) as the separator.
-	 *
-	 * @param	string	filepath
-	 * @param	array	message translations (message id=>translated message).
-	 * @param	string	header for the PO file
-	 */
-	protected static function savePO($file, $messages, $header='') {
-		$content = $header;
-		foreach ($messages as $id=>$message) {
-			if ($id == 'translator-credits') {
-				$content .= "#. Put one translator per line, in the form of NAME <URL>.\n";
-			}
-			if (($pos = strpos($id, chr(4))) !== false) {
-				$content .= 'msgctxt "' . substr($id, 0, $pos) . "\"\n";
-				$id = substr($id, $pos+1);
-                        } else {
-                          $content .= 'msgctxt "contest" '. "\n";
-                        }
-			$content .= 'msgid "' . self::encode($id) . "\"\n";
-			$content .= 'msgstr "' . self::encode($message) . "\"\n\n";
-		}
-		file_put_contents($file, $content);
-	}
+   * Saves messages to a PO file.
+   *
+   * Note if the message has a context, the message id must be prefixed with
+   * the context with chr(4) as the separator.
+   *
+   * @param	string	filepath
+   * @param	array	message translations (message id=>translated message).
+   * @param	string	header for the PO file
+   */
+  protected static function savePO($file, $messages, $header = '') {
+    $poFileContent = file_get_contents($file) . "\n";
+    foreach ($messages as $id => $message) {
+      $content = '';
+      if ($id == 'translator-credits') {
+        $content .= "#. Put one translator per line, in the form of NAME <URL>.\n";
+      }
+      if (($pos = strpos($id, chr(4))) !== false) {
+        $content .= 'msgctxt "' . substr($id, 0, $pos) . "\"\n";
+        $id = substr($id, $pos + 1);
+      } else {
+        $content .= 'msgctxt "contest" ' . "\n";
+      }
+      $encodedId = self::encode($id);
+      //check whether message exist in po file or not
+      if (strpos($poFileContent, 'msgid "' . $encodedId . "\"\n") !== false) {
+        continue;
+      } else {
+        $content .= 'msgid "' . $encodedId . "\"\n";
+        $content .= 'msgstr "' . self::encode($message) . "\"\n\n";
+      }
+      $poFileContent .= $content;
+    }
+    file_put_contents($file, $poFileContent);
+  }
 
 	/**
 	 * Encodes special characters in a message.

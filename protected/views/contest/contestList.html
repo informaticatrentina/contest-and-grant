@@ -1,8 +1,8 @@
-<div class="container">
+<div class="container contest-list">
   <div class="btn">
     <a href="{{constant('BASE_URL')}}admin/contest/add">{{ t('contest','create contest')}}</a>
   </div>
-  <table class="container table table-bordered table-hover category-table">
+  <table class="table table-bordered table-hover category-table">
     <thead>
       <tr>
         <th>{{ t('contest', 'contest Title') }}</th>
@@ -17,6 +17,7 @@
         <th>{{ t('contest','Manage Category')}}</th>
         <th>{{ t('contest','Winner status')}}</th>
         <th>{{ t('contest','Download Submission')}}</th>
+        <th>{{ t('contest','Manage Jury')}}</th>
       </tr>
     </thead>
     <tbody>
@@ -46,10 +47,14 @@
             <a href="{{constant('BASE_URL')}}admin/contest/submission/download/{{ info.contestSlug }}">{{t('contest', 'Download')}}
           {% endif %} 
          </td>
+         <td>
+           <a href="{{constant('BASE_URL')}}admin/jury/manage/{{info.id}}">{{ t('contest','Manage jury member and admin')}}</a>
+         </td>
       </tr>
       {% endfor %}
     </tbody>
   </table>
+  </div>
   <script src="{{constant('BASE_URL')}}js/deleteContest.js"></script>
   <script src="{{constant('BASE_URL')}}js/contest.js"></script>
   <script type="text/javascript">

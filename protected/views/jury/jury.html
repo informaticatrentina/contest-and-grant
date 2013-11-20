@@ -1,0 +1,38 @@
+<div class="container darkheader">
+  <div class="row">
+    <div class="span12"><h1> {{ t('contest', 'Manage Jury') }}</h1></div>
+  </div>
+</div>
+{% if is_exist_contest == false %}
+  <div class="container">
+    <div class="jury-message">
+      <div class="row">
+        <div class="span12">
+          <div style="padding:25px 25px;">    
+            <center><h6>{{t('contest', 'This contest does not exists')}}<br></h6></center>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% else %}
+  <div class="container maincontent">
+    <form class="form-manage-jury" action="" method="post">
+      <span id="error">
+        {{message}}
+      </span>
+      {% if jury.jury_admin is not empty %}
+        {% set juryAdminEmail = jury.jury_admin %}
+      {% endif %}
+      <label>{{ t('contest','Jury Admin Email')}}</label>
+      <textarea  rows="5"  class="input-block-level textarea" id="jury-admin" name="jury_admin">{{juryAdminEmail}}</textarea>
+      {% if jury.jury_member is not empty %}
+        {% set juryMemberEmail = jury.jury_member %}
+      {% endif %}
+      <label>{{ t('contest','Jury Member Email')}}</label>
+      <textarea  rows="5"  class="input-block-level textarea" id="jury-member" name="jury_member">{{juryMemberEmail}}</textarea>
+      <button id="save-jury" class="btn btn-large btn-primary" type="submit" name='save'>{{t('contest', 'Save')}}</button>
+    </form>
+  </div> 
+{% endif %}
+<script src="{{constant('BASE_URL')}}js/jury.js"></script>

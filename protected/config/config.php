@@ -69,6 +69,8 @@ define('PRIZE_TAG_SCHEME','http://ahref.eu/contest/schema/contest/prize');
 define('CONTEST_TAG_SCHEME','http://ahref.eu/contest/schema/');
 
 define('DEFAULT_VIDEO_THUMBNAIL','images/novideo_100_500.jpeg');
+define('JURY_MEMBER', 'member');
+define('JURY_ADMIN', 'admin');
 /**
  * configuration for interaction of file
  */
@@ -151,7 +153,8 @@ return array(
         'admin/contest/winner/add/<slug:[\w-]+>' => 'winner/addWinner', 
         'admin/contest/winner/<slug:[\w-]+>' => 'winner/winner',  
         'admin/contest/winner/edit/<slug:[\w-]+>' => 'winner/updateContestWinner',  
-        'admin/contest/winner/delete/<slug:[\w-]+>/<id:[\w-]+>' => 'winner/deleteContestWinner'  
+        'admin/contest/winner/delete/<slug:[\w-]+>/<id:[\w-]+>' => 'winner/deleteContestWinner',
+        'admin/jury/manage/<contest_id:[\w-]+>' => 'jury/manageJury'
       ),
     ),
     'session' => array(

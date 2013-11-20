@@ -45,6 +45,11 @@ $(document).ready(function() {
   });
 });    
 
-function compareDateTime(startDateTime, endDateTime) {
-  
+function emailValidation(emailAddress) {
+  var emailRegExp = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
+  emailAddress = emailAddress.trim();
+  if (emailAddress == '') {
+    return false;
+  }
+  return emailRegExp.test(emailAddress);
 }

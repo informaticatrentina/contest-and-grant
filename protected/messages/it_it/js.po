@@ -151,3 +151,14 @@ msgctxt "contest"
 msgid "Please enter video url"
 msgstr "Inserisci il video url"
 
+msgctxt "contest" 
+msgid "Email id is not valid"
+msgstr ""
+
+msgctxt "contest" 
+msgid "Jury member email id is not empty"
+msgstr ""
+
+msgctxt "contest" 
+msgid "Jury member email id is not empty"
+msgstr ""

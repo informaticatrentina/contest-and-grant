@@ -635,3 +635,127 @@ msgstr "Si è verificato un errore di caricamento"
 msgctxt "contest" 
 msgid "Please upload only pdf file"
 msgstr "Puoi caricare solo file in formato PDF"
+
+msgctxt "contest" 
+msgid "Error in entrySubmission :: Image name is empty"
+msgstr ""
+
+msgctxt "contest" 
+msgid "Error in saveContestEntry method :"
+msgstr ""
+
+msgctxt "contest" 
+msgid "Please enter either youtube or vemio vedio url"
+msgstr "Inserisci sia youtube o vemio vedio url"
+
+msgctxt "contest" 
+msgid "Please enter proper video url"
+msgstr "Inserisci il corretto URL del video"
+
+msgctxt "contest" 
+msgid "Please enter valid url"
+msgstr "Inserisci il video URL valido"
+
+msgctxt "contest" 
+msgid "Some error occur in downloading file. Please try again"
+msgstr ""
+
+msgctxt "contest" 
+msgid "Some technical error occur. Please contact adminstrator"
+msgstr ""
+
+msgctxt "contest" 
+msgid "There are no more entry in this category"
+msgstr "Non ci sono più voce in questa categoria"
+
+msgctxt "contest" 
+msgid "There is no data to save"
+msgstr "Non ci sono dati da salvare"
+
+msgctxt "contest" 
+msgid "There is no entry in this contest"
+msgstr "Non vi è alcuna voce in questo concorso"
+
+msgctxt "contest" 
+msgid "There is no submission in this contest"
+msgstr "Non vi è alcuna sottomissione a questo concorso"
+
+msgctxt "contest" 
+msgid "Url does not contain id "
+msgstr "URL non contiene id"
+
+msgctxt "contest" 
+msgid "Video url can not be empty"
+msgstr "Video URL non può essere vuoto"
+
+msgctxt "contest" 
+msgid "You have not permission for download this file."
+msgstr "Non hai il permesso per scaricare questo file."
+
+msgctxt "contest" 
+msgid "Condition can not be empty for delete jury"
+msgstr ""
+
+msgctxt "contest" 
+msgid "Email id is not valid"
+msgstr ""
+
+msgctxt "contest" 
+msgid "Error in actionManageJury :"
+msgstr ""
+
+msgctxt "contest" 
+msgid "Jury admin and memeber have been saved successfully"
+msgstr ""
+
+msgctxt "contest" 
+msgid "Jury admin email can not be empty"
+msgstr ""
+
+msgctxt "contest" 
+msgid "Jury member email can not be empty"
+msgstr ""
+
+msgctxt "contest" 
+msgid "failed to save jury admin "
+msgstr ""
+
+msgctxt "contest" 
+msgid "failed to save jury member "
+msgstr ""
+
+msgctxt "contest" 
+msgid "Download"
+msgstr ""
+
+msgctxt "contest" 
+msgid "Download Submission"
+msgstr ""
+
+msgctxt "contest" 
+msgid "Jury Admin Email"
+msgstr ""
+
+msgctxt "contest" 
+msgid "Jury Member Email"
+msgstr ""
+
+msgctxt "contest" 
+msgid "Manage Jury"
+msgstr ""
+
+msgctxt "contest" 
+msgid "Manage jury member and admin"
+msgstr ""
+
+msgctxt "contest" 
+msgid "Save"
+msgstr "Salva"
+
+msgctxt "contest" 
+msgid "There are no entry in this contest"
+msgstr ""
+
+msgctxt "contest" 
+msgid "This contest does not exists"
+msgstr ""

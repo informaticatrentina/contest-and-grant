@@ -452,7 +452,6 @@ class ContestController extends Controller {
    * this function is used for login user
    */
   public function actionLogin() {
-    $admin = array();
     if (userIsLogged()) {
       $this->redirect(BASE_URL);
     }
@@ -469,13 +468,6 @@ class ContestController extends Controller {
           throw new Exception(Yii::t('contest', 'Please enter password'));
         }
         $response = $user->validateUser($userDetail);
-        if (array_key_exists('success', $response) && $response['success']) {
-          $isAdmin = isAdminUser();
-          if ($isAdmin) {
-            $admin['admin'] = true;
-            $admin['url'] = BASE_URL .'admin/contest/list';
-          }
-        }
         if (!empty($_GET['back'])) {
           $backUrl = BASE_URL . substr($_GET['back'], 1);
         }
@@ -486,7 +478,7 @@ class ContestController extends Controller {
       }
     }
     $this->layout = 'userManager';
-    $this->render('login', array('message' => $response, 'back_url' => $backUrl, 'user'=> $admin));
+    $this->render('login', array('message' => $response, 'back_url' => $backUrl));
   }
 
   /**
@@ -628,6 +620,28 @@ class ContestController extends Controller {
           $endTime = mktime($endTimeArr[0], $endTimeArr[1], 0, $endDateArr[0], $endDateArr[1], $endDateArr[2]);
           $contest->endDate = date('Y-m-d H:i:s', $endTime);
         }
+        if (array_key_exists('jury_rating_from', $contestDetails) && empty($contestDetails['jury_rating_from'])) {
+          throw new Exception(Yii::t('contest', 'Jury Rating Start date should not be empty'));
+        } else if (!validateDate($contestDetails['jury_rating_from'])) {
+          throw new Exception(Yii::t('contest', 'Please enter valid jury rating start date'));
+        } else {
+          $startDateTimeArr =  explode(' ', $contestDetails['jury_rating_from']);
+          $startDateArr = explode('/', $startDateTimeArr[0]);
+          $startTimeArr = explode(':', $startDateTimeArr[1]);
+          $startTime = mktime($startTimeArr[0], $startTimeArr[1], 0, $startDateArr[0], $startDateArr[1], $startDateArr[2]);
+          $contest->juryRatingStartDate = date('Y-m-d H:i:s', $startTime);
+        }
+        if (array_key_exists('jury_rating_till', $contestDetails) && empty($contestDetails['jury_rating_till'])) {
+          throw new Exception(Yii::t('contest', 'Jury rating end date should not be empty'));
+        } else if (!validateDate($contestDetails['jury_rating_till'])) {
+          throw new Exception(Yii::t('contest', 'Please enter valid jury rating end date'));
+        } else {
+          $endDateTimeArr =  explode(' ', $contestDetails['jury_rating_till']);
+          $endDateArr = explode('/', $endDateTimeArr[0]);
+          $endTimeArr = explode(':', $endDateTimeArr[1]);
+          $endTime = mktime($endTimeArr[0], $endTimeArr[1], 0, $endDateArr[0], $endDateArr[1], $endDateArr[2]);
+          $contest->juryRatingEndDate = date('Y-m-d H:i:s', $endTime);
+        }
         if (array_key_exists('contestDescription', $contestDetails) && empty($contestDetails['contestDescription'])) {
           throw new Exception(Yii::t('contest', 'Contest description should not be empty'));
         }
@@ -697,6 +711,8 @@ class ContestController extends Controller {
         $contestDetail['squareImage'] = $contestInfo['squareImage'];
         $contestDetail['contestRule'] = htmlspecialchars($contestInfo['rule']);
         $contestDetail['entryStatus'] = $contestInfo['entryStatus'];
+        $contestDetail['jury_rating_from'] = date('m/d/Y H:i', strtotime($contestInfo['jury_rating_from']));
+        $contestDetail['jury_rating_till'] = date('m/d/Y H:i', strtotime($contestInfo['jury_rating_till']));     
       } catch (Exception $e) {
         $message['success'] = false;
         $message['msg'] = $e->getMessage();

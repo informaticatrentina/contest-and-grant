@@ -24,6 +24,8 @@ class ContestAPI {
   public $contestRule;
   public $entryStatus = false;  
   public $winnerStatus = false;  
+  public $juryRatingStartDate;
+  public $juryRatingEndDate;
 
   /**
    * save
@@ -104,8 +106,8 @@ class ContestAPI {
     if (empty($this->contestId)) {
       return array();
     }    
-    $sql = "SELECT contestId, startDate, endDate, creationDate, imagePath, contestTitle, contestDescription FROM 
-      contest where contestId = :contestId ";
+    $sql = "SELECT contestId, startDate, endDate, creationDate, imagePath, contestTitle, contestDescription,
+      jury_rating_from, jury_rating_till FROM contest where contestId = :contestId ";
     $query = $connection->createCommand($sql);
     $query->bindParam(":contestId", $this->contestId);
     $contestDetails = $query->queryRow();
@@ -127,7 +129,7 @@ class ContestAPI {
       return array();
     }    
     $sql = "SELECT contestId, startDate, endDate, creationDate, imagePath, contestTitle, contestDescription, contestSlug, 
-      squareImage, rule, entryStatus, winnerStatus FROM contest where contestSlug = :contestSlug ";
+      squareImage, rule, entryStatus, winnerStatus, jury_rating_from, jury_rating_till FROM contest where contestSlug = :contestSlug ";
     $query = $connection->createCommand($sql);
     $query->bindParam(":contestSlug", $this->contestSlug);
     $contestDetails = $query->queryRow();
@@ -149,7 +151,8 @@ class ContestAPI {
       return false;
     } 
     $sql = "UPDATE contest SET startDate = :startDate, endDate = :endDate, imagePath = :imagePath, squareImage = :squareImage,
-      contestDescription = :contestDescription, rule = :contestRule, entryStatus= :entryStatus where contestSlug = :contestSlug";
+      contestDescription = :contestDescription, rule = :contestRule, entryStatus= :entryStatus, jury_rating_from = :juryRatingStartDate,
+      jury_rating_till = :juryRatingEndDate where contestSlug = :contestSlug";
     $query = $connection->createCommand($sql);
     $query->bindParam(":startDate", $this->startDate);
     $query->bindParam(":endDate", $this->endDate);
@@ -159,6 +162,8 @@ class ContestAPI {
     $query->bindParam(":squareImage", $this->squareImage);
     $query->bindParam(":contestRule", $this->contestRule);
     $query->bindParam(":entryStatus", $this->entryStatus);
+    $query->bindParam(":juryRatingStartDate", $this->juryRatingStartDate);
+    $query->bindParam(":juryRatingEndDate", $this->juryRatingEndDate);
     return  $query->execute();
   }
   

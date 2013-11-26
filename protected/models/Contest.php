@@ -20,6 +20,7 @@ class Contest  {
   public $offset = 0;
   public $count = 1;
   public $tags ;
+  public $limit;
 
 
   /**
@@ -31,7 +32,11 @@ class Contest  {
   public function getContestSubmission() {
     $contestEntries = array();
     $aggregatorManager = new AggregatorManager();    
-    $contestEntries = $aggregatorManager->getEntry(ENTRY_LIMIT, $this->offset, $this->entryId, 'active',
+    $entryLimit = ENTRY_LIMIT;
+    if (!empty($this->limit)) {
+      $entryLimit = $this->limit;
+    }
+    $contestEntries = $aggregatorManager->getEntry($entryLimit, $this->offset, $this->entryId, 'active',
             $this->contestSlug.'[contest]', '', '', $this->count, '', '', '', '',array(), $this->sort,
             'links,status,author,title,id,content,tags','','');
     $i = 0;

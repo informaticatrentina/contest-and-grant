@@ -34,6 +34,10 @@
     <textarea  class="input-block-level textarea" id="contestDescription" name="contestDescription"> {{ contest.contestDescription }} </textarea>
     <label>{{ t('contest','Contest Rule')}}</label>
     <textarea  class="input-block-level textarea" id="contestRule" name="contestRule">{{contest.contestRule}}</textarea> 
+    <label>{{ t('contest', 'Jury Rating Start Date')}}</label>
+    <input type="text" id="juryRatingStartDate" name="jury_rating_from" class="input-block-level" value="{{contest.jury_rating_from }}" />
+    <label>{{ t('contest', 'Jury Rating End Date')}}</label>
+    <input type="text" id="juryRatingEndDate" name="jury_rating_till" class="input-block-level" value="{{contest.jury_rating_till}}" />
     <label class="checkbox">
       {% set check = '' %}
       {% if contest.entryStatus ==  1 %}

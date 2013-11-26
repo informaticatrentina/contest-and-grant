@@ -18,7 +18,7 @@
     <div class="carousel-inner">
       {% for banner in banners %}
         <div class="item {{active}}">
-          <a href="{{constant('BASE_URL')}}contest/brief/{{banner.slug}}">
+          <a href="{{banner.url}}">
             <img src="{{constant('BASE_URL')}}images/{{banner.image}}" alt="{{ t('contest', 'contest Image')}}" />
           </a>
         </div>

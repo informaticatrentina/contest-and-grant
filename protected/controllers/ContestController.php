@@ -31,7 +31,7 @@ class ContestController extends Controller {
     if (defined('IMAGE_FOR_BANNER_SLIDE')) {
       $banner = json_decode(IMAGE_FOR_BANNER_SLIDE);
       foreach ($banner as $key => $val) {
-        $banners[] = array('slug' => $key, 'image' => $val);
+        $banners[] = array('url' => $key, 'image' => $val);
       }
     }
 

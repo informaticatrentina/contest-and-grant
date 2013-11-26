@@ -67,6 +67,8 @@ define('SOURCE', 'contest-grant');
 define('WINNER_TAG_SCHEME','http://ahref.eu/contest/schema/contest/winner');
 define('PRIZE_TAG_SCHEME','http://ahref.eu/contest/schema/contest/prize');
 define('CONTEST_TAG_SCHEME','http://ahref.eu/contest/schema/');
+define('JURY_RATING_SCHEME','http://ahref.eu/contest/schema/jury-rating');
+define('RATING_COUNT_SCHEME','http://ahref.eu/contest/schema/rating-count');
 
 define('DEFAULT_VIDEO_THUMBNAIL','images/novideo_100_500.jpeg');
 define('JURY_MEMBER', 'member');
@@ -84,6 +86,7 @@ return array(
     'application.components.*',
     'application.controllers.*',
     'application.extensions.JsTrans.*',
+    'application.views.*'  
   ),
   'sourceLanguage' => 'en',
   'language' => SITE_LANGUAGE,    
@@ -108,6 +111,7 @@ return array(
         'isAdminUser' => 'isAdminUser',  
         'getImageDimension' => 'getImageDimension',
         'getContestList' => 'getContestList',  
+        'getAdminMenuList' => 'getAdminMenuList'  
       ) 
     ),
       
@@ -154,7 +158,11 @@ return array(
         'admin/contest/winner/<slug:[\w-]+>' => 'winner/winner',  
         'admin/contest/winner/edit/<slug:[\w-]+>' => 'winner/updateContestWinner',  
         'admin/contest/winner/delete/<slug:[\w-]+>/<id:[\w-]+>' => 'winner/deleteContestWinner',
-        'admin/jury/manage/<contest_id:[\w-]+>' => 'jury/manageJury'
+        'admin/jury/manage/<contest_id:[\w-]+>' => 'jury/manageJury',
+        'jury/contest' => 'jury/activeContest',  
+        'jury/entry/<slug:[\w-]+>/<id:[\w-]+>' => 'jury/viewEntry',  
+        'jury/entry/<contest_slug:[\w-]+>' => 'jury/juryRating',
+        'jury/rating/save/<contest_slug:[\w-]+>' => 'jury/saveRating',
       ),
     ),
     'session' => array(

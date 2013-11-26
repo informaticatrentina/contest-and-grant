@@ -108,6 +108,69 @@ class Jury {
     }
     return $command->execute();
   }  
+  
+  /**
+   * fetchAll
+   * function is used for getting all information of jury
+   */
+  public function fetchAll() {
+    $connection = Yii::app()->db;
+    $where = array(1);
+    $data = array();
+    if (!empty($this->id)) {
+      $where[] = 'id = :id';
+      $data[':id'] = $this->id;
+    }
+    if (!empty($this->contestId)) {
+      $where[] = 'contest_id = :contest_id';
+      $data[':contest_id'] = $this->contestId;
+    }
+    if (!empty($this->contestSlug)) {
+      $where[] = 'contestSlug = :contestSlug';
+      $data[':contestSlug'] = $this->contestSlug;
+    }
+    if (!empty($this->emailId)) {
+      $where[] = 'email_id = :email_id';
+      $data[':email_id'] = $this->emailId;
+    }
+    if (!empty($this->designation)) {
+      $where[] = 'designation = :designation';
+      $data[':designation'] = $this->designation;
+    }
+    $sql = "SELECT  co.contestId, co.contestTitle, co.contestSlug, ju.email_id, ju.designation,
+      co.jury_rating_from, co.jury_rating_till FROM jury ju INNER JOIN contest co on co.contestId = ju.contest_id WHERE "
+      . implode(' AND ', $where);
+    $command = $connection->createCommand($sql);
+    foreach ($data as $key => &$val) {
+      $command->bindParam($key, $val);
+    }
+    return $command->queryAll();
+  }
+
+  /**
+   * getSortedContestSubmission
+   * function is used for getting all submistion (sort on the basis of tag
+   * @param array $inputData
+   * @return array $entries
+   */ 
+  public function getSortedContestSubmission($inputData) {
+    $entries = array();
+    try {
+      if (empty($inputData)) {
+        return $entries;
+      }
+      $inputParam = http_build_query($inputData);
+      $aggregatorAPI = new AggregatorAPI();
+      $data = $aggregatorAPI->curlGet(ENTRY, $inputParam);
+    } catch (Exception $e) {
+      Yii::log('', ERROR, Yii::t('contest', 'Error in getSortedContestSubmission method :') . $e->getMessage());
+    }
+    if (array_key_exists('status', $data) && $data['status'] == 'true') {
+      $entries = $data['data'];
+    }
+    return $entries;
+  }
+
 }
 
 ?>

@@ -32,6 +32,36 @@ $(document).ready(function() {
         }
       }
     });
+    $( "#juryRatingStartDate" ).datetimepicker({
+      changeMonth: true,
+      changeYear: true,
+      yearRange:"-90:+0",
+      onSelect: function( selectedDate ) {
+        var endDateTime = $("#juryRatingEndDate" ).val();
+        var startDateTime = $("#juryRatingStartDate" ).val();
+        $( "#juryRatingEndDate" ).datepicker( "option", "minDate", selectedDate );    
+        if (new Date(startDateTime) > new Date(endDateTime)) {
+          $("#juryRatingEndDate" ).val(startDateTime);
+        } else {
+           $("#juryRatingEndDate" ).val(endDateTime);
+        }
+      }
+    });
+    $( "#juryRatingEndDate" ).datetimepicker({
+      changeMonth: true,
+      changeYear: true,
+      yearRange:"-90:+0",
+      onSelect: function( selectedDate ) {
+        var endDateTime = $("#juryRatingEndDate" ).val();
+        var startDateTime = $("#juryRatingStartDate" ).val();
+         $( "#juryRatingStartDate" ).datepicker( "option", "maxDate", selectedDate );    
+         if (new Date(startDateTime) > new Date(endDateTime)) {
+          $("#juryRatingStartDate" ).val(endDateTime);
+        } else {
+          $("#juryRatingStartDate" ).val(startDateTime);
+        }
+      }
+    });
   }
   
   $('.login-link').click(function() {

@@ -19,4 +19,45 @@ $(document).ready(function() {
       }
     }
   });
+ $('.auto-submit-star').click( function(){
+   var vote = $(this).text();
+   var entryId = $(this).parents('.jury-vote').attr('entry-id');
+   saveRating(vote, entryId);
+ });
+ 
+ $('.rating-cancel').click( function(){
+   var entryId = $(this).parents('.jury-vote').attr('entry-id');
+   saveRating('', entryId);
+ });
+ 
+ $('#back-top').hide();
+ $(window).scroll(function () {
+   if ($(this).scrollTop() > 100) {
+    $('#back-top').fadeIn();
+   } else {
+    $('#back-top').fadeOut();
+   }
+  });
+  $('#back-top a').click(function () {
+    $('body,html').animate({scrollTop: 0}, 800);
+   return false;
+  });
 });
+
+function saveRating(vote, entryId) {
+  $.ajax({
+    type: 'GET',
+    url: page.save_rating_url,
+    dataType: 'json',
+    data: {
+      rating: vote,
+      entry_id: entryId,
+    },
+    success: function(resp) {
+
+    },
+    error: function() {
+      alert('Oops! something wrong'); 
+    }
+  });
+}

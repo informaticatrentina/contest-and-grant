@@ -293,3 +293,48 @@ function getContestList() {
   }
   return $contestList;
 }
+
+/**
+ * getRoles
+ * function is used for getting all roles of user
+ * @return array $roles
+ */
+function getRoles() { 
+  $roles = array();
+  $designation = array();
+  if (!isset(Yii::app()->session['user'])) { 
+    return $roles;
+  } 
+  if (isAdminUser()) {
+    $roles[] = 'admin';
+  }
+  $jury = new Jury();
+  $jury->emailId = Yii::app()->session['user']['email'];
+  $juryInfo =   $jury->get();
+  foreach ($juryInfo as $info) {
+    $roles[] = 'jury_'.$info['designation'];
+  }
+  return  array_unique($roles);
+}
+
+/**
+ * getAdminMenuList
+ * function is used for get list item for admin menu
+ */
+function getAdminMenuList() {
+  $userInfo = array();
+  $roles = getRoles();  
+  foreach ($roles as $role) {
+    switch ($role) {
+      case 'admin':
+        $userInfo[] = array('url' => BASE_URL . 'admin/contest/list', 'title' => 'Admin');
+        break;
+      case 'jury_member':
+        $userInfo[] = array('url' => BASE_URL . 'jury/contest', 'title' => 'Jury Member');
+        break;     
+      default:
+        break;
+    }
+  }
+  return $userInfo;
+}

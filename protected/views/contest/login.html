@@ -21,12 +21,6 @@
   </form>
 </div>
 {% if message.success is not empty %}  
-  {% if user.admin is not empty %}
-    <script type="text/javascript"> 
-      var contestUrl =  "{{user.url}}";
-      parent.location.replace(contestUrl);
-    </script>
-  {% endif %}
   <script type="text/javascript"> 
     var backPageUrl =  "{{back_url}}";
     parent.location.replace(backPageUrl);

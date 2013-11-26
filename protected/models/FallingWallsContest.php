@@ -353,7 +353,7 @@ class FallingWallsContest {
    * @param string  $entryId  
    * @return array $tags  
    */
-  public function getEntryTags($entryId) {
+  public function getEntryTags($entryId, $slug = '') {
     $entryInfo = array();
     $tags = array();
     if (empty($entryId)) {
@@ -361,7 +361,11 @@ class FallingWallsContest {
     }
     $contest = new Contest();
     $contest->entryId = $entryId;
-    $contest->contestSlug = $_GET['slug'];
+    if (empty($slug)) {
+      $contest->contestSlug = $_GET['slug'];
+    } else {
+      $contest->contestSlug = $slug;
+    }
     $entryInfo = $contest->getContestSubmissionInfo();
     if (array_key_exists('tags', $entryInfo) && !empty($entryInfo['tags'])) {
       $tags = $entryInfo['tags'];

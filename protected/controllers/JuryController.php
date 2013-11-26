@@ -109,4 +109,249 @@ class JuryController extends Controller {
     }
     $this->render('jury', array('jury' => $juryEmail, 'message' => $message, 'is_exist_contest'=>$isExistContest));
   } 
+  
+  /**
+   * actionActiveContest
+   * function is used for get all active contest
+   */
+  public function actionActiveContest() {
+    try {
+      $roles = getRoles();
+      if (!in_array('jury_member', $roles)) {
+        $this->redirect(BASE_URL);
+      } 
+      $currentContest = array();
+      $activeContest = array();
+      $jury = new Jury();
+      $jury->emailId = Yii::app()->session['user']['email'];
+      $jury->designation = JURY_MEMBER;
+      $juryInfo = $jury->fetchAll();   
+      foreach ($juryInfo as $info) {
+        if (time() >= strtotime($info['jury_rating_from']) && time() <= strtotime($info['jury_rating_till'])) {
+          $currentContest[] =  $info['contestSlug'];
+          $activeContest[] = array('slug' => $info['contestSlug'], 'contest_name' => $info['contestTitle']);
+        }
+      }  
+      $_SESSION['user']['active_contest'] = $currentContest;
+    } catch (Exception $e) {
+      Yii::log('Error in actionActiveContest ', ERROR, $e->getMessage());
+    }
+    $this->render('activeContest', array('active_contest' => $activeContest));
+  }
+
+  /**
+   * actionGetSubmissions
+   * function is used for get all submission for a contest
+   */
+  public function actionJuryRating() {
+    try {
+      $roles = getRoles();
+      if (!in_array('jury_member', $roles)) {
+        $this->redirect(BASE_URL);
+      }
+      $contestSubmissions = array();
+      $contest = new Contest();
+      $contest->limit = 9999;
+      if (array_key_exists('contest_slug', $_GET) && !empty($_GET['contest_slug'])) {
+        $contest->contestSlug = $_GET['contest_slug'];
+        if (!array_key_exists('active_contest', Yii::app()->session['user']) || !in_array($_GET['contest_slug'], Yii::app()->session['user']['active_contest'])) {
+          $this->redirect(BASE_URL);
+        }
+      }
+      $contestEntries = $contest->getContestSubmission();
+      $contestSubmission = $this->prepareSubmission($contestEntries);
+      if (array_key_exists('entry', $contestSubmission) && (!empty($contestSubmission['entry']))) {
+        foreach ($contestSubmission['entry'] as $entry) {
+          $contestEntry = array();
+          $contestEntry['id'] = $entry['id'];
+          $contestEntry['title'] = $entry['title'];
+          $contestEntry['author'] = $entry['author'];
+          if (array_key_exists('tags', $entry) && !empty($entry['tags'])) {
+            foreach ($entry['tags'] as $tag) {
+              if ($tag['scheme'] == JURY_RATING_SCHEME && $tag['slug'] == Yii::app()->session['user']['id']) {
+                $contestEntry['jury_rating'] = $tag['weight'];
+              }
+            }
+          }
+          $contestSubmissions[] = $contestEntry;
+        }
+      }
+    } catch (Exception $e) {
+      Yii::log('Error in actionJuryRating ', ERROR, $e->getMessage());
+    }
+    $this->render('rating', array('entries' => $contestSubmissions, 'contest_slug' => $_GET['contest_slug']));
+  }
+
+  /**
+   * actionSaveRating
+   * function is used for save jury rating
+   */
+  public function actionSaveRating() {
+    if (!array_key_exists('HTTP_X_REQUESTED_WITH', $_SERVER)) {
+      $this->redirect(BASE_URL);
+    }
+    $response = array('success' => false);
+    $entryTags = array();
+    if (array_key_exists('entry_id', $_GET) && !empty($_GET['entry_id'])) {
+      $entryId = $_GET['entry_id'];
+      $fallingWall = new FallingWallsContest();
+      $entryTags = $fallingWall->getEntryTags($entryId, $_GET['contest_slug']);
+    }
+    $voting = '';
+    if (array_key_exists('rating', $_GET) && !empty($_GET['rating'])) {
+      $voting = $_GET['rating'];
+    }
+    $modifiedTags = $this->modifiedTags($entryTags, $voting);
+    $aggregator = new AggregatorManager();
+    $aggregator->tags = $modifiedTags;
+    $aggregator->entryId = $entryId;
+    $isUpdate = $aggregator->updateEntry();   
+    if (array_key_exists('success', $isUpdate) && $isUpdate['success'] == true) {
+      $response['success'] = true;
+    } else {
+      Yii::log('Error in actionSaveRating ', ERROR, 'Failed to save rating' );
+    }
+    echo json_encode($response);
+    exit;
+  }
+
+  /**
+   * modifiedTags
+   * function is used for update existing tag
+   * @param array $tags - tag to be modified
+   * @param array $voting
+   * @return array $updatedTags
+   */
+  public function modifiedTags($tags, $voting) {
+    $updatedTags = array();
+    $votingCountExist = false;
+    $userAlreadyRating = false;
+    $prevRating = 0;
+    if (empty($tags)) {
+      return $updatedTags;
+    }    
+    //check for previous rating of jury member
+    foreach ($tags as $tag) {
+      if ($tag['scheme'] == JURY_RATING_SCHEME && $tag['slug'] == Yii::app()->session['user']['id']) {
+        $prevRating = $tag['weight'];
+        break;
+      }
+    }
+    foreach ($tags as $tag) {
+      if ($tag['scheme'] == JURY_RATING_SCHEME && $tag['slug'] == Yii::app()->session['user']['id']) {
+        $tag['weight'] = $voting;
+        $userAlreadyRating = true;
+      }
+      if ($tag['scheme'] == RATING_COUNT_SCHEME) {
+        $tag['weight'] = $tag['weight'] + $voting - $prevRating;      
+        $votingCountExist = true;        
+      }
+      $updatedTags[] = $tag; 
+    }
+    if (!$userAlreadyRating) {
+      array_push($updatedTags, array('name' => Yii::app()->session['user']['firstname'] . ' ' .
+        Yii::app()->session['user']['lastname'],
+        'slug' => Yii::app()->session['user']['id'],
+        'scheme' => JURY_RATING_SCHEME,
+        'weight' => $voting));
+    }
+    if (!$votingCountExist) {
+      array_push($updatedTags, array('name' => 'count',
+        'slug' => 'count',
+        'scheme' => RATING_COUNT_SCHEME,
+        'weight' => $voting));
+    }
+    return $updatedTags;
+  }
+  
+  /**
+   * actionViewEntry
+   * function is used for view entry detail
+   */
+  public function actionViewEntry() {
+    $contest = new Contest();
+    if (array_key_exists('id', $_GET) && !empty($_GET['id'])) {
+      $contest->entryId = $_GET['id'];      
+    }
+    if (array_key_exists('slug', $_GET) && !empty($_GET['slug'])) {
+      $contest->contestSlug = $_GET['slug'];      
+    }
+    $entries = array($contest->getContestSubmissionInfo());
+    $contestEntries = $this->prepareSubmission($entries); 
+    if (array_key_exists('tags', $contestEntries['entry'][0]) && !empty($contestEntries['entry'][0]['tags'])) {
+      foreach ($contestEntries['entry'][0]['tags'] as $tag) {
+        if ($tag['scheme'] == JURY_RATING_SCHEME && $tag['slug'] == Yii::app()->session['user']['id']) {
+          $contestEntries['jury_rating'] = $tag['weight'];
+        }
+      }
+    }     
+    $aggregatorMgr = new AggregatorManager();
+    $aggregatorMgr->contestSlug = $_GET['slug'];
+    $aggregatorMgr->range = $_GET['id'] . ':' . 1;
+    $aggregatorMgr->returnField = 'title,id';
+    $entryForPagination = $aggregatorMgr->getEntryForPagination();
+    if (!empty($entryForPagination)) {
+      if (array_key_exists('after', $entryForPagination) && !empty($entryForPagination['after'])) {
+        $pagination['nextEntryId'] = $entryForPagination['after'][0]['id'];
+        $pagination['nextEntryTitle'] = $entryForPagination['after'][0]['title'];
+      }
+      if (array_key_exists('before', $entryForPagination) && !empty($entryForPagination['before'])) {
+        $pagination['prevEntryId'] = $entryForPagination['before'][0]['id'];
+        $pagination['prevEntryTitle'] = $entryForPagination['before'][0]['title'];
+      }
+    }
+    $this->render('viewEntry', array('entries' => $contestEntries, 'pagination'=> $pagination, 'contest_slug' => $_GET['slug']));
+  }
+  
+  /**
+   * prepareSubmission 
+   * function is used for prepare contest submission in proper format 
+   * @param array $contestEntries
+   * @return (array)
+   */
+  public function prepareSubmission($contestEntries) {
+    $contestSubmissions = array();
+    if (empty($contestEntries)) {
+      return $contestSubmissions;
+    }
+    $countFromEntries = end($contestEntries);
+    if (array_key_exists('count', $countFromEntries)) {
+      $contestSubmissions['entry_count'] = array_pop($contestEntries);
+    }
+    
+    foreach ($contestEntries as $entry) {
+      $contestSubmission = array();
+      $contestSubmission['id'] = $entry['id'];
+      $contestSubmission['title'] = $entry['title'];
+      $contestSubmission['author'] = $entry['author'];
+      $contestSubmission['tags'] = $entry['tags'];
+      
+      if (array_key_exists('content', $entry) && array_key_exists('description', $entry['content'])) {
+        $contestSubmission['description'] = $entry['content']['description'];
+      }
+      if (array_key_exists('links', $entry) && array_key_exists('enclosures', $entry['links'])) {
+          foreach ($entry['links']['enclosures'] as $enclosure) { 
+            switch($enclosure['type']) {
+              case 'image':
+                $contestType[] = 'image';
+                $contestSubmission['image_path'][] = $enclosure['uri'];
+                break;
+              case 'video':
+                $contestType[] = 'video';
+                $fallingWalls = new FallingWallsContest();
+                $contestSubmission['video_image_path'][] = $fallingWalls->getVideoImage($enclosure['uri']);
+                $contestSubmission['video_links'][] = $enclosure['uri'];
+               break;
+              case 'pdf':
+                $contestType[] = 'pdf';
+                $contestSubmission['pdf_file_path'][] = $enclosure['uri'];
+                break;
+            }
+          }
+      }
+      $contestSubmissions['entry'][] = $contestSubmission;
+    }
+    $contestSubmissions['contest_type'] = array_unique($contestType);
+    return $contestSubmissions;
+  }
 }

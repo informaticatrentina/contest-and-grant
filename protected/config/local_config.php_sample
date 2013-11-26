@@ -147,3 +147,6 @@ define('HOME_PAGE_BOX_IMAGE', '[{"image":"coordinatore.jpg","url":"'.BASE_URL.'c
   {"image":"capitani_coraggiosi.jpg","url":"#","caption":"Premio Informazione Digitale"}]');
 
 define('SESSION_TIMEOUT_TIME', 172800);
+
+//constant for no of stars for rating
+define('STAR_COUNT', 5);

@@ -35,10 +35,8 @@
         {% set activeContestSlug = '' %}
         {% if constant('ACTIVE_CONTEST_SLUG') is not empty %} 
           {% set activeContestSlug = constant('ACTIVE_CONTEST_SLUG') %}
-        {% endif %}             
-        {% set adminUser = false %}
-        {% set adminUser = isAdminUser() %} 
-        
+        {% endif %}  
+        {% set user = getAdminMenuList() %}         
         {% if App.session is not empty %}
           <ul class="nav pull-right" > 
             <li><a>{{ t('contest', 'Welcome') }}: {{  App.session.user.firstname }} {{  App.session.user.lastname }}</a></li>
@@ -67,8 +65,15 @@
                 {% endfor %}
               </ul>
           </li>          
-          {% if adminUser == true %}            
-            <li><a href="{{constant('BASE_URL')}}admin/contest/list">Admin</a></li>
+          {% if user is not empty %}            
+            <li class="dropdown">
+              <a class="header-bar dropdown-toggle" data-toggle="dropdown" href="#">Admin</a>
+              <ul class="dropdown-menu contest-menu">
+                {% for info in user %}
+                  <li><a class="contest-menu-text" href="{{info.url}}">{{info.title}}</a></li>
+                {% endfor %}
+              </ul>
+            </li>
           {% endif %}
         </ul>
       </div>
@@ -97,8 +102,15 @@
                 {% endfor %}
               </ul>
             </li>
-            {% if adminUser == true %}            
-              <li><a href="{{constant('BASE_URL')}}admin/contest/list" class="header-bar">ADMIN</a></li>
+            {% if user is not empty %}            
+              <li class="dropdown">
+                <a class="header-bar dropdown-toggle" data-toggle="dropdown" href="#">Admin</a>
+                <ul class="dropdown-menu contest-menu">
+                  {% for info in user %}
+                    <li><a class="contest-menu-text" href="{{info.url}}">{{info.title}}</a></li>
+                  {% endfor %}
+                </ul>
+              </li>
             {% endif %}
           </ul>
         </div>

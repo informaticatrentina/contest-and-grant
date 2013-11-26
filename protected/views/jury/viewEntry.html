@@ -1,0 +1,79 @@
+<link href="{{constant('BASE_URL')}}css/jquery.rating.css" rel="stylesheet">
+<div class="container">
+  <div class="row">
+    <div class="span3">
+      <div class="entry-content-left">
+        <a class="submission-list-button btn-block" href="{{constant('BASE_URL')}}jury/entry/{{contest_slug}}">
+          {{t('contest', 'Back to submission List')}}
+        </a>
+      </div>  
+    </div>
+    <div class="span2">
+      <div class="entry-content-right jury-vote" style="margin: 20px 0px; padding: 15px 0 35px 30px" entry-id="{{entries.entry.0.id}}">
+        {% for j in 1..constant('STAR_COUNT') %}
+          {% set check = '' %}
+          {% if j == entries.jury_rating %}
+            {% set check = 'checked="checked"' %}
+          {% endif %}
+            <input name="star" type="radio" value="{{j}}" {{check}} class="star auto-submit-star"/> 
+          {% endfor %}
+      </div>
+    </div>  
+  </div>  
+  <div class="row">
+    <div class="span8 jury-entry">
+      <h5>{{entries.entry.0.title}} </h5> 
+      <h6>Di&nbsp;&nbsp;&nbsp;{{entries.entry.0.author.name}}</h6>
+    </div>
+   {% if entries.contest_type is not empty %}
+      {% for type in entries.contest_type %}
+        {% if type == 'image' %}
+          {% for image in entries.enty.0.image_path %}
+            <div class="span8 jury-entry">
+              <img src="{{constant('BASE_URL')~image}}">
+            </div>   
+          {% endfor %}
+        {% endif %}
+        {% if type == 'video' %} 
+          {% for video in entries.entry.0.video_image_path %}
+            <div class="span8 jury-entry">
+              <img src="{{constant('BASE_URL')~video}}">
+            </div>   
+          {% endfor %}
+        {% endif %}
+        {% if type == 'pdf' %} 
+          {% set pdfFile = entries.entry.0.pdf_file_path %}
+          {% for file in pdfFile %}
+            <div class="span8 jury-entry" style="margin-left: 0;">
+              <iframe src="{{file}}" class="span8" height="500px" frameborder="0"></iframe>
+            </div>  
+          {% endfor %}
+        {% endif %}
+      {% endfor %}
+    {% endif %}  
+  </div>
+  <div class="row"> 
+    {% if pagination.prevEntryTitle is not empty%}
+      <div class="span4" style="position:relative;">
+        <img src="{{constant('BASE_URL')}}images/previous-arrow.png" width="9" height="12" alt="arrow" style="position:absolute; top:24px; left:20px;">
+        <a href="{{constant('BASE_URL')}}jury/entry/{{contest_slug}}/{{pagination.prevEntryId}}" class="previous-button btn-block">PRECEDENTE<br>{{pagination.prevEntryTitle}}</a>
+      </div> 
+    {% endif%}
+    {% if pagination.nextEntryTitle is not empty %}
+      <div class="span4" style="position:relative;">
+        <img src="{{constant('BASE_URL')}}images/next-arrow.png" width="9" height="12" alt="arrow" style="position:absolute; top:24px; right:20px;">
+        <a href="{{constant('BASE_URL')}}jury/entry/{{contest_slug}}/{{pagination.nextEntryId}}" class="next-button btn-block">SUCCESSIVO<br> {{pagination.nextEntryTitle}} </a>
+      </div> 
+    {% endif %}
+  </div>
+</div>
+<span id="back-top">
+  <a href="#"><img src="{{constant('BASE_URL')}}images/top_icon.png" alt="click here to go to top" title="click here to go to top"/></a> 
+</span>
+<script>
+  var page = {
+    save_rating_url : "{{constant('BASE_URL')}}jury/rating/save/{{contest_slug}}"
+  };
+</script>
+<script src="{{constant('BASE_URL')}}js/jquery.rating.js"></script>
+<script src="{{constant('BASE_URL')}}js/jury.js"></script>

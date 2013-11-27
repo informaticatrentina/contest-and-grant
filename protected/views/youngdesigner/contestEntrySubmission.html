@@ -4,18 +4,18 @@
     <div class="row">
       {% if contestInfo.entryStatus == 1 %}
         <div class="span3">
-          <a href="{{constant('BASE_URL')}}contest/entries/{{ contestInfo.contestSlug }}"  class="contest-button btn-block">PARTECIPANTI</a>
+          <a href="{{constant('BASE_URL')}}contest/entries/{{ contestInfo.contestSlug }}"  class="contest-button btn-block">{{t('contest', 'PARTICIPANTS')}}</a>
         </div>
       {% endif %}
       <div class="span3">
-        <a href="{{constant('BASE_URL')}}contest/brief/{{ contestInfo.contestSlug }}" class="contest-button btn-block">REGOLAMENTO</a>
+        <a href="{{constant('BASE_URL')}}contest/brief/{{ contestInfo.contestSlug }}" class="contest-button btn-block">{{t('contest', 'RULE')}}</a>
       </div>
       <div class="span3">
-        <a href="{{constant('BASE_URL')}}contest/submission/{{ contestInfo.contestSlug }}"  class="contest-button btn-block active">PARTECIPA</a>
+        <a href="{{constant('BASE_URL')}}contest/submission/{{ contestInfo.contestSlug }}"  class="contest-button btn-block active">{{t('contest', 'PARTICIPATE')}}</a>
       </div>
       {% if contestInfo.winnerStatus == 1 %}
         <div class="span3">
-          <a href="{{constant('BASE_URL')}}contest/winner/{{ contestInfo.contestSlug }}"  class="contest-button btn-block">VINCITORI</a>
+          <a href="{{constant('BASE_URL')}}contest/winner/{{ contestInfo.contestSlug }}"  class="contest-button btn-block">{{t('contest', 'WINNERS')}}</a>
         </div>
       {% endif %}
     </div>

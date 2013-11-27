@@ -331,10 +331,29 @@ function getAdminMenuList() {
         break;
       case 'jury_member':
         $userInfo[] = array('url' => BASE_URL . 'jury/contest', 'title' => 'Jury Member');
-        break;     
+        break;      
       default:
         break;
     }
   }
   return $userInfo;
+}
+
+/**
+ * setMessageTranslationLanguage
+ * function is used for set language for translation, default language is it_it
+ * @param $slug - slug of contest
+ */
+function setMessageTranslationLanguage($slug) {
+  if (empty($slug)) {
+    return '';
+  }
+  switch($slug) {
+    case YOUNG_DESIGNER_CONTEST_SLUG:
+      Yii::app()->language = 'en';
+      break;
+    default:
+      Yii::app()->language = SITE_LANGUAGE;
+      break;
+  }
 }

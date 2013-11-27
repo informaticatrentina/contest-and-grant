@@ -13,8 +13,11 @@
  */
 class ContestController extends Controller {
 
-  public function beforeAction($action) {
-    new JsTrans('js', SITE_LANGUAGE);
+  public function beforeAction($action) {    
+    if (array_key_exists('slug', $_GET) && !empty($_GET['slug'])) {
+      setMessageTranslationLanguage($_GET['slug']);
+    }
+    new JsTrans('js', Yii::app()->language);
     return true;
   }
   
@@ -68,7 +71,8 @@ class ContestController extends Controller {
          $this->actionContestEntries();
          break;
        case  FALLING_WALLS_CONTEST_SLUG : 
-       case HELLO_FIEMME_ORGANIZER :
+       case HELLO_FIEMME_ORGANIZER : 
+         Yii::app()->language = 'en';
          $controller = new FallingwallsController('fallingwalls');
          $controller->actionContestEntries();
          break;

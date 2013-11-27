@@ -1,0 +1,79 @@
+<div class="container" style="padding-top:30px;">
+  <div class="row">
+    {% if App.session is not empty %}
+      <div class="span8">
+        <div class="entry-content-left">
+          <div style="padding: 20px 40px;">
+            <form action="" method="post"  enctype = "multipart/form-data">
+              <div id="error">
+                {% if message.msg is not empty %}
+                  {{ message.msg }}
+                {% endif %}
+              </div>
+
+              {% set entityTitle = '' %}
+              {% if postData is not empty %}
+                 {% if postData.title is not empty %}
+                    {% set entityTitle = postData.title %}
+                 {% endif %}
+              {% endif %}
+              <h6 class="formtitle">{{t('contest', 'Title')}}</h6>
+              <p><em>{{t('contest', 'Please enter title')}}</em></p>
+              <textarea rows="3" class="input-block-level" id="entry-title" name="title">{{entityTitle}}</textarea>
+              
+              {% set submitterSortBio = '' %}
+              {% if postData is not empty %}
+                 {% if postData.submitter_info is not empty %}
+                    {% set submitterSortBio = postData.submitter_info %}
+                 {% endif %}
+              {% endif %}
+              <h6 class="formtitle">{{t('contest', 'Submitter Bio')}}</h6>
+              <p><em>{{t('contest', 'Please enter your sort bio')}}</em></p>
+              <textarea rows="5" class="input-block-level" id="submitter-info" name="submitter_info">{{submitterSortBio}}</textarea>
+            
+              <h6 class="formtitle">{{t('contest', 'Project File ')}}</h6>
+              <p><em>{{t('contest', 'browse your file to save')}}</em></p>
+              <input type="file"  class="input-block-level" id="pdf-file" name="pdf_file" />
+
+              <h6 class="formtitle">{{t('contest', 'Additional portfolio item 1')}}</h6>
+              <input type="file"  class="input-block-level" id="pdf-file" name="additional_pdf_file_1" />
+              
+              <h6 class="formtitle">{{t('contest', 'Additional portfolio item 2')}}</h6>
+              <input type="file"  class="input-block-level" id="pdf-file" name="additional_pdf_file_2" />
+              
+              <h6 class="formtitle">{{t('contest', 'Additional portfolio item 3')}}</h6>
+              <input type="file"  class="input-block-level" id="pdf-file" name="additional_pdf_file_3" />
+              <button class="btn pull-right" id="saveContestSubmission" type="submit" name="save_contest">{{t('contest', 'save')}}</button>
+              <br>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="span4">
+        <div class="entry-content-right">
+          <h6 class="formtitle">Upload Specification</h6>
+          <p>{{t('contest', 'You can upload only pdf file')}}</p>
+        </div>
+      </div>
+     {%else%}
+      <div class="container">
+        <div style="background-color:#f5f5f5; margin:25px 0px;">
+          <div class="row">
+            <div class="span12">
+              <div style="padding:25px 25px;">
+                <h6>
+                  <div class="pull-right">
+                    <a  class="register-link" href="#"><button class="btn btn-block btn-large" type="button">{{ t('contest', 'Sign Up') }}</button></a><br>
+                    <a class="login-link" href="#" ><button class="btn btn-block btn-large" type="button">{{ t('contest', 'Login') }}</button></a>
+                  </div>
+                  {{t('contest', 'Only members can participate in the contest to CIVICLINKS.')}} <br>
+                  {{t('contest', 'Sign up or log in to continue.')}}
+                </h6>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    {%endif%}
+  </div>
+</div>

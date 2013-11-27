@@ -17,7 +17,7 @@ class ContestController extends Controller {
     new JsTrans('js', SITE_LANGUAGE);
     return true;
   }
-
+  
   /**
    * actionIndex
    * 
@@ -257,15 +257,19 @@ class ContestController extends Controller {
       $contestSlug = $_GET['slug'];
     }
     switch ($contestSlug) {
-       case FIRST_CONTEST_SLUG :
+      case FIRST_CONTEST_SLUG :
         $this->actionSubmitContestEntries();
         break;
       case FALLING_WALLS_CONTEST_SLUG :
         $this->actionSubmitContestEntries();
         break;
-       case HELLO_FIEMME_ORGANIZER : 
+      case HELLO_FIEMME_ORGANIZER : 
         $helloFiemme = new HellofiemmeorganizerController('hellofiemmeorganizer');
         $helloFiemme->actionSubmitEntries();
+        break;
+      case YOUNG_DESIGNER_CONTEST_SLUG :
+        $youngDesigner = new YoungdesignerController('youngdesigner');
+        $youngDesigner->actionSubmitEntries();
         break;
       default :
         $this->actionSubmitContestEntries();

@@ -331,6 +331,9 @@ class JuryController extends Controller {
       }
       if (array_key_exists('links', $entry) && array_key_exists('enclosures', $entry['links'])) {
           foreach ($entry['links']['enclosures'] as $enclosure) { 
+            if (strpos($enclosure['type'], 'pdf') !== FALSE) {
+              $enclosure['type'] = 'pdf';
+            }
             switch($enclosure['type']) {
               case 'image':
                 $contestType[] = 'image';

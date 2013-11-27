@@ -1,0 +1,101 @@
+<?php
+
+/**
+ * YoungDesigner 
+ * YoungDesigner class is used for submit, get submission of yuoung designer contest
+ * 
+ * Copyright (c) 2013 <ahref Foundation -- All rights reserved.
+ * Author: Rahul Tripathi<rahul@incaendo.com>
+ * This file is part of <Contest and Grants>.
+ * This file can not be copied and/or distributed without the express permission of <ahref Foundation.
+ */
+
+class YoungDesigner  {
+  
+  public $contestName;
+  public $slug;
+  
+  /**
+   * saveEntry
+   * function is used for save entry 
+   */
+  public function saveEntry() {    
+    try {
+      $fileName = array();
+      $postData = array_map('trim', $_POST);
+      $response = array('success' => false, 'msg' => '');
+      if (array_key_exists('title', $postData) && empty($postData['title'])) {
+        throw new Exception(Yii::t('contest', 'Entry title should not be empty'));
+      }      
+      if (array_key_exists('submitter_info', $postData) && empty($postData['submitter_info'])) {
+        throw new Exception(Yii::t('contest', 'Submitter bio should not be empty'));
+      }
+      if (array_key_exists('pdf_file', $_FILES) && empty($_FILES['pdf_file']['name'])) {
+        throw new Exception(Yii::t('contest', 'Please upload pdf file'));
+      } else {
+         $fileName[1] = $this->uploadPdfFile($_FILES['pdf_file'], 'pdf_file');
+      }      
+      if (array_key_exists('additional_pdf_file_1', $_FILES) && !empty($_FILES['additional_pdf_file_1']['name'])) {
+        $fileName[2] = $this->uploadPdfFile($_FILES['additional_pdf_file_1'], 'additional_pdf_file_1');
+      }
+      if (array_key_exists('additional_pdf_file_2', $_FILES) && !empty($_FILES['additional_pdf_file_2']['name'])) {
+        $fileName[3] = $this->uploadPdfFile($_FILES['additional_pdf_file_2'], 'additional_pdf_file_2');
+      }
+      if (array_key_exists('additional_pdf_file_3', $_FILES) && !empty($_FILES['additional_pdf_file_3']['name'])) {
+        $fileName[4] = $this->uploadPdfFile($_FILES['additional_pdf_file_3'], 'additional_pdf_file_3');
+      }
+     
+      $aggregatorManager = new AggregatorManager();     
+      // prepare data according to aggregator API input (array)
+      $inputParam = array(
+          'content' => array('submitter_bio' => $postData['submitter_info']),
+          'title' => $postData['title'],
+          'status' => 'active',
+          'author' => array('name' => Yii::app()->session['user']['firstname'] . ' ' . Yii::app()->session['user']['lastname'],
+                            'slug' => Yii::app()->session['user']['id']),
+          'tags' => array(array('name' => $this->contestName, 'slug' => $this->slug, 'scheme' => 'http://ahref.eu/contest/schema/')),
+          'creation_date' => time(),
+          'source' => SOURCE
+      ); 
+      foreach ($fileName as $fileOrder => $name) {
+        $inputParam['links']['enclosures'][] = array('type' => 'pdf/'.$fileOrder, 'uri' => BASE_URL . UPLOAD_DIRECTORY. 'contestEntry/'. $name);
+      }
+      $response = $aggregatorManager->saveContestEntry($inputParam);
+      if (array_key_exists('success', $response) && $response['success']) {
+        $response['msg'] = Yii::t('contest', 'You have succesfully submit an entry');
+      } else {
+        $response['msg'] = Yii::t('contest', 'Some technical problem occurred, contact administrator');
+      }
+    } catch (Exception $e) {
+      $response['msg'] = $e->getMessage();
+    }
+    return $response;
+  }
+
+  
+  /**
+   * uploadPdfFile
+   * function is used for validate and upload file
+   * @param array $files
+   * @param $index  - index of $_FILES
+   * return $filename
+   */
+  public function uploadPdfFile($files, $index) {
+    $fileName = '';
+    if($files['error'] != 0) { 
+      throw new Exception(setFileUploadError($files['error']));
+    } else {
+      $extention = explode('/', $files['type']);
+      $fileExtension = end($extention);
+      if ($fileExtension != 'pdf') {
+        throw new Exception(Yii::t('contest', 'Please upload only pdf file'));
+      } else {
+        $fileName = uploadFile(UPLOAD_DIRECTORY.'contestEntry/', $index);
+        if (empty($fileName)) {
+          throw new Exception(Yii::t('contest', 'Some error occured in file uploading'));
+        }       
+      }
+    }
+    return $fileName;
+  }  
+}

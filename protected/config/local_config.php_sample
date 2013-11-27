@@ -128,6 +128,7 @@ define('ACTIVE_HOMEPAGE_CONTEST_IMAGE_NAME', 'homepage_falling_forms_contest.jpg
 define('FIRST_CONTEST_SLUG', 'incaendo');define('FIRST_CONTEST_SLUG', 'incaendo');
 define('FALLING_WALLS_CONTEST_SLUG', 'falling_walls_2013');
 define('HELLO_FIEMME_ORGANIZER', 'hellofiemme_organizer');
+define('YOUNG_DESIGNER_CONTEST_SLUG', 'young_designer');
 define('ACTIVE_CONTEST_SLUG', FALLING_WALLS_CONTEST_SLUG);
 
 define('YOUTUBE_VIDEO_IMAGE_URL', 'http://img.youtube.com/vi/');

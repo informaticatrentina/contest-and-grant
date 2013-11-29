@@ -72,7 +72,6 @@ class ContestController extends Controller {
          break;
        case  FALLING_WALLS_CONTEST_SLUG : 
        case HELLO_FIEMME_ORGANIZER : 
-         Yii::app()->language = 'en';
          $controller = new FallingwallsController('fallingwalls');
          $controller->actionContestEntries();
          break;

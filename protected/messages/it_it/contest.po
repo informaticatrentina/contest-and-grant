@@ -759,3 +759,144 @@ msgstr "Non ci sono elaborati in questo contesto"
 msgctxt "contest" 
 msgid "This contest does not exists"
 msgstr "Questo contesto non esiste"
+
+msgctxt "contest" 
+msgid "Additional portfolio item 1"
+msgstr ""
+
+msgctxt "contest" 
+msgid "Additional portfolio item 2"
+msgstr ""
+
+msgctxt "contest" 
+msgid "Additional portfolio item 3"
+msgstr ""
+
+msgctxt "contest" 
+msgid "Back to submission List"
+msgstr ""
+
+msgctxt "contest" 
+msgid "Entry Title"
+msgstr ""
+
+msgctxt "contest" 
+msgid "Error in getSortedContestSubmission method :"
+msgstr ""
+
+msgctxt "contest" 
+msgid "Jury Rating End Date"
+msgstr ""
+
+msgctxt "contest" 
+msgid "Jury Rating Start Date"
+msgstr ""
+
+msgctxt "contest" 
+msgid "Jury Rating Start date should not be empty"
+msgstr ""
+
+msgctxt "contest" 
+msgid "Jury rating end date should not be empty"
+msgstr ""
+
+msgctxt "contest" 
+msgid "No"
+msgstr ""
+
+msgctxt "contest" 
+msgid "Only members can participate in the contest to CIVICLINKS."
+msgstr ""
+
+msgctxt "contest" 
+msgid "PARTICIPANTS"
+msgstr "PARTECIPANTI"
+
+msgctxt "contest" 
+msgid "PARTICIPATE"
+msgstr "PARTECIPA"
+
+msgctxt "contest" 
+msgid "Please enter title"
+msgstr ""
+
+msgctxt "contest" 
+msgid "Please enter valid jury rating end date"
+msgstr ""
+
+msgctxt "contest" 
+msgid "Please enter valid jury rating start date"
+msgstr ""
+
+msgctxt "contest" 
+msgid "Please enter your sort bio"
+msgstr ""
+
+msgctxt "contest" 
+msgid "Please upload pdf file"
+msgstr ""
+
+msgctxt "contest" 
+msgid "Project File "
+msgstr ""
+
+msgctxt "contest" 
+msgid "RULE"
+msgstr "REGOLAMENTO"
+
+msgctxt "contest" 
+msgid "Rating"
+msgstr ""
+
+msgctxt "contest" 
+msgid "Sign up or log in to continue."
+msgstr ""
+
+msgctxt "contest" 
+msgid "Submitter Bio"
+msgstr ""
+
+msgctxt "contest" 
+msgid "Submitter bio should not be empty"
+msgstr ""
+
+msgctxt "contest" 
+msgid "There are no active contest"
+msgstr ""
+
+msgctxt "contest" 
+msgid "There is no rated submission in this contest"
+msgstr ""
+
+msgctxt "contest" 
+msgid "There is no rating for any submission of this contest"
+msgstr ""
+
+msgctxt "contest" 
+msgid "View Detail"
+msgstr ""
+
+msgctxt "contest" 
+msgid "WINNERS"
+msgstr "VINCITORI"
+
+msgctxt "contest" 
+msgid "Yes"
+msgstr ""
+
+msgctxt "contest" 
+msgid "You can upload only pdf file"
+msgstr ""
+
+msgctxt "contest" 
+msgid "You have not permission for downlopad this file."
+msgstr ""
+
+msgctxt "contest" 
+msgid "browse your file to save"
+msgstr ""
+
+msgctxt "contest" 
+msgid "save"
+msgstr "salva"
+

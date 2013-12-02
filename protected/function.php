@@ -332,6 +332,9 @@ function getAdminMenuList() {
       case 'jury_member':
         $userInfo[] = array('url' => BASE_URL . 'jury/contest', 'title' => 'Jury Member');
         break;      
+      case 'jury_admin':
+        $userInfo[] = array('url' => BASE_URL . 'jury/admin/contest', 'title' => 'Jury Admin');
+        break;      
       default:
         break;
     }
@@ -355,5 +358,28 @@ function setMessageTranslationLanguage($slug) {
     default:
       Yii::app()->language = SITE_LANGUAGE;
       break;
+  }
+}
+
+/**
+ * deleteFile
+ * function is used for delete files and folder recursively
+ * @dir - directory or file name (for delete)
+ */
+function deleteFile($dir) {
+  if (is_dir($dir)) {
+    $files = scandir($dir);
+    foreach ($files as $file) {
+      if ($file != "." && $file != "..") {
+        if (filetype($dir . "/" . $file) == "dir") {
+          deleteFile($dir . "/" . $file);
+        } else {
+          unlink($dir . "/" . $file);
+        }
+      }
+    }
+    rmdir($dir);
+  } else {
+    unlink($dir);
   }
 }

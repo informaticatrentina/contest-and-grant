@@ -64,7 +64,10 @@ class YoungDesigner  {
       if (array_key_exists('success', $response) && $response['success']) {
         $response['msg'] = Yii::t('contest', 'You have succesfully submit an entry');
       } else {
+        Yii::log('Error in saveEntry of young designer ', ERROR, print_r($response, true) .'where user id '. 
+                Yii::app()->session['user']['id']);
         $response['msg'] = Yii::t('contest', 'Some technical problem occurred, contact administrator');
+        
       }
     } catch (Exception $e) {
       $response['msg'] = $e->getMessage();

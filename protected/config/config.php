@@ -164,6 +164,11 @@ return array(
         'jury/entry/<slug:[\w-]+>/<id:[\w-]+>' => 'jury/viewEntry',  
         'jury/entry/<contest_slug:[\w-]+>' => 'jury/juryRating',
         'jury/rating/save/<contest_slug:[\w-]+>' => 'jury/saveRating',
+        'jury/admin/contest' => 'juryadmin/activeContest',    
+        'jury/admin/entry/<contest_slug:[\w-]+>' => 'juryadmin/juryRating', 
+        'jury/admin/entry/<slug:[\w-]+>/<id:[\w-]+>' => 'juryadmin/viewEntry',
+        'jury/admin/download/submission/<contest_slug:[\w-]+>'  => 'juryadmin/downloadSubmission',
+        'jury/admin/jury-status/<slug:[\w-]+>' => 'juryadmin/juryStatus'          
       ),
     ),
     'session' => array(

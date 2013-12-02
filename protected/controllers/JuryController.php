@@ -65,9 +65,7 @@ class JuryController extends Controller {
         $jury->delete();
         //save jury admin
         foreach ($juryAdmin as $admin) {
-          $jury->emailId = $admin;
-          $jury->designation = JURY_ADMIN;
-          $adminSaveStatus = $jury->save();
+          $adminSaveStatus = $this->saveJury($jury, $admin, JURY_ADMIN);
           if (!$adminSaveStatus) {
             Yii::log('Error in actionManageJury ', ERROR, Yii::t('contest', 'failed to save jury admin ')
              . $admin);
@@ -75,9 +73,7 @@ class JuryController extends Controller {
         }
         //save jury member
         foreach ($juryMember as $member) {
-          $jury->emailId = $member;
-          $jury->designation = JURY_MEMBER;
-          $memberSaveStatus = $jury->save();
+          $memberSaveStatus = $this->saveJury($jury, $member, JURY_MEMBER);
           if (!$memberSaveStatus) {
             Yii::log('Error in actionManageJury ', ERROR, Yii::t('contest', 'failed to save jury member ') 
               . $member);
@@ -285,6 +281,7 @@ class JuryController extends Controller {
         }
       }
     }     
+    $pagination = array();
     $aggregatorMgr = new AggregatorManager();
     $aggregatorMgr->contestSlug = $_GET['slug'];
     $aggregatorMgr->range = $_GET['id'] . ':' . 1;
@@ -334,6 +331,9 @@ class JuryController extends Controller {
             if (strpos($enclosure['type'], 'pdf') !== FALSE) {
               $enclosure['type'] = 'pdf';
             }
+            if (strpos($enclosure['type'], 'image') !== FALSE) {
+              $enclosure['type'] = 'image';
+            }
             switch($enclosure['type']) {
               case 'image':
                 $contestType[] = 'image';
@@ -356,5 +356,29 @@ class JuryController extends Controller {
     }
     $contestSubmissions['contest_type'] = array_unique($contestType);
     return $contestSubmissions;
+  }
+  
+  /**
+   * saveJury
+   * function is used for save jury
+   * @param $jury  - object of jury class
+   * @param string $juryEmail
+   * @param string $designation 
+   * @return boolean
+   */
+  public function saveJury($jury, $juryEmail, $designation) {
+    $userId = '';
+    $user = new UserIdentityAPI();    
+    $userDetail = $user->getUserDetail(IDM_USER_ENTITY, array('email' => urlencode($juryEmail)), true);
+    if (array_key_exists('_items', $userDetail) && array_key_exists(0, $userDetail['_items']) && array_key_exists('_id', $userDetail['_items'][0])) {
+      $userId = $userDetail['_items'][0]['_id'];
+    } else {
+      Yii::log('Error in saveJury', ERROR, "failed in getting detail of jury email : $juryEmail \n" . print_r($userDetail, true));
+      throw new Exception(Yii::t('contest', 'Some technical problem occurred, Please check log'));
+    }
+    $jury->userId = $userId;
+    $jury->emailId = $juryEmail;
+    $jury->designation = $designation;
+    return $jury->save();
   }
 }

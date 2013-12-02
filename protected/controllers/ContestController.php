@@ -957,7 +957,7 @@ class ContestController extends Controller {
                 $contestSubmission['author'] = $entry['author']['name'];
               }
               if (array_key_exists('content', $entry) && !empty($entry['content'])) {
-                if ($entry['content']['is_minor'] == MINOR) {
+                if (array_key_exists('is_minor', $entry['content']) && $entry['content']['is_minor'] == MINOR) {
                   $contestSubmission['author'] = $entry['content']['minor_name'];
                 } 
               }              

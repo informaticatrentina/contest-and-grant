@@ -1,0 +1,33 @@
+<div class="container contest-list">
+  <table class="table table-hover table-bordered">
+    <tr>
+      <th rowspan='2'>S. No.</th>
+      <th rowspan='2'>{{t('contest', 'Entry Title')}}</th>
+      <th colspan='{{jury|length}}'><center>{{t('contest', 'Jury')}}</center></th>
+    </tr>
+    <tr>
+      {% for jry in jury %}
+      {% set explodeEmail = jry.email|split('@') %}
+        <th><a href="#" data-toggle="tooltip" data-placement="top" title="{{jry.email}}">{{explodeEmail.0}}</a></th>
+      {% endfor %}
+    </tr>
+     {% set i = 0 %}
+     {% for submission in submissions %}
+      {% set i =  i + 1 %}
+      <tr>
+        <td>{{i}}</td>
+        <td><a href="{{constant('BASE_URL')}}/jury/admin/entry/{{contest_slug}}/{{submission.entry_id}}">{{submission.title}}</td>
+        {% for jry in jury %}
+          {% set image = 'cross.png' %} 
+          {% for juryId in  submission.jury_id %}
+            {% if jry.user_id == juryId %}
+              {% set image = 'right.png' %}  
+            {%endif%}
+          {% endfor %}
+          <!--<td>{{image}}</td>-->
+          <td><image src="{{constant('BASE_URL')}}images/{{image}}" height="50" width="20" alt="jury status"></td>
+        {% endfor %}
+      </tr>
+    {% endfor %}
+  </table>
+</div>

@@ -17,6 +17,7 @@ class Jury {
   public $designation;
   public $creationDate;
   public $contestSlug;
+  public $userId;
 
   /**
    * get
@@ -56,13 +57,14 @@ class Jury {
    */
   public function save() {
     $connection = Yii::app()->db;
-    $sql = "INSERT INTO jury (contest_id, email_id, designation, creation_date) VALUES (:contestId,
-      :emailId, :designation, :creationDate)";
+    $sql = "INSERT INTO jury (contest_id, email_id, user_id, designation, creation_date) VALUES (:contestId,
+      :emailId, :userId, :designation, :creationDate)";
     $command = $connection->createCommand($sql);
     $command->bindParam(":contestId", $this->contestId);
     $command->bindParam(":emailId", $this->emailId);
     $command->bindParam(":designation", $this->designation);
     $command->bindParam(":creationDate", $this->creationDate);
+    $command->bindParam(":userId", $this->userId);
     return $command->execute();
   }
 
@@ -137,7 +139,7 @@ class Jury {
       $where[] = 'designation = :designation';
       $data[':designation'] = $this->designation;
     }
-    $sql = "SELECT  co.contestId, co.contestTitle, co.contestSlug, ju.email_id, ju.designation,
+    $sql = "SELECT  co.contestId, co.contestTitle, co.contestSlug, ju.email_id, ju.designation, ju.user_id,
       co.jury_rating_from, co.jury_rating_till FROM jury ju INNER JOIN contest co on co.contestId = ju.contest_id WHERE "
       . implode(' AND ', $where);
     $command = $connection->createCommand($sql);

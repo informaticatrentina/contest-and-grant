@@ -1334,7 +1334,7 @@ p::selection  {
 }
 
 .contest-list {
-  overflow-x: scroll;
+ 
 }
 
 .jury-message {
@@ -1370,4 +1370,12 @@ p::selection  {
     width: 100%;
     border:solid 1px #969696;	
 
+  }  
+  .jury-rating-container {
+    width: auto;
+    overflow-x:auto;  
+    -webkit-margin-left:352px; 
+    margin-left:24%; 
+    overflow-y:visible;
+    padding-bottom:1px;
   }

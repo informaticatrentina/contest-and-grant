@@ -1,0 +1,52 @@
+<div class="container">
+  {% if entries is empty %}
+    <div class="jury-message">
+      <div class="row">
+        <div class="span12">
+          <div style="padding:25px 25px;">    
+            <center><h6>{{t('contest', 'There is no rating for any submission of this contest')}}<br></h6></center>
+          </div>
+        </div>
+      </div>
+    </div>
+  {% else %}
+    <div class="row">
+<!--      <div class="span3 ">
+        <div class="entry-content-left">
+          <a class="submission-list-button btn-block" href="{{constant('BASE_URL')}}jury/admin/download/submission/{{contest_slug}}">
+            {{t('contest', 'Download Submission')}}
+          </a>
+        </div>  
+      </div>-->
+      <div class="span3 ">
+        <div class="entry-content-left">
+          <a class="submission-list-button btn-block" href="{{constant('BASE_URL')}}jury/admin/jury-status/{{contest_slug}}">
+            {{t('contest', 'Jury Status')}}
+          </a>
+        </div>  
+      </div>
+    </div>
+    <table class="table table-hover table-bordered">
+      <tr>
+        <th>S. No.</th>
+        <th>{{t('contest', 'Entry Title')}}</th>
+        <th>{{t('contest', 'Author')}}</th>
+        <th>{{t('contest', 'Rating')}}</th>
+        <th>{{t('contest', 'View Detail')}}</th>
+      </tr>
+      {% set i = 0 %}
+      {% for entry in entries %}
+        {% set i =  i + 1 %}
+        <tr>
+          <td>{{i}}</td>
+          <td>{{entry.title}}</td>
+          <td>{{entry.author.name}}</td>
+          <td>{{entry.jury_rating}}</td>
+          </td>
+          <td><a href="{{constant('BASE_URL')}}jury/admin/entry/{{contest_slug}}/{{entry.id}}">View Detail</a></td>
+        </tr>
+      {% endfor %}
+    </table>
+  {% endif %}
+</div>
+<script src="{{constant('BASE_URL')}}js/jury.js"></script>

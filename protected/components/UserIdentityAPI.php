@@ -27,12 +27,16 @@ class UserIdentityAPI {
    * This function is used for curl request on server using Get method
    * @param (array) $params
    * @param (string) $function
+   * @param $id - for getting user detail on the basis of email id  
    * @return (array) $userDetail
    */
-  function getUserDetail($function, $params = array()) {
+  function getUserDetail($function, $params = array(), $id = false) {
     $userDetail = array();
     try {
-      $param = 'where={"email":"'.$params['email'].'","password":"'.$params['password'].'"}';
+      $param = 'where='.json_encode($params);
+      if ($id) {
+        $param = $param . '&projection={"_id":1}';
+      } 
       if (!empty($params)) {
         $this->url = $this->baseUrl . $function .'/?'. $param;
       } 

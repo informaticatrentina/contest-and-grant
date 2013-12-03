@@ -1334,7 +1334,7 @@ p::selection  {
 }
 
 .contest-list {
- 
+  overflow-x: scroll;
 }
 
 .jury-message {

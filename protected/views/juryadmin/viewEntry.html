@@ -31,7 +31,9 @@
         {% if type == 'video' %} 
           {% for video in entries.entry.0.video_image_path %}
             <div class="span8 jury-entry">
-              <img src="{{constant('BASE_URL')~video}}">
+              <a href="{{constant('BASE_URL')}}contest/entries/{{contest_slug}}/{{entries.entry.0.id}}">
+                <img src="{{constant('BASE_URL')~video}}">
+              </a>
             </div>   
           {% endfor %}
         {% endif %}
@@ -39,7 +41,7 @@
           {% set pdfFile = entries.entry.0.pdf_file_path %}
           {% for file in pdfFile %}
             <div class="span8 jury-entry" style="margin-left: 0;">
-              <iframe src="{{file}}" class="span8" height="500px" frameborder="0"></iframe>
+              <iframe src="{{file}}" class="span8" height="800px" frameborder="0"></iframe>
             </div>  
           {% endfor %}
         {% endif %}

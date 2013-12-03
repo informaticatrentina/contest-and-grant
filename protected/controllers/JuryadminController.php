@@ -179,4 +179,127 @@ class JuryadminController extends Controller {
     );   
     return $jury->getSortedContestSubmission($inputParam);
   }
+  
+  /**
+   * actionDownloadSubmission
+   * function is used for download submission
+   */
+  public function actionDownloadSubmission() {
+    try {
+      $message = '';
+      if (!array_key_exists('active_contest', Yii::app()->session['user']) || !in_array($_GET['contest_slug'], Yii::app()->session['user']['active_contest'])) {
+        $this->redirect(BASE_URL);
+      }
+      $entries = $this->getSubmissionForJuryAdmin();
+      $juryController = new JuryController('jury');
+      $entries = $juryController->prepareSubmission($entries);
+      if (empty($entries)) {
+        Yii::log('actionDownloadSubmission ', INFO, 'There is no rated submission in this contest');
+        $message = Yii::t('contest', 'There is no rated submission in this contest');
+      } else {
+        foreach ($entries['entry'] as $entry) {
+          $author = '';
+          if (array_key_exists('author', $entry) && !empty($entry['author'])) {
+            $author = $entry['author']['name'];
+          }
+          $title = '';
+          if (array_key_exists('title', $entry) && !empty($entry['title'])) {
+            $title = $entry['title'];
+          }
+          $voting = 0;
+          foreach ($entry['tags'] as $tag) {
+            if ($tag['scheme'] == RATING_COUNT_SCHEME) {
+              $voting = $tag['weight'];
+            }
+          }
+          $juryEntriesDir = 'downloads/juryEntries/';
+          if (!is_writable('downloads')) {
+            throw new Exception(Yii::t('contest', 'downloads directory is not writable'));
+          }
+          if (is_dir($juryEntriesDir) === false) {
+            if (!mkdir($juryEntriesDir)) {
+              throw new Exception(Yii::t('contest', 'Failed to create directory'). ' juryEntries');
+            }
+          }
+          $dir = $juryEntriesDir . sanitization($author);
+          if (is_dir($dir) === false) {
+            if (!mkdir($dir)) {
+              throw new Exception(Yii::t('contest', 'Failed to create directory'). ' '. sanitization($author));
+            }
+          }
+          if (array_key_exists('pdf_file_path', $entry) && !empty($entry['pdf_file_path'])) {
+            foreach ($entry['pdf_file_path'] as $link) {
+              $linkInfo = parse_url($link);
+              $pathInfo = pathinfo($linkInfo['path']);
+              if (!file_exists(realpath(dirname(__FILE__) . '/../../') . $linkInfo['path'])) {
+                throw new Exception(Yii::t('contest', 'file does not exist ') .' "'. realpath(dirname(__FILE__) . '/../../') . $linkInfo['path'].'"');
+              }
+              if (!copy(realpath(dirname(__FILE__) . '/../../') . $linkInfo['path'], $dir . '/' . $pathInfo['basename'])) {
+                throw new Exception(Yii::t('contest', 'failed to copy file') .' "'.$linkInfo['path'].'"');
+              }
+            }
+          }
+          if (array_key_exists('image_path', $entry) && !empty($entry['image_path'])) {
+            foreach ($entry['image_path'] as $link) {
+              $linkInfo = parse_url($link);
+              $pathInfo = pathinfo($linkInfo['path']);
+              if (!file_exists(realpath(dirname(__FILE__) . '/../../') . $linkInfo['path'])) {
+                throw new Exception(Yii::t('contest', 'file does not exist ') .' "'. realpath(dirname(__FILE__) . '/../../') . $linkInfo['path'].'"');
+              }
+              if (!copy(realpath(dirname(__FILE__) . '/../../') . $linkInfo['path'], $dir . '/' . $pathInfo['basename'])) {
+                throw new Exception(Yii::t('contest', 'failed to copy file') .' "'.$linkInfo['path'].'"');
+              }
+            }
+          }
+          $filename = 'invio.txt';
+          $filePath = $dir . '/' . $filename;
+          $fileOpen = fopen($filePath, 'w');
+          $fileContent = 'Autore: ' . $author . "\n" . 'Titolo: ' . $title . "\n" . 'Voting: ' . $voting;
+          if (array_key_exists('video_links', $entry)) {
+            foreach ($entry['video_links'] as $link) {
+              $fileContent = $fileContent . "\n" . 'Link to video: ' . $link;
+            }
+          }
+          fwrite($fileOpen, $fileContent);
+          fclose($fileOpen);
+        }
+        $destination = $this->createZipFile($juryEntriesDir);
+        if (!empty($destination)) {
+          deleteFile($juryEntriesDir);
+        }
+        downloadZipFile($destination);
+      }
+    } catch (Exception $e) {
+      Yii::log('Error in actionDownloadSubmission ', ERROR, $e->getMessage());
+      $message = Yii::t('contest', 'Some technical error occur. Please contact adminstrator');
+    }
+    $this->render('//contest/downloadSubmission', array('message' => $message));
+  }
+
+  /**
+   * createZipFile
+   * function is used for create zip file
+   * @param $file - file path
+   * @return $fileName - zip file name
+   */
+  public function createZipFile($file) {
+    $zip = new ZipArchive();
+    $fileName = DOWNLOAD_ZIP_DIRECTORY . $_GET['contest_slug'] . '_submission_' . time() . '.zip';
+    if ($zip->open($fileName, ZIPARCHIVE::CREATE) !== true) {
+      Yii::log('Error in createZipFile ', ERROR, ' failed to create zip archive');
+      return '';
+    }
+    $iterator = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($file));
+    foreach ($iterator as $key => $value) {
+      //remove system config file (. , .. file)
+      if ($iterator->getFilename() == '.' || $iterator->getFilename() == '..') {
+        continue;
+      }
+      if ($iterator->getSubPathname() != '.') {
+        $zip->addFile(realpath($key), $iterator->getSubPathname());
+      }
+    }
+    $zip->close();
+    return $fileName;
+  }
 }

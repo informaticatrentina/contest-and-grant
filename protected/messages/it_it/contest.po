@@ -900,3 +900,32 @@ msgctxt "contest"
 msgid "save"
 msgstr "salva"
 
+
+msgctxt "contest" 
+msgid "Failed to create directory"
+msgstr ""
+
+msgctxt "contest" 
+msgid "Jury"
+msgstr ""
+
+msgctxt "contest" 
+msgid "Some technical problem occurred, Please check log"
+msgstr ""
+
+msgctxt "contest" 
+msgid "Voting Status"
+msgstr ""
+
+msgctxt "contest" 
+msgid "downloads directory is not writable"
+msgstr ""
+
+msgctxt "contest" 
+msgid "failed to copy file"
+msgstr ""
+
+msgctxt "contest" 
+msgid "file does not exist "
+msgstr ""
+

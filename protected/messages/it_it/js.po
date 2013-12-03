@@ -162,3 +162,21 @@ msgstr ""
 msgctxt "contest" 
 msgid "Jury member email id is not empty"
 msgstr ""
+
+msgctxt "contest" 
+msgid "Email id is not valid."
+msgstr ""
+
+msgctxt "contest" 
+msgid "Jury admin email id is not valid."
+msgstr ""
+
+msgctxt "contest" 
+msgid "Jury member email id is not valid."
+msgstr ""
+
+
+msgctxt "contest" 
+msgid "Jury admin email id is not empty"
+msgstr ""
+

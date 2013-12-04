@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: contest.php\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-07-26 15:44+0000\n"
-"PO-Revision-Date: 2013-11-22 08:22+0100\n"
+"PO-Revision-Date: 2013-12-04 09:49+0100\n"
 "Last-Translator: \n"
 "Language-Team: it_it <translation-team-it_it@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -762,51 +762,51 @@ msgstr "Questo contesto non esiste"
 
 msgctxt "contest" 
 msgid "Additional portfolio item 1"
-msgstr ""
+msgstr "Elaborato da portfolio 1"
 
 msgctxt "contest" 
 msgid "Additional portfolio item 2"
-msgstr ""
+msgstr "Elaborato da portfolio 2"
 
 msgctxt "contest" 
 msgid "Additional portfolio item 3"
-msgstr ""
+msgstr "Elaborato da portfolio 3"
 
 msgctxt "contest" 
 msgid "Back to submission List"
-msgstr ""
+msgstr "Torna alla lista degli elaborati"
 
 msgctxt "contest" 
 msgid "Entry Title"
-msgstr ""
+msgstr "Titolo dell’elaborato"
 
 msgctxt "contest" 
 msgid "Error in getSortedContestSubmission method :"
-msgstr ""
+msgstr "Errore nel metodo getSortedContestSubmission: "
 
 msgctxt "contest" 
 msgid "Jury Rating End Date"
-msgstr ""
+msgstr "Data finale per la votazione della giuria"
 
 msgctxt "contest" 
 msgid "Jury Rating Start Date"
-msgstr ""
+msgstr "Data inizio per la votazione della giuria"
 
 msgctxt "contest" 
 msgid "Jury Rating Start date should not be empty"
-msgstr ""
+msgstr "La data inizio per la votazione della giuria non può essere vuota"
 
 msgctxt "contest" 
 msgid "Jury rating end date should not be empty"
-msgstr ""
+msgstr "La data finale per la votazione della giuria non può essere vuota"
 
 msgctxt "contest" 
 msgid "No"
-msgstr ""
+msgstr "No"
 
 msgctxt "contest" 
 msgid "Only members can participate in the contest to CIVICLINKS."
-msgstr ""
+msgstr "Solo i membri di CIVICLINKS possono partecipare."
 
 msgctxt "contest" 
 msgid "PARTICIPANTS"
@@ -818,27 +818,27 @@ msgstr "PARTECIPA"
 
 msgctxt "contest" 
 msgid "Please enter title"
-msgstr ""
+msgstr "Inserire titolo"
 
 msgctxt "contest" 
 msgid "Please enter valid jury rating end date"
-msgstr ""
+msgstr "La data finale per la votazione della giuria deve essere valida"
 
 msgctxt "contest" 
 msgid "Please enter valid jury rating start date"
-msgstr ""
+msgstr "La data di inizio per la votazione della giuria deve essere valida"
 
 msgctxt "contest" 
 msgid "Please enter your sort bio"
-msgstr ""
+msgstr "Inserisci la tua breve biografia"
 
 msgctxt "contest" 
 msgid "Please upload pdf file"
-msgstr ""
+msgstr "Carica i file PDF"
 
 msgctxt "contest" 
 msgid "Project File "
-msgstr ""
+msgstr "File del progetto"
 
 msgctxt "contest" 
 msgid "RULE"
@@ -846,35 +846,35 @@ msgstr "REGOLAMENTO"
 
 msgctxt "contest" 
 msgid "Rating"
-msgstr ""
+msgstr "Votazione"
 
 msgctxt "contest" 
 msgid "Sign up or log in to continue."
-msgstr ""
+msgstr "Iscriviti o fai login per continuare"
 
 msgctxt "contest" 
 msgid "Submitter Bio"
-msgstr ""
+msgstr "Biografia del partecipante"
 
 msgctxt "contest" 
 msgid "Submitter bio should not be empty"
-msgstr ""
+msgstr "La biografia del partecipante non può essere vuota"
 
 msgctxt "contest" 
 msgid "There are no active contest"
-msgstr ""
+msgstr "Non ci sono concorsi attivi"
 
 msgctxt "contest" 
 msgid "There is no rated submission in this contest"
-msgstr ""
+msgstr "Tutti gli elaborati in questo concorso non hanno ricevuto giudizio"
 
 msgctxt "contest" 
 msgid "There is no rating for any submission of this contest"
-msgstr ""
+msgstr "Tutti gli elaborati in questo concorso non hanno ricevuto giudizio"
 
 msgctxt "contest" 
 msgid "View Detail"
-msgstr ""
+msgstr "Visualizza dettagli"
 
 msgctxt "contest" 
 msgid "WINNERS"
@@ -882,19 +882,19 @@ msgstr "VINCITORI"
 
 msgctxt "contest" 
 msgid "Yes"
-msgstr ""
+msgstr "Sì"
 
 msgctxt "contest" 
 msgid "You can upload only pdf file"
-msgstr ""
+msgstr "Puoi caricare solo file PDF"
 
 msgctxt "contest" 
 msgid "You have not permission for downlopad this file."
-msgstr ""
+msgstr "Non hai i permessi per scaricare questo file"
 
 msgctxt "contest" 
 msgid "browse your file to save"
-msgstr ""
+msgstr "Scelgi il file da salvare"
 
 msgctxt "contest" 
 msgid "save"
@@ -903,29 +903,29 @@ msgstr "salva"
 
 msgctxt "contest" 
 msgid "Failed to create directory"
-msgstr ""
+msgstr "Problemi nel creare la directory"
 
 msgctxt "contest" 
 msgid "Jury"
-msgstr ""
+msgstr "Giuria"
 
 msgctxt "contest" 
 msgid "Some technical problem occurred, Please check log"
-msgstr ""
+msgstr "Ci sono stati problemi tecnici. Contatta l’amministratore"
 
 msgctxt "contest" 
 msgid "Voting Status"
-msgstr ""
+msgstr "Stato della votazione"
 
 msgctxt "contest" 
 msgid "downloads directory is not writable"
-msgstr ""
+msgstr "La directory dei download non è scrivibile"
 
 msgctxt "contest" 
 msgid "failed to copy file"
-msgstr ""
+msgstr "Problemi nella copia file"
 
 msgctxt "contest" 
 msgid "file does not exist "
-msgstr ""
+msgstr "Il file non esiste"
 

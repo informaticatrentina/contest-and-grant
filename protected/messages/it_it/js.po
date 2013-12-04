@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: js.php\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-08-29 11:23+0000\n"
-"PO-Revision-Date: 2013-08-29 11:30+0200\n"
+"PO-Revision-Date: 2013-12-04 09:56+0100\n"
 "Last-Translator: \n"
 "Language-Team: it_it <translation-team-it_it@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -153,30 +153,30 @@ msgstr "Inserisci il video url"
 
 msgctxt "contest" 
 msgid "Email id is not valid"
-msgstr ""
+msgstr "L’email non è valida"
 
 msgctxt "contest" 
 msgid "Jury member email id is not empty"
-msgstr ""
+msgstr "L’email del membro di giuria non è vuota"
 
 msgctxt "contest" 
 msgid "Jury member email id is not empty"
-msgstr ""
+msgstr "L’email del membro di giuria non è vuota"
 
 msgctxt "contest" 
 msgid "Email id is not valid."
-msgstr ""
+msgstr "L’email del membro di giuria non è valida."
 
 msgctxt "contest" 
 msgid "Jury admin email id is not valid."
-msgstr ""
+msgstr "L’email del presidente di giuria non è valida"
 
 msgctxt "contest" 
 msgid "Jury member email id is not valid."
-msgstr ""
+msgstr "L’email del membro di giuria non è valida"
 
 
 msgctxt "contest" 
 msgid "Jury admin email id is not empty"
-msgstr ""
+msgstr "L’email del presidente di giuria non è vuota"
 

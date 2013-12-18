@@ -151,6 +151,7 @@ return array(
 	'contest/entries/<slug:[\w-]+>/<id:[\w-]+>'=>'contest/entries',
         'contest/brief/<slug:[\w-]+>'=>'contest/contestBrief',
         'contest/submission/<slug:[\w-]+>'=>'contest/submitEntries',              
+        'contest/intro/<slug:[\w-]+>'=>'contest/intro',              
         'register' => 'contest/registerUser', 
         'login' => 'contest/login',  
         'logout' => 'contest/logout',

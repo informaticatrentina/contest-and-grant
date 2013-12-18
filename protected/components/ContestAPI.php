@@ -26,6 +26,9 @@ class ContestAPI {
   public $winnerStatus = false;  
   public $juryRatingStartDate;
   public $juryRatingEndDate;
+  public $introStatus = false;  
+  public $introTitle;  
+  public $introDescription;  
 
   /**
    * save
@@ -88,7 +91,7 @@ class ContestAPI {
   public function getContestDetail() { 
     $connection = Yii::app()->db;
     $sql = "SELECT contestId, startDate, endDate, creationDate, imagePath, contestTitle, contestDescription, contestSlug, 
-      squareImage,rule, entryStatus, winnerStatus FROM contest";
+      squareImage,rule, entryStatus, winnerStatus, intro_title, intro_description, intro_status FROM contest";
     $query = $connection->createCommand($sql);
     $contestDetails = $query->queryAll();
     return $contestDetails;
@@ -107,7 +110,7 @@ class ContestAPI {
       return array();
     }    
     $sql = "SELECT contestId, startDate, endDate, creationDate, imagePath, contestTitle, contestDescription,
-      jury_rating_from, jury_rating_till FROM contest where contestId = :contestId ";
+      jury_rating_from, jury_rating_till, intro_title, intro_description, intro_status FROM contest where contestId = :contestId ";
     $query = $connection->createCommand($sql);
     $query->bindParam(":contestId", $this->contestId);
     $contestDetails = $query->queryRow();
@@ -129,7 +132,7 @@ class ContestAPI {
       return array();
     }    
     $sql = "SELECT contestId, startDate, endDate, creationDate, imagePath, contestTitle, contestDescription, contestSlug, 
-      squareImage, rule, entryStatus, winnerStatus, jury_rating_from, jury_rating_till FROM contest where contestSlug = :contestSlug ";
+      squareImage, rule, entryStatus, winnerStatus, jury_rating_from, jury_rating_till, intro_title, intro_description, intro_status FROM contest where contestSlug = :contestSlug ";
     $query = $connection->createCommand($sql);
     $query->bindParam(":contestSlug", $this->contestSlug);
     $contestDetails = $query->queryRow();
@@ -152,7 +155,8 @@ class ContestAPI {
     } 
     $sql = "UPDATE contest SET startDate = :startDate, endDate = :endDate, imagePath = :imagePath, squareImage = :squareImage,
       contestDescription = :contestDescription, rule = :contestRule, entryStatus= :entryStatus, jury_rating_from = :juryRatingStartDate,
-      jury_rating_till = :juryRatingEndDate where contestSlug = :contestSlug";
+      jury_rating_till = :juryRatingEndDate, intro_title = :intro_title, intro_description = :intro_description,  
+      intro_status = :intro_status where contestSlug = :contestSlug";
     $query = $connection->createCommand($sql);
     $query->bindParam(":startDate", $this->startDate);
     $query->bindParam(":endDate", $this->endDate);
@@ -164,6 +168,9 @@ class ContestAPI {
     $query->bindParam(":entryStatus", $this->entryStatus);
     $query->bindParam(":juryRatingStartDate", $this->juryRatingStartDate);
     $query->bindParam(":juryRatingEndDate", $this->juryRatingEndDate);
+    $query->bindParam(":intro_title", $this->introTitle);
+    $query->bindParam(":intro_description", $this->introDescription);
+    $query->bindParam(":intro_status", $this->introStatus);
     return  $query->execute();
   }
   

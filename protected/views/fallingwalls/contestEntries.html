@@ -2,11 +2,20 @@
 <div style="background-color:#4cbed7; margin-top:25px; margin-bottom:25px;">
   <div class="container">
     <div class="row">   
+      {% if contestInfo.intro_status == 1 %}
+        {% set introText = t('contest', 'INTRO') %}
+        {% if contestInfo.intro_title is not empty %}
+          {% set introText = contestInfo.intro_title %}
+        {% endif %}
+        <div class="span3">
+          <a href="{{constant('BASE_URL')}}contest/intro/{{ contestInfo.contestSlug }}"  class="contest-button btn-block">{{introText}}</a>
+        </div>
+      {% endif %}
       <div class="span3">
         <input type='hidden' id="submitContestEntry" value="{{constant('BASE_URL')}}contest/entries/{{ contestInfo.contestSlug }}">
         <input type='hidden' id="entryCategory" value="{{selectedCategory}}" />
         <a href="{{constant('BASE_URL')}}contest/entries/{{ contestInfo.contestSlug }}" class="contest-button btn-block active">PARTECIPANTI</a>
-      </div>       
+      </div>
       <div class="span3">
         <a href="{{constant('BASE_URL')}}contest/brief/{{ contestInfo.contestSlug }}" class="contest-button btn-block ">REGOLAMENTO</a>        
       </div>        

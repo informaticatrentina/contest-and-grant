@@ -1,4 +1,3 @@
-<link href="{{constant('BASE_URL')}}css/bootstrap-fileupload.css" rel="stylesheet">
 <div style="background-color:#f5f5f5; height:120px;">
   <div class="container">
     <div class="row">
@@ -6,6 +5,7 @@
     </div>
   </div> 
 </div>
+
 <div class="container maincontent">
   <div class="row hidden-tablet hidden-phone">
     <div class="span8" style="background-color: #666; position:relative; min-height:338px; ">
@@ -15,8 +15,7 @@
       <div class="internal-blue-box">
         <h4>{{ t('contest', 'Start Date')}}: {{ contestInfo.startDate }}<br>
           {{ t('contest', 'End Date')}}: {{ contestInfo.endDate }}</h4>
-        <hr />
-        <hr />
+        <div style="height: 20px">&nbsp;</div>
         <p class="internal-blue-box-text">{{ contestInfo.briefDescription }}</p></div>
     </div>
   </div>
@@ -33,43 +32,43 @@
     </div>
   </div>
 </div> 
+
 <div style="background-color:#4cbed7; margin-top:25px; margin-bottom:25px;">
   <div class="container">
     <div class="row">   
-      {% if contestInfo.intro_status == 1 %}
-        {% set introText = t('contest', 'INTRO') %}
-        {% if contestInfo.intro_title is not empty %}
-          {% set introText = contestInfo.intro_title %}
-        {% endif %}
-        <div class="span3">
-          <a href="{{constant('BASE_URL')}}contest/intro/{{ contestInfo.contestSlug }}"  class="contest-button btn-block">{{introText}}</a>
-        </div>
+      {% set introText = t('contest', 'INTRO') %}
+      {% if contestInfo.intro_title is not empty %} 
+        {% set introText = contestInfo.intro_title %}
       {% endif %}
       <div class="span3">
-        <input type='hidden' id="submitContestEntry" value="{{constant('BASE_URL')}}contest/entries/{{ contestInfo.contestSlug }}">
-        <input type='hidden' id="entryCategory" value="{{selectedCategory}}" />
-        <a href="{{constant('BASE_URL')}}contest/entries/{{ contestInfo.contestSlug }}" class="contest-button btn-block active">PARTECIPANTI</a>
+        <a href="{{constant('BASE_URL')}}contest/intro/{{ contestInfo.contestSlug }}"  class="contest-button btn-block active">{{introText}}</a>
       </div>
+      {% if contestInfo.entryStatus == 1 %}
+        <div class="span3">
+          <a href="{{constant('BASE_URL')}}contest/entries/{{ contestInfo.contestSlug }}"  class="contest-button btn-block">{{t('contest', 'PARTICIPANTS')}}</a>
+        </div>
+      {% endif %}     
       <div class="span3">
-        <a href="{{constant('BASE_URL')}}contest/brief/{{ contestInfo.contestSlug }}" class="contest-button btn-block ">REGOLAMENTO</a>        
+        <a href="{{constant('BASE_URL')}}contest/brief/{{ contestInfo.contestSlug }}" class="contest-button btn-block  regolomento">{{t('contest', 'RULE')}}</a>        
       </div>        
       <div class="span3">
-        <a href="{{constant('BASE_URL')}}contest/submission/{{ contestInfo.contestSlug }}"  class="contest-button btn-block">PARTECIPA</a>
+        <a href="{{constant('BASE_URL')}}contest/submission/{{ contestInfo.contestSlug }}"  class="contest-button btn-block">{{t('contest', 'PARTICIPATE')}}</a>
       </div> 
       {% if contestInfo.winnerStatus == 1 %}
         <div class="span3">
-          <a href="{{constant('BASE_URL')}}contest/winner/{{ contestInfo.contestSlug }}"  class="contest-button btn-block">VINCITORI</a>
+          <a href="{{constant('BASE_URL')}}contest/winner/{{ contestInfo.contestSlug }}"  class="contest-button btn-block">{{t('contest', 'WINNERS')}}</a>
         </div>
       {% endif %}
     </div> 
   </div>
 </div>
-<div id="contestEntries">
-  {% if contestInfo.contestSlug == constant('FIRST_CONTEST_SLUG') %}
-    {% include  '/views/template/entries.html' %}
-  {% elseif contestInfo.contestSlug == constant('FALLING_WALLS_CONTEST_SLUG') %}
-    {% include  '/views/template/fallingWallEntries.html' %}
-  {% endif %}
+<div>
+  <div class="container">
+    <div class="row">
+      <div class="span12 rule-nottericercatori">
+        {{contestInfo.intro_description}}      
+      </div>
+    </div>
+  </div>
 </div>
 <script src="{{constant('BASE_URL')}}js/contest.js"></script>
-<script src="{{constant('BASE_URL')}}js/bootstrap-fileupload.js"></script>

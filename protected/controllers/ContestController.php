@@ -688,6 +688,15 @@ class ContestController extends Controller {
         if (empty($contest->squareImage)) {
           $contest->squareImage = $uploadSquareImage['img'];
         }
+        if(array_key_exists('show_intro', $contestDetails) && !empty($contestDetails['show_intro'])) {
+          $contest->introStatus = true;
+        }
+        if (!empty($contestDetails['intro_title'])) {
+          $contest->introTitle = trim($contestDetails['intro_title']);
+        }    
+        if (!empty($contestDetails['intro_description'])) {
+          $contest->introDescription =  htmlspecialchars($contestDetails['intro_description']);
+        }    
         $isContestUpdate = $contest->updateContest();
         if ($isContestUpdate) {
           $this->redirect(BASE_URL . 'admin/contest/list');
@@ -720,6 +729,9 @@ class ContestController extends Controller {
         $contestDetail['entryStatus'] = $contestInfo['entryStatus'];
         $contestDetail['jury_rating_from'] = date('m/d/Y H:i', strtotime($contestInfo['jury_rating_from']));
         $contestDetail['jury_rating_till'] = date('m/d/Y H:i', strtotime($contestInfo['jury_rating_till']));     
+        $contestDetail['intro_title'] = $contestInfo['intro_title'];     
+        $contestDetail['intro_description'] = $contestInfo['intro_description'];     
+        $contestDetail['intro_status'] = $contestInfo['intro_status'];     
       } catch (Exception $e) {
         $message['success'] = false;
         $message['msg'] = $e->getMessage();
@@ -1045,5 +1057,26 @@ class ContestController extends Controller {
     }
     $zip->close();
     return $destination;
+  }
+  
+  /**
+   * actionIntro   
+   * This function is used for getting contest intro 
+   */
+  public function actionIntro() {
+    $contest = new Contest();
+    if (array_key_exists('slug', $_GET) && !empty($_GET['slug'])) {
+      $contest->contestSlug = $_GET['slug'];
+    }
+    $contestInfo = $contest->getContestDetail();
+    if (empty($contestInfo['intro_status'])) {
+      $this->redirect(BASE_URL);
+    }
+    $contestInfo['briefDescription'] = '';
+    if (!empty($contestInfo)) {
+      $contestInfo['briefDescription'] = substr($contestInfo['contestDescription'], 0, 512);
+      $contestInfo['intro_description'] = htmlspecialchars_decode($contestInfo['intro_description']);
+    }
+    $this->render('contestIntro', array('contestInfo' => $contestInfo));
   }
 }

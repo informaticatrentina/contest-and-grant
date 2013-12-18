@@ -38,6 +38,11 @@
     <input type="text" id="juryRatingStartDate" name="jury_rating_from" class="input-block-level" value="{{contest.jury_rating_from }}" />
     <label>{{ t('contest', 'Jury Rating End Date')}}</label>
     <input type="text" id="juryRatingEndDate" name="jury_rating_till" class="input-block-level" value="{{contest.jury_rating_till}}" />
+    <label>{{ t('contest','Intro Tab Title')}}</label>
+    <input type="text" class="input-block-level" name="intro_title" value="{{contest.intro_title}}"></input> 
+    <label>{{ t('contest','Intro Tab Description')}}</label>
+    <textarea  class="input-block-level textarea" name="intro_description">{{contest.intro_description}}</textarea> 
+   
     <label class="checkbox">
       {% set check = '' %}
       {% if contest.entryStatus ==  1 %}
@@ -45,6 +50,13 @@
       {% endif %}   
       <input type="checkbox"  name="showEntry" value="showEntry" {{check}}>
       {{ t('contest','Show contest entry') }} 
+    </label>
+    <label class="checkbox">
+      {% set check = '' %}
+      {% if contest.intro_status ==  1 %}
+        {% set check = 'checked' %}
+      {% endif %}  
+      <input type="checkbox"  name="show_intro" value="showIntro" {{check}}>{{ t('contest','Show intro tab') }} 
     </label>
     <input type="hidden" name="contestSlug" value="{{ contest.contestSlug }}"></button>
     <button id="create" class="btn btn-large btn-primary" type="submit" name='contestDetail'>{{ t('contest', 'Update contest') }}</button>

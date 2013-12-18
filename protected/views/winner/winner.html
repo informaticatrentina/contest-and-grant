@@ -36,7 +36,16 @@
 
 <div style="background-color:#4cbed7; margin-top:25px; margin-bottom:25px;">
   <div class="container">
-    <div class="row">   
+    <div class="row"> 
+      {% if contestInfo.intro_status == 1 %}
+        {% set introText = t('contest', 'INTRO') %}
+        {% if contestInfo.intro_title is not empty %}
+          {% set introText = contestInfo.intro_title %}
+        {% endif %}
+        <div class="span3">
+          <a href="{{constant('BASE_URL')}}contest/intro/{{ contestInfo.contestSlug }}"  class="contest-button btn-block">{{introText}}</a>
+        </div>
+      {% endif %}
       {% if contestInfo.entryStatus == 1 %}
         <div class="span3">
           <a href="{{constant('BASE_URL')}}contest/entries/{{ contestInfo.contestSlug }}"  class="contest-button btn-block">PARTECIPANTI</a>

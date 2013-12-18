@@ -929,3 +929,19 @@ msgctxt "contest"
 msgid "file does not exist "
 msgstr "Il file non esiste"
 
+msgctxt "contest" 
+msgid "INTRO"
+msgstr ""
+
+msgctxt "contest" 
+msgid "Show intro tab"
+msgstr ""
+
+
+msgctxt "contest" 
+msgid "Intro Tab Description"
+msgstr ""
+
+msgctxt "contest" 
+msgid "Intro Tab Title"
+msgstr ""

@@ -124,6 +124,8 @@ CONFIGURATION
    w. HOME_PAGE_BOX_IMAGE  The list of homepage box images with respected link and caption. 
 
    x. SESSION_TIMEOUT_TIME  The time in seconds. After this time session will be expired.  
+
+   y. USER_GENERATED_DIRECTORY The name of user generated directory.
  
 - Now contest and grants application is ready to run. If you want to run
   application on your local machine (apache server), you have to create

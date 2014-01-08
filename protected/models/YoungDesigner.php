@@ -22,6 +22,7 @@ class YoungDesigner  {
   public function saveEntry() {    
     try {
       $fileName = array();
+      $uploadedPdfFile = false;
       $postData = array_map('trim', $_POST);
       $response = array('success' => false, 'msg' => '');
       if (array_key_exists('title', $postData) && empty($postData['title'])) {
@@ -30,10 +31,9 @@ class YoungDesigner  {
       if (array_key_exists('submitter_info', $postData) && empty($postData['submitter_info'])) {
         throw new Exception(Yii::t('contest', 'Submitter bio should not be empty'));
       }
-      if (array_key_exists('pdf_file', $_FILES) && empty($_FILES['pdf_file']['name'])) {
-        throw new Exception(Yii::t('contest', 'Please upload pdf file'));
-      } else {
-         $fileName[1] = $this->uploadPdfFile($_FILES['pdf_file'], 'pdf_file');
+      if (array_key_exists('pdf_file', $_FILES) && !empty($_FILES['pdf_file']['name'])) {
+        $fileName[1] = $this->uploadPdfFile($_FILES['pdf_file'], 'pdf_file');
+        $uploadedPdfFile = true;
       }      
       if (array_key_exists('additional_pdf_file_1', $_FILES) && !empty($_FILES['additional_pdf_file_1']['name'])) {
         $fileName[2] = $this->uploadPdfFile($_FILES['additional_pdf_file_1'], 'additional_pdf_file_1');
@@ -43,6 +43,25 @@ class YoungDesigner  {
       }
       if (array_key_exists('additional_pdf_file_3', $_FILES) && !empty($_FILES['additional_pdf_file_3']['name'])) {
         $fileName[4] = $this->uploadPdfFile($_FILES['additional_pdf_file_3'], 'additional_pdf_file_3');
+      }
+      if (array_key_exists('video_link', $postData) && !empty($postData['video_link'])) {
+        if (!preg_match("/^(https?:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/", $postData['video_link'])) {
+          throw new Exception(Yii::t('contest', 'Please enter valid url'));
+        } else {
+          $pathinfo = parse_url($postData['video_link']);
+          if (!array_key_exists('scheme', $pathinfo)) {
+            $postData['video_link'] = 'http://' . $postData['video_link'];
+            $pathinfo = parse_url($postData['video_link']);
+          }
+          if (array_key_exists('host', $pathinfo) && strpos($pathinfo['host'], 'youtube') === false ) {
+            throw new Exception(Yii::t('contest', 'Please enter youtube vedio url'));
+          }
+          if (!array_key_exists('path', $pathinfo) && !array_key_exists('query', $pathinfo)) {
+            throw new Exception(Yii::t('contest', 'Please enter proper video url'));
+          }
+        }
+      } else if (!$uploadedPdfFile) {
+        throw new Exception(Yii::t('contest', 'Please either upload pdf file or add youtube video url'));
       }
      
       $aggregatorManager = new AggregatorManager();     
@@ -59,6 +78,9 @@ class YoungDesigner  {
       ); 
       foreach ($fileName as $fileOrder => $name) {
         $inputParam['links']['enclosures'][] = array('type' => 'pdf/'.$fileOrder, 'uri' => BASE_URL . UPLOAD_DIRECTORY. 'contestEntry/'. $name);
+      }
+      if (array_key_exists('video_link', $postData) && !empty($postData['video_link'])) {
+        $inputParam['links']['enclosures'][] =  array('type' => 'video', 'uri' => $postData['video_link']);
       }
       $response = $aggregatorManager->saveContestEntry($inputParam);
       if (array_key_exists('success', $response) && $response['success']) {

@@ -72,6 +72,7 @@ class ContestController extends Controller {
          break;
        case  FALLING_WALLS_CONTEST_SLUG : 
        case HELLO_FIEMME_ORGANIZER : 
+       case YOUNG_DESIGNER_CONTEST_SLUG :
          $controller = new FallingwallsController('fallingwalls');
          $controller->actionContestEntries();
          break;

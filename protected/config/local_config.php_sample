@@ -151,3 +151,4 @@ define('SESSION_TIMEOUT_TIME', 172800);
 
 //constant for no of stars for rating
 define('STAR_COUNT', 5);
+define('USER_GENERATED_DIRECTORY', '["uploads"]');

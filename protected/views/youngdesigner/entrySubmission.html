@@ -36,13 +36,22 @@
               <input type="file"  class="input-block-level" id="pdf-file" name="pdf_file" />
 
               <h6 class="formtitle">{{t('contest', 'Additional portfolio item 1')}}</h6>
-              <input type="file"  class="input-block-level" id="pdf-file" name="additional_pdf_file_1" />
+              <input type="file"  class="input-block-level" id="pdf-file-1" name="additional_pdf_file_1" />
               
               <h6 class="formtitle">{{t('contest', 'Additional portfolio item 2')}}</h6>
-              <input type="file"  class="input-block-level" id="pdf-file" name="additional_pdf_file_2" />
+              <input type="file"  class="input-block-level" id="pdf-file-2" name="additional_pdf_file_2" />
               
               <h6 class="formtitle">{{t('contest', 'Additional portfolio item 3')}}</h6>
-              <input type="file"  class="input-block-level" id="pdf-file" name="additional_pdf_file_3" />
+              <input type="file"  class="input-block-level" id="pdf-file-3" name="additional_pdf_file_3" />
+              {% set videoLink = '' %}
+              {% if postData is not empty %}
+                 {% if postData.video_link is not empty %}
+                    {% set videoLink = postData.video_link %}
+                 {% endif %}
+              {% endif %}
+              <h6 class="formtitle">{{t('contest', 'Video')}}</h6>
+              <p><em>{{t('contest', 'Please enter youtube video url')}}</em></p>
+              <input type="text"  class="input-block-level" id="video-link" name="video_link" value="{{videoLink}}" />
               <button class="btn pull-right" id="saveContestSubmission" type="submit" name="save_contest">{{t('contest', 'save')}}</button>
               <br>
             </form>

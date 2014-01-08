@@ -74,7 +74,8 @@ class FallingWallsContest {
         if (array_key_exists('id', $entry) && !empty($entry['id'])) {
           $contestSubmission['id'] = $entry['id'];
         }
-        if (array_key_exists('content', $entry) && !empty($entry['content'])) {
+        if (array_key_exists('content', $entry) && array_key_exists('description', $entry['content']) && 
+          !empty($entry['content'])) {
           $contestSubmission['description'] = $entry['content']['description'];
         }
         if (array_key_exists('tags', $entry) && !empty($entry['tags'])) {
@@ -202,11 +203,17 @@ class FallingWallsContest {
 
     if (!empty($entries)) {
       $entry['title'] = $entries['title'];
-      $entry['description'] = $entries['description'];
+      if (array_key_exists('description', $entries)) {
+        $entry['description'] = $entries['description'];
+      }
       $entry['author_name'] = $entries['author']['name'];
       $entry['video_image_url'] = $entries['videoImagePath'];
-      $entry['video_id'] = $entries['video_id'];
-      $entry['video_domain'] = $entries['url_info']['type'];
+      if (array_key_exists('video_id', $entries)) {
+        $entry['video_id'] = $entries['video_id'];
+      }
+      if (array_key_exists('url_info', $entries) && array_key_exists('type', $entries['url_info'])) {
+        $entry['video_domain'] = $entries['url_info']['type'];
+      }
       $entry['url'] = BASE_URL . 'contest/entries/' . $this->slug . '/' . $_GET['id'];
       $entry['winner'] = $this->checkForWinner($entries['tags']);
       if (!empty($entry['winner'])) {

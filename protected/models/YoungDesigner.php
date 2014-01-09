@@ -27,9 +27,14 @@ class YoungDesigner  {
       $response = array('success' => false, 'msg' => '');
       if (array_key_exists('title', $postData) && empty($postData['title'])) {
         throw new Exception(Yii::t('contest', 'Entry title should not be empty'));
-      }      
+      }    
+      if (!array_key_exists('confirmation_checkbox', $postData)) {
+        throw new Exception(Yii::t('contest', 'Please checked checkbox'));
+      }
       if (array_key_exists('submitter_info', $postData) && empty($postData['submitter_info'])) {
-        throw new Exception(Yii::t('contest', 'Submitter bio should not be empty'));
+        throw new Exception(Yii::t('contest', 'Please upload your cv'));
+      } else {
+        $fileName['cv'] = $this->uploadPdfFile($_FILES['cv'], 'cv');
       }
       if (array_key_exists('pdf_file', $_FILES) && !empty($_FILES['pdf_file']['name'])) {
         $fileName[1] = $this->uploadPdfFile($_FILES['pdf_file'], 'pdf_file');
@@ -67,7 +72,6 @@ class YoungDesigner  {
       $aggregatorManager = new AggregatorManager();     
       // prepare data according to aggregator API input (array)
       $inputParam = array(
-          'content' => array('submitter_bio' => $postData['submitter_info']),
           'title' => $postData['title'],
           'status' => 'active',
           'author' => array('name' => Yii::app()->session['user']['firstname'] . ' ' . Yii::app()->session['user']['lastname'],

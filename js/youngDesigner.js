@@ -8,8 +8,8 @@ $(document).ready(function() {
       $('#error').html(Yii.t('js','Entry title should not be empty'));
       return false;
     }
-    if (($('#submitter-info').val()).trim() == '') {
-      $('#error').html(Yii.t('js','Submitter bio should not be empty'));
+    if (($('#pdf-file-cv').val()).trim() == '') {
+      $('#error').html(Yii.t('js','Please upload your cv'));
       return false;
     }
     var videoLink = ($('#video-link').val()).trim();
@@ -23,6 +23,10 @@ $(document).ready(function() {
         $('#error').html(Yii.t('js', 'Please enter valid video url'));
         return false;
       }
+    }
+    if (!$('#confirmation-checkbox').is(':checked')) {
+      $('#error').html(Yii.t('js', 'Please check checkbox'));
+      return false;
     }
     $('#error').html('');
   });

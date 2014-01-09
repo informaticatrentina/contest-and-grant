@@ -17,9 +17,9 @@
                     {% set entityTitle = postData.title %}
                  {% endif %}
               {% endif %}
-              <h6 class="formtitle">{{t('contest', 'Title')}}</h6>
-              <p><em>{{t('contest', 'Please enter title')}}</em></p>
-              <textarea rows="3" class="input-block-level" id="entry-title" name="title">{{entityTitle}}</textarea>
+              <h6 class="formtitle">{{t('contest', 'Title')}}*</h6>
+              <p><em>{{t('contest', 'Title of the project')}}</em></p>
+              <input type="text" class="input-block-level" id="entry-title" name="title" value="{{entityTitle}}" />
               
               {% set submitterSortBio = '' %}
               {% if postData is not empty %}
@@ -27,22 +27,13 @@
                     {% set submitterSortBio = postData.submitter_info %}
                  {% endif %}
               {% endif %}
-              <h6 class="formtitle">{{t('contest', 'Submitter Bio')}}</h6>
-              <p><em>{{t('contest', 'Please enter your sort bio')}}</em></p>
-              <textarea rows="5" class="input-block-level" id="submitter-info" name="submitter_info">{{submitterSortBio}}</textarea>
-            
-              <h6 class="formtitle">{{t('contest', 'Project File ')}}</h6>
-              <p><em>{{t('contest', 'browse your file to save')}}</em></p>
+              <h6 class="formtitle">{{t('contest', 'My CV/Resume')}}*</h6>
+              <p><em>{{t('contest', 'Please submit your sort bio')}}</em></p>
+              <input type="file" class="input-block-level" id="pdf-file-cv" name="cv" />
+              
+              <h6 class="formtitle">{{t('contest', 'Project File')}}*</h6>
               <input type="file"  class="input-block-level" id="pdf-file" name="pdf_file" />
 
-              <h6 class="formtitle">{{t('contest', 'Additional portfolio item 1')}}</h6>
-              <input type="file"  class="input-block-level" id="pdf-file-1" name="additional_pdf_file_1" />
-              
-              <h6 class="formtitle">{{t('contest', 'Additional portfolio item 2')}}</h6>
-              <input type="file"  class="input-block-level" id="pdf-file-2" name="additional_pdf_file_2" />
-              
-              <h6 class="formtitle">{{t('contest', 'Additional portfolio item 3')}}</h6>
-              <input type="file"  class="input-block-level" id="pdf-file-3" name="additional_pdf_file_3" />
               {% set videoLink = '' %}
               {% if postData is not empty %}
                  {% if postData.video_link is not empty %}
@@ -52,7 +43,27 @@
               <h6 class="formtitle">{{t('contest', 'Video')}}</h6>
               <p><em>{{t('contest', 'Please enter youtube video url')}}</em></p>
               <input type="text"  class="input-block-level" id="video-link" name="video_link" value="{{videoLink}}" />
-              <button class="btn pull-right" id="saveContestSubmission" type="submit" name="save_contest">{{t('contest', 'save')}}</button>
+              
+              <h6 class="formtitle">{{t('contest', 'Additional portfolio item 1')}}</h6>
+              <input type="file"  class="input-block-level" id="pdf-file-1" name="additional_pdf_file_1" />
+              
+              <h6 class="formtitle">{{t('contest', 'Additional portfolio item 2')}}</h6>
+              <input type="file"  class="input-block-level" id="pdf-file-2" name="additional_pdf_file_2" />
+              
+              <h6 class="formtitle">{{t('contest', 'Additional portfolio item 3')}}</h6>
+              <input type="file"  class="input-block-level" id="pdf-file-3" name="additional_pdf_file_3" />
+              <br/>
+              <label class="checkbox">
+                {% set check = '' %}
+                {% if postData.confirmation_checkbox is not empty %}
+                  {% set check = 'checked' %}
+                {% endif %}  
+                <input type="checkbox" id="confirmation-checkbox" name="confirmation_checkbox" value="confirm" {{check}}>
+                {{ t('contest','I agree with the General Usage agreement and the Italian Privacy law.') }} 
+              </label>
+              <button class="btn pull-right" id="saveContestSubmission" type="submit" name="save_contest">
+                {{t('contest', 'save')}}
+              </button>
               <br>
             </form>
           </div>
@@ -61,7 +72,8 @@
       <div class="span4">
         <div class="entry-content-right">
           <h6 class="formtitle">Upload Specification</h6>
-          <p>{{t('contest', 'You can upload only pdf file')}}</p>
+          <p>{{t('contest', 'Please complete the form (you can upload a pdf of 
+            your work or submit the link to a video of your work) The fields marked with * are mandatory.')}}</p>
         </div>
       </div>
      {%else%}

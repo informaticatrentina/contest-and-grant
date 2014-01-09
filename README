@@ -288,3 +288,24 @@ Now run following command to convert these php file into .po file
 
     ./protected/yiic emessage php protected/message
 
+
+Create/Restore Dump
+-------------------
+
+For create and restore dump of user generated data, There is need to define user
+generate directory in config file.
+
+  - For creating dump, run following command 
+      php index-cli.php  generatedump
+      
+      This command generates a dump_*.tar.gz file. One can change file name 
+      by passing 'file name' as an additional parameter in above command
+      php index-cli.php  generatedump abc.tar.gz
+       
+   - For restore dump, run following command 
+      php index-cli.php  restoredump
+      
+      This command restore latest *.tar.gz dump file. One can restore a particular 
+      file by passing 'file name' as an additional parameter in above command
+      php index-cli.php restoredump  dump.tar.gz
+       

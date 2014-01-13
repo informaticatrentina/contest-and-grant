@@ -723,7 +723,7 @@ class ContestController extends Controller {
         $contestDetail['startDate'] = date('m/d/Y H:i', strtotime($contestInfo['startDate']));
         $contestDetail['endDate'] = date('m/d/Y H:i', strtotime($contestInfo['endDate']));
         $contestDetail['imagePath'] = $contestInfo['imagePath'];
-        $contestDetail['contestDescription'] = $contestInfo['contestDescription'];
+        $contestDetail['contestDescription'] = htmlspecialchars($contestInfo['contestDescription']);
         $contestDetail['contestSlug'] = $contestInfo['contestSlug'];
         $contestDetail['squareImage'] = $contestInfo['squareImage'];
         $contestDetail['contestRule'] = htmlspecialchars($contestInfo['rule']);

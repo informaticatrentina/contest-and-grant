@@ -82,7 +82,12 @@ class Jury {
     $command->bindParam(":emailId", $this->emailId);
     $command->bindParam(":designation", $this->designation);
     $command->bindParam(":creationDate", $this->creationDate);
-    return $command->execute();
+    $isUpdate = $command->execute();
+    // if  $isUpdate is numeric it will return 1 else return error
+    if (is_numeric($isUpdate)) {
+      $isUpdate = 1;
+    }
+    return $isUpdate;
   }
 
   /**

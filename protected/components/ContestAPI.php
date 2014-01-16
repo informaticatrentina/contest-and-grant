@@ -171,7 +171,12 @@ class ContestAPI {
     $query->bindParam(":intro_title", $this->introTitle);
     $query->bindParam(":intro_description", $this->introDescription);
     $query->bindParam(":intro_status", $this->introStatus);
-    return  $query->execute();
+    $isUpdate = $query->execute();
+    // if  $isUpdate is numeric it will return 1 else return error
+    if(is_numeric($isUpdate)) {
+      $isUpdate = 1;
+    }
+    return $isUpdate;
   }
   
   /**

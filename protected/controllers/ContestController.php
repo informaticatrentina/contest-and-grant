@@ -699,7 +699,7 @@ class ContestController extends Controller {
           $contest->introDescription =  htmlspecialchars($contestDetails['intro_description']);
         }    
         $isContestUpdate = $contest->updateContest();
-        if ($isContestUpdate) {
+        if (is_numeric($isContestUpdate)) {
           $this->redirect(BASE_URL . 'admin/contest/list');
         } else {
           throw new Exception(Yii::t('contest', 'Some technical problem occurred, contact administrator'));

@@ -1379,3 +1379,7 @@ p::selection  {
     overflow-y:visible;
     padding-bottom:1px;
   }
+  .banner-image {
+    height: 100px;
+    width: 100px;
+  }

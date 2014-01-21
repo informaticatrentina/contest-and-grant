@@ -15,21 +15,29 @@ class MakeUpdateDirectoriesCommand extends CConsoleCommand {
 
   public function run($args) {
     if (0 == posix_getuid()) {
-      $path = Yii::app()->basePath . '/runtime';
-      if (!is_dir($path)) {
-        mkdir($path);
+      if (!empty($args)) {
+        $userName = $args[0];
+        if (!posix_getpwnam($userName)) {
+          die("$userName user does not exist \n");
+        }
+        $path = Yii::app()->basePath . '/runtime';
+        if (!is_dir($path)) {
+          mkdir($path);
+        }
+        $this->recursiveChown($path, $userName);
+        $assests = Yii::app()->basePath . '/../assets';
+        if (!is_dir($assests)) {
+          mkdir($assests);
+        }
+        $this->recursiveChown($assests, $userName);
+        $jsTrans = Yii::app()->basePath . '/extensions/JsTrans/assets';
+        $this->recursiveChown($jsTrans, $userName);
+        echo "Script Completed \n";
+      } else {
+        echo "Please enter user name for whom permission is to be granted \n";
       }
-      $this->recursiveChown($path, "www-data");
-      $assests = Yii::app()->basePath . '/../assets';
-      if (!is_dir($assests)) {
-        mkdir($assests);
-      }
-      $this->recursiveChown($assests, "www-data");
-      $jsTrans = Yii::app()->basePath . '/extensions/JsTrans/assets';
-      $this->recursiveChown($jsTrans, "www-data");
-      echo "Script Completed";
     } else {
-      echo "Invalid access";
+      echo "Invalid access \n";
     }
   }
 

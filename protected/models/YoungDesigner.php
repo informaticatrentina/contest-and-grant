@@ -89,7 +89,7 @@ class YoungDesigner  {
       }
       $response = $aggregatorManager->saveContestEntry($inputParam);
       if (array_key_exists('success', $response) && $response['success']) {
-        $response['msg'] = Yii::t('contest', 'You have successfully submit an entry');
+        $response['msg'] = Yii::t('contest', 'You have successfully submitted an entry');
       } else {
         Yii::log('Error in saveEntry of young designer ', ERROR, print_r($response, true) .'where user id '. 
                 Yii::app()->session['user']['id']);

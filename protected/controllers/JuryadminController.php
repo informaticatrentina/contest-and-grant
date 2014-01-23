@@ -183,14 +183,21 @@ class JuryadminController extends Controller {
   /**
    * actionDownloadSubmission
    * function is used for download submission
+   * @param $downloadFromAdminPage (true if this function is calling from admin page)
    */
-  public function actionDownloadSubmission() {
+  public function actionDownloadSubmission($downloadFromAdminPage = false) {
     try {
       $message = '';
-      if (!array_key_exists('active_contest', Yii::app()->session['user']) || !in_array($_GET['contest_slug'], Yii::app()->session['user']['active_contest'])) {
-        $this->redirect(BASE_URL);
+      if ($downloadFromAdminPage) {
+        $aggManager = new AggregatorManager();
+        $entries = $aggManager->getEntry(9999, 0, '', 'active', $_GET['contest_slug'].'[contest]', '', '',
+           0, '', '', 1, '', array(), '', 'links,author,id,tags,title,content', '', '', SOURCE);
+      } else {
+        if (!array_key_exists('active_contest', Yii::app()->session['user']) || !in_array($_GET['contest_slug'], Yii::app()->session['user']['active_contest'])) {
+          $this->redirect(BASE_URL);
+        }
+        $entries = $this->getSubmissionForJuryAdmin();
       }
-      $entries = $this->getSubmissionForJuryAdmin();
       $juryController = new JuryController('jury');
       $entries = $juryController->prepareSubmission($entries);
       if (empty($entries)) {

@@ -946,9 +946,36 @@ class ContestController extends Controller {
   
   /**
    * actionDownloadSubmission
-   * function for download zip file (all submission image)
+   * function is used for downloading submissions
    */
   public function actionDownloadSubmission() { 
+    $contestInfo = array();
+    if (array_key_exists('contest_slug', $_GET) && !empty($_GET['contest_slug'])) {
+      $contest = new ContestAPI();
+      $contest->contestSlug = $_GET['contest_slug'];
+      $contestInfo = $contest->getContestDetailByContestSlug();
+    }
+    if (empty($contestInfo)) {
+      $this->render('downloadSubmission', array('message' => 
+          Yii::t('contest','This contest does not exist')));
+      exit;
+    }
+    switch ($_GET['contest_slug']) {
+       case FIRST_CONTEST_SLUG : 
+         $this->actionContestDownloadSubmission();
+         break;
+       default :
+         $controller = new JuryadminController('juryadmin');
+         $controller->actionDownloadSubmission(true);
+         break;
+    }
+  }
+  
+  /**
+   * actionContestDownloadSubmission
+   * function is used for download zip file (all submission image)
+   */
+  public function actionContestDownloadSubmission() { 
     try {
       $message = '';
       $contestSubmissions = array();

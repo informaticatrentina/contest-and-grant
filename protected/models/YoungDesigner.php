@@ -72,6 +72,7 @@ class YoungDesigner  {
       $aggregatorManager = new AggregatorManager();     
       // prepare data according to aggregator API input (array)
       $inputParam = array(
+	  'content' => array('description' => ''),	
           'title' => $postData['title'],
           'status' => 'active',
           'author' => array('name' => Yii::app()->session['user']['firstname'] . ' ' . Yii::app()->session['user']['lastname'],
@@ -88,7 +89,7 @@ class YoungDesigner  {
       }
       $response = $aggregatorManager->saveContestEntry($inputParam);
       if (array_key_exists('success', $response) && $response['success']) {
-        $response['msg'] = Yii::t('contest', 'You have succesfully submit an entry');
+        $response['msg'] = Yii::t('contest', 'You have successfully submit an entry');
       } else {
         Yii::log('Error in saveEntry of young designer ', ERROR, print_r($response, true) .'where user id '. 
                 Yii::app()->session['user']['id']);

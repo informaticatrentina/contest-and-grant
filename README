@@ -46,6 +46,10 @@ To setup contest and grant you have to follow some steps mentioned below:
 3. create database and change configuration
    (/protected/Config/config.php)
 
+4. Run php index-cli.php. This will show the list of avaliable commands. 
+   Run php index-cli.php makeupdatedirectories  {username}
+     {username} - The name of user for whom permission is to be granted.
+     For example  php index-cli.php makeupdatedirectories  www-data
 
 CONFIGURATION
 -------------
@@ -308,4 +312,4 @@ generate directory in config file.
       This command restore latest *.tar.gz dump file. One can restore a particular 
       file by passing 'file name' as an additional parameter in above command
       php index-cli.php restoredump  dump.tar.gz
-       
+

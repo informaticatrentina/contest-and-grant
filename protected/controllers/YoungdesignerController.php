@@ -46,7 +46,7 @@ class YoungdesignerController extends Controller {
         $aggregatorManager->contestSlug = $_GET['slug'];
         $entrySubmittedByUser = $aggregatorManager->isUserAlreadySubmitEntry('title');
         if (!empty($_POST)) {
-          $postData = $_POST;
+          $postData = array_map('htmlPurifier', $_POST);
           if (!$entrySubmittedByUser) {
             $youngDesigner = new YoungDesigner();
             $youngDesigner->slug = $_GET['slug'];

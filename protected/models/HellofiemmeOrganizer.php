@@ -29,6 +29,7 @@ class HellofiemmeOrganizer  {
    */
   public function submitEntry() {
     $postData = array_map('trim', $_POST);
+    $postData = array_map('htmlPurifier', $postData); 
     try {
       $response = array('success' => false, 'msg' => '');
       if (array_key_exists('entryTitle', $postData) && empty($postData['entryTitle'])) {

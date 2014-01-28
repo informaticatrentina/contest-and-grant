@@ -24,6 +24,7 @@ class YoungDesigner  {
       $fileName = array();
       $uploadedPdfFile = false;
       $postData = array_map('trim', $_POST);
+      $postData = array_map('htmlPurifier', $postData); 
       $response = array('success' => false, 'msg' => '');
       if (array_key_exists('title', $postData) && empty($postData['title'])) {
         throw new Exception(Yii::t('contest', 'Entry title should not be empty'));

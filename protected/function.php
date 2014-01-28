@@ -383,3 +383,16 @@ function deleteFile($dir) {
     unlink($dir);
   }
 }
+
+/**
+ * htmlPurifier 
+ * This function is used for purify Cross-site scripting(XSS)
+ * 
+ * @param  string $text The input string.
+ * @return  string $data after purify string
+ */
+function htmlPurifier($text) {
+  $purfiyText = new CHtmlPurifier();
+  $data = $purfiyText->purify($text);
+  return $data;
+}

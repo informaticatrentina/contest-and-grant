@@ -312,7 +312,7 @@ class ContestController extends Controller {
       $entrySubmittedByUser = $aggregatorManager->isUserAlreadySubmitEntry('title');
       if (!empty($_POST)) {
         if ( !$entrySubmittedByUser ) {
-          $postData = $_POST;
+          $postData = array_map('htmlPurifier', $_POST);
           switch ($_GET['slug']) {
             case 'photo_contest':
               $entrySubmissionResponse = $this->entrySubmission();
@@ -605,7 +605,7 @@ class ContestController extends Controller {
     $message = array();
     try {
       if (!empty($_POST)) {
-        $contestDetails = $_POST;
+        $contestDetails = array_map('htmlPurifier', $_POST);
         if (array_key_exists('startDate', $contestDetails) && empty($contestDetails['startDate'])) {
           throw new Exception(Yii::t('contest', 'Start date should not be empty'));
         } else if (!validateDate($contestDetails['startDate'])) {

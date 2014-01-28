@@ -49,7 +49,7 @@ class HellofiemmeorganizerController extends Controller {
       $aggregatorManager->contestSlug = $_GET['slug'];
       $entrySubmittedByUser = $aggregatorManager->isUserAlreadySubmitEntry('title');
       if (!empty($_POST)) {
-        $postData = $_POST;
+        $postData = array_map('htmlPurifier', $_POST);
         if ( !$entrySubmittedByUser ) {
           $hellofiemmeContest = new HellofiemmeOrganizer();
           $hellofiemmeContest->slug = $_GET['slug'];

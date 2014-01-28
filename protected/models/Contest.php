@@ -168,6 +168,7 @@ class Contest  {
     $response['success'] = false;
     $entrySubmittedByUser = false;
     try {  
+      $_POST = array_map('htmlPurifier', $_POST);
       if (!empty($_POST)) {
         $aggregatorManager = new AggregatorManager();
         $aggregatorManager->isMinor = ADULT;
@@ -265,6 +266,7 @@ class Contest  {
    */
   public function fallingWallsEntrySubmission() {
     $postData = array_map('trim', $_POST);
+    $postData = array_map('htmlPurifier', $postData); 
     try {
       $response = array('success' => false, 'msg' => '');
       if (array_key_exists('entryTitle', $postData) && empty($postData['entryTitle'])) {

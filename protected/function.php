@@ -386,13 +386,19 @@ function deleteFile($dir) {
 
 /**
  * htmlPurifier 
- * This function is used for purify Cross-site scripting(XSS)
- * 
+ * This function is used to prevent Cross-site scripting(XSS)
  * @param  string $text The input string.
- * @return  string $data after purify string
+ * @return  string $text or $data after  html encode string
  */
 function htmlPurifier($text) {
-  $purfiyText = new CHtmlPurifier();
-  $data = $purfiyText->purify($text);
-  return $data;
+  if (empty($text)) {
+    return '';
+  } 
+  if (is_array($text)) {
+    foreach ($text as $key => $value) {
+       $data[$key] = htmlPurifier($value);
+    }   
+    return $data;
+  }  
+  return htmlspecialchars($text);
 }

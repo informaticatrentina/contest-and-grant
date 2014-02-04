@@ -605,7 +605,7 @@ class ContestController extends Controller {
     $message = array();
     try {
       if (!empty($_POST)) {
-        $contestDetails = array_map('htmlPurifier', $_POST);
+        $contestDetails = $_POST;
         if (array_key_exists('startDate', $contestDetails) && empty($contestDetails['startDate'])) {
           throw new Exception(Yii::t('contest', 'Start date should not be empty'));
         } else if (!validateDate($contestDetails['startDate'])) {

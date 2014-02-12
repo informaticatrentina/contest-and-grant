@@ -835,6 +835,11 @@ class ContestController extends Controller {
          $controller->isAdmin = true;
          $controller->actionContestEntries();
          break;
+       case  YOUNG_DESIGNER_CONTEST_SLUG : 
+         $controller = new FallingwallsController('fallingwalls');
+         $controller->isAdmin = true;
+         $controller->actionContestEntries();
+         break;
        default :
          $this->actionContestEntries();
          break;

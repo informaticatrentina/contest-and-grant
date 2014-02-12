@@ -172,7 +172,7 @@ class JuryadminController extends Controller {
     $inputParam = array(
         'return_fields' => 'links,author,title,id,tags',
         'sort' => '-tag:count',
-        'tags' => $_GET['contest_slug'] . '{http://ahref.eu/contest/schema/},count',
+        'tags' => $_GET['contest_slug'] . '{http://ahref.eu/contest/schema/}',
         'limit' => 9999,
         'offset' => 0,
         'source' => SOURCE

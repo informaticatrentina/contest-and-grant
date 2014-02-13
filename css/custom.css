@@ -1382,3 +1382,32 @@ p::selection  {
   .banner-image {
    background-size: contain;
   }
+  .header-inner {
+    border-bottom: 1px solid #4cbed7;
+    margin-left:0;
+    width:100%;
+    min-height:61px;
+    position:relative;
+  }
+  .inner_logo {
+    float: left;
+    width: 20%;
+  }
+  .inner_logo .img_inner {
+    position:absolute;
+    top:5px;
+    z-index:1;
+  }
+  .inner_logo .img_outer {
+    position:absolute;
+    top:5px;
+    z-index: 2;
+    opacity:0 !important;
+   -webkit-opacity:0!important;
+   -ms-opacity:0 !important;
+   -o-opacity:0!important;
+  }
+  .inner_menu {
+    width:80%; 
+    float: right;
+  }

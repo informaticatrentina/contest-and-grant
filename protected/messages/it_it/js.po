@@ -180,3 +180,26 @@ msgctxt "contest"
 msgid "Jury admin email id is not empty"
 msgstr "L’email del presidente di giuria non è vuota"
 
+msgctxt "contest" 
+msgid "Please check checkbox"
+msgstr ""
+
+msgctxt "contest" 
+msgid "Please checked checkbox"
+msgstr ""
+
+msgctxt "contest" 
+msgid "Please either upload pdf file or add youtube video url"
+msgstr ""
+
+msgctxt "contest" 
+msgid "Please upload your curriculum vitae"
+msgstr ""
+
+msgctxt "contest" 
+msgid "Please upload your cv"
+msgstr ""
+
+msgctxt "contest" 
+msgid "Please upload your motivational letter"
+msgstr ""

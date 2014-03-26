@@ -945,3 +945,91 @@ msgstr ""
 msgctxt "contest" 
 msgid "Intro Tab Title"
 msgstr ""
+
+msgctxt "contest" 
+msgid "Curriculum Vitae"
+msgstr ""
+
+msgctxt "contest" 
+msgid "I agree with the General Usage agreement and the Italian Privacy law."
+msgstr ""
+
+msgctxt "contest" 
+msgid "Motivational letter"
+msgstr "Lettera Motivazionale "
+
+msgctxt "contest" 
+msgid "My CV/Resume"
+msgstr ""
+
+msgctxt "contest" 
+msgid "Please checked checkbox"
+msgstr ""
+
+msgctxt "contest" 
+msgid "Please either upload pdf file or add youtube video url"
+msgstr ""
+
+msgctxt "contest" 
+msgid "Please enter youtube vedio url"
+msgstr ""
+
+msgctxt "contest" 
+msgid "Please enter youtube video url"
+msgstr ""
+
+msgctxt "contest" 
+msgid "Please submit your curriculum vitae"
+msgstr ""
+
+msgctxt "contest" 
+msgid "Please submit your motivational letter"
+msgstr ""
+
+msgctxt "contest" 
+msgid "Please submit your sort bio"
+msgstr ""
+
+msgctxt "contest" 
+msgid "Please upload your curriculum vitae"
+msgstr ""
+
+msgctxt "contest" 
+msgid "Please upload your cv"
+msgstr ""
+
+msgctxt "contest" 
+msgid "Please upload your motivational letter"
+msgstr ""
+
+msgctxt "contest" 
+msgid "Project File"
+msgstr ""
+
+msgctxt "contest" 
+msgid "This contest does not exist"
+msgstr ""
+
+msgctxt "contest" 
+msgid "Title of the project"
+msgstr ""
+
+msgctxt "contest" 
+msgid "Video"
+msgstr ""
+
+msgctxt "contest" 
+msgid "You can upload only pdf file of max size 1MB"
+msgstr ""
+
+msgctxt "contest" 
+msgid "You have successfully submitted an entry"
+msgstr ""
+
+msgctxt "contest" 
+msgid "file is greater than "
+msgstr ""
+
+msgctxt "contest" 
+msgid "user is not registered yet"
+msgstr ""

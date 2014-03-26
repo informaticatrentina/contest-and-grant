@@ -123,11 +123,15 @@ class JuryadminController extends Controller {
     if (!empty($entryForPagination)) {
       if (array_key_exists('after', $entryForPagination) && !empty($entryForPagination['after'])) {
         $pagination['nextEntryId'] = $entryForPagination['after'][0]['id'];
-        $pagination['nextEntryTitle'] = $entryForPagination['after'][0]['title'];
+        if (array_key_exists('title', $entryForPagination['after'][0])) {
+          $pagination['nextEntryTitle'] = $entryForPagination['after'][0]['title'];
+        }
       }
       if (array_key_exists('before', $entryForPagination) && !empty($entryForPagination['before'])) {
         $pagination['prevEntryId'] = $entryForPagination['before'][0]['id'];
-        $pagination['prevEntryTitle'] = $entryForPagination['before'][0]['title'];
+        if (array_key_exists('title', $entryForPagination['before'][0])) {
+          $pagination['prevEntryTitle'] = $entryForPagination['before'][0]['title'];
+        }
       }
     }
     $this->render('viewEntry', array('entries' => $contestEntries, 'pagination'=> $pagination, 'contest_slug' => $_GET['slug']));

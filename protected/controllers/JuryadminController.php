@@ -77,7 +77,11 @@ class JuryadminController extends Controller {
               }
             }
           }
-          $contestSubmissions[] = array('id' => $entry['id'], 'title' => $entry['title'], 'author' => $entry['author'],
+          $entryTitle = '';
+          if (array_key_exists('title', $entry) && !empty($entry['title'])) {
+            $entryTitle = $entry['title'];
+          }
+          $contestSubmissions[] = array('id' => $entry['id'], 'title' => $entryTitle, 'author' => $entry['author'],
               'jury_rating' => $count);
         }
       }
@@ -150,7 +154,11 @@ class JuryadminController extends Controller {
       $contestEntries = $contest->getContestSubmission();
       foreach ($contestEntries as $entries) {
         if (array_key_exists('tags', $entries) && !empty($entries['tags'])) {
-          $submissions[$entries['id']] =  array('title' => $entries['title'], 'entry_id' => $entries['id']); 
+          $entryTitle = '';
+          if (array_key_exists('title', $entries) && !empty($entries['title'])) {
+            $entryTitle = $entries['title'];
+          }
+          $submissions[$entries['id']] =  array('title' => $entryTitle, 'entry_id' => $entries['id']); 
           foreach ($entries['tags'] as $tag) {            
             if ($tag['scheme'] == JURY_RATING_SCHEME && !empty($tag['weight'])) {  
               $submissions[$entries['id']]['jury_id'][] = $tag['slug']; 

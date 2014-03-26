@@ -160,7 +160,9 @@ class JuryController extends Controller {
         foreach ($contestSubmission['entry'] as $entry) {
           $contestEntry = array();
           $contestEntry['id'] = $entry['id'];
-          $contestEntry['title'] = $entry['title'];
+          if (array_key_exists('title', $entry) && !empty($entry['title'])) {
+            $contestEntry['title'] = $entry['title'];
+          }
           $contestEntry['author'] = $entry['author'];
           if (array_key_exists('tags', $entry) && !empty($entry['tags'])) {
             foreach ($entry['tags'] as $tag) {
@@ -290,11 +292,15 @@ class JuryController extends Controller {
     if (!empty($entryForPagination)) {
       if (array_key_exists('after', $entryForPagination) && !empty($entryForPagination['after'])) {
         $pagination['nextEntryId'] = $entryForPagination['after'][0]['id'];
-        $pagination['nextEntryTitle'] = $entryForPagination['after'][0]['title'];
+        if (array_key_exists('title', $entryForPagination['after'][0])) {
+          $pagination['nextEntryTitle'] = $entryForPagination['after'][0]['title'];
+        }
       }
       if (array_key_exists('before', $entryForPagination) && !empty($entryForPagination['before'])) {
         $pagination['prevEntryId'] = $entryForPagination['before'][0]['id'];
-        $pagination['prevEntryTitle'] = $entryForPagination['before'][0]['title'];
+        if (array_key_exists('title', $entryForPagination['before'][0])) {
+          $pagination['prevEntryTitle'] = $entryForPagination['before'][0]['title'];
+        }
       }
     }
     $this->render('viewEntry', array('entries' => $contestEntries, 'pagination'=> $pagination, 'contest_slug' => $_GET['slug']));
@@ -319,7 +325,9 @@ class JuryController extends Controller {
     foreach ($contestEntries as $entry) {
       $contestSubmission = array();
       $contestSubmission['id'] = $entry['id'];
-      $contestSubmission['title'] = $entry['title'];
+      if (array_key_exists('title', $entry) && !empty($entry['title'])) {
+        $contestSubmission['title'] = $entry['title']; 
+      }
       $contestSubmission['author'] = $entry['author'];
       $contestSubmission['tags'] = $entry['tags'];
       

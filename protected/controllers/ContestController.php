@@ -275,6 +275,10 @@ class ContestController extends Controller {
         $youngDesigner = new YoungdesignerController('youngdesigner');
         $youngDesigner->actionSubmitEntries();
         break;
+      case NETIZENLAB_CONTEST_SLUG :
+        $netizenlabContest = new NetizenlabController('netizenlab');
+        $netizenlabContest->actionSubmitEntries();
+        break;
       default :
         $this->actionSubmitContestEntries();
         break;

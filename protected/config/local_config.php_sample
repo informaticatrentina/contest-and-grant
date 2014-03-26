@@ -153,3 +153,5 @@ define('SESSION_TIMEOUT_TIME', 172800);
 //constant for no of stars for rating
 define('STAR_COUNT', 5);
 define('USER_GENERATED_DIRECTORY', '["uploads"]');
+//size define in Byte
+define('MAX_UPLOAD_FILE_SIZE_IN_NETIZENLAB_CONTEST', 1048576);

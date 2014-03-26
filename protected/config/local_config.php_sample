@@ -130,6 +130,7 @@ define('FIRST_CONTEST_SLUG', 'incaendo');define('FIRST_CONTEST_SLUG', 'incaendo'
 define('FALLING_WALLS_CONTEST_SLUG', 'falling_walls_2013');
 define('HELLO_FIEMME_ORGANIZER', 'hellofiemme_organizer');
 define('YOUNG_DESIGNER_CONTEST_SLUG', 'young_designer');
+define('NETIZENLAB_CONTEST_SLUG', 'netizenlab');
 define('ACTIVE_CONTEST_SLUG', FALLING_WALLS_CONTEST_SLUG);
 
 define('YOUTUBE_VIDEO_IMAGE_URL', 'http://img.youtube.com/vi/');

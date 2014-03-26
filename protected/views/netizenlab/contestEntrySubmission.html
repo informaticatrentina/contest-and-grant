@@ -1,0 +1,128 @@
+{% include  '/views/template/innerContestUpperPart.html' %}
+<div class="contest-tab-bar">
+  <div class="container">
+    <div class="row">
+      {% if contestInfo.intro_status == 1 %}
+        {% set introText = t('contest', 'INTRO') %}
+        {% if contestInfo.intro_title is not empty %}
+          {% set introText = contestInfo.intro_title %}
+        {% endif %}
+        <div class="span3">
+          <a href="{{constant('BASE_URL')}}contest/intro/{{ contestInfo.contestSlug }}"  class="contest-button btn-block">{{introText}}</a>
+        </div>
+      {% endif %}
+      {% if contestInfo.entryStatus == 1 %}
+        <div class="span3">
+          <a href="{{constant('BASE_URL')}}contest/entries/{{ contestInfo.contestSlug }}"  class="contest-button btn-block">{{t('contest', 'PARTICIPANTS')}}</a>
+        </div>
+      {% endif %}
+      <div class="span3">
+        <a href="{{constant('BASE_URL')}}contest/brief/{{ contestInfo.contestSlug }}" class="contest-button btn-block">{{t('contest', 'RULE')}}</a>
+      </div>
+      <div class="span3">
+        <a href="{{constant('BASE_URL')}}contest/submission/{{ contestInfo.contestSlug }}"  class="contest-button btn-block active">{{t('contest', 'PARTICIPATE')}}</a>
+      </div>
+      {% if contestInfo.winnerStatus == 1 %}
+        <div class="span3">
+          <a href="{{constant('BASE_URL')}}contest/winner/{{ contestInfo.contestSlug }}"  class="contest-button btn-block">{{t('contest', 'WINNERS')}}</a>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+<div id="entrySubmission">
+  {% if hasClosedContest %}
+    {% include  '/views/contest/contestClosed.html' %}
+  {% elseif isEntrySubmit == 0 %}
+    {% set showsubmit = 1 %}
+    {% if message.msg is not empty %}
+      {% if message.success is not empty %}
+         {% set showsubmit = 0%}
+         {% include  '/views/contest/submissionSuccessMessage.html' %}
+      {% endif %}
+    {% endif %}
+    {% if showsubmit == 1 %}
+      <div class="container" style="padding-top:30px;">
+        <div class="row">
+          {% if App.session is not empty %}
+            <div class="span8">
+              <div class="entry-content-left">
+                <div style="padding: 20px 40px;">
+                  <form action="" method="post"  enctype = "multipart/form-data">
+                    <div id="error">
+                      {% if message.msg is not empty %}
+                        {{ message.msg }}
+                      {% endif %}
+                    </div>
+                  
+                    {% set motivationalLetter = '' %}
+                    {% if postData is not empty %}
+                      {% if postData.motivational_letter is not empty %}
+                        {% set motivationalLetter = postData.motivational_letter %}
+                      {% endif %}
+                    {% endif %}
+                    <h6 class="formtitle">{{t('contest', 'Motivational letter')}}</h6>
+                    <p><em>{{t('contest', 'Please submit your motivational letter')}}</em></p>
+                    <input type="file" class="input-block-level" id="motivational-letter" name="motivational_letter" />
+                    
+                    {% set curriculumVitae = '' %}
+                    {% if postData is not empty %}
+                      {% if postData.curriculum_vitae is not empty %}
+                        {% set curriculumVitae = postData.curriculum_vitae %}
+                      {% endif %}
+                    {% endif %}
+                    <h6 class="formtitle">{{t('contest', 'Curriculum Vitae')}}</h6>
+                    <p><em>{{t('contest', 'Please submit your curriculum vitae')}}</em></p>
+                    <input type="file" class="input-block-level" id="curriculum-vitae" name="curriculum_vitae" />
+                    <br/>
+                    <label class="checkbox">
+                      {% set check = '' %}
+                      {% if postData.confirmation_checkbox is not empty %}
+                        {% set check = 'checked' %}
+                      {% endif %}  
+                      <input type="checkbox" id="confirmation-checkbox" name="confirmation_checkbox" value="confirm" {{check}}>
+                      {{ t('contest','I agree with the General Usage agreement and the Italian Privacy law.') }} 
+                    </label>
+                    <button class="btn pull-right" id="saveContestSubmission" type="submit" name="save_contest">
+                      {{t('contest', 'save')}}
+                    </button>
+                    <br>
+                  </form>
+                </div>
+              </div>
+            </div>
+            <div class="span4">
+              <div class="entry-content-right">
+                <h6 class="formtitle">Upload Specification</h6>
+                <p>{{t('contest', 'You can upload only pdf file of max size 1MB')}}</p>
+              </div>
+            </div>
+           {%else%}
+            <div class="container">
+              <div class="right-box-container">
+                <div class="row">
+                  <div class="span12">
+                    <div style="padding:25px 25px;">
+                      <h6>
+                        <div class="pull-right">
+                          <a  class="register-link" href="#"><button class="btn btn-block btn-large" type="button">{{ t('contest', 'Sign Up') }}</button></a><br>
+                          <a class="login-link" href="#" ><button class="btn btn-block btn-large" type="button">{{ t('contest', 'Login') }}</button></a>
+                        </div>
+                        {{t('contest', 'Only members can participate in the contest to CIVICLINKS.')}} <br>
+                        {{t('contest', 'Sign up or log in to continue.')}}
+                      </h6>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          {%endif%}
+        </div>
+      </div>
+    {% endif %}
+  {% else %}
+    {% include  '/views/contest/entryAlreadySubmited.html' %}
+  {% endif %}
+</div>
+
+<script src="{{constant('BASE_URL')}}js/netizenlab.js"></script>

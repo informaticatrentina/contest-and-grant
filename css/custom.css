@@ -1422,3 +1422,10 @@ p::selection  {
     margin:25px 0px;
   }
   
+  .msg-container{
+    background-color:#f5f5f5;
+    margin:25px 0px;
+  }
+  .contest-msg-text{
+    padding:25px 25px;
+  }

@@ -31,7 +31,9 @@
   </div>
 </div>
 <div id="entrySubmission">
-  {% if hasClosedContest %}
+  {% if hasStartedContest == false %}
+    {% include  '/views/contest/contestStarted.html' %}
+  {% elseif hasClosedContest %}
     {% include  '/views/contest/contestClosed.html' %}
   {% elseif isEntrySubmit == 0 %}
     {% set showsubmit = 1 %}
@@ -97,7 +99,7 @@
                 <p>{{t('contest', 'You can upload only pdf file of max size 1MB')}}</p>
               </div>
             </div>
-           {%else%}
+          {%else%}
             <div class="container">
               <div class="right-box-container">
                 <div class="row">

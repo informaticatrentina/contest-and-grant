@@ -1033,3 +1033,7 @@ msgstr "il file è maggiore di"
 msgctxt "contest" 
 msgid "user is not registered yet"
 msgstr "l’utente non è ancora registrato"
+
+msgctxt "contest" 
+msgid "The contest will be started on"
+msgstr "Il concorso sarà aperto il"

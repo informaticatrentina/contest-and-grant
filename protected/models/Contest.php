@@ -145,6 +145,7 @@ class Contest  {
       $contestDetail = $contestAPI->getContestDetailByContestSlug(); 
       if(array_key_exists('startDate', $contestDetail) && !empty($contestDetail['startDate'])) {
         $contestDetail['startDate'] = date('Y-m-d', strtotime($contestDetail['startDate']));
+        $contestDetail['startingDate'] = date('Y-m-d H:i:s', strtotime($contestDetail['startDate']));
       }
       if(array_key_exists('endDate', $contestDetail) && !empty($contestDetail['endDate'])) {
         $contestDetail['closingDate'] = date('Y-m-d H:i:s', strtotime($contestDetail['endDate']));

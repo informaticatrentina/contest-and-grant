@@ -23,11 +23,17 @@ class NetizenlabController extends Controller {
       $entrySubmissionResponse = array();
       $contestCloseDate = time();
       $entrySubmittedByUser = false;
+      $hasStartedContest = false;
       $hasClosedContest = false;
       if (array_key_exists('slug', $_GET) && !empty($_GET['slug'])) {
         $contest->contestSlug = $_GET['slug'];
       }
       $contestInfo = $contest->getContestDetail();
+      if (array_key_exists('startingDate', $contestInfo) && !empty($contestInfo['startingDate'])) {
+        if (time() >= strtotime($contestInfo['startingDate'])) {
+          $hasStartedContest = true;
+        }
+      }
       if (array_key_exists('closingDate', $contestInfo) && !empty($contestInfo['closingDate'])) {
         $contestCloseDate = strtotime($contestInfo['closingDate']);
       }
@@ -59,7 +65,8 @@ class NetizenlabController extends Controller {
       Yii::log('Error in actionSubmitEntries : netizenlab contest', ERROR, $e->getMessage());
     }
     $this->render('contestEntrySubmission', array('contestInfo' => $contestInfo, 'message' => $entrySubmissionResponse,
-        'isEntrySubmit' => $entrySubmittedByUser, 'postData' => $postData, 'hasClosedContest' => $hasClosedContest));
+        'isEntrySubmit' => $entrySubmittedByUser, 'postData' => $postData, 'hasClosedContest' => $hasClosedContest,
+        'hasStartedContest' => $hasStartedContest));
   }
 }
 

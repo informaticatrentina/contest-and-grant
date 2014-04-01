@@ -378,8 +378,12 @@ class JuryController extends Controller {
     $userId = '';
     $user = new UserIdentityAPI();    
     $userDetail = $user->getUserDetail(IDM_USER_ENTITY, array('email' => urlencode($juryEmail)), true);
-    if (array_key_exists('_items', $userDetail) && array_key_exists(0, $userDetail['_items']) && array_key_exists('_id', $userDetail['_items'][0])) {
-      $userId = $userDetail['_items'][0]['_id'];
+    if (array_key_exists('_items', $userDetail)) {
+      if (array_key_exists(0, $userDetail['_items']) && array_key_exists('_id', $userDetail['_items'][0])) {
+        $userId = $userDetail['_items'][0]['_id'];
+      } else {
+        throw new Exception('"' . $juryEmail . '" '. Yii::t('contest', 'user is not registered yet'));
+      }
     } else {
       Yii::log('Error in saveJury', ERROR, "failed in getting detail of jury email : $juryEmail \n" . print_r($userDetail, true));
       throw new Exception(Yii::t('contest', 'Some technical problem occurred, Please check log'));

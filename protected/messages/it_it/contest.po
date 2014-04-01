@@ -726,7 +726,7 @@ msgstr "Errore nel salvataggio del membro di giuria"
 
 msgctxt "contest" 
 msgid "Download"
-msgstr "Errore nel salvataggio del membro di giuria"
+msgstr "Scarica"
 
 msgctxt "contest" 
 msgid "Download Submission"

@@ -154,30 +154,36 @@ class JuryController extends Controller {
           $this->redirect(BASE_URL);
         }
       }
+      $entryMsg = '';
       $contestEntries = $contest->getContestSubmission();
-      $contestSubmission = $this->prepareSubmission($contestEntries);
-      if (array_key_exists('entry', $contestSubmission) && (!empty($contestSubmission['entry']))) {
-        foreach ($contestSubmission['entry'] as $entry) {
-          $contestEntry = array();
-          $contestEntry['id'] = $entry['id'];
-          if (array_key_exists('title', $entry) && !empty($entry['title'])) {
-            $contestEntry['title'] = $entry['title'];
-          }
-          $contestEntry['author'] = $entry['author'];
-          if (array_key_exists('tags', $entry) && !empty($entry['tags'])) {
-            foreach ($entry['tags'] as $tag) {
-              if ($tag['scheme'] == JURY_RATING_SCHEME && $tag['slug'] == Yii::app()->session['user']['id']) {
-                $contestEntry['jury_rating'] = $tag['weight'];
+      if (count($contestEntries) == 1 && array_key_exists(0, $contestEntries) && array_key_exists('count', $contestEntries[0])) {
+        $entryMsg = Yii::t('contest', 'No entry load');;
+      } else {
+        $contestSubmission = $this->prepareSubmission($contestEntries);
+        if (array_key_exists('entry', $contestSubmission) && (!empty($contestSubmission['entry']))) {
+          foreach ($contestSubmission['entry'] as $entry) {
+            $contestEntry = array();
+            $contestEntry['id'] = $entry['id'];
+            if (array_key_exists('title', $entry) && !empty($entry['title'])) {
+              $contestEntry['title'] = $entry['title'];
+            }
+            $contestEntry['author'] = $entry['author'];
+            if (array_key_exists('tags', $entry) && !empty($entry['tags'])) {
+              foreach ($entry['tags'] as $tag) {
+                if ($tag['scheme'] == JURY_RATING_SCHEME && $tag['slug'] == Yii::app()->session['user']['id']) {
+                  $contestEntry['jury_rating'] = $tag['weight'];
+                }
               }
             }
+            $contestSubmissions[] = $contestEntry;
           }
-          $contestSubmissions[] = $contestEntry;
         }
       }
     } catch (Exception $e) {
       Yii::log('Error in actionJuryRating ', ERROR, $e->getMessage());
     }
-    $this->render('rating', array('entries' => $contestSubmissions, 'contest_slug' => $_GET['contest_slug']));
+    $this->render('rating', array('entries' => $contestSubmissions, 'contest_slug' => $_GET['contest_slug'],
+      'entry_msg' => $entryMsg));
   }
 
   /**
@@ -274,36 +280,42 @@ class JuryController extends Controller {
     if (array_key_exists('slug', $_GET) && !empty($_GET['slug'])) {
       $contest->contestSlug = $_GET['slug'];      
     }
+    $entryMsg = '';
     $entries = array($contest->getContestSubmissionInfo());
-    $contestEntries = $this->prepareSubmission($entries); 
-    if (array_key_exists('tags', $contestEntries['entry'][0]) && !empty($contestEntries['entry'][0]['tags'])) {
-      foreach ($contestEntries['entry'][0]['tags'] as $tag) {
-        if ($tag['scheme'] == JURY_RATING_SCHEME && $tag['slug'] == Yii::app()->session['user']['id']) {
-          $contestEntries['jury_rating'] = $tag['weight'];
+    if (count($entries) == 1 && array_key_exists(0, $entries) && array_key_exists('count', $entries[0])) {
+      $entryMsg = Yii::t('contest', 'No entry load');
+    } else {
+      $contestEntries = $this->prepareSubmission($entries);
+      if (array_key_exists('tags', $contestEntries['entry'][0]) && !empty($contestEntries['entry'][0]['tags'])) {
+        foreach ($contestEntries['entry'][0]['tags'] as $tag) {
+          if ($tag['scheme'] == JURY_RATING_SCHEME && $tag['slug'] == Yii::app()->session['user']['id']) {
+            $contestEntries['jury_rating'] = $tag['weight'];
+          }
         }
       }
-    }     
-    $pagination = array();
-    $aggregatorMgr = new AggregatorManager();
-    $aggregatorMgr->contestSlug = $_GET['slug'];
-    $aggregatorMgr->range = $_GET['id'] . ':' . 1;
-    $aggregatorMgr->returnField = 'title,id';
-    $entryForPagination = $aggregatorMgr->getEntryForPagination();
-    if (!empty($entryForPagination)) {
-      if (array_key_exists('after', $entryForPagination) && !empty($entryForPagination['after'])) {
-        $pagination['nextEntryId'] = $entryForPagination['after'][0]['id'];
-        if (array_key_exists('title', $entryForPagination['after'][0])) {
-          $pagination['nextEntryTitle'] = $entryForPagination['after'][0]['title'];
+      $pagination = array();
+      $aggregatorMgr = new AggregatorManager();
+      $aggregatorMgr->contestSlug = $_GET['slug'];
+      $aggregatorMgr->range = $_GET['id'] . ':' . 1;
+      $aggregatorMgr->returnField = 'title,id';
+      $entryForPagination = $aggregatorMgr->getEntryForPagination();
+      if (!empty($entryForPagination)) {
+        if (array_key_exists('after', $entryForPagination) && !empty($entryForPagination['after'])) {
+          $pagination['nextEntryId'] = $entryForPagination['after'][0]['id'];
+          if (array_key_exists('title', $entryForPagination['after'][0])) {
+            $pagination['nextEntryTitle'] = $entryForPagination['after'][0]['title'];
+          }
         }
-      }
-      if (array_key_exists('before', $entryForPagination) && !empty($entryForPagination['before'])) {
-        $pagination['prevEntryId'] = $entryForPagination['before'][0]['id'];
-        if (array_key_exists('title', $entryForPagination['before'][0])) {
-          $pagination['prevEntryTitle'] = $entryForPagination['before'][0]['title'];
+        if (array_key_exists('before', $entryForPagination) && !empty($entryForPagination['before'])) {
+          $pagination['prevEntryId'] = $entryForPagination['before'][0]['id'];
+          if (array_key_exists('title', $entryForPagination['before'][0])) {
+            $pagination['prevEntryTitle'] = $entryForPagination['before'][0]['title'];
+          }
         }
       }
     }
-    $this->render('viewEntry', array('entries' => $contestEntries, 'pagination'=> $pagination, 'contest_slug' => $_GET['slug']));
+    $this->render('viewEntry', array('entries' => $contestEntries, 'pagination'=> $pagination, 
+        'entry_msg' => $entryMsg, 'contest_slug' => $_GET['slug']));
   }
   
   /**

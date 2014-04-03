@@ -1037,3 +1037,7 @@ msgstr "l’utente non è ancora registrato"
 msgctxt "contest" 
 msgid "The contest will be started on"
 msgstr "Il concorso sarà aperto il"
+
+msgctxt "contest" 
+msgid "No entry load"
+msgstr "Nessun elaborato caricato"

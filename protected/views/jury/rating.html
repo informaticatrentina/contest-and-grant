@@ -1,33 +1,45 @@
 <link href="{{constant('BASE_URL')}}css/jquery.rating.css" rel="stylesheet">
 <div class="container">
-  <table class="table table-hover table-bordered">
-    <tr>
-      <th>S. No.</th>
-      <th>{{t('contest', 'Entry Title')}}</th>
-      <th>{{t('contest', 'Author')}}</th>
-      <th>{{t('contest', 'Rating')}}</th>
-      <th>{{t('contest', 'View Detail')}}</th>
-    </tr>
-    {% set i = 0 %}
-    {% for entry in entries %}
-      {% set i =  i + 1 %}
+  {% if entry_msg is not empty %}
+    <div class="jury-message">
+      <div class="row">
+        <div class="span12">
+          <div style="padding:25px 25px;">    
+            <center><h6>{{entry_msg}}<br></h6></center>
+          </div>
+        </div>
+      </div>
+    </div>
+  {% else %}
+    <table class="table table-hover table-bordered">
       <tr>
-        <td>{{i}}</td>
-        <td>{{entry.title}}</td>
-        <td>{{entry.author.name}}</td>
-        <td class="jury-vote" entry-id="{{entry.id}}">
-          {% for j in 1..constant('STAR_COUNT') %}
-          {% set check = '' %}
-          {% if j == entry.jury_rating %}
-            {% set check = 'checked="checked"' %}
-          {% endif %}
-            <input name="star{{i}}" type="radio" value="{{j}}" {{check}} class="star auto-submit-star"/> 
-          {% endfor %}
-        </td>
-        <td><a href="{{constant('BASE_URL')}}jury/entry/{{contest_slug}}/{{entry.id}}">View Detail</a></td>
+        <th>S. No.</th>
+        <th>{{t('contest', 'Entry Title')}}</th>
+        <th>{{t('contest', 'Author')}}</th>
+        <th>{{t('contest', 'Rating')}}</th>
+        <th>{{t('contest', 'View Detail')}}</th>
       </tr>
-    {% endfor %}
-  </table>
+      {% set i = 0 %}
+      {% for entry in entries %}
+        {% set i =  i + 1 %}
+        <tr>
+          <td>{{i}}</td>
+          <td>{{entry.title}}</td>
+          <td>{{entry.author.name}}</td>
+          <td class="jury-vote" entry-id="{{entry.id}}">
+            {% for j in 1..constant('STAR_COUNT') %}
+            {% set check = '' %}
+            {% if j == entry.jury_rating %}
+              {% set check = 'checked="checked"' %}
+            {% endif %}
+              <input name="star{{i}}" type="radio" value="{{j}}" {{check}} class="star auto-submit-star"/> 
+            {% endfor %}
+          </td>
+          <td><a href="{{constant('BASE_URL')}}jury/entry/{{contest_slug}}/{{entry.id}}">View Detail</a></td>
+        </tr>
+      {% endfor %}
+    </table>
+  {% endif %}
 </div>
 <script>
   var page = {

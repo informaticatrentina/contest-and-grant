@@ -297,6 +297,16 @@ Now run following command to convert these php file into .po file
 
     ./protected/yiic emessage php protected/message
 
+  For Js message, A cache file (dictionary-*.js) is created in JsTrans extension.
+  All Js message for translation serve from this file. You need to remove cache dictionary
+  file on changing in js.po file so that new cache file will be generated and your updation 
+  in po file will be reflected in project.
+
+  Remove file :            protected/extensions/JsTrans/assets/dictionary-*.js
+  
+  Also delete directory from assets because these directory have cache files of js message translation.
+  Directory Path:    /assets/*     
+
 
 Create/Restore Dump
 -------------------

@@ -20,8 +20,8 @@ To setup contest and grant you have to follow some steps mentioned below:
 (git@git.ahref.eu:apps/contest-and-grant.git)::
 
     css                    contain all css file
-    downloads              directory contain sub-directories for download file. You need to set permission(755 and owner www-data) to this directory. 
-      entryZip               directory contain  zip file (create for download)   
+    downloads              directory contain sub-directories for download file. You need to set permission(755 and owner www-data) to this directory.
+      entryZip               directory contain  zip file (create for download)
     images                 contain all images used in project
     js                           contain all js file
     protected/
@@ -39,14 +39,14 @@ To setup contest and grant you have to follow some steps mentioned below:
         contest            This directory contain html page that will be rendered from contest controller
         template           This directory contain all templates
     uploads                This directory contain subdirectory to save uploaded data (images file, text file etc).
-  
+
     index.php
     index-test.php
 
 3. create database and change configuration
    (/protected/Config/config.php)
 
-4. Run php index-cli.php. This will show the list of avaliable commands. 
+4. Run php index-cli.php. This will show the list of avaliable commands.
    Run php index-cli.php makeupdatedirectories  {username}
    {username} - The name of user for whom permission is to be granted.
    For example  php index-cli.php makeupdatedirectories  www-data
@@ -107,32 +107,32 @@ CONFIGURATION
 
    n.  REGISTRATION_URL   Url for register user
 
-   p.  DOWNLOAD_ZIP_DIRECTORY  directory path to create zip file. This path is used 
-       in download zip file functionality.   
+   p.  DOWNLOAD_ZIP_DIRECTORY  directory path to create zip file. This path is used
+       in download zip file functionality.
 
-   q.  SUBMISSION_IMAGE  Path where original submission's image are saved.  
+   q.  SUBMISSION_IMAGE  Path where original submission's image are saved.
 
-   r.  ALLOWED_FILE_TYPE_FOR_HELLOFIEMME_CONTEST The list of allowed extension of upload file in 
+   r.  ALLOWED_FILE_TYPE_FOR_HELLOFIEMME_CONTEST The list of allowed extension of upload file in
        Hellofiemme organizer contest.
-  
-   s.  PDF_FILE_DIR The path of directory to save uploaded file in Hellofiemme organizer contest.  
+
+   s.  PDF_FILE_DIR The path of directory to save uploaded file in Hellofiemme organizer contest.
 
    t. IMAGE_FOR_BANNER_SLIDE   The list of home page active banner image. List of image is define in
-      json format(key : value). Key replace with contest slug and  value replace with contest banner 
-      image.
-      
-   v. STATIC_IMAGE_FOR_BANNER_SLIDE   The list of home page static banner image. List of image is 
-      define in json format(key : value). Key replace with url and value replace with static banner 
+      json format(key : value). Key replace with contest slug and  value replace with contest banner
       image.
 
-   w. HOME_PAGE_BOX_IMAGE  The list of homepage box images with respected link and caption. 
+   v. STATIC_IMAGE_FOR_BANNER_SLIDE   The list of home page static banner image. List of image is
+      define in json format(key : value). Key replace with url and value replace with static banner
+      image.
 
-   x. SESSION_TIMEOUT_TIME  The time in seconds. After this time session will be expired.  
+   w. HOME_PAGE_BOX_IMAGE  The list of homepage box images with respected link and caption.
+
+   x. SESSION_TIMEOUT_TIME  The time in seconds. After this time session will be expired.
 
    y. USER_GENERATED_DIRECTORY The name of user generated directory.
- 
+
    z. NETIZENLAB_CONTEST_SLUG The netizenlab contest slug.
-   
+
    -  MAX_UPLOAD_FILE_SIZE_IN_NETIZENLAB_CONTEST  The size limit for uploaded file
       in netizenlab contest.
 
@@ -290,7 +290,7 @@ To get all message from js file, run in the checkout root:
 .. code:: sh
 
     ./protected/yiic message protected/messages/jsConfig.php
-  
+
 Now run following command to convert these php file into .po file
 
 .. code:: sh
@@ -299,13 +299,13 @@ Now run following command to convert these php file into .po file
 
   For Js message, A cache file (dictionary-*.js) is created in JsTrans extension.
   All Js message for translation serve from this file. You need to remove cache dictionary
-  file on changing in js.po file so that new cache file will be generated and your updation 
+  file on changing in js.po file so that new cache file will be generated and your updation
   in po file will be reflected in project.
 
   Remove file :            protected/extensions/JsTrans/assets/dictionary-*.js
-  
+
   Also delete directory from assets because these directory have cache files of js message translation.
-  Directory Path:    /assets/*     
+  Directory Path:    /assets/*
 
 
 Create/Restore Dump
@@ -314,17 +314,16 @@ Create/Restore Dump
 For create and restore dump of user generated data, There is need to define user
 generate directory in config file.
 
-  - For creating dump, run following command 
+  - For creating dump, run following command
       php index-cli.php  generatedump
-      
-      This command generates a dump_*.tar.gz file. One can change file name 
+
+      This command generates a dump_*.tar.gz file. One can change file name
       by passing 'file name' as an additional parameter in above command
       php index-cli.php  generatedump abc.tar.gz
-       
-   - For restore dump, run following command 
+
+   - For restore dump, run following command
      php index-cli.php  restoredump
-      
+
      This command restore latest *.tar.gz dump file. One can restore a
      particular file by passing 'file name' as an additional parameter
      in above command php index-cli.php restoredump dump.tar.gz
-

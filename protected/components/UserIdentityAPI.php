@@ -30,16 +30,35 @@ class UserIdentityAPI {
    * @param $id - for getting user detail on the basis of email id  
    * @return (array) $userDetail
    */
-  function getUserDetail($function, $params = array(), $id = false) {
+  function getUserDetail($function, $params = array(), $id = false, $email = false) {
     $userDetail = array();
     try {
-      $param = 'where='.json_encode($params);
+      $userParam = array();
+      if (array_key_exists('email', $params) && !empty($params['email'])) {
+        $userParam['email'] = $params['email'];
+      }
+      if (array_key_exists('password', $params) && !empty($params['password'])) {
+        $userParam['password'] = $params['password'];
+      }
+      if (array_key_exists('id', $params) && !empty($params['id'])) {
+        if (is_array($params['id'])) {
+          foreach ($params['id'] as $userId) {
+            $userParam['$or'][] = array('_id'=> $userId);
+          }
+        } else {
+          $userParam['_id'] = $params['id'];
+        }
+      }
+      $projection = '';
       if ($id) {
-        $param = $param . '&projection={"_id":1}';
-      } 
-      if (!empty($params)) {
-        $this->url = $this->baseUrl . $function .'/?'. $param;
-      } 
+        $projection = '&projection={"_id":1}';
+      } else if ($email) {
+        $projection = '&projection={"email":1}';
+      }
+      if (!empty($userParam)) {
+        $userParam = 'where=' . json_encode($userParam) . $projection;
+        $this->url = $this->baseUrl . $function .'/?'. $userParam;
+      }
       $ch = curl_init();
       curl_setopt($ch, CURLOPT_URL, $this->url);
       curl_setopt($ch, CURLOPT_HEADER, 1);

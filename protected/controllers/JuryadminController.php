@@ -200,6 +200,8 @@ class JuryadminController extends Controller {
   public function actionDownloadSubmission($downloadFromAdminPage = false) {
     try {
       $message = '';
+      $userIds = array();
+      $userEmail = array();
       if ($downloadFromAdminPage) {
         $aggManager = new AggregatorManager();
         $entries = $aggManager->getEntry(9999, 0, '', 'active', $_GET['contest_slug'].'[contest]', '', '',
@@ -217,9 +219,27 @@ class JuryadminController extends Controller {
         $message = Yii::t('contest', 'There is no rated submission in this contest');
       } else {
         foreach ($entries['entry'] as $entry) {
+          if (array_key_exists('slug', $entry['author']) && empty($entry['author']['slug'])) {
+            throw new Exception(Yii::t('contest', 'User id does not exist'));
+          }
+          $userIds[] = $entry['author']['slug'];
+        }
+        $identityManager = new UserIdentityAPI();
+        $authorsEmails = $identityManager->getUserDetail(IDM_USER_ENTITY, array('id' => $userIds), false, true);
+        if (array_key_exists('_items', $authorsEmails) && !empty($authorsEmails['_items'])) {
+          foreach ($authorsEmails['_items'] as $authorEmail) {
+            if (array_key_exists('_id', $authorEmail) && !empty($authorEmail['_id'])
+              && array_key_exists('email', $authorEmail) && !empty($authorEmail['email'])) {
+              $userEmail[$authorEmail['_id']] = $authorEmail['email'];
+            }
+          }
+        }
+        foreach ($entries['entry'] as $entry) {
           $author = '';
+          $authorId = '';
           if (array_key_exists('author', $entry) && !empty($entry['author'])) {
             $author = $entry['author']['name'];
+            $authorId = $entry['author']['slug'];
           }
           $title = '';
           if (array_key_exists('title', $entry) && !empty($entry['title'])) {
@@ -273,7 +293,14 @@ class JuryadminController extends Controller {
           $filename = 'invio.txt';
           $filePath = $dir . '/' . $filename;
           $fileOpen = fopen($filePath, 'w');
-          $fileContent = 'Autore: ' . $author . "\n" . 'Titolo: ' . $title . "\n" . 'Voting: ' . $voting;
+          $userEmailId = '';
+          if (array_key_exists($authorId, $userEmail) && !empty($userEmail[$authorId])) {
+            $userEmailId = $userEmail[$authorId];
+          } else {
+            Yii::log('User Email does not exist for id: ' . $userEmail[$authorId], INFO, 'Missing email  in actionDownloadSubmission');
+          }
+          $fileContent = 'Autore: ' . $author. "\n" . 'Email: ' . $userEmailId . "\n" .
+            'Titolo: ' . $title . "\n" . 'Voting: ' . $voting;
           if (array_key_exists('video_links', $entry)) {
             foreach ($entry['video_links'] as $link) {
               $fileContent = $fileContent . "\n" . 'Link to video: ' . $link;

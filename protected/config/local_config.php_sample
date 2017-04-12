@@ -77,7 +77,7 @@ define('SITE_SESSION_COOKIE_NAME', 'contest');
 /**
  * Define contest Admin users email
  */
-define('CONTEST_ADMIN_USERS', '["santosh@incaendo.com", "rahul@incaendo.com", "daniele@ahref.eu", "monica@ahref.eu"]');
+define('DISCUSSION_ADMIN_USERS', '["anna.stefani@infotn.it", "daniela.gaviani@infotn.it", "alessio.massaro@infotn.it", "gianfranco.stellucci@infotn.it"]');
 
 /**
  * Define site language
